@@ -9,7 +9,7 @@
     </label>
     @if($value)
         <div class="">
-            <a href="{{ asset($value) }}" target="_blank" class="">{{ $title }}</a>
+            <a href="{{ asset('storage/' . $value) }}" target="_blank" class="">{{ $title }}</a>
         </div>
     @endif
     <input type="file" name="{{ $name }}" class="{{$class}} " {{ $required ? 'required' : '' }}/>
