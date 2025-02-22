@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('capacity')->nullable();
             $table->date('date');
             $table->string('image')->nullable();
+            $table->string('payment_link')->nullable();
+            $table->string('category');
             $table->timestamps();
         });
     }

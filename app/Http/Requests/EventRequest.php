@@ -2,24 +2,16 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\EventCategoryEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EventRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-//        return Auth::user()->hasRole('admin');
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
@@ -29,14 +21,11 @@ class EventRequest extends FormRequest
             'capacity' => 'numeric|max:2147483647|nullable|min:0',
             'date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category' => 'required|string|in:'.implode(',', EventCategoryEnum::toArray()),
+            'payment_link' => 'nullable|string|max:255',
         ];
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
     public function messages(): array
     {
         return [
@@ -53,6 +42,11 @@ class EventRequest extends FormRequest
             'image.image' => 'The file must be an image',
             'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg',
             'image.max' => 'The image may not be greater than 2048 kilobytes',
+            'payment_link.max' => 'The payment link may not be greater than 255 characters',
+            'payment_link.string' => 'The payment link must be a string',
+            'payment_link.required' => 'A payment link is required',
+            'category.required' => 'A category is required',
+            'category.in' => 'The selected category is invalid',
         ];
     }
 }

@@ -13,6 +13,7 @@
                     <x-forms.input-field type="number" name="price" value="{{ $event->price ?? '' }}"/>
                     <x-forms.input-field type="number" name="capacity" value="{{ $event->capacity ?? '' }}"/>
                     <x-forms.input-file name="image" :title="($event->title ?? '')" value="{{ $event->image ?? '' }}"/>
+                    <x-forms.input-select name="category" :required="true" :enum="$categories" :value="($event->category->name ?? '')"/>
                     <button type="submit">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
                 </form>
                 @if(isset($event))

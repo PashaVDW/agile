@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\EventCategoryEnum;
 use App\Http\Requests\EventRequest;
 use App\Services\EventService;
 
@@ -21,7 +22,8 @@ class EventController extends Controller
 
     public function create()
     {
-        return view('events.show');
+        $categories = EventCategoryEnum::class;
+        return view('events.show', ['categories' => $categories]);
     }
 
     public function store(EventRequest $request)
@@ -33,7 +35,8 @@ class EventController extends Controller
     public function event($id)
     {
         $event = $this->eventService->getEvent($id);
-        return view('events.show', ['event' => $event]);
+        $categories = EventCategoryEnum::class;
+        return view('events.show', ['event' => $event, 'categories' => $categories]);
     }
 
     public function update(EventRequest $request, $id)

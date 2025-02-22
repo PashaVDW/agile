@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EventCategoryEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,6 +15,13 @@ class Event extends Model
         'capacity',
         'date',
         'image',
+        'category',
+        'payment_link',
+
+    ];
+
+    protected $casts = [
+        'category' => EventCategoryEnum::class
     ];
 
     public function getImageUrlAttribute()
