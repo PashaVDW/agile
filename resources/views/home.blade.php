@@ -1,7 +1,7 @@
-@extends('layouts.default')
+@extends("layouts.default")
 
-@section('title', 'Home')
+@section("title", "Home")
 
-@section('content')
-    home page
+@section("content")
+home page
 @stop
