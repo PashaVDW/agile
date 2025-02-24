@@ -1,0 +1,123 @@
+:root {
+    /*
+    t/m --line-width waarschijnlijk later naar een gedeeld bestand
+     */
+    --blue: #3129FF;
+    --red: #FE4040;
+    --white: #fff;
+    --line-width: 8px;
+    --nav-shadow: 0px 4px 20px 2px #3129ff52;
+}
+
+
+#main-nav {
+    height: 4em;
+    position: sticky;
+    top: 0;
+    max-width: 60%;
+    padding: 1em;
+    margin: calc(-5vw - 2em) 0 0 0;
+    background-color: var(--blue);
+    border-radius: 1.6em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: var(--nav-shadow);
+    min-width: 27em;
+    z-index: 20;
+    opacity: 0;
+    transition: border-radius .2s ease;
+    animation: fade-in-left .3s ease;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+}
+
+#main-nav.sticky {
+    border-radius: 0 0 1.6em 1.6em;
+}
+
+#main-nav-mobile {
+    display: none;
+}
+
+#main-nav a, #main-nav-mobile a {
+    position: relative;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    opacity: .8;
+    transform: translateY(0);
+    transition: opacity .3s ease, transform .3s ease;
+    white-space: nowrap;
+    background: none;
+}
+
+#main-nav a.current, #main-nav-mobile a.current {
+    opacity: 1;
+    color: #ffffffEB;
+    transform: translateY(calc(var(--line-width) / 2 * -1));
+}
+
+#main-nav a.current::after, #main-nav-mobile a.current::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 120%;
+    height: var(--line-width);
+    background-color: var(--red);
+    border-radius: 999px;
+    box-shadow: 0 4px 6px 2px rgba(254, 64, 64, 0.3);
+    transform: translateX(-50%);
+}
+
+#main-nav a:hover {
+    opacity: 1;
+    transform: translateY(calc(var(--line-width) / 2 * -1));
+}
+
+#nav-button {
+    position: fixed;
+    top: 2em;
+    right: 2em;
+    width: 5em;
+    height: 5em;
+    border-radius: 1.4em;
+    border: none;
+    box-shadow: var(--nav-shadow);
+    background-color: var(--blue);
+    z-index: 20;
+    cursor: pointer;
+}
+
+#nav-button::before, #nav-button::after {
+    display: block;
+    position: absolute;
+    content: '';
+    height: 4px;
+    background-color: var(--white);
+    max-width: calc(100% - 2em);
+    border-radius: 999px;
+    right: 1em;
+    transition: top .3s ease, bottom .3s ease, width .3s ease;
+}
+
+#nav-button::before {
+    top: 35%;
+    width: 100%;
+}
+
+#nav-button::after {
+    bottom: 35%;
+    width: 50%;
+}
+
+#nav-button.active::before {
+    top: 50%;
+    width: 100%;
+}
+
+#nav-button.active::after {
+    width: 0;
+}
