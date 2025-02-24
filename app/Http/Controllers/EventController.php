@@ -17,37 +17,37 @@ class EventController extends Controller
     public function index()
     {
         $events = $this->eventService->getEvents();
-        return view('events.index', ['events' => $events]);
+        return view('admin.events.index', ['events' => $events]);
     }
 
     public function create()
     {
         $categories = EventCategoryEnum::class;
-        return view('events.show', ['categories' => $categories]);
+        return view('admin.events.show', ['categories' => $categories]);
     }
 
     public function store(EventRequest $request)
     {
         $this->eventService->storeEvent($request);
-        return redirect()->route('events.index');
+        return to_route('admin.events.index');
     }
 
-    public function event($id)
+    public function show($id)
     {
         $event = $this->eventService->getEvent($id);
         $categories = EventCategoryEnum::class;
-        return view('events.show', ['event' => $event, 'categories' => $categories]);
+        return view('admin.events.show', ['event' => $event, 'categories' => $categories]);
     }
 
     public function update(EventRequest $request, $id)
     {
         $this->eventService->updateEvent($request, $id);
-        return redirect()->route('events.index');
+        return to_route('admin.events.index');
     }
 
     public function delete($id)
     {
         $this->eventService->deleteEvent($id);
-        return redirect()->route('events.index');
+        return to_route('admin.events.index');
     }
 }
