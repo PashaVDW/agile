@@ -6,10 +6,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/Evenementen', function () {
-    return view('Evenementen');
-})->name('Evenementen');
+Route::get('/events', function () {
+    return view('events');
+})->name('events');
 
-Route::get('/Inloggen', function () {
-    return view('Inloggen');
-})->name('Inloggen');
+Route::get('/login', function () {
+    return view('login');
+})->name('login');

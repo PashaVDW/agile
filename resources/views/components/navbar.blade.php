@@ -6,21 +6,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                <a class="nav-link" href="{{ route('home') }}">Home</a>
             </li>
-            <li class="nav-item {{ Request::is('Evenementen') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('/Evenementen') }}">Evenementen</a>
+            <li class="nav-item {{ Request::is('events') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('events') }}">Evenementen</a>
             </li>
-            <li class="nav-item {{ Request::is('Inloggen') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('/Inloggen') }}">Inloggen</a>
+            <li class="nav-item {{ Request::is('login') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('login') }}">Inloggen</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<style>
-    .navbar-nav .nav-item.active .nav-link
-    {
-        font-weight: bold;
-    }
-</style>
+
