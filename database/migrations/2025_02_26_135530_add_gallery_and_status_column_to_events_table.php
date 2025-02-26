@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->string('gallery')->nullable();
+            $table->string('status')->default('ACTIVE');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->dropColumn('gallery');
+            $table->dropColumn('status');
         });
     }
 };

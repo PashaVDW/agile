@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ActiveTypeEnum;
 use App\Enums\EventCategoryEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -18,10 +19,12 @@ class Event extends Model
         'category',
         'payment_link',
         'gallery',
+        'status',
     ];
 
     protected $casts = [
         'category' => EventCategoryEnum::class,
+        'status' => ActiveTypeEnum::class,
         'gallery' => 'array',
     ];
 

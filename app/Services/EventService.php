@@ -9,7 +9,7 @@ class EventService
 {
     public function getEvents($order = 'desc')
     {
-        return Event::query()->orderBy('date', $order);
+        return Event::query()->orderBy('status', $order);
     }
 
     public function getEvent($id)
