@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 class EventService
 {
-    public function getEvents($order = 'desc')
+    public function getEvents($order = 'ASC')
     {
-        return Event::query()->orderBy('status', $order);
+        return Event::query()->orderBy('status', $order)->orderBy('date', $order);
     }
 
     public function getEvent($id)

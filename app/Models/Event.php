@@ -28,12 +28,12 @@ class Event extends Model
         'gallery' => 'array',
     ];
 
-    public function getImageUrlAttribute()
+    public function getBannerUrlAttribute()
     {
-        if ($this->image === null) {
+        if ($this->banner === null) {
             return 'assets/images/no-image.png';
         }
-        return Storage::url($this->image);
+        return Storage::url($this->banner);
     }
 
     public function hasPhotos()

@@ -67,5 +67,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 ## Auto archive command:
+bootstrap/app.php -> $schedule->command('app:archive-events')->daily(); kan de snelheid van de job aanpassen
+
 - php artisan schedule:run
 - php artisan schedule:work

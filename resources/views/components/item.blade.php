@@ -2,7 +2,7 @@
 
 <div class="card-container">
     <div class="card">
-        <img src="{{ asset($event->image_url)}}" alt="{{ $event->title }}">
+        <img src="{{ asset($event->banner_url)}}" alt="{{ $event->title }}">
         <h3>{{$event->title}}</h3>
         <h6 class="no-margin">{{ucfirst($event->category->value)}}</h6>
         <p>

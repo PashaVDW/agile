@@ -18,13 +18,12 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        $events = $this->eventService->getEvents();
+        $events = $this->eventService->getEvents()->paginate(10);
+
         if ($request->route()->named('admin.events.index')) {
             return view('admin.events.index', ['events' => $events]);
         }
         return view('user.events.index',['events' => $events]);
-        $events = $this->eventService->getEvents()->paginate(10);
-        return view('admin.events.index', ['events' => $events]);
     }
 
     public function create()

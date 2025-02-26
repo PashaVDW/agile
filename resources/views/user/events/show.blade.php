@@ -31,7 +31,7 @@
             <p>{{ucfirst($event->category->value)}}</p><br>
             <p>Gepost op: <b>{{date_format($event->created_at, 'd-m-Y')}}</b><br>
                 Laatst bewerkt op: <b>{{date_format($event->updated_at, 'd-m-Y')}}</b><br>
-                Leestijd: <b>{{}}</b></p>
+                Leestijd: <b></b></p>
         </div>
 
         {{--Event detail info--}}
@@ -62,8 +62,17 @@
                 <a href="https://www.linkedin.com/company/sv-concat/">LinkedIn</a>
             </p>
         </div>
-
-
     </div>
 
+
+    {{--    archived images--}}
+    @if($event->hasPhotos())
+        <div class="flex horizontal wrap centered stretch">
+            @foreach($event->getDecodedPhotos() as $image)
+                <div class="card">
+                    <img src="{{ asset('/storage/'.$image) }}" alt="{{ $event->title }}">
+                </div>
+            @endforeach
+        </div>
+    @endif
 @stop
