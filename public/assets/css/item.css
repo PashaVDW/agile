@@ -1,0 +1,38 @@
+#post-list {
+    margin-bottom: auto;
+    &.flex.horizontal.centered {
+        justify-content: center;
+    }
+    &.flex.horizontal {
+        flex-direction: row;
+        justify-content: start;
+        flex-grow: 1;
+    }
+    &.flex.wrap {
+        flex-wrap: wrap;
+    }
+    &.flex {
+        display: flex;
+    }
+    .card-container {
+        width: calc(50% - 4em);
+        flex-grow: 1;
+        margin: 2em;
+        flex: 0 1 40%;
+        .card {
+            background-color: #fff;
+            padding: 2em;
+            border-radius: 2em;
+            position: relative;
+            overflow: hidden;
+            img {
+                margin: -2em 0 2em -2em;
+                width: calc(100% + 4em);
+                max-height: 400px;
+                object-fit: cover;
+            }
+        }
+    }
+}
+
+

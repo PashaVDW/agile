@@ -30,6 +30,9 @@ class Event extends Model
 
     public function getImageUrlAttribute()
     {
+        if ($this->image === null) {
+            return 'assets/images/no-image.png';
+        }
         return Storage::url($this->image);
     }
 

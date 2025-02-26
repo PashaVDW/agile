@@ -16,8 +16,13 @@ class EventController extends Controller
         $this->eventService = $eventService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $events = $this->eventService->getEvents();
+        if ($request->route()->named('admin.events.index')) {
+            return view('admin.events.index', ['events' => $events]);
+        }
+        return view('user.events.index',['events' => $events]);
         $events = $this->eventService->getEvents()->paginate(10);
         return view('admin.events.index', ['events' => $events]);
     }
@@ -34,11 +39,14 @@ class EventController extends Controller
         return to_route('admin.events.index');
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $event = $this->eventService->getEvent($id);
         $categories = EventCategoryEnum::class;
-        return view('admin.events.show', ['event' => $event, 'categories' => $categories]);
+        if ($request->route()->named('admin.event.show')) {
+            return view('admin.events.show', ['event' => $event, 'categories' => $categories]);
+        }
+        return view('user.events.show', ['event' => $event]);
     }
 
     public function update(EventRequest $request, $id)
