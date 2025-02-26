@@ -62,7 +62,7 @@
         class="flex flex-col lg:flex-row grow pt-[--tw-header-height] lg:pt-0"
       >
         <!-- Sidebar -->
-          @include('admin.partials.sidebar')
+          @include('admin.partials.sidebarx')
         <!-- End of Sidebar -->
         <!-- Main -->
         <div
