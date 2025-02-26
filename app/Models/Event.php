@@ -2,9 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    //
+    use HasFactory;
+
+    protected $fillable = ['name', 'date'];
+
+    public function sponsors()
+    {
+        return $this->belongsToMany(Sponsor::class, 'event_sponsor');
+    }
 }
