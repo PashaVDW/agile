@@ -1,6 +1,5 @@
 <head>
   <base href="../../" />
-  <title>Metronic - Tailwind CSS</title>
   <meta charset="utf-8" />
   <meta content="follow, index" name="robots" />
   <link

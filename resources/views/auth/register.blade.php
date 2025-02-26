@@ -6,7 +6,7 @@
   dir="ltr"
   lang="en"
 >
-  @include("auth.partials.head")
+  @include("admin.partials.head")
   <body
     class="antialiased flex h-full text-base text-gray-700 dark:bg-coal-500"
   >
