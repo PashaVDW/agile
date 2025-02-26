@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'owner']);
 
         $user = new User;
-        $user->name = 'admin';
         $user->email = 'admin@agile.nl';
         $user->password = '$2y$12$RRFILOFFad.VuxS44qX7I.mUJxb1cqlO8exnjs9oqXRGpZi0XIqJW';
         $user->save();
