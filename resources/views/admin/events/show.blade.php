@@ -17,8 +17,11 @@
                         <x-forms.input-field type="date" name="date" :required="true" value="{{ $event->date ?? '' }}"/>
                         <x-forms.input-field type="number" name="price" value="{{ $event->price ?? '' }}"/>
                         <x-forms.input-field type="number" name="capacity" value="{{ $event->capacity ?? '' }}"/>
-                        <x-forms.input-file name="image" :title="($event->title ?? '')" value="{{ $event->image ?? '' }}"/>
+                        <x-forms.input-file name="banner" :title="($event->title ?? '')" value="{{ $event->image ?? '' }}"/>
                         <x-forms.input-select name="category" :required="true" :enum="$categories" :value="($event->category->name ?? '')"/>
+                        @if(isset($event) && $event->date < now())
+                            <x-forms.input-file name="gallery" :title="($event->title ?? '')" :multiple="true"/>
+                        @endif
                         <button type="submit">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
                     </form>
                     @if(isset($event))
@@ -27,7 +30,7 @@
                             @csrf
                             <button type="submit" class="">Delete event</button>
                         </form>
-        @endif
 
+        @endif
     </div>
 @stop

@@ -19,7 +19,7 @@
             <tbody>
             @foreach ($events as $event)
                 <tr>
-                    <td>{{ $event->title }}</td>
+                    <td>{{ $event->title }} <strong>{{ $event->date < now() ? '(Archived)' : "" }}</strong></td>
                     <td>{{ $event->date }}</td>
                     <td>{{ $event->category->name }}</td>
                     <td>{{ $event->created_at }}</td>
@@ -29,5 +29,8 @@
             @endforeach
             </tbody>
         </table>
+        <div class="mt-4">
+            {{ $events->links() }}
+        </div>
     </div>
 @stop

@@ -1,9 +1,10 @@
 @props([
   "name",
   "required" => false,
-  "value",
+  "value" => "",
   "title" => "",
   "class" => "",
+  "multiple" => false,
 ])
 
 <div class="">
@@ -21,9 +22,10 @@
 
   <input
     type="file"
-    name="{{ $name }}"
+    name="{{ $name }}{{ $multiple ? '[]' : '' }}"
     class="{{ $class }}"
     {{ $required ? "required" : "" }}
+    {{ $multiple ? "multiple" : "" }}
   />
   @error($name)
     <span class="">{{ $message }}</span>

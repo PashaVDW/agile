@@ -14,18 +14,28 @@ class Event extends Model
         'price',
         'capacity',
         'date',
-        'image',
+        'banner',
         'category',
         'payment_link',
-
+        'gallery',
     ];
 
     protected $casts = [
-        'category' => EventCategoryEnum::class
+        'category' => EventCategoryEnum::class,
+        'gallery' => 'array',
     ];
 
     public function getImageUrlAttribute()
     {
         return Storage::url($this->image);
+    }
+
+    public function hasPhotos()
+    {
+        return !empty($this->gallery);
+    }
+
+    public function getDecodedPhotos() {
+        return json_decode($this->gallery);
     }
 }

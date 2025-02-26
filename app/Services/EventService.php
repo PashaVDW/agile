@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Storage;
 
 class EventService
 {
-    public function getEvents()
+    public function getEvents($order = 'desc')
     {
-        return Event::all();
+        return Event::query()->orderBy('date', $order);
     }
 
     public function getEvent($id)
@@ -42,6 +42,19 @@ class EventService
             }
             $data['image'] = $filePath;
         }
+
+        if ($request->hasFile('gallery')) {
+            $galleryPaths = [];
+            foreach ($request->file('gallery') as $file) {
+                $filePath = 'images/gallery/' . $file->getClientOriginalName();
+                if (!Storage::disk('public')->exists($filePath)) {
+                    $filePath = $file->storeAs('images/gallery', $file->getClientOriginalName(), 'public');
+                }
+                $galleryPaths[] = $filePath;
+            }
+            $data['gallery'] = json_encode($galleryPaths);
+        }
+
         Event::find($id)->update($data);
     }
 
@@ -49,5 +62,4 @@ class EventService
     {
         Event::destroy($id);
     }
-
 }
