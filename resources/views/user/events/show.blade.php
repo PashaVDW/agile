@@ -67,12 +67,17 @@
 
     {{--    archived images--}}
     @if($event->hasPhotos())
-        <div class="flex horizontal wrap centered stretch">
-            @foreach($event->getDecodedPhotos() as $image)
-                <div class="card">
-                    <img src="{{ asset('/storage/'.$image) }}" alt="{{ $event->title }}">
-                </div>
-            @endforeach
+        <div class="swiper-container" id="testimonialSwiper">
+            <div class="swiper-wrapper">
+                @foreach($event->getDecodedPhotos() as $image)
+                    <div class="swiper-slide">
+                        <img src="{{ asset('/storage/'.$image) }}" alt="{{ $event->title }}">
+                    </div>
+                @endforeach
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     @endif
 @stop
