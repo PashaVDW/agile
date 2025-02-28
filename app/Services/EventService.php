@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Event;
-use Illuminate\Support\Facades\Storage;
 
 class EventService
 {
@@ -20,28 +19,14 @@ class EventService
     public function storeEvent($request)
     {
         $data = $request->validated();
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filePath = 'images/' . $file->getClientOriginalName();
-            if (!Storage::disk('public')->exists($filePath)) {
-                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
-            }
-            $data['image'] = $filePath;
-        }
+        $data = ImageService::StoreImage($request, 'image') ?? $data;
         Event::create($data);
     }
 
     public function updateEvent($request, $id)
     {
         $data = $request->validated();
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filePath = 'images/' . $file->getClientOriginalName();
-            if (!Storage::disk('public')->exists($filePath)) {
-                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
-            }
-            $data['image'] = $filePath;
-        }
+        $data = ImageService::StoreImage($request, 'image') ?? $data;
         Event::find($id)->update($data);
     }
 
@@ -49,5 +34,4 @@ class EventService
     {
         Event::destroy($id);
     }
-
 }
