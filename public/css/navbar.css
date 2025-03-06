@@ -7,6 +7,8 @@
 }
 
 .navbar {
+    max-width: 60%;
+
     background-color: var(--blue) !important;
     box-shadow: var(--nav-shadow);
     border-radius: 1.6em;
@@ -57,4 +59,77 @@
     border-radius: 999px;
     box-shadow: 0 4px 6px 2px rgba(254, 64, 64, 0.3);
     transform: translateX(-50%);
+
+}
+@media (max-width: 992px) {
+    .navbar {
+        max-width: 20%;
+    }
+
+    .navbar-collapse
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 90vw;
+        height: 100vh;
+        background-color: var(--blue);
+        z-index: 999;
+        padding: 2em;
+        box-shadow: var(--nav-shadow);
+        border-radius: 0 1.6em 1.6em 0;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .navbar-collapse.show {
+        transform: translateX(0);
+        transition: transform 0.3s ease-in-out;
+    }
+
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5em;
+    }
+
+
+    .navbar-nav .nav-link {
+        font-size: 1.2em;
+        text-align: center;
+    }
+    .navbar-nav .nav-item.active .nav-link::after {
+
+        width: 250%;
+        left: 50%;
+    }
+
+    .navbar-toggler {
+        background-color: var(--blue);
+        padding: 0.5em 0.8em;
+        border-radius: 8px;
+        border: none;
+        transition: background-color 0.3s ease-in-out, transform 0.2s ease;
+    }
+
+    .navbar-toggler:hover {
+        background-color: darkblue;
+        transform: scale(1.1);
+    }
+
+    .navbar-toggler-icon {
+        background-color: transparent;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+
+
+
 }
