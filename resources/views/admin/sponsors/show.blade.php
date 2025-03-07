@@ -16,6 +16,15 @@
                         <x-forms.input-textarea name="description" :class="'min-h-[100px] max-h-[300px]'">{{ $sponsor->description ?? '' }}</x-forms.input-textarea>
                         <x-forms.input-file name="image" :title="($sponsor->name ?? '')" value="{{ $sponsor->image ?? '' }}"/>
                         <x-forms.input-select name="active" :required="true" :list="$types" :value="($sponsor->active ?? '')"/>
+
+                        @if(isset($sponsor))
+                            @foreach($sponsor->events as $event)
+                                @else
+                                    @foreach($events as $event)
+                                        @endif
+                                        <x-forms.input-checkbox name="events[]" :value="$event->id" :label="$event->name" :checked="isset($sponsor) ? $sponsor->events->contains($event) : false"/>
+                                    @endforeach
+
                         <button type="submit">{{ isset($sponsor) ? 'Update sponsor' : 'Add sponsor' }}</button>
                     </form>
                     @if(isset($sponsor))

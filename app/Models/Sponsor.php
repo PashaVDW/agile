@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Sponsor extends Model
@@ -17,8 +18,8 @@ class Sponsor extends Model
     /**
      * Get the events for the sponsor.
      */
-    public function events(): HasMany
+    public function events(): BelongsToMany
     {
-        return $this->hasMany(Event::class);
+        return $this->belongsToMany(Event::class, 'event_sponsors', 'sponsor_id', 'event_id');
     }
 }

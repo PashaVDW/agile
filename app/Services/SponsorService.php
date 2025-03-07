@@ -24,12 +24,13 @@ class SponsorService
             }
             $data['image'] = $filePath;
         }
-        Sponsor::create($data);
+        $sponsor = Sponsor::create($data);
+        $sponsor->events()->sync($request->input('events', []));
     }
 
     public function getSponsor($id)
     {
-        return Sponsor::find($id);
+        return Sponsor::with('events')->find($id);
     }
 
     public function updateSponsor(SponsorRequest $request, $id)
@@ -43,7 +44,9 @@ class SponsorService
             }
             $data['image'] = $filePath;
         }
-        Sponsor::find($id)->update($data);
+        $sponsor = Sponsor::find($id);
+        $sponsor->update($data);
+        $sponsor->events()->sync($request->input('events', []));
     }
 
     public function deleteSponsor($id)
