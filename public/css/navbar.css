@@ -8,7 +8,7 @@
 
 .navbar {
     max-width: 60%;
-
+    left: 3%;
     background-color: var(--blue) !important;
     box-shadow: var(--nav-shadow);
     border-radius: 1.6em;
@@ -64,6 +64,7 @@
 @media (max-width: 992px) {
     .navbar {
         max-width: 20%;
+        left: 75%;
     }
 
     .navbar-collapse
@@ -71,9 +72,10 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 90vw;
+        width: 60vw;
         height: 100vh;
-        background-color: var(--blue);
+        background-color: var(--white);
+
         z-index: 999;
         padding: 2em;
         box-shadow: var(--nav-shadow);
@@ -99,7 +101,9 @@
     .navbar-nav .nav-link {
         font-size: 1.2em;
         text-align: center;
+        color: black !important;
     }
+
     .navbar-nav .nav-item.active .nav-link::after {
 
         width: 250%;
