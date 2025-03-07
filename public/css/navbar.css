@@ -122,12 +122,13 @@
     }
 
     .navbar-toggler:hover {
-        background-color: darkblue;
+
         transform: scale(1.1);
     }
 
     .navbar-toggler-icon {
         background-color: transparent;
+        background-image: none;
         width: 24px;
         height: 24px;
         display: flex;
@@ -136,7 +137,27 @@
         position: relative;
     }
 
+    .navbar-toggler-icon::before,
+    .navbar-toggler-icon::after,
+    .navbar-toggler-icon div {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 3px;
+        background-color: white !important;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
+    }
 
+    .navbar-toggler-icon::before {
+        top: 2px;
+    }
 
+    .navbar-toggler-icon div {
+        top: 10px;
+    }
 
+    .navbar-toggler-icon::after {
+        top: 18px;
+    }
 }
