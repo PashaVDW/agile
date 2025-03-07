@@ -18,35 +18,35 @@ class SponsorController extends Controller
     public function index()
     {
        $sponsors = $this->sponsorService->getSponsors();
-       return view('sponsors.index', ['sponsors' => $sponsors, 'types' => $this->types]);
+       return view('admin.sponsors.index', ['sponsors' => $sponsors, 'types' => $this->types]);
     }
 
     public function create()
     {
-        return view('sponsors.show', ['types' => $this->types]);
+        return view('admin.sponsors.show', ['types' => $this->types]);
     }
 
     public function store(SponsorRequest $request)
     {
         $this->sponsorService->storeSponsor($request);
-        return to_route('sponsors.index');
+        return to_route('admin.sponsors.index');
     }
 
-    public function sponsor($id)
+    public function show($id)
     {
         $sponsor = $this->sponsorService->getSponsor($id);
-        return view('sponsors.show', ['sponsor' => $sponsor, 'types' => $this->types]);
+        return view('admin.sponsors.show', ['sponsor' => $sponsor, 'types' => $this->types]);
     }
 
     public function update(SponsorRequest $request, $id)
     {
         $this->sponsorService->updateSponsor($request, $id);
-        return to_route('sponsors.index');
+        return to_route('admin.sponsors.index');
     }
 
     public function delete($id)
     {
         $this->sponsorService->deleteSponsor($id);
-        return to_route('sponsors.index');
+        return to_route('admin.sponsors.index');
     }
 }

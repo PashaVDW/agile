@@ -10,7 +10,7 @@ class SponsorService
 {
     public function getSponsors()
     {
-        return Sponsor::all();
+        return Sponsor::with('events')->get();
     }
 
     public function storeSponsor(SponsorRequest $request)
