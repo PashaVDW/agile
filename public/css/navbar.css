@@ -8,7 +8,8 @@
 
 .navbar {
     max-width: 60%;
-    left: 3%;
+    left: 25px;
+    top: 25px;
     background-color: var(--blue) !important;
     box-shadow: var(--nav-shadow);
     border-radius: 1.6em;
@@ -64,7 +65,9 @@
 @media (max-width: 992px) {
     .navbar {
         max-width: 20%;
-        left: 75%;
+        margin-left: auto;
+        left: -25px;
+        top: 25px;
     }
 
     .navbar-collapse
