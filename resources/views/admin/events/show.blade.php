@@ -19,13 +19,14 @@
                         <x-forms.input-field type="number" name="capacity" value="{{ $event->capacity ?? '' }}"/>
                         <x-forms.input-file name="image" :title="($event->title ?? '')" value="{{ $event->image ?? '' }}"/>
                         <x-forms.input-select name="category" :required="true" :enum="$categories" :value="($event->category->name ?? '')"/>
-                        <button type="submit">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
+                        <button type="submit"><b>{{ isset($event) ? 'Update event' : 'Add event' }}</b></button>
+
                     </form>
                     @if(isset($event))
                         <form method="POST" action="{{ route('admin.event.delete', ['id' => $event->id]) }}" class="mt-4">
                             @method('DELETE')
                             @csrf
-                            <button type="submit" class="">Delete event</button>
+                            <button type="submit"><b>Delete event</b></button>
                         </form>
         @endif
 
