@@ -3,5 +3,7 @@
 @section("title", "Home")
 
 @section("content")
-home page
+<div class="banner">
+    {{ $welkomsbericht }}
+</div>
 @stop
