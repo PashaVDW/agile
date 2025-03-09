@@ -3,8 +3,8 @@
 @section("title", "Events")
 
 @section("content")
-    <div>
-        <a href="{{ route("admin.event.create") }}" class="">Create event</a>
+    <div class="container">
+        <a href="{{ route("admin.event.create") }}" class="button right">Create event</a>
         <table class="table">
             <thead>
                 <tr>

@@ -10,7 +10,7 @@
     <label class="block text-gray-700 font-bold mb-1" for="{{ $name }}">
         {{ \Illuminate\Support\Str::of($name)->kebab()->replace("-", " ")->ucfirst() }}
         @if ($required)
-            <span class="text-red-500">*</span>
+            <span class="">*</span>
         @endif
     </label>
     <input
@@ -21,6 +21,6 @@
         {{ $required ? "required" : "" }}
     />
     @error($name)
-    <span class="text-red-500 text-xs italic">{{ $message }}</span>
+    <span class="text-xs italic">{{ $message }}</span>
     @enderror
 </div>

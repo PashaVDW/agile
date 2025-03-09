@@ -10,13 +10,13 @@
     <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $name }}">
         {{ \Illuminate\Support\Str::of($name)->kebab()->replace("-", " ")->ucfirst() }}
         @if ($required)
-            <span class="text-red-500">*</span>
+            <span class="">*</span>
         @endif
     </label>
 
     @if ($value)
         <div class="mb-2">
-            <a href="{{ asset($value) }}" target="_blank" class="text-blue-600 hover:underline">
+            <a href="{{ asset($value) }}" target="_blank" class="file">
                 {{ $title ?: 'Bekijk bestand' }}
             </a>
         </div>
@@ -30,6 +30,6 @@
     />
 
     @error($name)
-    <span class="text-red-500 text-xs italic">{{ $message }}</span>
+    <span class="text-xs italic">{{ $message }}</span>
     @enderror
 </div>
