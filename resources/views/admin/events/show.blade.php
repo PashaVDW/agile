@@ -3,7 +3,7 @@
 @section("title", $event->title ?? 'Event')
 
 @section("content")
-    <div>
+    <div class="container">
         @if(isset($event))
             <form method="POST" action="{{ route('admin.event.update', ['id' => $event->id]) }}" enctype="multipart/form-data">
                 @method('PUT')
@@ -17,16 +17,16 @@
                         <x-forms.input-field type="date" name="date" :required="true" value="{{ $event->date ?? '' }}"/>
                         <x-forms.input-field type="number" name="price" value="{{ $event->price ?? '' }}"/>
                         <x-forms.input-field type="number" name="capacity" value="{{ $event->capacity ?? '' }}"/>
-                        <x-forms.input-file name="image" :title="($event->title ?? '')" value="{{ $event->image ?? '' }}"/>
+                        <x-forms.input-file name="image" :title="($event->title ?? '')" value="{{ $event->image_url ?? '' }}"/>
                         <x-forms.input-select name="category" :required="true" :enum="$categories" :value="($event->category->name ?? '')"/>
-                        <button type="submit"><b>{{ isset($event) ? 'Update event' : 'Add event' }}</b></button>
+                        <button type="submit" class="button right">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
 
                     </form>
                     @if(isset($event))
                         <form method="POST" action="{{ route('admin.event.delete', ['id' => $event->id]) }}" class="mt-4">
                             @method('DELETE')
                             @csrf
-                            <button type="submit"><b>Delete event</b></button>
+                            <button type="submit" class="button delete">Delete event</button>
                         </form>
         @endif
 

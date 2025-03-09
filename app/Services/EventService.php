@@ -19,14 +19,14 @@ class EventService
     public function storeEvent($request)
     {
         $data = $request->validated();
-        $data = ImageService::StoreImage($request, 'image') ?? $data;
+        $data['image'] = ImageService::StoreImage($request, 'image') ?? ($data['image'] ?? null);
         Event::create($data);
     }
 
     public function updateEvent($request, $id)
     {
         $data = $request->validated();
-        $data = ImageService::StoreImage($request, 'image') ?? $data;
+        $data['image'] = ImageService::StoreImage($request, 'image') ?? ($data['image'] ?? null);
         Event::find($id)->update($data);
     }
 
