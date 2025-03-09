@@ -4,8 +4,12 @@
 
 @section("content")
     <div class="container">
-        @foreach($events as $event)
-            <x-item :event="$event"/>
-        @endforeach
+        <div class="items">
+            @foreach($events as $event)
+                <x-item :event="$event"/>
+            @endforeach
+        </div>
+        <div class="sidebar">
+        </div>
     </div>
 @stop

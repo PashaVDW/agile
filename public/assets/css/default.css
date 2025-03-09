@@ -32,7 +32,21 @@ p {
 h1, h2, h3, h4, h5, h6 {
     word-wrap: normal;
     word-break: normal;
-
+    &.has-background {
+        font-weight: 700;
+        display: inline;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        word-wrap: break-word;
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        background-image: linear-gradient(to right, var(--default-pink), var(--default-pink));
+        background-size: 100% 8px;
+        background-repeat: no-repeat;
+        background-position: 1em calc(100% - 8px / 2);
+        padding-inline-end: 1em;
+    }
 }
 
 button, a.button {

@@ -20,8 +20,8 @@
                 </p>
             </div>
         </div>
-        <div class="details">
-            <h2>Informatie</h2>
+        <div class="sidebar">
+            <h2 class="has-background">Informatie</h2>
             <h4>{{ucfirst($event->category->value)}}</h4>
             <ul>
                 <li><span>Datum:</span> {{$event->date}}</li>
