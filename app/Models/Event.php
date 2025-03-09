@@ -34,4 +34,10 @@ class Event extends Model
     {
         return $this->date->format('d-m-Y');
     }
+
+    public function getFormattedDateForInputAttribute()
+    {
+        return $this->date->format('Y-m-d');
+    }
+
 }
