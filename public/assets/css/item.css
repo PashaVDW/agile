@@ -11,7 +11,7 @@
 .item {
     border-radius: 25px;
     background-color: var(--default-white);
-    max-width: calc(100% / 2 - 40px);
+    max-width: calc(100% / 2 - 60px);
     width: 100%;
     height: auto;
     display: flex;
@@ -73,3 +73,8 @@
     }
 }
 
+@media only screen and (max-width: 980px) {
+    .item {
+        max-width: calc(100%);
+    }
+}

@@ -6,6 +6,7 @@
     --default-red: #dc3545;
     --default-black: #000000;
     --default-grey: #B0B0B0;
+    --default-darkgrey: #707070;
     --default-button-color: #e8f0fe;
     --input-shadow-color: #E1DEFF;
     --default-pink: #E39FF6;
@@ -20,6 +21,18 @@
 body {
     font-family: 'Quicksand', sans-serif;
     background-color: var(--default-offwhite);
+}
+
+p {
+    line-height: 30px;
+    word-wrap: normal;
+    word-break: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    word-wrap: normal;
+    word-break: normal;
+
 }
 
 button, a.button {
@@ -63,8 +76,8 @@ button, a.button {
     }
 }
 
-.container {
-    max-width: 1280px;
+body .container {
+    max-width: 1440px;
     width: 100%;
     position: relative;
     margin: 0 auto;
