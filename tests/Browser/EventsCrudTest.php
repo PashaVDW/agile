@@ -5,7 +5,7 @@ namespace Tests\Browser;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class EventsTest extends DuskTestCase
+class EventsCrudTest extends DuskTestCase
 {
     public function testIndex()
     {
