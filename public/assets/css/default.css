@@ -1,0 +1,83 @@
+:root {
+    --default-lightblue: #007bff;
+    --default-darkblue: #0056b3;
+    --default-white: #ffffff;
+    --default-offwhite: #efefef;
+    --default-red: #dc3545;
+    --default-black: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--default-offwhite);
+}
+
+button, a.button {
+    background-color: var(--default-lightblue);
+    color: var(--default-white);
+    padding: 10px 25px;
+    display: inline-block;
+    border-radius: 10px;
+    border: 1px solid var(--default-lightblue);
+    transition: 0.3s;
+    font-weight: 600;
+    margin: 30px auto;
+    &.right {
+        float: right;
+        clear: both;
+    }
+    &.delete {
+        background-color: var(--default-red);
+        border-color: var(--default-red);
+        &:hover {
+            background-color: var(--default-white);
+            color: var(--default-red);
+        }
+    }
+    &:hover {
+        background-color: var(--default-white);
+        color: var(--default-lightblue);
+    }
+}
+
+.container {
+    max-width: 1280px;
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+form {
+    span {
+        color: var(--default-red);
+    }
+    .file {
+        color: var(--default-lightblue);
+        text-decoration: underline;
+    }
+}
+
+.table {
+    thead {
+        tr {
+            td {
+                font-weight: 600;
+                color: var(--default-black);
+            }
+        }
+    }
+
+    a {
+        color: var(--default-lightblue);
+        &:hover {
+            color: var(--default-darkblue);
+        }
+    }
+}

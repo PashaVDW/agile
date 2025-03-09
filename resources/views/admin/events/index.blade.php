@@ -3,8 +3,8 @@
 @section("title", "Events")
 
 @section("content")
-    <div>
-        <a href="{{ route("admin.event.create") }}" class="">Create event</a>
+    <div class="container">
+        <a href="{{ route("admin.event.create") }}" class="button right">Create event</a>
         <table class="table">
             <thead>
                 <tr>
@@ -20,7 +20,7 @@
             @foreach ($events as $event)
                 <tr>
                     <td>{{ $event->title }}</td>
-                    <td>{{ $event->date }}</td>
+                    <td>{{ $event->formatted_date }} </td>
                     <td>{{ $event->category->name }}</td>
                     <td>{{ $event->created_at }}</td>
                     <td>{{ $event->updated_at }}</td>

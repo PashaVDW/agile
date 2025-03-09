@@ -20,7 +20,8 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'category' => EventCategoryEnum::class
+        'category' => EventCategoryEnum::class,
+        'date' => 'datetime'
     ];
 
     public function getImageUrlAttribute()
@@ -30,4 +31,15 @@ class Event extends Model
         }
         return Storage::url($this->image);
     }
+
+    public function getFormattedDateAttribute()
+    {
+        return $this->date->format('d-m-Y');
+    }
+
+    public function getFormattedDateForInputAttribute()
+    {
+        return $this->date->format('Y-m-d');
+    }
+
 }
