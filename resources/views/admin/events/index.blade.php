@@ -20,7 +20,7 @@
             @foreach ($events as $event)
                 <tr>
                     <td>{{ $event->title }}</td>
-                    <td>{{ $event->date }}</td>
+                    <td>{{ $event->formatted_date }} </td>
                     <td>{{ $event->category->name }}</td>
                     <td>{{ $event->created_at }}</td>
                     <td>{{ $event->updated_at }}</td>

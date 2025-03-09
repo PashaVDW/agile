@@ -8,7 +8,7 @@
 
 <div class="mb-4">
     <label class="block text-gray-700 font-bold mb-1" for="{{ $name }}">
-        {{ \Illuminate\Support\Str::of($name)->kebab()->replace("-", " ")->ucfirst() }}
+        {{ \Illuminate\Support\Str::of($name)->kebab()->replace("_", " ")->ucfirst() }}
         @if ($required)
             <span class="">*</span>
         @endif

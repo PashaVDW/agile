@@ -19,6 +19,7 @@
                         <x-forms.input-field type="number" name="capacity" value="{{ $event->capacity ?? '' }}"/>
                         <x-forms.input-file name="image" :title="($event->title ?? '')" value="{{ $event->image_url ?? '' }}"/>
                         <x-forms.input-select name="category" :required="true" :enum="$categories" :value="($event->category->name ?? '')"/>
+                        <x-forms.input-field name="payment_link" :value="($event->payment_link ?? '')"/>
                         <button type="submit" class="button right">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
 
                     </form>

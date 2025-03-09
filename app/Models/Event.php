@@ -21,11 +21,17 @@ class Event extends Model
     ];
 
     protected $casts = [
-        'category' => EventCategoryEnum::class
+        'category' => EventCategoryEnum::class,
+        'date' => 'datetime'
     ];
 
     public function getImageUrlAttribute()
     {
         return Storage::url($this->image);
+    }
+
+    public function getFormattedDateAttribute()
+    {
+        return $this->date->format('d-m-Y');
     }
 }
