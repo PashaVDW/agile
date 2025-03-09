@@ -9,6 +9,7 @@ class EventRequest extends FormRequest
 {
     public function authorize(): bool
     {
+        //update when authentication is added
         return true;
     }
 
