@@ -3,7 +3,7 @@
 @section("title", "Events")
 
 @section("content")
-    <div id="post-list" class="flex horizontal wrap centered stretch">
+    <div class="container">
         @foreach($events as $event)
             <x-item :event="$event"/>
         @endforeach

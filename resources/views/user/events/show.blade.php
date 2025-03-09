@@ -31,7 +31,7 @@
             <p>{{ucfirst($event->category->value)}}</p><br>
             <p>Gepost op: <b>{{date_format($event->created_at, 'd-m-Y')}}</b><br>
                 Laatst bewerkt op: <b>{{date_format($event->updated_at, 'd-m-Y')}}</b><br>
-                Leestijd: <b>{{}}</b></p>
+{{--                Leestijd: <b>{{}}</b></p>--}}
         </div>
 
         {{--Event detail info--}}

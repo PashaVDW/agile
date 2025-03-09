@@ -5,6 +5,10 @@
     --default-offwhite: #efefef;
     --default-red: #dc3545;
     --default-black: #000000;
+    --default-grey: #B0B0B0;
+    --default-button-color: #e8f0fe;
+    --input-shadow-color: #E1DEFF;
+    --default-pink: #E39FF6;
 }
 
 * {
@@ -14,7 +18,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     background-color: var(--default-offwhite);
 }
 
@@ -32,6 +36,23 @@ button, a.button {
         float: right;
         clear: both;
     }
+    &:hover {
+        background-color: var(--default-white);
+        color: var(--default-lightblue);
+    }
+    &.item-button {
+        margin-bottom: 0;
+        color: var(--default-black);
+        box-shadow: 0px 4px 6px 2px var(--input-shadow-color);
+        background-color: var(--default-button-color);
+        border: none;
+        transform: translateY(0);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        &:hover {
+            box-shadow: 0px 8px 12px 4px var(--input-shadow-color);
+            transform: translateY(-5px);
+        }
+    }
     &.delete {
         background-color: var(--default-red);
         border-color: var(--default-red);
@@ -39,10 +60,6 @@ button, a.button {
             background-color: var(--default-white);
             color: var(--default-red);
         }
-    }
-    &:hover {
-        background-color: var(--default-white);
-        color: var(--default-lightblue);
     }
 }
 
