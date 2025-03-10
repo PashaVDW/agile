@@ -25,12 +25,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::put('/update/{id}', [EventController::class, 'update'])->name('admin.event.update');
         Route::delete('/delete/{id}', [EventController::class, 'delete'])->name('admin.event.delete');
     });
-});
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::prefix('/sponsors')->group(function () {
-        Route::get('/', [SponsorController::class, 'index'])->name('admin.sponsors.index');
-    });
+    Route::get('/sponsors', [SponsorController::class, 'index'])->name('admin.sponsors.index');
     Route::prefix('/sponsor')->group(function () {
         Route::get('/create', [SponsorController::class, 'create'])->name('admin.sponsor.create');
         Route::post('/store', [SponsorController::class, 'store'])->name('admin.sponsor.store');

@@ -1,6 +1,6 @@
-@props(["name","checked" => false,"disabled" => false])
+@props(["name","checked" => false,"disabled" => false, "value" => '', "label" => ''])
 
-<div class="form-group flex items-center space-x-2">
-    <input type="checkbox" name="{{$name}}" id="{{$name}}" @if($checked) checked @endif @if($disabled) disabled @endif class="form-checkbox h-5 w-5 text-blue-600">
-    <label for="{{$name}}" class="ml-2 text-gray-700">{{ \Illuminate\Support\Str::of($name)->kebab()->replace("_", " ")->ucfirst() }}</label>
+<div class="form-group flex items-center my-2">
+    <input type="checkbox" name="{{$name}}" id="{{$label}}" value="{{$value}}" @if($checked) checked @endif @if($disabled) disabled @endif class="form-checkbox h-5 w-5 text-blue-600">
+    <label for="{{$label}}" class="ms-3">{{ \Illuminate\Support\Str::of($label)->kebab()->replace("_", " ")->ucfirst() }}</label>
 </div>

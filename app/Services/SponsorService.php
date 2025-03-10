@@ -10,7 +10,7 @@ class SponsorService
 {
     public function getSponsors()
     {
-        return Sponsor::with('events')->get();
+        return Sponsor::query()->with('events');
     }
 
     public function storeSponsor(SponsorRequest $request)
@@ -25,6 +25,8 @@ class SponsorService
             $data['image'] = $filePath;
         }
         $sponsor = Sponsor::create($data);
+
+//        dd($request->input('events', []));
         $sponsor->events()->sync($request->input('events', []));
     }
 

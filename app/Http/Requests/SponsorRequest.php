@@ -26,7 +26,7 @@ class SponsorRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:65535',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'active' => 'required|in:active,inactive',
+            'active' => 'required',
         ];
     }
 

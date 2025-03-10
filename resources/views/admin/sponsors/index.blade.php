@@ -3,9 +3,8 @@
 @section("title", "Sponsoren")
 
 @section("content")
-    <div>
-        <a href="{{route('admin.sponsor.create')}}">Sponsor aanmaken</a>
-
+    <div class="container">
+        <a href="{{route('admin.sponsor.create')}}" class="button right">Sponsor aanmaken</a>
         <table class="table">
             <thead>
                 <tr>
@@ -24,5 +23,8 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="mt-4">
+            {{ $sponsors->links() }}
+        </div>
     </div>
 @stop

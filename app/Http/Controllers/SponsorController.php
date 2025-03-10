@@ -3,27 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SponsorRequest;
+use App\Services\EventService;
 use App\Services\SponsorService;
 
 class SponsorController extends Controller
 {
     private SponsorService $sponsorService;
-    private $types = ['active', 'inactive'];
+    private EventService $eventService;
+    private $types = ['active' => 'active', 'inactive' => 'inactive'];
 
-    public function __construct(SponsorService $sponsorService)
+    public function __construct(SponsorService $sponsorService, EventService $eventService)
     {
         $this->sponsorService = $sponsorService;
+        $this->eventService = $eventService;
     }
 
     public function index()
     {
-       $sponsors = $this->sponsorService->getSponsors();
+       $sponsors = $this->sponsorService->getSponsors()->paginate(10);
        return view('admin.sponsors.index', ['sponsors' => $sponsors, 'types' => $this->types]);
     }
 
     public function create()
     {
-        return view('admin.sponsors.show', ['types' => $this->types]);
+        $events = $this->eventService->getEvents();
+        return view('admin.sponsors.show', ['types' => $this->types, 'events' => $events]);
     }
 
     public function store(SponsorRequest $request)
@@ -35,7 +39,8 @@ class SponsorController extends Controller
     public function show($id)
     {
         $sponsor = $this->sponsorService->getSponsor($id);
-        return view('admin.sponsors.show', ['sponsor' => $sponsor, 'types' => $this->types]);
+        $events = $this->eventService->getEvents();
+        return view('admin.sponsors.show', ['sponsor' => $sponsor, 'types' => $this->types, 'events' => $events]);
     }
 
     public function update(SponsorRequest $request, $id)
