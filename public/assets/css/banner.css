@@ -1,8 +1,89 @@
-.banner{
-    background-color: pink;
+:root{
+    --banner-background-color: #d5d2ff;
+    --red: #FE4040;
+    --pink: #E39FF6;
+    --cyan: #08E8DE;
+
+    --text-scale-base: 5em;
+    --text-scale-ratio: 1.8;
+}
+
+html, body {
+    font-size: 20px;
+}
+
+.concat-banner {
+    display: flex;
+    height: max(40vh, 40vw);
+    width: 100%;
+    background-color: var(--banner-background-color);
+    justify-content: center;
+    align-items: center;
+}
+
+.concat-title {
+    max-width: 80%;
+    position: relative;
+    z-index: 2;
     color: white;
-    text-align: center;
-    padding: 20px;
-    font-size: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    /*line-height: 110px;*/
+}
+
+.concat-title::before, .concat-title::after, .concat-title > .real-pseudo-element {
+    display: block;
+    content: '';
+    opacity: .67;
+    position: absolute;
+    transform: translate(-50%, -50%);
+
+    z-index: -1;
+}
+
+.concat-title::before {
+    width: min(10em, 18vw);
+    height: min(10em, 18vw);
+    background-color: var(--red);
+    border-radius: min(2em, 4vw);
+    top: 24%;
+    left: 0;
+}
+
+.concat-title .real-pseudo-element {
+    width: min(20em, 24vw);
+    height: min(20em, 24vw);
+    background-color: var(--cyan);
+    border-radius: min(10em, 6vw);
+    top: 35%;
+    right: -22vw;
+}
+
+.concat-title::after {
+    width: min(12em, 12vw);
+    height: min(12em, 12vw);
+    background-color: var(--pink);
+    border-radius: min(3em, 3vw);
+    top: 80%;
+    right: -1vw;
+}
+
+.concat-title img {
+    height: min(15em, 15vw);
+    margin-left: min(2em, 2vw);
+}
+
+.concat-title h1 {
+    font-size: var(--text-scale-base);
+    text-align: right;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+}
+
+.concat-title h2 {
+    font-size: calc(var(--text-scale-base) / 3);
+    font-family: 'Quicksand', sans-serif;
     font-weight: bold;
 }
