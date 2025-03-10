@@ -2,6 +2,7 @@
 <html>
   <head>
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
     <title>{{ config("app.name") }} | @yield("title")</title>
     @vite(["resources/assets/js/app.js"])
   </head>
