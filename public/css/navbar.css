@@ -66,8 +66,12 @@
     .navbar {
         max-width: 20%;
         margin-left: auto;
-        left: -25px;
         top: 25px;
+        position: absolute;
+        left: unset;
+        background-color: transparent !important;
+        box-shadow: none;
+        right: 25px;
     }
 
     .navbar-collapse
