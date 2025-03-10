@@ -21,12 +21,14 @@ class EventService
     {
         $data = $request->validated();
         $data['banner'] = ImageService::StoreImage($request, 'banner') ?? ($data['banner'] ?? null);
+        $data['status'] = $this->setStatus($data['date']);
         Event::create($data);
     }
 
     public function updateEvent($request, $id)
     {
         $data = $request->validated();
+        $data['status'] = $this->setStatus($data['date']);
         if ($request->hasFile('banner')) {
             $data['banner'] = ImageService::StoreImage($request, 'banner') ?? ($data['banner'] ?? null);
         }
@@ -44,6 +46,11 @@ class EventService
         }
 
         Event::find($id)->update($data);
+    }
+
+    private function setStatus($date)
+    {
+        return $date > now() ? 'ACTIVE' : 'ARCHIVED';
     }
 
     public function deleteEvent($id)

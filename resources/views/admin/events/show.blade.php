@@ -24,7 +24,9 @@
                             <x-forms.input-file name="gallery" :title="($event->title ?? '')" :multiple="true" :gallery="$event ?? []"/>
                         @endif
 
-                        <button id="openModalButton" type="button" class="button right hidden">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
+                        @if(!isset($event) || $event->status->name !== 'ARCHIVED')
+                            <button id="openModalButton" type="button" class="button right hidden">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
+                        @endif
                         <button id="submitButton" type="submit" class="button right">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
                         <x-modal id="dateModal" title="Date Format" message="Ingevoerde datum ligt vóór de huidige datum. Klopt dit?" />
                     </form>
