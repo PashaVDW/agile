@@ -9,7 +9,7 @@
             <h2>Welkom bij</h2>
             <h1>Studievereniging<br/>Concat</h1>
         </div>
-        <img src="https://svconcat.nl/media/assets/logo-white.svg" alt="Concat Logo">
+        <img src="/assets/images/logo-white.svg" alt="Concat Logo">
         <div class="real-pseudo-element"></div>
     </div>
 </div>

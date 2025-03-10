@@ -6,10 +6,16 @@
 
     --text-scale-base: 5em;
     --text-scale-ratio: 1.8;
+
+    --circle-small: min(10em, 18vw);
+    --circle-medium: min(12em, 12vw);
+    --circle-large: min(20em, 24vw);
 }
 
 html, body {
     font-size: 20px;
+    margin: 0;
+    padding: 0;
 }
 
 .concat-banner {
@@ -19,6 +25,7 @@ html, body {
     background-color: var(--banner-background-color);
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 }
 
 .concat-title {
@@ -30,22 +37,22 @@ html, body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: flex-end;
-    /*line-height: 110px;*/
 }
 
-.concat-title::before, .concat-title::after, .concat-title > .real-pseudo-element {
+.concat-title::before,
+.concat-title::after,
+.concat-title > .real-pseudo-element {
     display: block;
     content: '';
     opacity: .67;
     position: absolute;
     transform: translate(-50%, -50%);
-
     z-index: -1;
 }
 
 .concat-title::before {
-    width: min(10em, 18vw);
-    height: min(10em, 18vw);
+    width: var(--circle-small);
+    height: var(--circle-small);
     background-color: var(--red);
     border-radius: min(2em, 4vw);
     top: 24%;
@@ -53,8 +60,8 @@ html, body {
 }
 
 .concat-title .real-pseudo-element {
-    width: min(20em, 24vw);
-    height: min(20em, 24vw);
+    width: var(--circle-large);
+    height: var(--circle-large);
     background-color: var(--cyan);
     border-radius: min(10em, 6vw);
     top: 35%;
@@ -62,8 +69,8 @@ html, body {
 }
 
 .concat-title::after {
-    width: min(12em, 12vw);
-    height: min(12em, 12vw);
+    width: var(--circle-medium);
+    height: var(--circle-medium);
     background-color: var(--pink);
     border-radius: min(3em, 3vw);
     top: 80%;
@@ -75,15 +82,63 @@ html, body {
     margin-left: min(2em, 2vw);
 }
 
-.concat-title h1 {
-    font-size: var(--text-scale-base);
-    text-align: right;
+.concat-title h1,
+.concat-title h2 {
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
 }
 
+.concat-title h1 {
+    font-size: var(--text-scale-base);
+    text-align: right;
+}
+
 .concat-title h2 {
     font-size: calc(var(--text-scale-base) / 3);
-    font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
+}
+
+@media (max-width: 1350px) {
+    .concat-banner {
+        height: auto;
+        padding: 3rem 1rem;
+    }
+
+    .concat-title {
+        text-align: center;
+        max-width: 90%;
+    }
+
+    .concat-title h1 {
+        font-size: clamp(1.5em, 8vw, 5em);
+    }
+
+    .concat-title h2 {
+        display: none;
+    }
+
+    .concat-title img {
+        height: clamp(4em, 15vw, 10em);
+        width: auto;
+    }
+
+    .concat-title::before {
+        width: min(6em, 12vw);
+        height: min(6em, 12vw);
+        top: 20%;
+        left: 3%;
+    }
+
+    .concat-title .real-pseudo-element {
+        width: min(14em, 20vw);
+        height: min(14em, 20vw);
+        top: 50%;
+        right: -12vw;
+    }
+
+    .concat-title::after {
+        width: min(8em, 12vw);
+        height: min(8em, 12vw);
+        top: 85%;
+        right: 8%;
+    }
 }
