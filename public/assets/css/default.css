@@ -106,6 +106,11 @@ form {
         color: var(--default-lightblue);
         text-decoration: underline;
     }
+    textarea {
+        min-height: 200px;
+        max-height: 300px;
+        height: 100%;
+    }
 }
 
 .table {
@@ -115,6 +120,12 @@ form {
                 font-weight: 600;
                 color: var(--default-black);
             }
+        }
+    }
+    tbody {
+        span {
+            font-weight: 700;
+            color: var(--default-red);
         }
     }
 

@@ -40,6 +40,7 @@
         <div class="sidebar">
             <h2 class="has-background">Informatie</h2>
             <h4>{{ucfirst($event->category->value)}}</h4>
+            <p>{{$event->status->name === 'ARCHIVED' ? 'Gearchiveerd' : ''}}</p>
             <ul>
                 <li><span>Datum:</span> {{$event->date}}</li>
                 <li><span>Prijs:</span> {{$event->price}}</li>

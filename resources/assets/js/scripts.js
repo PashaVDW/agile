@@ -13,9 +13,8 @@ function carouselSwiper() {
         autoplay: {
             delay: 6000,
         },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
+        keyboard: {
+            enabled: true,
         },
         navigation: {
             nextEl: '.swiper-button-next',
@@ -24,11 +23,9 @@ function carouselSwiper() {
         breakpoints: {
             768: {
                 slidesPerView: 2,
-                spaceBetweenSlides: 30
             },
             980: {
                 slidesPerView: 3,
-                spaceBetweenSlides: 30,
             }
         }
     });
