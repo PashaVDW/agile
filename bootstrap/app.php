@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\CheckIfAdmin;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,9 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias([
-            'checkIfAdmin' => CheckIfAdmin::class,
-        ]);
+
     })
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('app:archive-events')->daily();

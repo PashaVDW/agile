@@ -24,6 +24,7 @@ class Event extends Model
 
     protected $casts = [
         'category' => EventCategoryEnum::class,
+        'date' => 'datetime',
         'status' => ActiveTypeEnum::class,
         'gallery' => 'array',
     ];
@@ -44,4 +45,15 @@ class Event extends Model
     public function getDecodedPhotos() {
         return json_decode($this->gallery);
     }
+
+    public function getFormattedDateAttribute()
+    {
+        return $this->date->format('d-m-Y');
+    }
+
+    public function getFormattedDateForInputAttribute()
+    {
+        return $this->date->format('Y-m-d');
+    }
+
 }
