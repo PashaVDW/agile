@@ -5,6 +5,7 @@
   "title" => "",
   "class" => "",
   "multiple" => false,
+  "gallery" => null,
 ])
 
 <div class="mb-4">
@@ -20,6 +21,17 @@
             <a href="{{ asset($value) }}" target="_blank" class="file">
                 {{ $title ?: 'Bekijk bestand' }}
             </a>
+        </div>
+    @endif
+
+    @if ($multiple && $gallery->hasPhotos())
+        <div class="mb-2">
+            @foreach ($gallery->getDecodedPhotos() as $image)
+                <a href="{{ asset($gallery->getGalleryImagePath($image)) }}" target="_blank" class="file">{{ $image ?: 'Bekijk bestand' }}</a>
+                @if (!$loop->last)
+                    ,
+                @endif
+            @endforeach
         </div>
     @endif
 

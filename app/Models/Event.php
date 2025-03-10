@@ -37,6 +37,11 @@ class Event extends Model
         return Storage::url($this->banner);
     }
 
+    public function getGalleryImagePath($image)
+    {
+        return Storage::url($image);
+    }
+
     public function hasPhotos()
     {
         return !empty($this->gallery);

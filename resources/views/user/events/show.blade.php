@@ -19,23 +19,7 @@
                     @endif
                 </p>
             </div>
-
-            {{--    archived images--}}
-            @if($event->hasPhotos())
-                <div class="swiper-container" id="testimonialSwiper">
-                    <div class="swiper-wrapper">
-                        @foreach($event->getDecodedPhotos() as $image)
-                            <div class="swiper-slide">
-                                <img src="{{ asset('/storage/'.$image) }}" alt="{{ $event->title }}">
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
-                </div>
-            @endif
-
+            <x-swiper :item="$event" alt="title" />
         </div>
         <div class="sidebar">
             <h2 class="has-background">Informatie</h2>

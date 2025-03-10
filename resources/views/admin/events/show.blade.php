@@ -21,7 +21,7 @@
                         <x-forms.input-select name="category" :required="true" :enum="$categories" :value="($event->category->name ?? '')"/>
                         <x-forms.input-field name="payment_link" :value="($event->payment_link ?? '')"/>
                         @if(isset($event) && $event->status->name === 'ARCHIVED')
-                            <x-forms.input-file name="gallery" :title="($event->title ?? '')" :multiple="true"/>
+                            <x-forms.input-file name="gallery" :title="($event->title ?? '')" :multiple="true" :gallery="$event ?? []"/>
                         @endif
 
                         <button id="openModalButton" type="button" class="button right hidden">{{ isset($event) ? 'Update event' : 'Add event' }}</button>
