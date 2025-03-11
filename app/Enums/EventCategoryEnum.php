@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum EventCategoryEnum: string
 {
-    case EVENT = 'event';
-    case DRINKS = 'drinks';
+    case EVENT = 'EVENT';
+    case DRINKS = 'DRINKS';
 
     public static function toArray(): array
     {

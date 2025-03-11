@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\EventCategoryEnum;
 use App\Models\Event;
 
 class EventService
