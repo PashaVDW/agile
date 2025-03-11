@@ -14,7 +14,7 @@
                         @endif
                         <x-forms.input-field type="text" name="name" :required="true" value="{{ old('name',$sponsor->name ?? '' )}}"/>
                         <x-forms.input-textarea name="description" :class="'min-h-[100px] max-h-[300px]'">{{ old('description',$sponsor->description ?? '' )}}</x-forms.input-textarea>
-                        <x-forms.input-file name="image" :title="($sponsor->name ?? '')" value="{{ old('image',$sponsor->image_url ?? '')}}"/>
+                        <x-forms.input-file name="image" :title="($sponsor->name ?? '')" value="{{ $sponsor->image_url ?? ''}}"/>
                         <x-forms.input-select name="active" :required="true" :list="$types" :value="($sponsor->active ?? '')"/>
 
                         @if($events->count() > 0)
