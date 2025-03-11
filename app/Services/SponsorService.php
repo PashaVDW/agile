@@ -26,7 +26,6 @@ class SponsorService
         }
         $sponsor = Sponsor::create($data);
 
-//        dd($request->input('events', []));
         $sponsor->events()->sync($request->input('events', []));
     }
 
