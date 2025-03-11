@@ -22,11 +22,11 @@ class EventsTest extends DuskTestCase
                 $browser->typeSlowly('title', 'test')
                     ->typeSlowly('description', 'test')
                     ->type('date', '01-01-2026')
-                    ->select('category', 'drinks')
+                    ->select('category', 'DRINKS')
                     ->typeSlowly('price', '10')
                     ->typeSlowly('capacity', '10')
                     ->attach('image', storage_path('app/public/images/banner-2.jpg')) // change image to your own
-                    ->press('Add event')
+                    ->press('Evenement toevoegen')
                     ->waitForLocation(route('admin.events.index'))
                     ->assertSee('test');
         });
@@ -47,10 +47,10 @@ class EventsTest extends DuskTestCase
                 ->typeSlowly('title', 'test2')
                 ->typeSlowly('description', 'test2')
                 ->type('date', '01-01-2027')
-                ->select('category', 'events')
+                ->select('category', 'EVENTS')
                 ->typeSlowly('price', '20')
                 ->typeSlowly('capacity', '20')
-                ->press('Update event')
+                ->press('Evenement updaten')
                 ->waitForLocation(route('admin.events.index'))
                 ->assertSee('test');
         });
@@ -60,7 +60,7 @@ class EventsTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visitRoute('admin.event.show', 1)
-                ->press('Delete event')
+                ->press('Evenement verwijderen')
                 ->waitForLocation(route('admin.events.index'))
                 ->assertDontSee('test2');
         });
