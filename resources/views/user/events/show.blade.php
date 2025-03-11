@@ -24,7 +24,7 @@
         <div class="sidebar">
             <h2 class="has-background">Informatie</h2>
             <h4>{{__($event->category->value)}}</h4>
-            <p>{{$event->status->name === 'ARCHIVED' ? 'Gearchiveerd' : ''}}</p>
+            <p>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</p>
             <ul>
                 <li><span>Datum:</span> {{$event->formatted_date}}</li>
                 <li><span>Prijs:</span> {{$event->price}}</li>

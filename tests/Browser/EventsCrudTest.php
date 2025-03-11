@@ -31,8 +31,7 @@ class EventsCrudTest extends DuskTestCase
                         'document.getElementById("submitButton").scrollIntoView()',
                         'document.getElementById("submitButton").click()'
                     ]);
-                    $browser->press('Evenement toevoegen')
-                    ->waitForLocation(route('admin.events.index'))
+                    $browser->waitForLocation(route('admin.events.index'))
                     ->assertSee('test');
         });
     }
@@ -54,13 +53,12 @@ class EventsCrudTest extends DuskTestCase
                 ->type('date', '01-01-2027')
                 ->select('category', 'EVENTS')
                 ->typeSlowly('price', '20')
-                ->typeSlowly('capacity', '20')
+                ->typeSlowly('capacity', '20');
                 $browser->script([
                     'document.getElementById("submitButton").scrollIntoView()',
                     'document.getElementById("submitButton").click()'
                 ]);
-                $browser->press('Evenement updaten')
-                ->waitForLocation(route('admin.events.index'))
+                $browser->waitForLocation(route('admin.events.index'))
                 ->assertSee('test');
         });
     }
@@ -81,16 +79,15 @@ class EventsCrudTest extends DuskTestCase
     public function testUpdateArchivedEvent()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visitRoute('admin.event.show', 2)
-            ->pause(1000)
-            ->assertSee('Update event')
-            ->typeSlowly('title', 'Updated Archived Title')
-            ->typeSlowly('description', 'Updated Archived Description')
-            ->type('date', '01-01-2025')
-            ->select('category', 'event')
-            ->typeSlowly('price', '30')
-            ->typeSlowly('capacity', '40')
-            ->attach('gallery[]', storage_path('app/public/images/banner-2.jpg'));
+            $browser->visitRoute('admin.event.show', 1)
+                ->typeSlowly('title', 'Updated Archived Title')
+                ->typeSlowly('description', 'Updated Archived Description')
+                ->type('date', '01-01-2025')
+                ->type('capacity', '10')
+                ->select('category', 'EVENT')
+                ->typeSlowly('price', '30')
+                ->typeSlowly('capacity', '40')
+                ->attach('gallery[]', storage_path('app/public/images/banner-2.jpg'));
 
             $browser->script([
                 'document.getElementById("submitButton").scrollIntoView()',

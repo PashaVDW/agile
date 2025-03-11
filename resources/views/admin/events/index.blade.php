@@ -19,7 +19,7 @@
             <tbody>
             @foreach ($events as $event)
                 <tr>
-                    <td>{{Str::of($event->title)->words(5, '...')}} <span>{{ $event->status->name === 'ARCHIVED' ? '(Archived)' : "" }}</span></td>
+                    <td>{{ Str::of($event->title)->words(5, '...') }} <span>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</span></td>
                     <td>{{ $event->formatted_date }} </td>
                     <td>{{ __($event->category->value)}}</td>
                     <td>{{ $event->getFormattedDateTime($event->created_at) }}</td>
