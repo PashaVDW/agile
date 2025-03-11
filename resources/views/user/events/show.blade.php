@@ -26,7 +26,6 @@
             <ul>
                 <li><span>Datum:</span> {{$event->formatted_date}}</li>
                 <li><span>Prijs:</span> {{$event->price}}</li>
-                <li><span>Titel:</span> {{$event->title}}</li>
                 <li><span>Aantal plaatsen:</span> {{$event->capacity}}</li>
                 <li><span>Betalen voor: </span><a href="{{$event->payment_link}}" target="_blank">{{$event->title}}</a></li>
             </ul>
