@@ -17,7 +17,7 @@ class EventRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'string|max:65535',
+            'description' => 'max:65535',
             'price' => 'numeric|max:2147483647|nullable|min:0',
             'capacity' => 'numeric|max:2147483647|nullable|min:0',
             'date' => 'required|date',
