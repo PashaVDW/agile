@@ -22,19 +22,18 @@ class EventsCrudTest extends DuskTestCase
                 $browser->typeSlowly('title', 'test')
                     ->typeSlowly('description', 'test')
                     ->type('date', '01-01-2026')
-                    ->select('category', 'drinks')
+                    ->select('category', 'DRINKS')
                     ->typeSlowly('price', '10')
                     ->typeSlowly('capacity', '10')
                     ->attach('banner', storage_path('app/public/images/banner-2.jpg')) // change image to your own
                     ->typeSlowly('payment_link', 'test');
-
                     $browser->script([
                         'document.getElementById("submitButton").scrollIntoView()',
                         'document.getElementById("submitButton").click()'
                     ]);
-
-                    $browser->waitForLocation(route('admin.events.index'))
-                        ->assertSee('test');
+                    $browser->press('Evenement toevoegen')
+                    ->waitForLocation(route('admin.events.index'))
+                    ->assertSee('test');
         });
     }
 
@@ -49,21 +48,20 @@ class EventsCrudTest extends DuskTestCase
     public function testUpdateEvent()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visitRoute('admin.event.show', 2)
-            ->typeSlowly('title', 'Updated Title')
-            ->typeSlowly('description', 'Updated Description')
-            ->type('date', '01-01-2027')
-            ->select('category', 'event')
-            ->typeSlowly('price', '25')
-            ->typeSlowly('capacity', '30');
-
-            $browser->script([
-                'document.getElementById("submitButton").scrollIntoView()',
-                'document.getElementById("submitButton").click()'
-            ]);
-
-            $browser->waitForLocation(route('admin.events.index'))
-                ->assertSee('Updated Title');
+            $browser->visitRoute('admin.event.show', 1)
+                ->typeSlowly('title', 'test2')
+                ->typeSlowly('description', 'test2')
+                ->type('date', '01-01-2027')
+                ->select('category', 'EVENTS')
+                ->typeSlowly('price', '20')
+                ->typeSlowly('capacity', '20')
+                $browser->script([
+                    'document.getElementById("submitButton").scrollIntoView()',
+                    'document.getElementById("submitButton").click()'
+                ]);
+                $browser->press('Evenement updaten')
+                ->waitForLocation(route('admin.events.index'))
+                ->assertSee('test');
         });
     }
 
@@ -74,8 +72,7 @@ class EventsCrudTest extends DuskTestCase
                 ->script([
                     'document.getElementById("submitButton").scrollIntoView()'
                 ]);
-
-            $browser->press('Delete event')
+                $browser->press('Evenement verwijderen')
                 ->waitForLocation(route('admin.events.index'))
                 ->assertDontSee('test2');
         });

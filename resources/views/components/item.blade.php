@@ -6,7 +6,7 @@
     <div class="block text-block">
         <div class="item-header">
             <h3 class="has-background">{{$event->title}}</h3>
-            <h6>{{ucfirst($event->category->value)}}</h6>
+            <h6>{{__($event->category->value)}}</h6>
         </div>
         <div class="item-body">
             <p>

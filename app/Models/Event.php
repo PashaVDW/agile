@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ActiveTypeEnum;
 use App\Enums\EventCategoryEnum;
+use App\Services\TimezoneService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,6 +60,11 @@ class Event extends Model
     public function getFormattedDateForInputAttribute()
     {
         return $this->date->format('Y-m-d');
+    }
+
+    public function getFormattedDateTime($dateTime)
+    {
+        return TimezoneService::getTimezone($dateTime);
     }
 
 }

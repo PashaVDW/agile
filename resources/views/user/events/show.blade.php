@@ -23,12 +23,11 @@
         </div>
         <div class="sidebar">
             <h2 class="has-background">Informatie</h2>
-            <h4>{{ucfirst($event->category->value)}}</h4>
+            <h4>{{__($event->category->value)}}</h4>
             <p>{{$event->status->name === 'ARCHIVED' ? 'Gearchiveerd' : ''}}</p>
             <ul>
-                <li><span>Datum:</span> {{$event->date}}</li>
+                <li><span>Datum:</span> {{$event->formatted_date}}</li>
                 <li><span>Prijs:</span> {{$event->price}}</li>
-                <li><span>Titel:</span> {{$event->title}}</li>
                 <li><span>Aantal plaatsen:</span> {{$event->capacity}}</li>
                 <li><span>Betalen voor: </span><a href="{{$event->payment_link}}" target="_blank">{{$event->title}}</a></li>
             </ul>
