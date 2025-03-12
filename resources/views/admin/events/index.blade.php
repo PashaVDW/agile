@@ -6,7 +6,7 @@
     <div class="container">
         <div class="filter-wrapper">
             <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                <x-forms.input-select :onchange="'this.form.submit()'" label="Categorie" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
+                <x-forms.input-select :onchange="'this.form.submit()'" label="Categorie" default="Alle categorieën" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
             </form>
             <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
         </div>

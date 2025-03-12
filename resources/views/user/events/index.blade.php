@@ -11,7 +11,7 @@
         </div>
         <div class="sidebar">
             <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                <x-forms.input-select :onchange="'this.form.submit()'" name="status" label="Categorie" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
+                <x-forms.input-select :onchange="'this.form.submit()'" name="status" label="Categorie" default="Alle categorieën" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
             </form>
         </div>
     </div>
