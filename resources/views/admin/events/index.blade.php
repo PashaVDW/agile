@@ -7,27 +7,27 @@
         <form method="GET" action="{{ route(Route::currentRouteName()) }}">
             <x-forms.input-select :onchange="'this.form.submit()'" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
         </form>
-        <a href="{{ route("admin.event.create") }}" class="button right">Create event</a>
+        <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
         <table class="table">
             <thead>
                 <tr>
-                    <td>Title</td>
-                    <td>Date</td>
-                    <td>Category</td>
-                    <td>Created at</td>
-                    <td>Updated at</td>
-                    <td>Actions</td>
+                    <td>Titel</td>
+                    <td>Datum</td>
+                    <td>Categorie</td>
+                    <td>Aangemaakt op</td>
+                    <td>Bijgewerkt op</td>
+                    <td>Acties</td>
                 </tr>
             </thead>
             <tbody>
             @foreach ($events as $event)
                 <tr>
-                    <td>{{Str::of($event->title)->words(5, '...')}} <span>{{ $event->status->name === 'ARCHIVED' ? '(Archived)' : "" }}</span></td>
+                    <td>{{ Str::of($event->title)->words(5, '...') }} <span>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</span></td>
                     <td>{{ $event->formatted_date }} </td>
-                    <td>{{ $event->category->name }}</td>
-                    <td>{{ $event->created_at }}</td>
-                    <td>{{ $event->updated_at }}</td>
-                    <td><a href="{{ route("admin.event.show", ["id" => $event->id]) }}">Update</a></td>
+                    <td>{{ __($event->category->value)}}</td>
+                    <td>{{ $event->getFormattedDateTime($event->created_at) }}</td>
+                    <td>{{ $event->getFormattedDateTime($event->updated_at) }}</td>
+                    <td><a href="{{ route("admin.event.show", ["id" => $event->id]) }}">Updaten</a></td>
                 </tr>
             @endforeach
             </tbody>

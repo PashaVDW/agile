@@ -5,12 +5,13 @@
   "enum" => null,
   "value" => "",
   "class" => "",
+  "label" => "",
   'onchange' => ''
 ])
 
 <div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $name }}">
-        {{ \Illuminate\Support\Str::of($name)->kebab()->replace("_", " ")->ucfirst() }}
+        {{ \Illuminate\Support\Str::of($label)->kebab()->replace("-", " ")->ucfirst() }}
         @if ($required)
             <span class="">*</span>
         @endif
@@ -24,14 +25,14 @@
             class="border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 appearance-none pr-8 {{ $class }}"
             {{ $required ? "required" : "" }}
         >
-            <option value="">Select a {{ $name }}</option>
+            <option value="">Selecteer een {{ strtolower($label) }}</option>
             @if ($enum)
                 @foreach ($enum::cases() as $item)
                     <option
-                        value="{{ $item->value }}"
-                        {{ $item->name == $value ? "selected" : "" }}
+                        value="{{ strtoupper($item->value) }}"
+                        {{ $item->value == $value ? "selected" : "" }}
                     >
-                        {{ $item->name }}
+                        {{ __($item->value) }}
                     </option>
                 @endforeach
             @else
