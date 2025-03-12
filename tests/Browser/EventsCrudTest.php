@@ -86,11 +86,14 @@ class EventsCrudTest extends DuskTestCase
                 ->type('capacity', '10')
                 ->select('category', 'EVENT')
                 ->typeSlowly('price', '30')
-                ->typeSlowly('capacity', '40')
+                ->typeSlowly('capacity', '20');
+            $browser->script([
+                'document.getElementById("submitButton").scrollIntoView()'
+            ]);
+            $browser->typeSlowly('capacity', '40')
                 ->attach('gallery[]', storage_path('app/public/images/banner-2.jpg'));
 
             $browser->script([
-                'document.getElementById("submitButton").scrollIntoView()',
                 'document.getElementById("submitButton").click()'
             ]);
 

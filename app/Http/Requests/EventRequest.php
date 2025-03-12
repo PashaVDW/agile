@@ -24,7 +24,7 @@ class EventRequest extends FormRequest
             'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category' => 'required|string|in:'.implode(',', EventCategoryEnum::toArray()),
             'payment_link' => 'nullable|string|max:255',
-            'gallery' => 'nullable|array',
+            'gallery' => 'nullable|array|max:50',
             'gallery.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
@@ -49,6 +49,7 @@ class EventRequest extends FormRequest
             'payment_link.string' => 'De betaallink dient een string te zijn',
             'category.required' => 'Een categorie is verplicht',
             'category.in' => 'De geselecteerde categorie is ongeldig',
+            'gallery.max' => 'Er mogen maximaal 50 afbeeldingen worden geüpload',
         ];
     }
 }
