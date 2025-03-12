@@ -17,7 +17,7 @@ class EventRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:65535',
+            'description' => 'max:65535',
             'price' => 'numeric|max:2147483647|nullable|min:0',
             'capacity' => 'numeric|max:2147483647|nullable|min:0',
             'date' => 'required|date',
@@ -30,24 +30,23 @@ class EventRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'A title is required',
-            'title.max' => 'The title may not be greater than 255 characters',
-            'description.max' => 'The description may not be greater than 65535 characters',
-            'description.required' => 'A description is required',
-            'price.numeric' => 'Price must be a number',
-            'price.max' => 'The price may not be greater than 2147483647',
-            'capacity.numeric' => 'Capacity must be a number',
-            'capacity.max' => 'The capacity may not be greater than 2147483647',
-            'capacity.min' => 'The capacity must be at least 0',
-            'date.required' => 'A date is required',
-            'image.image' => 'The file must be an image',
-            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg',
-            'image.max' => 'The image may not be greater than 2048 kilobytes',
-            'payment_link.max' => 'The payment link may not be greater than 255 characters',
-            'payment_link.string' => 'The payment link must be a string',
-            'payment_link.required' => 'A payment link is required',
-            'category.required' => 'A category is required',
-            'category.in' => 'The selected category is invalid',
+            'title.required' => 'De titel dient verplicht in te worden gevuld',
+            'title.max' => 'De titel mag niet langer zijn dan 255 karakters',
+            'description.required' => 'De beschrijving dient verplicht in te worden gevuld',
+            'description.max' => 'De beschrijving mag niet langer zijn dan 65535 karakters',
+            'price.numeric' => 'De prijs dient een nummer te zijn',
+            'price.max' => 'De prijs mag niet groter zijn dan 2147483647',
+            'capacity.numeric' => 'De capaciteit dient een nummer te zijn',
+            'capacity.max' => 'De capaciteit mag niet groter zijn dan 2147483647',
+            'capacity.min' => 'De capaciteit dient minimaal 0 te zijn',
+            'date.required' => 'Een datum is verplicht',
+            'image.image' => 'Het bestand dient een afbeelding te zijn',
+            'image.mimes' => 'De afbeelding dient een bestand te zijn van het type: jpeg, png, jpg, gif, svg',
+            'image.max' => 'De afbeelding mag niet groter zijn dan 2048 kilobytes',
+            'payment_link.max' => 'De betaallink mag niet langer zijn dan 255 karakters',
+            'payment_link.string' => 'De betaallink dient een string te zijn',
+            'category.required' => 'Een categorie is verplicht',
+            'category.in' => 'De geselecteerde categorie is ongeldig',
         ];
     }
 }
