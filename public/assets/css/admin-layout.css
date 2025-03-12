@@ -1,0 +1,16 @@
+.admin {
+    .container {
+        .filter-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            .button {
+                &.right {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
