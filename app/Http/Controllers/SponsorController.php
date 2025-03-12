@@ -26,7 +26,7 @@ class SponsorController extends Controller
 
     public function create()
     {
-        $events = $this->eventService->getEvents();
+        $events = $this->eventService->getEvents()->get();
         return view('admin.sponsors.show', ['types' => $this->types, 'events' => $events]);
     }
 
@@ -39,7 +39,7 @@ class SponsorController extends Controller
     public function show($id)
     {
         $sponsor = $this->sponsorService->getSponsor($id);
-        $events = $this->eventService->getEvents();
+        $events = $this->eventService->getEvents()->get();
         return view('admin.sponsors.show', ['sponsor' => $sponsor, 'types' => $this->types, 'events' => $events]);
     }
 

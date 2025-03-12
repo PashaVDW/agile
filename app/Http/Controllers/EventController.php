@@ -26,7 +26,7 @@ class EventController extends Controller
     public function create()
     {
         $categories = EventCategoryEnum::class;
-        $sponsors = $this->sponsorService->getSponsors();
+        $sponsors = $this->sponsorService->getSponsors()->get();
         return view('admin.events.show', ['categories' => $categories, 'sponsors' => $sponsors]);
     }
 
@@ -40,7 +40,7 @@ class EventController extends Controller
     {
         $event = $this->eventService->getEvent($id);
         $categories = EventCategoryEnum::class;
-        $sponsors = $this->sponsorService->getSponsors();
+        $sponsors = $this->sponsorService->getSponsors()->get();
         return view('admin.events.show', ['event' => $event, 'categories' => $categories, 'sponsors' => $sponsors]);
     }
 

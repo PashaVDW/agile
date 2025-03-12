@@ -23,7 +23,7 @@ class Event extends Model
 
     public function sponsors(): BelongsToMany
     {
-        return $this->belongsToMany(Sponsor::class, 'event_sponsors', 'event_ids', 'sponsor_id');
+        return $this->belongsToMany(Sponsor::class, 'event_sponsors', 'event_id', 'sponsor_id');
     }
 
     protected $casts = [
