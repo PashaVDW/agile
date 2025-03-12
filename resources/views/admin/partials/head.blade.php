@@ -37,4 +37,5 @@
   <link href="assets/vendors/apexcharts/apexcharts.css" rel="stylesheet" />
   <link href="assets/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
   <link href="assets/css/styles.css" rel="stylesheet" />
+  <link href="assets/css/admin.css" rel="stylesheet" />
 </head>
