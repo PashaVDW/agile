@@ -20,6 +20,14 @@
                         <x-forms.input-file name="image" :title="($event->title ?? '')" label="Afbeelding" value="{{ $event->image_url ?? '' }}"/>
                         <x-forms.input-select name="category" :required="true" label="Categorie" :enum="$categories" value="{{old('category', $event->category->value ?? '')}}"/>
                         <x-forms.input-field name="payment_link" label="Betaal link" value="{{old('payment_link',$event->payment_link ?? '')}}"/>
+
+                        @if($sponsors->count() > 0)
+                            <h2 class="mt-4">Sponsoren</h2>
+                            @foreach($sponsors as $sponsor)
+{{--                                <x-forms.input-checkbox name="sponsors[]" :value="$sponsor->id" :label="$sponsor->name" :checked="isset($event) && $event->sponsors->contains($sponsor->id)"/>--}}
+                            @endforeach
+                        @endif
+
                         <button type="submit" class="button right">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
                     </form>
                     @if(isset($event))

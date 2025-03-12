@@ -5,25 +5,29 @@ namespace App\Http\Controllers;
 use App\Enums\EventCategoryEnum;
 use App\Http\Requests\EventRequest;
 use App\Services\EventService;
+use App\Services\SponsorService;
 
 class EventController extends Controller
 {
     private EventService $eventService;
-    public function __construct(EventService $eventService)
+    private SponsorService $sponsorService;
+    public function __construct(EventService $eventService, SponsorService $sponsorService)
     {
         $this->eventService = $eventService;
+        $this->sponsorService = $sponsorService;
     }
 
     public function index()
     {
-        $events = $this->eventService->getEvents();
+        $events = $this->eventService->getEvents()->paginate(10);
         return view('admin.events.index', ['events' => $events]);
     }
 
     public function create()
     {
         $categories = EventCategoryEnum::class;
-        return view('admin.events.show', ['categories' => $categories]);
+        $sponsors = $this->sponsorService->getSponsors();
+        return view('admin.events.show', ['categories' => $categories, 'sponsors' => $sponsors]);
     }
 
     public function store(EventRequest $request)
@@ -36,7 +40,8 @@ class EventController extends Controller
     {
         $event = $this->eventService->getEvent($id);
         $categories = EventCategoryEnum::class;
-        return view('admin.events.show', ['event' => $event, 'categories' => $categories]);
+        $sponsors = $this->sponsorService->getSponsors();
+        return view('admin.events.show', ['event' => $event, 'categories' => $categories, 'sponsors' => $sponsors]);
     }
 
     public function update(EventRequest $request, $id)

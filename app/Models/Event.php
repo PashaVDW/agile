@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\EventCategoryEnum;
 use App\Services\TimezoneService;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
 
 class Event extends Model
@@ -19,6 +20,11 @@ class Event extends Model
         'category',
         'payment_link',
     ];
+
+    public function sponsors(): BelongsToMany
+    {
+        return $this->belongsToMany(Sponsor::class, 'event_sponsors', 'event_ids', 'sponsor_id');
+    }
 
     protected $casts = [
         'category' => EventCategoryEnum::class,

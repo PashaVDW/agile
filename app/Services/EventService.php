@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
-use App\Enums\EventCategoryEnum;
 use App\Models\Event;
+use App\Models\Sponsor;
 
 class EventService
 {
     public function getEvents()
     {
-        return Event::all();
+        return Event::query()->with('sponsors');
     }
 
     public function getEvent($id)
@@ -20,15 +20,18 @@ class EventService
     public function storeEvent($request)
     {
         $data = $request->validated();
-        $data['image'] = ImageService::StoreImage($request, 'image') ?? ($data['image'] ?? null);
-        Event::create($data);
+        $data['image'] = ImageService::StoreImage($request, 'image', 'Events') ?? ($data['image'] ?? null);
+        $event = Event::create($data);
+        $event->sponsors()->sync($request->input('sponsors', []));
     }
 
     public function updateEvent($request, $id)
     {
         $data = $request->validated();
-        $data['image'] = ImageService::StoreImage($request, 'image') ?? ($data['image'] ?? null);
-        Event::find($id)->update($data);
+        $data['image'] = ImageService::StoreImage($request, 'image', 'Events') ?? ($data['image'] ?? null);
+        $event = Event::find($id);
+        $event->update($data);
+        $event->sponsors()->sync($request->input('sponsors', []));
     }
 
     public function deleteEvent($id)
