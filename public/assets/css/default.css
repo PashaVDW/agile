@@ -92,6 +92,9 @@ button, a.button {
 
 body {
     .container {
+        &:first-child {
+            margin: 100px auto;
+        }
         max-width: 1440px;
         width: 100%;
         position: relative;
