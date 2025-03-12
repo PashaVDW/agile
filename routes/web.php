@@ -25,3 +25,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::delete('/delete/{id}', [EventController::class, 'delete'])->name('admin.event.delete');
     });
 });
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
