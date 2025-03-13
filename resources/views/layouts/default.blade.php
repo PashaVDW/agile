@@ -6,11 +6,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <title>{{ config("app.name") }} | @yield("title")</title>
+    @vite(['resources/assets/js/app.js'])
   </head>
-
-  <x-navbar />
-
-  <body>
+  @php
+      if (strpos(Route::current()->getName(), '.') !== false) {
+          $parts = explode('.', Route::current()->getName());
+          $className = $parts[1]; // user.events.index -> events
+      }
+      else {
+          $className = Route::current()->getName();
+      }
+  @endphp
+  <body class="{{$className}}">
+    <x-navbar />
     <main>
       @yield("content")
     </main>
