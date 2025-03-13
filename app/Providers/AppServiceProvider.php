@@ -24,9 +24,5 @@ class AppServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             return View::make('auth.login');
         });
-
-        Fortify::registerView(function () {
-            return View::make('auth.register');
-        });
     }
 }
