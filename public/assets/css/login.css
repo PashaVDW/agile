@@ -1,4 +1,4 @@
-/* Root Variables - Using Exact Colors from Your Old Project */
+/* Root Variables */
 :root {
     --blue: #3129FF;
     --red: #FE4040;
@@ -9,7 +9,7 @@
     --gray: #B0B0B0;
 
     --input-background: #ECEBFF;
-    --input-border: 2px solid #EEEDFF;
+    --input-border: 2px solid #E1DEFF;
     --input-shadow-color: #E1DEFF;
     --button-shadow: 0px 4px 6px 2px rgba(49, 41, 255, 0.2);
     --button-shadow-hover: 0px 8px 12px 4px rgba(49, 41, 255, 0.3);
@@ -23,6 +23,7 @@
     padding: 0;
 }
 
+/* Page Layout */
 html, body {
     font-size: 16px;
     height: 100%;
@@ -36,23 +37,64 @@ html, body {
 .card {
     background: var(--white);
     padding: 2em;
-    border-radius: 12px;
+    border-radius: 20px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
     max-width: 450px;
     width: 100%;
     text-align: center;
+    position: relative;
 }
 
-/* Titles & Text */
+/* Back Arrow */
+.card a.back-button {
+    color: var(--black);
+    font-size: 1.2em;
+    position: absolute;
+    top: 1em;
+    left: 1em;
+}
+
+/* Register Link */
+.register-link {
+    display: block;
+    text-align: center;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--red);
+    margin-top: 8px;
+    transition: color 0.3s ease;
+}
+
+.register-link:hover {
+    color: var(--pink);
+    text-decoration: underline;
+}
+
+/* Headings */
 h3 {
-    font-size: 1.8em;
+    font-size: 2em;
     font-weight: bold;
     color: var(--black);
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
 }
 
-/* Ensure "Sign in" is perfectly centered */
+/* Underline for Heading */
+h3::after {
+    content: '';
+    width: 60px;
+    height: 5px;
+    background: var(--pink);
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+
+/* Centered Text */
 .text-center {
     display: flex;
     flex-direction: column;
@@ -68,7 +110,7 @@ h3 {
 
 /* Links */
 .link {
-    color: var(--red);
+    font-size: 0.9em;
     font-weight: bold;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -78,20 +120,27 @@ h3 {
     color: var(--pink);
 }
 
-/* Inputs */
+/* Input Fields */
 .input {
     width: 100%;
     max-width: 380px;
     padding: 14px;
     border: var(--input-border);
-    border-radius: 8px;
-    background-color: var(--white);
-    color: var(--black);
+    border-radius: 12px;
+    background-color: rgba(227, 159, 246, 0.2);
+    color: rgba(103, 31, 123, 0.6);
     font-size: 1rem;
     transition: all 0.3s ease;
 }
 
-/* Center and widen the form inside the card */
+/* Input Focus Effect */
+.input:focus {
+    outline: none;
+    box-shadow: 0px 4px 8px var(--button-shadow);
+    border-color: var(--pink);
+}
+
+/* Form Layout */
 .card-body {
     display: flex;
     flex-direction: column;
@@ -99,25 +148,35 @@ h3 {
     width: 100%;
 }
 
-.text-center {
-    text-align: center;
-}
-.input:focus {
-    outline: none;
-    box-shadow: 0px 4px 8px var(--button-shadow);
-    border-color: var(--blue);
+/* Password Eye Icon */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
 }
 
-/* Forgot Password */
+/* Eye Icon Inside Password Input */
+.input-wrapper .eye-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--black);
+    cursor: pointer;
+}
+
+/* Forgot Password Container */
 .forgot-password-container {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 24px;
+    text-align: left;
+    width: 100%;
+    max-width: 380px;
+    margin-top: 15px;
 }
 
+/* Forgot Password Link */
 .forgot-password-link {
     font-size: 0.9em;
-    color: var(--red);
+    color: var(--black);
     font-weight: 600;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -144,18 +203,19 @@ h3 {
 
 /* Primary Button */
 .btn-primary {
-    background-color: var(--blue);
+    background-color: var(--red);
     color: var(--white);
     box-shadow: var(--button-shadow);
     margin-top: 10px;
 }
 
+/* Primary Button Hover Effect */
 .btn-primary:hover {
-    background-color: var(--red);
+    background-color: var(--pink);
     box-shadow: var(--button-shadow-hover);
 }
 
-/* Responsive */
+/* Responsive Styles */
 @media screen and (max-width: 450px) {
     .card {
         padding: 1.5em;
