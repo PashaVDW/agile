@@ -1,39 +1,78 @@
 <!DOCTYPE html>
 <html class="h-full" data-theme="true" data-theme-mode="light" dir="ltr" lang="nl">
-@include("auth.partials.head")
+<head>
+    @include("admin.partials.head")
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
 
 <body class="h-full flex items-center justify-center bg-[var(--input-background)] text-gray-900">
 
 <div class="flex items-center justify-center grow bg-center bg-no-repeat page-bg relative w-full">
+    <!-- Login Card -->
     <div class="card relative">
-        @include("auth.partials.back_button")
+        <!-- Back Button -->
+        <a href="{{ url('/') }}" class="back-button">
+            <i class="ki-filled ki-arrow-left text-2xl"></i>
+        </a>
 
+        <!-- Login Form -->
         <form action="{{ route('login') }}" class="card-body relative" id="sign_in_form" method="POST">
             @csrf
 
+            <!-- Titel -->
             <div class="text-center mb-4">
                 <h3>Inloggen</h3>
             </div>
 
-            @include('auth.partials.input_field', ['label' => 'E-mail', 'name' => 'email', 'placeholder' => 'test@example.com', 'type' => 'email'])
-            @include('auth.partials.password_field', ['label' => 'Wachtwoord', 'name' => 'password', 'placeholder' => 'Voer wachtwoord in'])
-
-            @include('auth.partials.button', ['id' => 'login-btn', 'text' => 'Inloggen'])
-
-            <div class="register-container">
-                <a class="register-link" href="{{ route('register') }}">
-                    Nog geen account? <span>Registreren</span>
-                </a>
+            <!-- Email Input -->
+            <div class="w-full text-left mb-3">
+                <label class="text-black font-semibold">E-mail</label>
+                <input name="email" class="input @error('email') border-red-500 @enderror" placeholder="test@example.com" type="email" required />
+                @error('email')
+                <span class="text-danger text-sm">{{ $message }}</span>
+                @enderror
             </div>
+
+            <!-- Password Input -->
+            <div class="w-full text-left mb-3">
+                <label class="text-black font-semibold">Wachtwoord</label>
+                <div class="input-wrapper relative">
+                    <input name="password" class="input w-full" placeholder="Voer wachtwoord in" type="password" required />
+                    <i class="eye-icon ki-filled ki-eye absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer" onclick="togglePassword()"></i>
+                </div>
+                @error('password')
+                <span class="text-danger text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <!-- Inloggen Knop -->
+            <button class="btn btn-primary mt-4 w-full" type="submit" id="login-btn">
+                Inloggen
+            </button>
         </form>
     </div>
 </div>
 
 <script>
-    function togglePassword(name) {
-        let input = document.querySelector(`input[name="${name}"]`);
+    function togglePassword() {
+        let input = document.querySelector('input[name="password"]');
         input.type = input.type === "password" ? "text" : "password";
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let loginBtn = document.getElementById("login-btn");
+
+        loginBtn.addEventListener("mouseover", function () {
+            loginBtn.style.transform = "scale(1.05)";
+            loginBtn.style.boxShadow = "0px 8px 12px rgba(254, 64, 64, 0.3)";
+        });
+
+        loginBtn.addEventListener("mouseleave", function () {
+            loginBtn.style.transform = "scale(1)";
+            loginBtn.style.boxShadow = "var(--button-shadow)";
+        });
+    });
 </script>
 
 </body>
