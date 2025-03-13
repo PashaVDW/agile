@@ -1,0 +1,163 @@
+/* Root Variables - Using Exact Colors from Your Old Project */
+:root {
+    --blue: #3129FF;
+    --red: #FE4040;
+    --pink: #E39FF6;
+    --cyan: #08E8DE;
+    --white: #fff;
+    --black: #000;
+    --gray: #B0B0B0;
+
+    --input-background: #ECEBFF;
+    --input-border: 2px solid #EEEDFF;
+    --input-shadow-color: #E1DEFF;
+    --button-shadow: 0px 4px 6px 2px rgba(49, 41, 255, 0.2);
+    --button-shadow-hover: 0px 8px 12px 4px rgba(49, 41, 255, 0.3);
+}
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-size: 16px;
+    height: 100%;
+    background: var(--input-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Login Card */
+.card {
+    background: var(--white);
+    padding: 2em;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Titles & Text */
+h3 {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--black);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Ensure "Sign in" is perfectly centered */
+.text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Error Messages */
+.text-danger {
+    color: var(--red);
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* Links */
+.link {
+    color: var(--red);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: var(--pink);
+}
+
+/* Inputs */
+.input {
+    width: 100%;
+    max-width: 380px;
+    padding: 14px;
+    border: var(--input-border);
+    border-radius: 8px;
+    background-color: var(--white);
+    color: var(--black);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Center and widen the form inside the card */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+.input:focus {
+    outline: none;
+    box-shadow: 0px 4px 8px var(--button-shadow);
+    border-color: var(--blue);
+}
+
+/* Forgot Password */
+.forgot-password-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 24px;
+}
+
+.forgot-password-link {
+    font-size: 0.9em;
+    color: var(--red);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password-link:hover {
+    color: var(--pink);
+    text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+    width: 95%;
+    max-width: 380px;
+    padding: 14px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Primary Button */
+.btn-primary {
+    background-color: var(--blue);
+    color: var(--white);
+    box-shadow: var(--button-shadow);
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: var(--red);
+    box-shadow: var(--button-shadow-hover);
+}
+
+/* Responsive */
+@media screen and (max-width: 450px) {
+    .card {
+        padding: 1.5em;
+    }
+}

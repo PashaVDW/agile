@@ -2,10 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Middleware\RoleMiddleware;
 
 // Admin Routes
-Route::controller(AdminController::class)->name('admin')->group(function () {
-    Route::get('/admin', 'index');
+Route::middleware(RoleMiddleware::class . ':admin')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
 Route::get('/', function () {
