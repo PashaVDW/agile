@@ -1,23 +1,27 @@
 @props([
   "name",
   "required" => false,
-  "value",
+  "value" => "",
   "title" => "",
   "class" => "",
+  "label" => "",
 ])
 
 <div class="mb-4">
   <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $name }}">
-    {{ \Illuminate\Support\Str::of($name)->kebab()->replace("-", " ")->ucfirst() }}
+    {{ \Illuminate\Support\Str::of($label)->kebab()->replace("-", " ")->ucfirst() }}
     @if ($required)
       <span class="">*</span>
     @endif
   </label>
-  @if ($value)
-    <div class="mb-2">
-      <a href="{{ asset($value) }}" target="_blank" class="">{{ $title }}</a>
-    </div>
-  @endif
+
+    @if ($value && $value !== "assets/images/no-image.png")
+        <div class="mb-2">
+            <a href="{{ asset($value) }}" target="_blank" class="file">
+                {{ $title ?: 'Bekijk bestand' }}
+            </a>
+        </div>
+    @endif
 
   <input
     type="file"

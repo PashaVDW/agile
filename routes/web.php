@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 // Admin Routes
@@ -13,9 +14,17 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/events', function () {
-    return view('events');
-})->name('events');
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
+    Route::prefix('/event')->group(function () {
+        Route::get('/create', [EventController::class, 'create'])->name('admin.event.create');
+        Route::post('/store', [EventController::class, 'store'])->name('admin.event.store');
+
+        Route::get('/{id}', [EventController::class, 'show'])->name('admin.event.show');
+        Route::put('/update/{id}', [EventController::class, 'update'])->name('admin.event.update');
+        Route::delete('/delete/{id}', [EventController::class, 'delete'])->name('admin.event.delete');
+    });
+});
 
 Route::get('/login', function () {
     return view('login');
