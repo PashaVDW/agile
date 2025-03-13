@@ -17,6 +17,17 @@
 @endphp
 
   @include("admin.partials.head")
+
+  @php
+      if (strpos(Route::current()->getName(), '.') !== false) {
+          $parts = explode('.', Route::current()->getName());
+          $className = $parts[0]; // admin.events.index -> admin
+      }
+      else {
+          $className = Route::current()->getName();
+      }
+  @endphp
+
   <body
     class="{{$className}} antialiased flex h-full text-base text-gray-700 [--tw-page-bg:var(--tw-coal-300)] [--tw-content-bg:var(--tw-light)] [--tw-content-bg-dark:var(--tw-coal-500)] [--tw-content-scrollbar-color:#e8e8e8] [--tw-header-height:60px] [--tw-sidebar-width:270px] bg-[--tw-page-bg] lg:overflow-hidden"
   >

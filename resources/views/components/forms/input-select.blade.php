@@ -11,12 +11,12 @@
 ])
 
 <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $name }}">
-        {{ \Illuminate\Support\Str::of($label)->kebab()->replace("-", " ")->ucfirst() }}
-        @if ($required)
-            <span class="">*</span>
-        @endif
-    </label>
+  <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $name }}">
+    {{ \Illuminate\Support\Str::of($label)->kebab()->replace("-", " ")->ucfirst() }}
+    @if ($required)
+      <span class="">*</span>
+    @endif
+  </label>
 
     <div class="relative">
         <select
@@ -45,8 +45,7 @@
             @endif
         </select>
     </div>
-
-    @error($name)
+  @error($name)
     <span class="text-xs italic">{{ $message }}</span>
-    @enderror
+  @enderror
 </div>
