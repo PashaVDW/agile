@@ -6,6 +6,16 @@
   dir="ltr"
   lang="en"
 >
+@php
+    if (strpos(Route::current()->getName(), '.') !== false) {
+        $parts = explode('.', Route::current()->getName());
+        $className = $parts[0]; // admin.events.index -> admin
+    }
+    else {
+        $className = Route::current()->getName();
+    }
+@endphp
+
   @include("admin.partials.head")
 
   @php

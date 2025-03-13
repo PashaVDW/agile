@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\EventCategoryEnum;
 use App\Http\Requests\EventRequest;
 use App\Services\EventService;
+use Illuminate\Http\Request;
 use App\Services\SponsorService;
 
 class EventController extends Controller
@@ -17,10 +18,13 @@ class EventController extends Controller
         $this->sponsorService = $sponsorService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $events = $this->eventService->getEvents()->paginate(10);
-        return view('admin.events.index', ['events' => $events]);
+        if ($request->route()->named('admin.events.index')) {
+            return view('admin.events.index', ['events' => $events]);
+        }
+        return view('user.events.index',['events' => $events]);
     }
 
     public function create()
@@ -36,12 +40,15 @@ class EventController extends Controller
         return to_route('admin.events.index');
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $event = $this->eventService->getEvent($id);
         $categories = EventCategoryEnum::class;
         $sponsors = $this->sponsorService->getSponsors()->get();
-        return view('admin.events.show', ['event' => $event, 'categories' => $categories, 'sponsors' => $sponsors]);
+        if ($request->route()->named('admin.event.show')) {
+            return view('admin.events.show', ['event' => $event, 'categories' => $categories, 'sponsors' => $sponsors]);
+        }
+        return view('user.events.show', ['event' => $event, 'sponsors' => $sponsors]);
     }
 
     public function update(EventRequest $request, $id)

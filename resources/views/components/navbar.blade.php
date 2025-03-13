@@ -9,7 +9,7 @@
                 <a class="nav-link" href="{{ route('home') }}">Home</a>
             </li>
             <li class="nav-item {{ Request::is('events') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('events') }}">Evenementen</a>
+                <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
             </li>
             <li class="nav-item {{ Request::is('login') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('login') }}">Inloggen</a>

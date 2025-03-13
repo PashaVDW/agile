@@ -14,6 +14,7 @@
     box-shadow: var(--nav-shadow);
     border-radius: 1.6em;
     padding: 1em;
+    z-index: 999;
 }
 
 .navbar-brand {
