@@ -22,7 +22,7 @@ class Event extends Model
 
     protected $casts = [
         'category' => EventCategoryEnum::class,
-        'date' => 'datetime',
+        'date' => 'datetime'
     ];
 
     public function getImageUrlAttribute()

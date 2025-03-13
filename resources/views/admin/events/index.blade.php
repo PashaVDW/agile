@@ -21,7 +21,7 @@
                 <tr>
                     <td>{{ $event->title }}</td>
                     <td>{{ $event->formatted_date }} </td>
-                    <td>{{ ucFirst(strtolower($event->category->value)) }}</td>
+                    <td>{{ __($event->category->value)}}</td>
                     <td>{{ $event->getFormattedDateTime($event->created_at) }}</td>
                     <td>{{ $event->getFormattedDateTime($event->updated_at) }}</td>
                     <td><a href="{{ route("admin.event.show", ["id" => $event->id]) }}">Updaten</a></td>
