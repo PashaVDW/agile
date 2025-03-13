@@ -58,4 +58,11 @@ class EventService
     {
         Event::destroy($id);
     }
+
+    public function getRandomEvent()
+    {
+        return Event::whereNotNUll('gallery')
+            ->inRandomOrder()
+            ->first();
+    }
 }

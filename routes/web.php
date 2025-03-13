@@ -11,9 +11,7 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/admin', 'index');
 })->name('admin');
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');

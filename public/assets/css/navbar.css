@@ -7,6 +7,7 @@
 }
 
 .navbar {
+    position: fixed;
     max-width: 60%;
     left: 25px;
     top: 25px;
@@ -68,7 +69,7 @@
         max-width: 20%;
         margin-left: auto;
         top: 25px;
-        position: absolute;
+        position: fixed;
         left: unset;
         background-color: transparent !important;
         box-shadow: none;
@@ -88,7 +89,7 @@
         padding: 2em;
         box-shadow: var(--nav-shadow);
         border-radius: 0 1.6em 1.6em 0;
-        transform: translateX(-100%);
+        transform: translateX(-200%);
         transition: transform 0.3s ease-in-out;
     }
 
