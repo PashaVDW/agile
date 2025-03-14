@@ -28,19 +28,19 @@ class LoginTest extends DuskTestCase
     {
         $user = User::factory()->create([
             'email' => 'taylor@laravel.com',
-            'password' => bcrypt('password'), // Zorg ervoor dat het wachtwoord gehasht is
+            'password' => bcrypt('password'),
         ]);
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->visit('/login')
-                ->assertSee('Inloggen') // Controleer of de inlogpagina correct is geladen
+                ->assertSee('Inloggen')
                 ->type('email', $user->email)
                 ->type('password', 'password')
-                ->press('#login-btn') // Zorg ervoor dat de knop correct wordt gevonden
-                ->pause(500) // Even wachten op redirect
-                ->assertPathIs('/'); // Pas dit aan als de gebruiker elders wordt doorgestuurd
+                ->press('#login-btn')
+                ->pause(500)
+                ->assertPathIs('/');
 
-            $browser->screenshot('login-test'); // Screenshot voor debugging
+            $browser->screenshot('login-test');
         });
     }
 }
