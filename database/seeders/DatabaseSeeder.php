@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
 
         Role::create(['name' => 'user']);
         Role::create(['name' => 'admin']);
-        Role::create(['name' => 'owner']);
 
         $user = new User;
         $user->email = 'admin@agile.nl';

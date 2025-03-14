@@ -6,9 +6,30 @@
   dir="ltr"
   lang="en"
 >
+@php
+    if (strpos(Route::current()->getName(), '.') !== false) {
+        $parts = explode('.', Route::current()->getName());
+        $className = $parts[0]; // admin.events.index -> admin
+    }
+    else {
+        $className = Route::current()->getName();
+    }
+@endphp
+
   @include("admin.partials.head")
+
+  @php
+      if (strpos(Route::current()->getName(), '.') !== false) {
+          $parts = explode('.', Route::current()->getName());
+          $className = $parts[0]; // admin.events.index -> admin
+      }
+      else {
+          $className = Route::current()->getName();
+      }
+  @endphp
+
   <body
-    class="antialiased flex h-full text-base text-gray-700 [--tw-page-bg:var(--tw-coal-300)] [--tw-content-bg:var(--tw-light)] [--tw-content-bg-dark:var(--tw-coal-500)] [--tw-content-scrollbar-color:#e8e8e8] [--tw-header-height:60px] [--tw-sidebar-width:270px] bg-[--tw-page-bg] lg:overflow-hidden"
+    class="{{$className}} antialiased flex h-full text-base text-gray-700 [--tw-page-bg:var(--tw-coal-300)] [--tw-content-bg:var(--tw-light)] [--tw-content-bg-dark:var(--tw-coal-500)] [--tw-content-scrollbar-color:#e8e8e8] [--tw-header-height:60px] [--tw-sidebar-width:270px] bg-[--tw-page-bg] lg:overflow-hidden"
   >
     <!-- Theme Mode -->
     <script>
@@ -115,6 +136,24 @@
                       </span>
                     </a>
                   </div>
+                    <!-- Public events -->
+                    <div class="menu-item">
+                        <a
+                            class="menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"
+                            href="{{route('admin.events.index')}}"
+                        >
+                      <span
+                          class="menu-icon items-start text-lg text-gray-600 menu-item-active:text-gray-900 menu-item-here:text-gray-900"
+                      >
+                        <i class="ki-filled ki-home-3"></i>
+                      </span>
+                            <span
+                                class="menu-title text-sm text-gray-800 font-medium menu-item-here:text-gray-900 menu-item-active:text-gray-900 menu-link-hover:text-gray-900"
+                            >
+                        Events
+                      </span>
+                        </a>
+                    </div>
 
                   <!-- Public Profile -->
                   <div
