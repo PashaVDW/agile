@@ -23,6 +23,11 @@ class Event extends Model
         'status',
     ];
 
+    protected $searchable = [
+        'title',
+        'date',
+    ];
+
     protected $casts = [
         'category' => EventCategoryEnum::class,
         'date' => 'datetime',
@@ -67,4 +72,8 @@ class Event extends Model
         return TimezoneService::getTimezone($dateTime);
     }
 
+    public function getSearchable()
+    {
+        return $this->searchable;
+    }
 }
