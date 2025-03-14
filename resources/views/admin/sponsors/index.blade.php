@@ -17,7 +17,7 @@
                 @foreach($sponsors as $sponsor)
                     <tr>
                         <td>{{$sponsor->name}}</td>
-                        <td>{{$sponsor->active}}</td>
+                        <td>{{__($sponsor->active)}}</td>
                         <td><a href="{{ route("admin.sponsor.show", ["id" => $sponsor->id]) }}">Update</a></td>
                     </tr>
                 @endforeach
