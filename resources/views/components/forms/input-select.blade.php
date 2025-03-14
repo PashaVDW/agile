@@ -36,7 +36,7 @@
             @else
                 @foreach ($list as $key => $item)
                     <option value="{{ $key }}" {{ $key == $value ? "selected" : "" }}>
-                        {{ $item }}
+                        {{ ucfirst(strtolower(__($item))) }}
                     </option>
                 @endforeach
             @endif
