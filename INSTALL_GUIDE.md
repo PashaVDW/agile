@@ -17,6 +17,7 @@
 - Open een terminal in de root van het project en voer het commando `composer install` uit
 - Voer ook het commando `npm install` uit in de root van het project
 - Maak een `.env` bestand aan in de root van het project en kopieer de inhoud van `gedeelde .env` hierin.
+    - check of `APP_LOCALE=` op `nl` staat en niet op `en`.
 - Voer het command `php artisan migrate:fresh` uit in de root van het project (voert alle migrations uit en leegt de database als deze er is)
 - Voer het commando `php artisan db:seed` uit in de root van het project (voert alle seeders uit)
 - voer het commando `npm run dev` uit in de root van het project (compileert de assets)
