@@ -14,7 +14,7 @@ class HomeController extends Controller
         $this->eventService = $eventService;
     }
 
-    public function index(Request $request)
+    public function index()
     {
         $events = $this->eventService->getEvents()->limit(4)->get();
         $randomEvent = $this->eventService->getRandomEvent();

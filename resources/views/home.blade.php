@@ -21,10 +21,9 @@
                     <x-item :event="$event"/>
                 @endforeach
             </div>
-            <div class="sidebar">
-                    <x-swiper :item="$randomEvent" alt="title"/>
-
-            </div>
+            @if($randomEvent)
+                <x-swiper :item="$randomEvent" alt="title"/>
+            @endif
         </div>
     </div>
 @stop
