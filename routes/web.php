@@ -3,12 +3,12 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Middleware\RoleMiddleware;
 
 // Admin Routes
-// TODO: Middleware must be changed to admin.
-Route::controller(AdminController::class)->group(function () {
-    Route::get('/admin', 'index');
-})->name('admin');
+Route::middleware(RoleMiddleware::class.':admin')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+});
 
 Route::get('/', function () {
     return view('home');
