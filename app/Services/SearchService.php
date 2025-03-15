@@ -6,6 +6,7 @@ class SearchService
 {
     protected $models = [
         \App\Models\Event::class,
+        \App\Models\Sponsor::class,
     ];
 
     public function search($query, $request)
