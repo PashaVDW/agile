@@ -25,9 +25,13 @@ class EventsCrudTest extends DuskTestCase
                     ->select('category', 'DRINKS')
                     ->typeSlowly('price', '10')
                     ->typeSlowly('capacity', '10')
-                    ->attach('image', storage_path('app/public/images/banner-2.jpg')) // change image to your own
-                    ->press('Evenement toevoegen')
-                    ->waitForLocation(route('admin.events.index'))
+                    ->attach('banner', storage_path('app/public/images/banner-2.jpg')) // change image to your own
+                    ->typeSlowly('payment_link', 'test');
+                    $browser->script([
+                        'document.getElementById("submitButton").scrollIntoView()',
+                        'document.getElementById("submitButton").click()'
+                    ]);
+                    $browser->waitForLocation(route('admin.events.index'))
                     ->assertSee('test');
         });
     }
@@ -49,9 +53,12 @@ class EventsCrudTest extends DuskTestCase
                 ->type('date', '01-01-2027')
                 ->select('category', 'EVENTS')
                 ->typeSlowly('price', '20')
-                ->typeSlowly('capacity', '20')
-                ->press('Evenement updaten')
-                ->waitForLocation(route('admin.events.index'))
+                ->typeSlowly('capacity', '20');
+                $browser->script([
+                    'document.getElementById("submitButton").scrollIntoView()',
+                    'document.getElementById("submitButton").click()'
+                ]);
+                $browser->waitForLocation(route('admin.events.index'))
                 ->assertSee('test');
         });
     }
@@ -60,9 +67,38 @@ class EventsCrudTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visitRoute('admin.event.show', 1)
-                ->press('Evenement verwijderen')
+                ->script([
+                    'document.getElementById("submitButton").scrollIntoView()'
+                ]);
+                $browser->press('Evenement verwijderen')
                 ->waitForLocation(route('admin.events.index'))
                 ->assertDontSee('test2');
+        });
+    }
+
+    public function testUpdateArchivedEvent()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visitRoute('admin.event.show', 1)
+                ->typeSlowly('title', 'Updated Archived Title')
+                ->typeSlowly('description', 'Updated Archived Description')
+                ->type('date', '01-01-2025')
+                ->type('capacity', '10')
+                ->select('category', 'EVENT')
+                ->typeSlowly('price', '30')
+                ->typeSlowly('capacity', '20');
+            $browser->script([
+                'document.getElementById("submitButton").scrollIntoView()'
+            ]);
+            $browser->typeSlowly('capacity', '40')
+                ->attach('gallery[]', storage_path('app/public/images/banner-2.jpg'));
+
+            $browser->script([
+                'document.getElementById("submitButton").click()'
+            ]);
+
+            $browser->waitForLocation(route('admin.events.index'))
+                ->assertSee('Updated Archived Title');
         });
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\EventCategoryEnum;
 use App\Http\Requests\EventRequest;
+use App\Models\Event;
 use App\Services\EventService;
 use Illuminate\Http\Request;
 use App\Services\SponsorService;

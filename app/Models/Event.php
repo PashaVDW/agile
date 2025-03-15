@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ActiveTypeEnum;
 use App\Enums\EventCategoryEnum;
 use App\Services\TimezoneService;
 use Illuminate\Database\Eloquent\Model;
@@ -16,9 +17,11 @@ class Event extends Model
         'price',
         'capacity',
         'date',
-        'image',
+        'banner',
         'category',
         'payment_link',
+        'gallery',
+        'status',
     ];
 
     public function sponsors(): BelongsToMany
@@ -28,15 +31,31 @@ class Event extends Model
 
     protected $casts = [
         'category' => EventCategoryEnum::class,
-        'date' => 'datetime'
+        'date' => 'datetime',
+        'status' => ActiveTypeEnum::class,
+        'gallery' => 'array',
     ];
 
-    public function getImageUrlAttribute()
+    public function getBannerUrlAttribute()
     {
-        if ($this->image === null) {
+        if ($this->banner === null) {
             return 'assets/images/no-image.png';
         }
-        return Storage::url($this->image);
+        return Storage::url($this->banner);
+    }
+
+    public function getGalleryImagePath($image)
+    {
+        return Storage::url($image);
+    }
+
+    public function hasPhotos()
+    {
+        return !empty($this->gallery);
+    }
+
+    public function getDecodedPhotos() {
+        return json_decode($this->gallery);
     }
 
     public function getFormattedDateAttribute()

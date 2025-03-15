@@ -19,7 +19,7 @@
             <tbody>
             @foreach ($events as $event)
                 <tr>
-                    <td>{{ $event->title }}</td>
+                    <td>{{ Str::of($event->title)->words(5, '...') }} <span>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</span></td>
                     <td>{{ $event->formatted_date }} </td>
                     <td>{{ __($event->category->value)}}</td>
                     <td>{{ $event->getFormattedDateTime($event->created_at) }}</td>
@@ -29,5 +29,8 @@
             @endforeach
             </tbody>
         </table>
+        <div class="mt-4">
+            {{ $events->links() }}
+        </div>
     </div>
 @stop

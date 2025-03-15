@@ -21,9 +21,11 @@ class EventRequest extends FormRequest
             'price' => 'numeric|max:2147483647|nullable|min:0',
             'capacity' => 'numeric|max:2147483647|nullable|min:0',
             'date' => 'required|date',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category' => 'required|string|in:'.implode(',', EventCategoryEnum::toArray()),
             'payment_link' => 'nullable|string|max:255',
+            'gallery' => 'nullable|array|max:50',
+            'gallery.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -40,13 +42,14 @@ class EventRequest extends FormRequest
             'capacity.max' => 'De capaciteit mag niet groter zijn dan 2147483647',
             'capacity.min' => 'De capaciteit dient minimaal 0 te zijn',
             'date.required' => 'Een datum is verplicht',
-            'image.image' => 'Het bestand dient een afbeelding te zijn',
-            'image.mimes' => 'De afbeelding dient een bestand te zijn van het type: jpeg, png, jpg, gif, svg',
-            'image.max' => 'De afbeelding mag niet groter zijn dan 2048 kilobytes',
+            'banner.image' => 'Het bestand dient een afbeelding te zijn',
+            'banner.mimes' => 'De afbeelding dient een bestand te zijn van het type: jpeg, png, jpg, gif, svg',
+            'banner.max' => 'De afbeelding mag niet groter zijn dan 2048 kilobytes',
             'payment_link.max' => 'De betaallink mag niet langer zijn dan 255 karakters',
             'payment_link.string' => 'De betaallink dient een string te zijn',
             'category.required' => 'Een categorie is verplicht',
             'category.in' => 'De geselecteerde categorie is ongeldig',
+            'gallery.max' => 'Er mogen maximaal 50 afbeeldingen worden geüpload',
         ];
     }
 }
