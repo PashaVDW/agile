@@ -18,16 +18,6 @@
 
   @include("admin.partials.head")
 
-  @php
-      if (strpos(Route::current()->getName(), '.') !== false) {
-          $parts = explode('.', Route::current()->getName());
-          $className = $parts[0]; // admin.events.index -> admin
-      }
-      else {
-          $className = Route::current()->getName();
-      }
-  @endphp
-
   <body
     class="{{$className}} antialiased flex h-full text-base text-gray-700 [--tw-page-bg:var(--tw-coal-300)] [--tw-content-bg:var(--tw-light)] [--tw-content-bg-dark:var(--tw-coal-500)] [--tw-content-scrollbar-color:#e8e8e8] [--tw-header-height:60px] [--tw-sidebar-width:270px] bg-[--tw-page-bg] lg:overflow-hidden"
   >
@@ -107,11 +97,11 @@
             >
               <!-- Primary Menu -->
               <div class="mb-5">
-                <h3
-                  class="text-sm text-gray-500 uppercase ps-5 inline-block mb-3"
-                >
-                  Pages
-                </h3>
+{{--                <h3--}}
+{{--                  class="text-sm text-gray-500 uppercase ps-5 inline-block mb-3"--}}
+{{--                >--}}
+{{--                  Pages--}}
+{{--                </h3>--}}
                 <div
                   class="menu flex flex-col w-full gap-1.5 px-3.5"
                   data-menu="true"
@@ -119,23 +109,23 @@
                   id="sidebar_primary_menu"
                 >
                   <!-- Overview -->
-                  <div class="menu-item">
-                    <a
-                      class="menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"
-                      href="html/demo10.html"
-                    >
-                      <span
-                        class="menu-icon items-start text-lg text-gray-600 menu-item-active:text-gray-900 menu-item-here:text-gray-900"
-                      >
-                        <i class="ki-filled ki-home-3"></i>
-                      </span>
-                      <span
-                        class="menu-title text-sm text-gray-800 font-medium menu-item-here:text-gray-900 menu-item-active:text-gray-900 menu-link-hover:text-gray-900"
-                      >
-                        Overview
-                      </span>
-                    </a>
-                  </div>
+{{--                  <div class="menu-item">--}}
+{{--                    <a--}}
+{{--                      class="menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"--}}
+{{--                      href="html/demo10.html"--}}
+{{--                    >--}}
+{{--                      <span--}}
+{{--                        class="menu-icon items-start text-lg text-gray-600 menu-item-active:text-gray-900 menu-item-here:text-gray-900"--}}
+{{--                      >--}}
+{{--                        <i class="ki-filled ki-home-3"></i>--}}
+{{--                      </span>--}}
+{{--                      <span--}}
+{{--                        class="menu-title text-sm text-gray-800 font-medium menu-item-here:text-gray-900 menu-item-active:text-gray-900 menu-link-hover:text-gray-900"--}}
+{{--                      >--}}
+{{--                        Overview--}}
+{{--                      </span>--}}
+{{--                    </a>--}}
+{{--                  </div>--}}
                     <!-- Public events -->
                     <div class="menu-item">
                         <a
@@ -150,7 +140,25 @@
                             <span
                                 class="menu-title text-sm text-gray-800 font-medium menu-item-here:text-gray-900 menu-item-active:text-gray-900 menu-link-hover:text-gray-900"
                             >
-                        Events
+                        Evenementen
+                      </span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a
+                            class="menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"
+                            href="{{route('admin.sponsors.index')}}"
+                        >
+                      <span
+                          class="menu-icon items-start text-lg text-gray-600 menu-item-active:text-gray-900 menu-item-here:text-gray-900"
+                      >
+                        <i class="ki-filled ki-home-3"></i>
+                      </span>
+                            <span
+                                class="menu-title text-sm text-gray-800 font-medium menu-item-here:text-gray-900 menu-item-active:text-gray-900 menu-link-hover:text-gray-900"
+                            >
+                        Sponsoren
                       </span>
                         </a>
                     </div>
@@ -161,164 +169,164 @@
                     data-menu-item-toggle="accordion"
                     data-menu-item-trigger="click"
                   >
-                    <div
-                      class="menu-link gap-2.5 py-2 px-2.5 rounded-md !menu-item-hover:bg-transparent !menu-item-here:bg-transparent"
-                    >
-                      <span
-                        class="menu-icon items-start text-gray-400 text-lg menu-item-here:text-gray-900 menu-item-show:text-gray-900 menu-link-hover:text-gray-900"
-                      >
-                        <i class="ki-filled ki-profile-circle"></i>
-                      </span>
-                      <span
-                        class="menu-title font-medium text-sm text-gray-700 menu-item-here:text-gray-900 menu-item-show:text-gray-900 menu-link-hover:text-gray-900"
-                      >
-                        Public Profile
-                      </span>
-                      <span
-                        class="menu-arrow text-gray-400 menu-item-here:text-gray-400 menu-item-show:text-gray-800 menu-link-hover:text-gray-800"
-                      >
-                        <i
-                          class="ki-filled ki-down text-3xs menu-item-show:hidden"
-                        ></i>
-                        <i
-                          class="ki-filled ki-up text-3xs hidden menu-item-show:inline-flex"
-                        ></i>
-                      </span>
-                    </div>
-                    <div class="menu-accordion gap-px ps-7">
+{{--                    <div--}}
+{{--                      class="menu-link gap-2.5 py-2 px-2.5 rounded-md !menu-item-hover:bg-transparent !menu-item-here:bg-transparent"--}}
+{{--                    >--}}
+{{--                      <span--}}
+{{--                        class="menu-icon items-start text-gray-400 text-lg menu-item-here:text-gray-900 menu-item-show:text-gray-900 menu-link-hover:text-gray-900"--}}
+{{--                      >--}}
+{{--                        <i class="ki-filled ki-profile-circle"></i>--}}
+{{--                      </span>--}}
+{{--                      <span--}}
+{{--                        class="menu-title font-medium text-sm text-gray-700 menu-item-here:text-gray-900 menu-item-show:text-gray-900 menu-link-hover:text-gray-900"--}}
+{{--                      >--}}
+{{--                        Public Profile--}}
+{{--                      </span>--}}
+{{--                      <span--}}
+{{--                        class="menu-arrow text-gray-400 menu-item-here:text-gray-400 menu-item-show:text-gray-800 menu-link-hover:text-gray-800"--}}
+{{--                      >--}}
+{{--                        <i--}}
+{{--                          class="ki-filled ki-down text-3xs menu-item-show:hidden"--}}
+{{--                        ></i>--}}
+{{--                        <i--}}
+{{--                          class="ki-filled ki-up text-3xs hidden menu-item-show:inline-flex"--}}
+{{--                        ></i>--}}
+{{--                      </span>--}}
+{{--                    </div>--}}
+{{--                    <div class="menu-accordion gap-px ps-7">--}}
                       <!-- Profiles -->
-                      <div
-                        class="menu-item"
-                        data-menu-item-toggle="accordion"
-                        data-menu-item-trigger="click"
-                      >
-                        <div
-                          class="menu-link py-2 px-2.5 rounded-md border border-transparent !menu-item-here:bg-transparent"
-                        >
-                          <span
-                            class="menu-title text-2sm text-gray-800 menu-item-here:text-gray-900 menu-item-show:text-gray-900 menu-link-hover:text-gray-900"
-                          >
-                            Profiles
-                          </span>
-                        </div>
-                        <div class="menu-accordion gap-px ps-2.5">
-                          <div class="menu-item">
-                            <a
-                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                              href="html/demo10/public-profile/profiles/default.html"
-                            >
-                              <span
-                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                              >
-                                Default
-                              </span>
-                            </a>
-                          </div>
-                          <div class="menu-item">
-                            <a
-                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                              href="html/demo10/public-profile/profiles/creator.html"
-                            >
-                              <span
-                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                              >
-                                Creator
-                              </span>
-                            </a>
-                          </div>
-                          <div class="menu-item">
-                            <a
-                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                              href="html/demo10/public-profile/profiles/company.html"
-                            >
-                              <span
-                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                              >
-                                Company
-                              </span>
-                            </a>
-                          </div>
-                          <div class="menu-item">
-                            <a
-                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                              href="html/demo10/public-profile/profiles/nft.html"
-                            >
-                              <span
-                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                              >
-                                NFT
-                              </span>
-                            </a>
-                          </div>
-                          <div class="menu-item">
-                            <a
-                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                              href="html/demo10/public-profile/profiles/blogger.html"
-                            >
-                              <span
-                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                              >
-                                Blogger
-                              </span>
-                            </a>
-                          </div>
-                          <div class="menu-item">
-                            <a
-                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                              href="html/demo10/public-profile/profiles/crm.html"
-                            >
-                              <span
-                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                              >
-                                CRM
-                              </span>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+{{--                      <div--}}
+{{--                        class="menu-item"--}}
+{{--                        data-menu-item-toggle="accordion"--}}
+{{--                        data-menu-item-trigger="click"--}}
+{{--                      >--}}
+{{--                        <div--}}
+{{--                          class="menu-link py-2 px-2.5 rounded-md border border-transparent !menu-item-here:bg-transparent"--}}
+{{--                        >--}}
+{{--                          <span--}}
+{{--                            class="menu-title text-2sm text-gray-800 menu-item-here:text-gray-900 menu-item-show:text-gray-900 menu-link-hover:text-gray-900"--}}
+{{--                          >--}}
+{{--                            Profiles--}}
+{{--                          </span>--}}
+{{--                        </div>--}}
+{{--                        <div class="menu-accordion gap-px ps-2.5">--}}
+{{--                          <div class="menu-item">--}}
+{{--                            <a--}}
+{{--                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                              href="html/demo10/public-profile/profiles/default.html"--}}
+{{--                            >--}}
+{{--                              <span--}}
+{{--                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                              >--}}
+{{--                                Default--}}
+{{--                              </span>--}}
+{{--                            </a>--}}
+{{--                          </div>--}}
+{{--                          <div class="menu-item">--}}
+{{--                            <a--}}
+{{--                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                              href="html/demo10/public-profile/profiles/creator.html"--}}
+{{--                            >--}}
+{{--                              <span--}}
+{{--                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                              >--}}
+{{--                                Creator--}}
+{{--                              </span>--}}
+{{--                            </a>--}}
+{{--                          </div>--}}
+{{--                          <div class="menu-item">--}}
+{{--                            <a--}}
+{{--                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                              href="html/demo10/public-profile/profiles/company.html"--}}
+{{--                            >--}}
+{{--                              <span--}}
+{{--                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                              >--}}
+{{--                                Company--}}
+{{--                              </span>--}}
+{{--                            </a>--}}
+{{--                          </div>--}}
+{{--                          <div class="menu-item">--}}
+{{--                            <a--}}
+{{--                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                              href="html/demo10/public-profile/profiles/nft.html"--}}
+{{--                            >--}}
+{{--                              <span--}}
+{{--                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                              >--}}
+{{--                                NFT--}}
+{{--                              </span>--}}
+{{--                            </a>--}}
+{{--                          </div>--}}
+{{--                          <div class="menu-item">--}}
+{{--                            <a--}}
+{{--                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                              href="html/demo10/public-profile/profiles/blogger.html"--}}
+{{--                            >--}}
+{{--                              <span--}}
+{{--                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                              >--}}
+{{--                                Blogger--}}
+{{--                              </span>--}}
+{{--                            </a>--}}
+{{--                          </div>--}}
+{{--                          <div class="menu-item">--}}
+{{--                            <a--}}
+{{--                              class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                              href="html/demo10/public-profile/profiles/crm.html"--}}
+{{--                            >--}}
+{{--                              <span--}}
+{{--                                class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                              >--}}
+{{--                                CRM--}}
+{{--                              </span>--}}
+{{--                            </a>--}}
+{{--                          </div>--}}
+{{--                        </div>--}}
+{{--                      </div>--}}
 
                       <!-- Works -->
-                      <div class="menu-item">
-                        <a
-                          class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                          href="html/demo10/public-profile/works.html"
-                        >
-                          <span
-                            class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                          >
-                            Works
-                          </span>
-                        </a>
-                      </div>
+{{--                      <div class="menu-item">--}}
+{{--                        <a--}}
+{{--                          class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                          href="html/demo10/public-profile/works.html"--}}
+{{--                        >--}}
+{{--                          <span--}}
+{{--                            class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                          >--}}
+{{--                            Works--}}
+{{--                          </span>--}}
+{{--                        </a>--}}
+{{--                      </div>--}}
 
                       <!-- Teams -->
-                      <div class="menu-item">
-                        <a
-                          class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                          href="html/demo10/public-profile/teams.html"
-                        >
-                          <span
-                            class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                          >
-                            Teams
-                          </span>
-                        </a>
-                      </div>
+{{--                      <div class="menu-item">--}}
+{{--                        <a--}}
+{{--                          class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                          href="html/demo10/public-profile/teams.html"--}}
+{{--                        >--}}
+{{--                          <span--}}
+{{--                            class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                          >--}}
+{{--                            Teams--}}
+{{--                          </span>--}}
+{{--                        </a>--}}
+{{--                      </div>--}}
 
                       <!-- Activity -->
-                      <div class="menu-item">
-                        <a
-                          class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"
-                          href="html/demo10/public-profile/activity.html"
-                        >
-                          <span
-                            class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"
-                          >
-                            Activity
-                          </span>
-                        </a>
-                      </div>
-                    </div>
+{{--                      <div class="menu-item">--}}
+{{--                        <a--}}
+{{--                          class="menu-link py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100"--}}
+{{--                          href="html/demo10/public-profile/activity.html"--}}
+{{--                        >--}}
+{{--                          <span--}}
+{{--                            class="menu-title text-2sm text-gray-800 menu-item-active:font-medium menu-item-active:text-gray-900 menu-link-hover:text-pgray-900"--}}
+{{--                          >--}}
+{{--                            Activity--}}
+{{--                          </span>--}}
+{{--                        </a>--}}
+{{--                      </div>--}}
+{{--                    </div>--}}
                   </div>
                 </div>
               </div>
@@ -339,22 +347,22 @@
           >
             <main class="grow" role="content">
               <!-- Toolbar -->
-              <div class="pb-5">
-                <!-- Container -->
-                <div
-                  class="container-fixed flex items-center justify-between flex-wrap gap-3"
-                >
-                  <div class="flex flex-col flex-wrap gap-1">
-                    <h1 class="font-medium text-lg text-gray-900"></h1>
-                    <div class="flex items-center gap-1 text-sm font-normal">
-                      <a class="text-gray-700 hover:text-primary" href="#">
-                        Home
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <!-- End of Container -->
-              </div>
+{{--              <div class="pb-5">--}}
+{{--                <!-- Container -->--}}
+{{--                <div--}}
+{{--                  class="container-fixed flex items-center justify-between flex-wrap gap-3"--}}
+{{--                >--}}
+{{--                  <div class="flex flex-col flex-wrap gap-1">--}}
+{{--                    <h1 class="font-medium text-lg text-gray-900"></h1>--}}
+{{--                    <div class="flex items-center gap-1 text-sm font-normal">--}}
+{{--                      <a class="text-gray-700 hover:text-primary" href="#">--}}
+{{--                        Home--}}
+{{--                      </a>--}}
+{{--                    </div>--}}
+{{--                  </div>--}}
+{{--                </div>--}}
+{{--                <!-- End of Container -->--}}
+{{--              </div>--}}
               <!-- End of Toolbar -->
               <!-- Container -->
               <!-- End of Container -->

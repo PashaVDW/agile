@@ -10,7 +10,7 @@
         </div>
         <div class="item-body">
             <p>
-                {{Str::of($event->description)->words(20, '...')}}
+                {!! Str::of(strip_tags($event->description))->words(20, '...') !!}
             </p>
         </div>
         <div class="item-footer">

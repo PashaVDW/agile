@@ -6,7 +6,7 @@
     <div class="container">
         <div class="filter-wrapper">
             <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                <x-forms.input-select :onchange="'this.form.submit()'" label="Categorie" default="Alle categorieën" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
+                <x-forms.input-select :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
             </form>
             <form method="GET" action="{{ route(Route::currentRouteName()) }}">
                 <x-forms.input-field label="Zoeken" name="search" value="{{ request('search') }}"/>
