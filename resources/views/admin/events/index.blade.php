@@ -4,7 +4,12 @@
 
 @section("content")
     <div class="container">
-        <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
+        <div class="filter-wrapper">
+            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
+                <x-forms.input-select :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
+            </form>
+            <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
+        </div>
         <table class="table">
             <thead>
                 <tr>
