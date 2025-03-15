@@ -7,9 +7,10 @@
   lang="nl"
 >
   <head>
-    @include("admin.partials.head")
-    <link rel="stylesheet" href="{{ asset("assets/css/login.css") }}" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <link href="assets/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
+      <link rel="stylesheet" href="{{ asset("assets/css/login.css") }}" />
+      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
   <body

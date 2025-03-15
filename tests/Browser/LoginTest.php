@@ -39,7 +39,6 @@ class LoginTest extends DuskTestCase
                 ->press('#login-btn')
                 ->pause(500)
                 ->assertPathIs('/');
-
             $browser->screenshot('login-test');
         });
     }

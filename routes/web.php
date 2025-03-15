@@ -27,7 +27,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 })->name('login');
 
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
