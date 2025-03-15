@@ -4,7 +4,15 @@
 
 @section("content")
     <div class="container">
-        <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
+        <div class="filter-wrapper">
+            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
+                <x-forms.input-select :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
+            </form>
+            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
+                <x-forms.input-field label="Zoeken" name="search" value="{{ request('search') }}"/>
+            </form>
+            <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -19,7 +27,7 @@
             <tbody>
             @foreach ($events as $event)
                 <tr>
-                    <td>{{ $event->title }}</td>
+                    <td>{{ Str::of($event->title)->words(5, '...') }} <span>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</span></td>
                     <td>{{ $event->formatted_date }} </td>
                     <td>{{ __($event->category->value)}}</td>
                     <td>{{ $event->getFormattedDateTime($event->created_at) }}</td>
@@ -29,5 +37,8 @@
             @endforeach
             </tbody>
         </table>
+        <div class="mt-4">
+            {{ $events->links() }}
+        </div>
     </div>
 @stop

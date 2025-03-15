@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\SponsorController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\RoleMiddleware;
 
@@ -10,9 +12,7 @@ Route::middleware(RoleMiddleware::class.':admin')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
@@ -23,6 +23,16 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/{id}', [EventController::class, 'show'])->name('admin.event.show');
         Route::put('/update/{id}', [EventController::class, 'update'])->name('admin.event.update');
         Route::delete('/delete/{id}', [EventController::class, 'delete'])->name('admin.event.delete');
+    });
+
+    Route::get('/sponsors', [SponsorController::class, 'index'])->name('admin.sponsors.index');
+    Route::prefix('/sponsor')->group(function () {
+        Route::get('/create', [SponsorController::class, 'create'])->name('admin.sponsor.create');
+        Route::post('/store', [SponsorController::class, 'store'])->name('admin.sponsor.store');
+
+        Route::get('/{id}', [SponsorController::class, 'show'])->name('admin.sponsor.show');
+        Route::put('/update/{id}', [SponsorController::class, 'update'])->name('admin.sponsor.update');
+        Route::delete('/delete/{id}', [SponsorController::class, 'delete'])->name('admin.sponsor.delete');
     });
 });
 

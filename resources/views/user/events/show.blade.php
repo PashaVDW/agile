@@ -8,21 +8,16 @@
             <div class="intro">
                 <h2>{{$event->title}}</h2>
                 <p>
-                    @if($event->description)
-                        Beste leden,
-                        <br />
-                        <br />
-                        {{$event->description}}
-                        <br />
-                        <br />
-                        Liefs, Concat
-                    @endif
+                    {!! $event->description !!}
                 </p>
             </div>
+            <x-swiper :item="$event->sponsors"/>
+            <x-swiper :item="$event" />
         </div>
         <div class="sidebar">
             <h2 class="has-background">Informatie</h2>
             <h4>{{__($event->category->value)}}</h4>
+            <p>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</p>
             <ul>
                 <li><span>Datum:</span> {{$event->formatted_date}}</li>
                 <li><span>Prijs:</span> {{$event->price}}</li>
