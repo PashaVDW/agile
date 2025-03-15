@@ -1,4 +1,6 @@
 {
     "DRINKS" : "Borrel",
-    "EVENT" : "Evenement"
+    "EVENT" : "Evenement",
+    "ACTIVE" : "Actief",
+    "ARCHIVED" : "Gearchiveerd"
 }

@@ -1,7 +1,7 @@
 @props(['event'])
 <div class="item">
     <div class="block image-block">
-        <img src="{{ asset($event->image_url)}}" alt="{{ $event->title }}">
+        <img src="{{ asset($event->banner_url)}}" alt="{{ $event->title }}">
     </div>
     <div class="block text-block">
         <div class="item-header">
@@ -10,7 +10,7 @@
         </div>
         <div class="item-body">
             <p>
-                {{Str::of($event->description)->words(20, '...')}}
+                {!! Str::of(strip_tags($event->description))->words(20, '...') !!}
             </p>
         </div>
         <div class="item-footer">

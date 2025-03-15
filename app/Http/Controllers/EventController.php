@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\EventCategoryEnum;
 use App\Http\Requests\EventRequest;
+use App\Models\Event;
 use App\Services\EventService;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,8 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        $events = $this->eventService->getEvents();
+        $events = $this->eventService->getEvents()->paginate(10);
+
         if ($request->route()->named('admin.events.index')) {
             return view('admin.events.index', ['events' => $events]);
         }

@@ -30,7 +30,7 @@
                         value="{{ strtoupper($item->value) }}"
                         {{ $item->value == $value ? "selected" : "" }}
                     >
-                        {{ ucfirst(strtolower($item->value)) }}
+                        {{ __($item->value) }}
                     </option>
                 @endforeach
             @else
