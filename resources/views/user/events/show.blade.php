@@ -11,7 +11,8 @@
                     {!! $event->description !!}
                 </p>
             </div>
-            <x-swiper :item="$event" alt="title" />
+            <x-swiper :item="$event->sponsors"/>
+            <x-swiper :item="$event" />
         </div>
         <div class="sidebar">
             <h2 class="has-background">Informatie</h2>

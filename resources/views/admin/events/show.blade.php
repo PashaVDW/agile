@@ -25,6 +25,13 @@
                             <x-forms.input-file name="gallery" :title="($event->title ?? '')" label="Galerij" :multiple="true" :gallery="$event ?? []"/>
                         @endif
 
+                        @if($sponsors->count() > 0)
+                            <h2 class="mt-4">Sponsoren</h2>
+                            @foreach($sponsors as $sponsor)
+                                <x-forms.input-checkbox name="sponsors[]" :value="$sponsor->id" :label="$sponsor->name" :checked="isset($event) && $event->sponsors->contains($sponsor->id)"/>
+                            @endforeach
+                        @endif
+
                         @if(!isset($event) || $event->status->name !== 'ARCHIVED')
                             <button id="openModalButton" type="button" class="button right hidden">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
                         @endif

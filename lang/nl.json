@@ -2,5 +2,7 @@
     "DRINKS" : "Borrel",
     "EVENT" : "Evenement",
     "ACTIVE" : "Aankomend",
-    "ARCHIVED" : "Gearchiveerd"
+    "ARCHIVED" : "Gearchiveerd",
+    "active" : "Actief",
+    "inactive" : "Inactief"
 }
