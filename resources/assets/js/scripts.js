@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function carouselSwiper() {
-    new Swiper('#testimonialSwiper', {
+    new Swiper('#gallerySwiper', {
         slidesPerView: 1,
         spaceBetween: 0,
         speed: 300,

@@ -4,29 +4,24 @@ namespace App\Services;
 
 use App\Models\Event;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Sponsor;
 
 class EventService
 {
     public function getEvents($order = 'ASC')
     {
-        return Event::query()->orderBy('status', $order)->orderBy('date', $order);
-        return Event::query()->with('sponsors');
+        return Event::query()->orderBy('status', $order)->orderBy('date', $order)->with('sponsors');
     }
 
     public function getEvent($id)
     {
-        return Event::find($id);
+        return Event::find($id)->load('sponsors');
     }
 
     public function storeEvent($request)
     {
         $data = $request->validated();
-        $data['banner'] = ImageService::StoreImage($request, 'banner') ?? ($data['banner'] ?? null);
+        $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
         $data['status'] = $this->setStatus($data['date']);
-        Event::create($data);
-
-        $data['image'] = ImageService::StoreImage($request, 'image', 'Events') ?? ($data['image'] ?? null);
         $event = Event::create($data);
         $event->sponsors()->sync($request->input('sponsors', []));
     }
@@ -36,7 +31,7 @@ class EventService
         $data = $request->validated();
         $data['status'] = $this->setStatus($data['date']);
         if ($request->hasFile('banner')) {
-            $data['banner'] = ImageService::StoreImage($request, 'banner') ?? ($data['banner'] ?? null);
+            $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
         }
 
         if ($request->hasFile('gallery')) {
@@ -51,9 +46,6 @@ class EventService
             $data['gallery'] = json_encode($galleryPaths);
         }
 
-
-        Event::find($id)->update($data);
-        $data['image'] = ImageService::StoreImage($request, 'image', 'Events') ?? ($data['image'] ?? null);
         $event = Event::find($id);
         $event->update($data);
         $event->sponsors()->sync($request->input('sponsors', []));
