@@ -10,6 +10,9 @@
             @endforeach
         </div>
         <div class="sidebar">
+            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
+                <x-forms.input-select :onchange="'this.form.submit()'" name="status" label="Status" default="Alle statussen" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
+            </form>
         </div>
     </div>
 @stop

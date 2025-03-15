@@ -18,7 +18,13 @@ class EventController extends Controller
 
     public function index(Request $request)
     {
-        $events = $this->eventService->getEvents()->paginate(10);
+        $query = $this->eventService->getEvents();
+
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        $events = $query->paginate(10);
 
         if ($request->route()->named('admin.events.index')) {
             return view('admin.events.index', ['events' => $events]);
