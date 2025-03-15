@@ -22,7 +22,9 @@
                 @endforeach
             </div>
             @if($randomEvent)
-                <x-swiper :item="$randomEvent" alt="title"/>
+                <div class="sidebar">
+                    <x-swiper :item="$randomEvent" alt="title"/>
+                </div>
             @endif
         </div>
     </div>
