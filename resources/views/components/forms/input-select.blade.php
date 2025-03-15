@@ -6,6 +6,8 @@
   "value" => "",
   "class" => "",
   "label" => "",
+  "default" => "",
+  'onchange' => ''
 ])
 
 <div class="mb-4">
@@ -18,12 +20,13 @@
 
     <div class="relative">
         <select
+            onchange="{{ $onchange }}"
             name="{{ $name }}"
             id="{{ $name }}"
             class="border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 appearance-none pr-8 {{ $class }}"
             {{ $required ? "required" : "" }}
         >
-            <option value="">Selecteer een {{ strtolower($label) }}</option>
+            <option value="">{{ $default != '' ? $default : 'Selecteer een '.strtolower($label) }}</option>
             @if ($enum)
                 @foreach ($enum::cases() as $item)
                     <option
