@@ -8,6 +8,9 @@
             <form method="GET" action="{{ route(Route::currentRouteName()) }}">
                 <x-forms.input-select :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
             </form>
+            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
+                <x-forms.input-field label="Zoeken" name="search" value="{{ request('search') }}"/>
+            </form>
             <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
         </div>
         <table class="table">

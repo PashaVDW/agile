@@ -24,6 +24,11 @@ class Event extends Model
         'status',
     ];
 
+    protected $searchable = [
+        'title',
+        'date',
+    ];
+
     public function sponsors(): BelongsToMany
     {
         return $this->belongsToMany(Sponsor::class, 'event_sponsors', 'event_id', 'sponsor_id');
@@ -73,4 +78,8 @@ class Event extends Model
         return TimezoneService::getTimezone($dateTime);
     }
 
+    public function getSearchable()
+    {
+        return $this->searchable;
+    }
 }

@@ -6,6 +6,7 @@ use App\Enums\EventCategoryEnum;
 use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use App\Services\EventService;
+use App\Services\SearchService;
 use Illuminate\Http\Request;
 use App\Services\SponsorService;
 
@@ -13,9 +14,13 @@ class EventController extends Controller
 {
     private EventService $eventService;
     private SponsorService $sponsorService;
-    public function __construct(EventService $eventService, SponsorService $sponsorService)
+    private SearchService $searchService;
+
+
+    public function __construct(EventService $eventService, SponsorService $sponsorService, SearchService $searchService)
     {
         $this->eventService = $eventService;
+        $this->searchService = $searchService;
         $this->sponsorService = $sponsorService;
     }
 
@@ -25,6 +30,10 @@ class EventController extends Controller
 
         if ($request->has('status') && $request->status != '') {
             $query->where('status', $request->status);
+        }
+
+        if ($request->has("search") && $request->search != '') {
+            $this->searchService->searchEvents($query, $request->search, Event::class);
         }
 
         $events = $query->paginate(10);
