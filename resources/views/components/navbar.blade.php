@@ -1,6 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse" id="navbarNav">
@@ -13,18 +20,21 @@
             </li>
 
             @auth
-                @if(auth()->user()->hasRole('admin'))
+                @if (auth()->user()->hasRole('admin'))
                     <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('admin') }}">Admin</a>
                     </li>
                 @endif
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a
+                        class="nav-link"
+                        href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    >
                         Uitloggen
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
                         @csrf
                     </form>
                 </li>
@@ -38,25 +48,25 @@
 </nav>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function(){
-        const navbarToggler = document.querySelector(".navbar-toggler");
-        const navbarCollapse = document.querySelector("#navbarNav");
+    document.addEventListener('DOMContentLoaded', function () {
+        const navbarToggler = document.querySelector('.navbar-toggler')
+        const navbarCollapse = document.querySelector('#navbarNav')
 
-        navbarToggler.addEventListener("click", function(event){
-            navbarCollapse.classList.toggle("show");
-            event.stopPropagation();
-        });
+        navbarToggler.addEventListener('click', function (event) {
+            navbarCollapse.classList.toggle('show')
+            event.stopPropagation()
+        })
 
-        document.addEventListener("click", function(event) {
-            if(!navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)){
-                navbarCollapse.classList.remove("show");
+        document.addEventListener('click', function (event) {
+            if (!navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)) {
+                navbarCollapse.classList.remove('show')
             }
-        });
+        })
 
-        document.querySelectorAll(".navbar-nav .nav-link").forEach(item => {
-            item.addEventListener("click", function (){
-                navbarCollapse.classList.remove("show");
-            });
-        });
-    });
+        document.querySelectorAll('.navbar-nav .nav-link').forEach((item) => {
+            item.addEventListener('click', function () {
+                navbarCollapse.classList.remove('show')
+            })
+        })
+    })
 </script>
