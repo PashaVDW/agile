@@ -35,7 +35,7 @@
                         @endif
 
                         @if(!isset($event) || $event->status->name !== 'ARCHIVED')
-                            <button id="openModalButton" type="button" class="button right hidden">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
+                            <button id="openModalButton" type="button" class="button right hidden" data-modal-id="dateModal">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
                         @endif
                         <button id="submitButton" type="submit" class="button right">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
                         <x-modal id="dateModal" title="Date Format" message="Ingevoerde datum ligt vóór de huidige datum. Klopt dit?" />
@@ -44,9 +44,55 @@
                         <form method="POST" action="{{ route('admin.event.delete', ['id' => $event->id]) }}" class="mt-4">
                             @method('DELETE')
                             @csrf
-                            <button type="submit" class="button delete">Evenement verwijderen</button>
+                            <button id="openModalDeleteButton" data-modal-id="deleteModal" type="button" class="button delete">Evenement verwijderen</button>
+                            <x-modal id="deleteModal" title="Evenement verwijderen" message="Weet je zeker dat je deze wilt verwijderen" />
                         </form>
         @endif
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            openModal();
+        });
+
+        function openModal() {
+            const eventDateInput = document.getElementsByName('start_date')[0];
+            const openModalButton = document.getElementById('openModalButton');
+            const openModalDeleteButton = document.getElementById('openModalDeleteButton');
+            const submitButton = document.getElementById('submitButton');
+            const today = new Date().toISOString().split('T')[0];
+            const modals = document.getElementsByClassName('modal-wrapper');
+
+            function checkDate() {
+                const selectedDate = eventDateInput.value;
+                if (selectedDate < today) {
+                    openModalButton.classList.remove('hidden');
+                    submitButton.classList.add('hidden');
+                } else {
+                    openModalButton.classList.add('hidden');
+                    submitButton.classList.remove('hidden');
+                }
+            }
+
+            function showModal(button) {
+                for (let i = 0; i < modals.length; i++) {
+                    if (modals[i].id === button.getAttribute('data-modal-id')) {
+                        modals[i].classList.toggle('hidden');
+                    }
+                }
+            }
+            openModalDeleteButton.addEventListener('click', function () {
+                showModal(openModalDeleteButton);
+            });
+
+            eventDateInput.addEventListener('change', checkDate);
+            openModalButton.addEventListener('click', function () {
+                showModal(openModalButton);
+            });
+
+
+            checkDate();
+        }
+    </script>
 @stop

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class EventService
 {
-    public function getEvents($order = 'ASC')
+    public function getEvents($order = 'DESC')
     {
         return Event::query()->orderBy('status', $order)->orderBy('start_date', $order)->with('sponsors');
     }

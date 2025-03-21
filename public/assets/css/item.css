@@ -28,6 +28,7 @@
                             margin: 0 auto;
                             &.no-image {
                                 object-fit: contain;
+                                opacity: 0.6;
                             }
                         }
                     }

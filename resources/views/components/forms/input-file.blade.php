@@ -43,7 +43,7 @@
     {{ $required ? "required" : "" }}
     {{ $multiple ? "multiple" : "" }}
   />
-  @error($name)
+    @error($name . ($multiple ? '.*' : ''))
     <span class="text-xs italic">{{ $message }}</span>
   @enderror
 </div>

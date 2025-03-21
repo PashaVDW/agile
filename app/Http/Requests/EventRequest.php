@@ -26,8 +26,8 @@ class EventRequest extends FormRequest
             'gallery' => 'nullable|array|max:50',
             'gallery.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'location' => 'nullable|string|max:255',
-            'start_date' => 'required|date|after:today',
-            'end_date' => 'nullable|date|after_or_equal:start_date|after:today',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
         ];
     }
 
@@ -51,13 +51,13 @@ class EventRequest extends FormRequest
             'category.required' => 'Een categorie is verplicht',
             'category.in' => 'De geselecteerde categorie is ongeldig',
             'gallery.max' => 'Er mogen maximaal 50 afbeeldingen worden geüpload',
+            'gallery.*.image' => 'De bestanden dienen afbeeldingen te zijn',
+            'gallery.*.mimes' => 'De afbeeldingen dienen bestanden te zijn van het type: jpeg, png, jpg, gif, svg',
             'location.max' => 'De locatie mag niet langer zijn dan 255 karakters',
             'start_date.required' => 'De startdatum dient verplicht in te worden gevuld',
             'start_date.date' => 'De startdatum dient een datum te zijn',
-            'start_date.after' => 'De startdatum dient na vandaag te zijn',
             'end_date.date' => 'De einddatum dient een datum te zijn',
             'end_date.after_or_equal' => 'De einddatum dient na of gelijk te zijn aan de startdatum',
-            'end_date.after' => 'De einddatum dient na vandaag te zijn',
         ];
     }
 }
