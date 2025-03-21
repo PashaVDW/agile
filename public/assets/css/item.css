@@ -26,6 +26,9 @@
                             width: 100%;
                             object-fit: cover;
                             margin: 0 auto;
+                            &.no-image {
+                                object-fit: contain;
+                            }
                         }
                     }
                     &.text-block {

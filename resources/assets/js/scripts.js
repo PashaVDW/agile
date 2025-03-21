@@ -33,7 +33,7 @@ function carouselSwiper() {
 }
 
 function openModal() {
-    const eventDateInput = document.getElementsByName('date')[0];
+    const eventDateInput = document.getElementsByName('start_date')[0];
     const openModalButton = document.getElementById('openModalButton');
     const submitButton = document.getElementById('submitButton');
     const modal = document.getElementById('dateModal');

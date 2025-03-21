@@ -17,7 +17,7 @@
     @endif
   </label>
 
-    @if ($value && $value !== "assets/images/no-image.png")
+    @if ($value && $value !== "assets/images/logo-black.svg")
         <div class="mb-2">
             <a href="{{ asset($value) }}" target="_blank" class="file">
                 {{ $title ?: 'Bekijk bestand' }}

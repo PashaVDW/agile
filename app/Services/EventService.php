@@ -9,7 +9,7 @@ class EventService
 {
     public function getEvents($order = 'ASC')
     {
-        return Event::query()->orderBy('status', $order)->orderBy('date', $order)->with('sponsors');
+        return Event::query()->orderBy('status', $order)->orderBy('start_date', $order)->with('sponsors');
     }
 
     public function getEvent($id)
@@ -21,7 +21,7 @@ class EventService
     {
         $data = $request->validated();
         $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
-        $data['status'] = $this->setStatus($data['date']);
+        $data['status'] = $this->setStatus($data['start_date']);
         $event = Event::create($data);
         $event->sponsors()->sync($request->input('sponsors', []));
     }
@@ -29,7 +29,7 @@ class EventService
     public function updateEvent($request, $id)
     {
         $data = $request->validated();
-        $data['status'] = $this->setStatus($data['date']);
+        $data['status'] = $this->setStatus($data['start_date']);
         if ($request->hasFile('banner')) {
             $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
         }
@@ -58,7 +58,26 @@ class EventService
 
     public function deleteEvent($id)
     {
-        Event::destroy($id);
+        $event = Event::find($id);
+        if ($event) {
+            $this->deleteImages($event);
+            $event->delete();
+        }
+    }
+
+    private function deleteImages($event) {
+        if ($event->banner) {
+            $otherEvents = Event::where('banner', $event->banner)->where('id', '!=', $event->id)->count();
+            if ($otherEvents === 0) {
+                Storage::disk('public')->delete($event->banner);
+            }
+        }
+        if ($event->gallery) {
+            $gallery = json_decode($event->gallery);
+            foreach ($gallery as $image) {
+                Storage::disk('public')->delete($image);
+            }
+        }
     }
 
     public function getRandomEvent()
