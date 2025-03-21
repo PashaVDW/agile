@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SponsorRequest;
 use App\Services\EventService;
 use App\Services\SponsorService;
+use Illuminate\Http\Request;
 
 class SponsorController extends Controller
 {
@@ -18,10 +19,14 @@ class SponsorController extends Controller
         $this->eventService = $eventService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
        $sponsors = $this->sponsorService->getSponsors()->paginate(10);
-       return view('admin.sponsors.index', ['sponsors' => $sponsors, 'types' => $this->types]);
+
+        if ($request->route()->named('admin.sponsors.index')) {
+            return view('admin.sponsors.index', ['sponsors' => $sponsors, 'types' => $this->types]);
+        }
+        return view('user.sponsors.index', ['sponsors' => $sponsors, 'types' => $this->types]);
     }
 
     public function create()

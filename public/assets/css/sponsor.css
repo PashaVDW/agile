@@ -1,0 +1,15 @@
+.sponsor p{
+    color: var(--default-grey);
+}
+
+.sponsor h1{
+    font-size: 30px;
+}
+
+.sponsor p{
+    color: var(--default-grey);
+}
+
+.sponsor p strong{
+    color: var(--default-black);
+}
