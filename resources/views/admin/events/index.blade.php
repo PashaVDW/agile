@@ -30,8 +30,8 @@
                     <td>{{ Str::of($event->title)->words(5, '...') }} <span>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</span></td>
                     <td>{{ $event->getFormattedDate($event->start_date) }} </td>
                     <td>{{ __($event->category->value)}}</td>
-                    <td>{{ $event->getFormattedDateTime($event->created_at) }}</td>
-                    <td>{{ $event->getFormattedDateTime($event->updated_at) }}</td>
+                    <td>{{ $event->getFormattedDate($event->created_at) }}</td>
+                    <td>{{ $event->getFormattedDate($event->updated_at) }}</td>
                     <td><a href="{{ route("admin.event.show", ["id" => $event->id]) }}">Updaten</a></td>
                 </tr>
             @endforeach
