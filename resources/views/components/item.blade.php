@@ -1,12 +1,14 @@
-@props(['event'])
+@props([
+    'event',
+])
 <div class="item">
     <div class="block image-block">
-        <img src="{{ asset($event->banner_url)}}" alt="{{ $event->title }}">
+        <img src="{{ asset($event->banner_url) }}" alt="{{ $event->title }}" />
     </div>
     <div class="block text-block">
         <div class="item-header">
-            <h3 class="has-background">{{$event->title}}</h3>
-            <h6>{{__($event->category->value)}}</h6>
+            <h3 class="has-background">{{ $event->title }}</h3>
+            <h6>{{ __($event->category->value) }}</h6>
         </div>
         <div class="item-body">
             <p>
