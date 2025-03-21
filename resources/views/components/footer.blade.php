@@ -15,6 +15,7 @@
                 <a href="#">Privacyverklaring</a>
                 <a href="#">Statuten</a>
             </p>
+            <br>
             <p class="end">&copy; {{date("Y")}} Studievereniging Concat</p>
         </div>
     </div>
