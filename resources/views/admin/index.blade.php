@@ -68,7 +68,7 @@
                         <div class="flex flex-col items-center py-5 space-y-2">
                             <a href="/" class="flex flex-col items-center">
                                 <img src="{{ asset('assets/images/logo-white.png') }}" alt="Home" class="w-8 h-auto">
-                                <span class="text-sm text-white font-medium">Ga naar svconcat.nl</span>
+                                <span class="text-sm text-white font-medium">{{ config("app.name") }}.nl</span>
                             </a>
                         </div>
 
