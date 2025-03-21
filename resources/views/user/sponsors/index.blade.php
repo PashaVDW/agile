@@ -3,7 +3,6 @@
 @section("title", "Sponsors")
 
 @section("content")
-{{--    foreach sponsor--}}
     @foreach($sponsors as $sponsor)
         <div class="sponsor">
             <h1 class="has-background">{{$sponsor->name}}</h1>
