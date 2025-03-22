@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Jobs\ProcessImageUpload;
 use App\Models\Event;
-use Illuminate\Support\Facades\Storage;
 
 class EventService
 {
@@ -30,23 +30,24 @@ class EventService
     {
         $data = $request->validated();
         $data['status'] = $this->setStatus($data['start_date']);
+        $event = Event::find($id);
+
         if ($request->hasFile('banner')) {
+            ImageService::deleteImage(Event::class, $event);
             $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
         }
 
         if ($request->hasFile('gallery')) {
+            ImageService::deleteImages(Event::class, $event);
             $galleryPaths = [];
             foreach ($request->file('gallery') as $file) {
-                $filePath = 'images/gallery/' . $file->getClientOriginalName();
-                if (!Storage::disk('public')->exists($filePath)) {
-                    $filePath = $file->storeAs('images/gallery', $file->getClientOriginalName(), 'public');
-                }
-                $galleryPaths[] = $filePath;
+                $filePath = $file->storeAs('images/gallery', $file->getClientOriginalName(), 'public');
+                ProcessImageUpload::dispatch($filePath, $file->getClientOriginalName(), 'images/gallery');
+                $galleryPaths[] = 'images/gallery/' . $file->getClientOriginalName();
             }
             $data['gallery'] = json_encode($galleryPaths);
         }
 
-        $event = Event::find($id);
         $event->update($data);
         $event->sponsors()->sync($request->input('sponsors', []));
     }
@@ -67,16 +68,10 @@ class EventService
 
     private function deleteImages($event) {
         if ($event->banner) {
-            $otherEvents = Event::where('banner', $event->banner)->where('id', '!=', $event->id)->count();
-            if ($otherEvents === 0) {
-                Storage::disk('public')->delete($event->banner);
-            }
+            ImageService::deleteImage(Event::class, $event);
         }
         if ($event->gallery) {
-            $gallery = json_decode($event->gallery);
-            foreach ($gallery as $image) {
-                Storage::disk('public')->delete($image);
-            }
+            ImageService::deleteImages(Event::class, $event);
         }
     }
 

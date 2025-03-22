@@ -20,7 +20,7 @@
                         <x-forms.input-select name="category" :required="true" label="Categorie" :enum="$categories" value="{{old('category', $event->category->value ?? '')}}"/>
                         <x-forms.input-field name="payment_link" label="Betaal link" value="{{old('payment_link',$event->payment_link ?? '')}}"/>
                         <x-forms.input-field name="location" label="Locatie" value="{{old('location',$event->location ?? '')}}"/>
-                        <x-forms.input-field type="datetime-local" name="start_date" label="Datum / Start datum" value="{{ old('start_date', isset($event) ? $event->getFormattedDateForInput($event->start_date) : '' ) }}"/>
+                        <x-forms.input-field type="datetime-local" name="start_date" :required="true" label="Datum / Start datum" value="{{ old('start_date', isset($event) ? $event->getFormattedDateForInput($event->start_date) : '' ) }}"/>
                         <x-forms.input-field type="datetime-local" name="end_date" label="Eind datum" value="{{ old('end_date', isset($event) ? $event->getFormattedDateForInput($event->end_date) : '' )}}"/>
 
                     @if(isset($event) && $event->status->name === 'ARCHIVED')
