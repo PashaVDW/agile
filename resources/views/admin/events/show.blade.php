@@ -45,7 +45,7 @@
                             @method('DELETE')
                             @csrf
                             <button id="openModalDeleteButton" data-modal-id="deleteModal" type="button" class="button delete">Evenement verwijderen</button>
-                            <x-modal id="deleteModal" title="Evenement verwijderen" message="Weet je zeker dat je deze wilt verwijderen" />
+                            <x-modal id="deleteModal" title="Evenement verwijderen" message="Weet je zeker dat je deze wilt verwijderen?" />
                         </form>
         @endif
 
