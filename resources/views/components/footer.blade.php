@@ -13,7 +13,7 @@
         <div class="footerNav">
             <p>
                 <a href="#">Privacyverklaring</a>
-                <a href="#">Statuten</a>
+                <a href="{{$statue->filepath_url ?? '#'}}" target="_blank">Statuten</a>
             </p>
             <br>
             <p class="end">&copy; {{date("Y")}} Studievereniging Concat</p>
