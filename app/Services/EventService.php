@@ -7,9 +7,9 @@ use App\Models\Event;
 
 class EventService
 {
-    public function getEvents($order = 'DESC')
+    public function getEvents()
     {
-        return Event::query()->orderBy('status', $order)->orderBy('start_date', $order)->with('sponsors');
+        return Event::query()->orderBy('status', 'ASC')->orderBy('start_date', 'DESC')->with('sponsors');
     }
 
     public function getEvent($id)
@@ -21,7 +21,7 @@ class EventService
     {
         $data = $request->validated();
         $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
-        $data['status'] = $this->setStatus($data['start_date']);
+        $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::create($data);
         $event->sponsors()->sync($request->input('sponsors', []));
     }
@@ -29,7 +29,7 @@ class EventService
     public function updateEvent($request, $id)
     {
         $data = $request->validated();
-        $data['status'] = $this->setStatus($data['start_date']);
+        $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::find($id);
 
         if ($request->hasFile('banner')) {
@@ -52,9 +52,12 @@ class EventService
         $event->sponsors()->sync($request->input('sponsors', []));
     }
 
-    private function setStatus($date)
+    private function setStatus($startDate, $endDate = null)
     {
-        return $date > now() ? 'ACTIVE' : 'ARCHIVED';
+        if($endDate) {
+            return $startDate > now() || $endDate > now() ? 'ACTIVE' : 'ARCHIVED';
+        }
+        return $startDate > now() ? 'ACTIVE' : 'ARCHIVED';
     }
 
     public function deleteEvent($id)
