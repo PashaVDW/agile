@@ -19,26 +19,12 @@ class ImageService
         return null;
     }
 
-    public static function deleteImage($class, $model)
+    public static function deleteImage($class, $model, $type)
     {
-        if ($model->banner) {
-            $otherEvents = $class::where('banner', $model->banner)->where('id', '!=', $model->id)->count();
+        if ($model->$type) {
+            $otherEvents = $class::where($type, $model->$type)->where('id', '!=', $model->id)->count();
             if ($otherEvents === 0) {
-                Storage::disk('public')->delete($model->banner);
-            }
-        }
-
-        if ($model->image) {
-            $otherEvents = $class::where('image', $model->image)->where('id', '!=', $model->id)->count();
-            if ($otherEvents === 0) {
-                Storage::disk('public')->delete($model->image);
-            }
-        }
-
-        if ($model->logo) {
-            $otherEvents = $class::where('logo', $model->logo)->where('id', '!=', $model->id)->count();
-            if ($otherEvents === 0) {
-                Storage::disk('public')->delete($model->logo);
+                Storage::disk('public')->delete($model->$type);
             }
         }
     }

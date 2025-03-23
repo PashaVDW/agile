@@ -22,7 +22,6 @@ class SearchService
         });
     }
 
-
     public function singleSearch($query, $request, $model){
         $searchTerm = strtolower($request);
         $query->where(function ($query) use ($searchTerm, $model) {

@@ -18,6 +18,7 @@
                 height: auto;
                 display: flex;
                 flex-direction: column;
+                overflow: hidden;
 
                 .block {
                     &.image-block {

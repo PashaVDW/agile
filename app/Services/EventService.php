@@ -33,7 +33,7 @@ class EventService
         $event = Event::find($id);
 
         if ($request->hasFile('banner')) {
-            ImageService::deleteImage(Event::class, $event);
+            ImageService::deleteImage(Event::class, $event, 'banner');
             $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
         }
 
@@ -68,7 +68,7 @@ class EventService
 
     private function deleteImages($event) {
         if ($event->banner) {
-            ImageService::deleteImage(Event::class, $event);
+            ImageService::deleteImage(Event::class, $event, 'banner');
         }
         if ($event->gallery) {
             ImageService::deleteImages(Event::class, $event);
