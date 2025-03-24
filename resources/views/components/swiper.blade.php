@@ -5,7 +5,7 @@
         <div class="swiper-wrapper">
             @foreach($item->getDecodedPhotos() as $image)
                 <div class="swiper-slide">
-                    <img src="{{ asset($item->getGalleryImagePath($image)) }}" alt="{{ $item->title }}">
+                    <img src="{{ asset($item->getGalleryImagePath($image)) }}" alt="">
                 </div>
             @endforeach
         </div>
@@ -18,7 +18,7 @@
         <div class="swiper-wrapper">
             @foreach($item as $subItem)
                 <div class="swiper-slide">
-                    <img src="{{ asset($subItem->image_url) }}" alt="{{ $subItem->name }}">
+                    <img src="{{ asset($subItem->image_url) }}" alt="">
                 </div>
             @endforeach
         </div>

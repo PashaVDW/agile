@@ -6,7 +6,7 @@
     <div class="container">
         <div class="items">
             @foreach($events as $event)
-                <x-item :event="$event"/>
+                <x-item :item="$event" alt="{{$event->banner ? 'Poster voor '.$event->title : ''}}" route="user.event.show"/>
             @endforeach
         </div>
         <div class="sidebar">

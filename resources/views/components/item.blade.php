@@ -1,20 +1,20 @@
-@props(['event'])
+@props(['item', 'alt' =>'', 'route'])
 <div class="item">
     <div class="block image-block">
-        <img src="{{ asset($event->banner_url)}}" alt="{{ $event->title }}">
+        <img src="{{ asset($item->banner_url)}}" alt="{{$alt}}">
     </div>
     <div class="block text-block">
         <div class="item-header">
-            <h3 class="has-background">{{$event->title}}</h3>
-            <h6>{{__($event->category->value)}}</h6>
+            <h3 class="has-background">{{$item->title}}</h3>
+            <h6>{{__($item->category->value)}}</h6>
         </div>
         <div class="item-body">
             <p>
-                {!! Str::of(strip_tags($event->description))->words(20, '...') !!}
+                {!! Str::of(strip_tags($item->description))->words(20, '...') !!}
             </p>
         </div>
         <div class="item-footer">
-            <a href="{{ route('user.event.show', $event->id) }}" class="button item-button">Lees verder</a>
+            <a href="{{ route($route, $item->id) }}" class="button item-button" aria-label="Lees meer over {{$item->title}}">Lees verder</a>
         </div>
     </div>
 </div>
