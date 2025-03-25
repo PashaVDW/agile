@@ -35,7 +35,7 @@ class EventController extends Controller
             $this->searchService->searchByDate($query, $request->search, Event::class);
         }
 
-        $events = $query->paginate(10);
+        $events = $query->paginate(10)->appends($request->query());
 
         if ($request->route()->named('admin.events.index')) {
             return view('admin.events.index', ['events' => $events]);
