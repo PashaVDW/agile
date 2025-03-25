@@ -81,6 +81,15 @@
               data-drawer-enable="true|lg:false"
               id="sidebar"
           >
+
+              <!-- Sidebar Header with Logo -->
+              <div class="flex flex-col items-center py-5 space-y-2">
+                  <a href="/" class="flex flex-col items-center">
+                      <img src="{{ asset('assets/images/logo-white.png') }}" alt="Home" class="w-8 h-auto">
+                      <span class="text-sm text-white font-medium">{{ config('app.url') }}</span>
+                  </a>
+              </div>
+
               <!-- Sidebar Menu -->
               <div class="flex items-stretch grow shrink-0 justify-center my-5" id="sidebar_menu">
                   <div
