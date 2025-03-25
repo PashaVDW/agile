@@ -2,11 +2,23 @@
 
 namespace App\Services;
 
+use App\Enums\EventCategoryEnum;
+
 class SearchService
 {
     protected $models = [
         \App\Models\Event::class,
         \App\Models\Sponsor::class,
+    ];
+
+    protected $translatedEventCategory = [
+        'evenement' => 'EVENT',
+        'borrel' => 'DRINKS',
+    ];
+
+    protected $translatedActiveType = [
+        'actief' => 'ACTIVE',
+        'gearchiveerd' => 'ARCHIVED',
     ];
 
     public function multiSearch($query, $request)
@@ -43,6 +55,12 @@ class SearchService
         else if(preg_match('/\b\d{2}-\d{2}\b/', $search, $monthDay) > 0) {
             $formattedDate = $monthDay[0] . '-' . date('Y');
             $this->singleSearch($query, date('m-d', strtotime($formattedDate)), $class);
+        }
+        else if (array_key_exists(strtolower($search), $this->translatedEventCategory)) {
+            $this->singleSearch($query, $this->translatedEventCategory[$search], $class);
+        }
+        else if (array_key_exists(strtolower($search), $this->translatedActiveType)) {
+            $this->singleSearch($query, $this->translatedActiveType[$search], $class);
         }
         else {
             $this->singleSearch($query, $search, $class);

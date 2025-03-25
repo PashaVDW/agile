@@ -15,7 +15,6 @@ class Event extends Model
         'description',
         'price',
         'capacity',
-        'date',
         'banner',
         'category',
         'payment_link',
@@ -30,6 +29,8 @@ class Event extends Model
         'title',
         'start_date',
         'location',
+        'status',
+        'category',
     ];
 
     public function sponsors(): BelongsToMany
