@@ -85,7 +85,7 @@ class AnnouncementController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage.No records found
      */
     public function destroy(Announcement $announcement)
     {

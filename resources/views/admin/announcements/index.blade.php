@@ -19,7 +19,6 @@
                     </button>
                 </div>
             </div>
-
             <div data-datatable="true" data-datatable-page-size="5" data-datatable-state-save="true">
                 <div class="scrollable-x-auto">
                     <table id="announcement-table" class="table table-auto border-gray-400" data-datatable-table="true">
@@ -94,8 +93,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Delete Confirmation Modal -->
     <div class="modal" data-modal="true" id="deleteModal">
         <div class="modal-content max-w-[600px] top-[20%]">
             <div class="modal-header justify-center">
@@ -118,29 +115,4 @@
         </div>
     </div>
 @endsection
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // DELETE logica
-            const deleteButtons = document.querySelectorAll('.delete-btn');
-            const deleteForm = document.getElementById('deleteForm');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const action = button.getAttribute('data-delete-action');
-                    deleteForm.setAttribute('action', action);
-                });
-            });
-
-            // LIVE SEARCH
-            const searchInput = document.getElementById('announcement-search');
-            searchInput.addEventListener('input', function () {
-                const query = this.value.toLowerCase();
-                const rows = document.querySelectorAll('#announcement-table tbody tr');
-                rows.forEach(row => {
-                    const title = row.querySelector('.announcement-title')?.textContent.toLowerCase() || '';
-                    const date = row.querySelector('.announcement-date')?.textContent.toLowerCase() || '';
-                    const match = title.includes(query) || date.includes(query);
-                    row.style.display = match ? '' : 'none';
-                });
-            });
-        });
-    </script>
+<script src="{{ asset('assets/js/admin/announcements.js') }}"></script>
