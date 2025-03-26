@@ -2,55 +2,76 @@
 
 namespace Tests\Browser;
 
+use App\Models\Announcement;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use App\Models\Announcement;
 
 class AnnouncementTest extends DuskTestCase
 {
     use DatabaseMigrations;
-    /**
-     * Test het aanmaken van een nieuwe aankondiging.
-     */
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->artisan('db:seed');
+    }
+
     public function testCreateAnnouncement()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->visit('/admin/announcements/create')
-                ->type('title', 'Nieuwe Aankondiging')
-                ->type('description', 'Dit is een testaankondiging.')
+        $admin = User::where('email', 'admin@agile.nl')->first();
+
+        $this->browse(function (Browser $browser) use ($admin) {
+            $browser->loginAs($admin)
+                ->visit('/announcements/create')
+                ->waitFor('#title')
+                ->type('#title', 'Nieuwe Aankondiging')
+                ->type('#description', 'Dit is een testaankondiging.')
                 ->press('Aanmaken')
-                ->assertSee('Aankondiging succesvol aangemaakt!');
+                ->pause(1000)
+                ->assertSee('Nieuwe Aankondiging');
         });
     }
 
-    /**
-     * Test het bewerken van een bestaande aankondiging.
-     */
     public function testEditAnnouncement()
     {
-        $announcement = Announcement::factory()->create();
+        $admin = User::where('email', 'admin@agile.nl')->first();
+        $announcement = Announcement::factory()->create([
+            'title' => 'Oude Titel',
+            'description' => 'Origineel',
+        ]);
 
-        $this->browse(function (Browser $browser) use ($announcement) {
-            $browser->visit("/admin/announcements/{$announcement->id}/edit")
-                ->type('title', 'Gewijzigde Titel')
+        $this->browse(function (Browser $browser) use ($announcement, $admin) {
+            $browser->loginAs($admin)
+                ->visit("/announcements/{$announcement->id}/edit")
+                ->waitFor('#title')
+                ->type('#title', 'Gewijzigde Titel')
+                ->type('#description', 'Gewijzigde omschrijving')
                 ->press('Bijwerken')
-                ->assertSee('Aankondiging succesvol bijgewerkt!');
+                ->pause(1000)
+                ->assertSee('Gewijzigde Titel');
         });
     }
 
-    /**
-     * Test het verwijderen van een aankondiging.
-     */
     public function testDeleteAnnouncement()
     {
-        $announcement = Announcement::factory()->create();
+        $admin = User::where('email', 'admin@agile.nl')->first();
+        $announcement = Announcement::factory()->create([
+            'title' => 'Te Verwijderen Aankondiging',
+        ]);
 
-        $this->browse(function (Browser $browser) use ($announcement) {
-            $browser->visit('/admin/announcements')
-                ->click('@delete-announcement-'.$announcement->id)
-                ->acceptDialog()
-                ->assertSee('Aankondiging succesvol verwijderd!');
+        $this->browse(function (Browser $browser) use ($announcement, $admin) {
+            $browser->loginAs($admin)
+                ->visit('/announcements')
+                ->waitFor("@delete-announcement-{$announcement->id}")
+                ->click("@delete-announcement-{$announcement->id}")
+                ->pause(500)
+                ->with('#deleteModal', function ($modal) {
+                    $modal->press('Verwijderen');
+                })
+                ->pause(1000)
+                ->assertDontSee('Te Verwijderen Aankondiging');
         });
     }
 }

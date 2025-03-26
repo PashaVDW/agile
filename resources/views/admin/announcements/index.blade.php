@@ -66,6 +66,7 @@
                                 </td>
                                 <td>
                                     <button
+                                        dusk="delete-announcement-{{ $announcement->id }}"
                                         data-modal-toggle="#deleteModal"
                                         data-delete-action="{{ route('announcements.destroy', $announcement->id) }}"
                                         class="btn btn-sm btn-icon btn-clear btn-light delete-btn"
