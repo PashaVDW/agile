@@ -10,7 +10,6 @@ class FileService
     {
         if ($request->hasFile($file)) {
             $file = $request->file($file);
-            /*$filePath = 'file/' . $file->getClientOriginalName();*/
             $currentDate = Carbon::now()->format('d-m-Y');
             $filePath = 'files/' . 'Statuten Concat ' . $currentDate . '.' . $file->getClientOriginalExtension();
             if (!Storage::disk('public')->exists($filePath)) {
