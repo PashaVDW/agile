@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class FileService
@@ -9,9 +10,13 @@ class FileService
     {
         if ($request->hasFile($file)) {
             $file = $request->file($file);
-            $filePath = 'file/' . $file->getClientOriginalName();
+            /*$filePath = 'file/' . $file->getClientOriginalName();*/
+            $currentDate = Carbon::now()->format('d-m-Y');
+            $filePath = 'files/' . 'Statuten Concat ' . $currentDate . '.' . $file->getClientOriginalExtension();
             if (!Storage::disk('public')->exists($filePath)) {
-                $filePath = $file->storeAs('files'.$path, $file->getClientOriginalName(), 'public');
+                $filePath = $file->storeAs('files'.$path, 'Statuten Concat ' . $currentDate . '.' . $file->getClientOriginalExtension(), 'public');
+                /*$filePath = $file->storeAs('files'.$path, 'Statuten Concat.' . $file->getClientOriginalExtension(), 'public');*/
+                /*$filePath = $file->storeAs('files'.$path, $file->getClientOriginalName(), 'public');*/
             }
             return $filePath;
         }

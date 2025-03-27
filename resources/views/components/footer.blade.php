@@ -7,7 +7,7 @@
                 <br>
                 <a href="https://www.instagram.com/svconcat/" target="_blank">Instagram</a>
                 <a href="https://www.linkedin.com/company/sv-concat" target="_blank">LinkedIn</a>
-                <a href="https://discord.gg/XG69KMhhnh">Discord</a>
+                <a href="https://discord.gg/XG69KMhhnh" target="_blank">Discord</a>
             </p>
         </div>
         <div class="footerNav">
