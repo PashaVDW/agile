@@ -4,8 +4,8 @@
     padding: 2em;
     display:flex;
     justify-content: center;
-    width: calc(60%);
-    margin: 160px auto 0 auto; /* Centers horizontally */
+    width: 70%;
+    margin: 160px auto 0 auto;
 }
 
 .instruction-message p{
@@ -20,10 +20,10 @@
 
 .sponsors-container {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
-    gap: 3em; /* Add space between the cards */
-    justify-content: center; /* Center the items */
-    width: 100%; /* Ensure the container takes full width */
+    flex-wrap: wrap;
+    gap: 3em;
+    justify-content: center;
+    width: 100%;
     margin: 50px;
 }
 
@@ -33,7 +33,7 @@
     border-radius: 2em;
     position: relative;
     overflow: hidden;
-    width: calc(50% - 3em); /* Adjust width to fit two columns with gap */
+    width: calc(50% - 3em);
     box-sizing: border-box;
 }
 
@@ -55,4 +55,22 @@
 
 .sponsor p strong{
     color: var(--default-black);
+}
+
+@media only screen and (max-width:900px){
+
+    .sponsors {
+        .instruction-message{
+            width: 85%;
+        }
+
+        .sponsors-container{
+            flex-direction: column;
+        }
+
+        .sponsor{
+            width: 100%;
+            max-width: 100%;
+        }
+    }
 }
