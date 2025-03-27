@@ -14,6 +14,15 @@
         </div>
     </div>
 
+    <a href="{{route('redirect')}}" class="button">redirect</a>
+    <a href="{{route('callback')}}" class="button">callback</a>
+
+    <form action="{{route('refresh.token')}}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="refresh_token" value="{{ $refresh_token }}">
+        <input type="submit" value="Refresh Token" class="button">
+    </form>
+
     <div class="events">
         <div class="container">
             <div class="items">

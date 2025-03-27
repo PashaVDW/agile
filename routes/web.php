@@ -3,8 +3,11 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\SponsorController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Spatie\Permission\Middleware\RoleMiddleware;
 
 // Admin Routes
@@ -48,3 +51,20 @@ Route::middleware(['guest'])->group(function () {
 
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
 Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
+
+
+Route::get("/redirect", function (Request $request) {
+    $request->session()->put("state", $state = Str::random(40));
+
+    return redirect("https://auth.openticket.tech/tokens/authorize?" . http_build_query([
+            "client_id" => env("OAUTH_CLIENT_ID", ""),
+            "redirect_uri" => env("OAUTH_CLIENT_REDIRECT", ""),
+            "response_type" => "code",
+            "state" => $state,
+        ]));
+})->name("redirect");
+
+
+Route::get('/callback', [OAuthController::class, 'callback'])->name('callback');
+
+Route::post('/refresh-token', [OAuthController::class, 'getShop'])->name('refresh.token');
