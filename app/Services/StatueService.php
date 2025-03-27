@@ -16,7 +16,7 @@ class StatueService{
     {
         $validated = $request->validated();
         if($request->hasFile('filepath')){
-            $statue = Statue::find($request->id);
+            $statue = Statue::Query()->first();
             Storage::disk('public')->delete($statue->filepath);
             $validated['filepath'] = FileService::StoreFile($request, 'filepath');
             $statue->update($validated);

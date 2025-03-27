@@ -13,7 +13,9 @@
         <div class="footerNav">
             <p>
                 <a href="#">Privacyverklaring</a>
+                @isset($statue)
                 <a href="{{$statue->filepath_url ?? '#'}}" target="_blank">Statuten</a>
+                @endisset
             </p>
             <br>
             <p class="end">&copy; {{date("Y")}} Studievereniging Concat</p>
