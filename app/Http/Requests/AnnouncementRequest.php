@@ -23,8 +23,8 @@ class AnnouncementRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'avatar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'description' => 'required|string|max:65535',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 }
