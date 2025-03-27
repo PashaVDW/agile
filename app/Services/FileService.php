@@ -15,8 +15,6 @@ class FileService
             $filePath = 'files/' . 'Statuten Concat ' . $currentDate . '.' . $file->getClientOriginalExtension();
             if (!Storage::disk('public')->exists($filePath)) {
                 $filePath = $file->storeAs('files'.$path, 'Statuten Concat ' . $currentDate . '.' . $file->getClientOriginalExtension(), 'public');
-                /*$filePath = $file->storeAs('files'.$path, 'Statuten Concat.' . $file->getClientOriginalExtension(), 'public');*/
-                /*$filePath = $file->storeAs('files'.$path, $file->getClientOriginalName(), 'public');*/
             }
             return $filePath;
         }
