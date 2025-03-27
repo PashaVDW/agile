@@ -39,20 +39,19 @@ class SponsorRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Name is required',
-            'name.string' => 'Name must be a string',
-            'name.max' => 'Name must not be greater than 255 characters',
-            'description.string' => 'Description must be a string',
-            'description.max' => 'Description must not be greater than 65535 characters',
-            'image.required' => 'Image is required',
-            'image.image' => 'Image must be an image',
-            'image.mimes' => 'Image must be a file of type: jpeg, png, jpg, gif, svg',
-            'image.max' => 'Image must not be greater than 2048 kilobytes',
-            'active.required' => 'Active is required',
-            'active.in' => 'Active must be one of: active, inactive',
-            'url.required' => 'URL is required',
-            'url.url' => 'URL must be a valid url',
-            'url.max' => 'URL must not be greater than 255 characters',
+            'name.required' => "Naam is verplicht",
+            'name.string' => "Naam moet een string zijn",
+            'name.max' => "Naam mag niet groter zijn dan 255 karakters",
+            'description.string' => "Beschrijving moet een string zijn",
+            'description.max' => "Beschrijving mag niet groter zijn dan 65535 karakters",
+            'image.image' => "Afbeelding moet een afbeelding zijn",
+            'image.mimes' => "Afbeelding moet een bestand zijn van type: jpeg, png, jpg, gif, svg",
+            'image.max' => "Afbeelding mag niet groter zijn dan 2048 kilobytes",
+            'active.required' => 'Status is verplicht',
+            'image.required' => "Afbeelding is verplicht",
+            'url.required' => "URL is verplicht",
+            'url.url' => "URL moet een geldige URL zijn",
+            'url.max' => "URL mag niet groter zijn dan 255 karakters",
         ];
     }
 }
