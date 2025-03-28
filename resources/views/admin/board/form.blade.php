@@ -18,7 +18,7 @@
                         <x-forms.input-textarea name="description" label="Omschrijving">{{ old('description', $boardMember->description ?? '') }}</x-forms.input-textarea>
                         <x-forms.input-file name="image" label="Profiel foto" value="{{ $boardMember->image ?? '' }}"/>
 
-                        <button type="submit" class="button right">{{ isset($boardMember) ? 'Update Board Member' : 'Add Board Member' }}</button>
+                        <button type="submit" class="button right">{{ isset($boardMember) ? 'Bewerk bestuur lid' : 'Voeg bestuur lid toe' }}</button>
                     </form>
 
                     @if(isset($boardMember))

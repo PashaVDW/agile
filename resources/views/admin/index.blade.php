@@ -126,7 +126,7 @@
                                       href="{{ route('admin.board.index') }}"
                                   >
                                   <span class="menu-icon items-start text-lg text-gray-600 menu-item-active:text-gray-900">
-                    <i class="ki-filled ki-people"></i> 
+                    <i class="ki-filled ki-people"></i>
                 </span>
                                   <span class="menu-title text-sm text-gray-800 font-medium menu-item-here:text-gray-900">
                     Bestuur Leden
