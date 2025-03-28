@@ -4,97 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AnnouncementRequest;
 use App\Models\Announcement;
+use App\Services\AnnouncementService;
+use App\Services\SearchService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AnnouncementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    protected $announcementService;
+
+    protected $searchService;
+
+    public function __construct(AnnouncementService $announcementService, SearchService $searchService)
     {
-        $announcements = Announcement::orderBy('created_at', 'desc')->get();
+        $this->announcementService = $announcementService;
+        $this->searchService = $searchService;
+    }
+
+    public function index(Request $request)
+    {
+        $query = Announcement::query()->orderBy('created_at', 'desc');
+
+        if ($request->filled('search')) {
+            $this->searchService->searchEvents($query, $request->search, Announcement::class);
+        }
+
+        $announcements = $query->get();
 
         return view('admin.announcements.index', compact('announcements'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('admin.announcements.create');
+        return view('admin.announcements.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(AnnouncementRequest $request)
     {
         $data = $request->validated();
+        $this->announcementService->store($data, $request);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('announcements', 'public');
-            $data['image'] = $path;
-        } else {
-            $data['image'] = null;
-        }
-
-        Announcement::create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'image' => $data['image'],
-        ]);
-
-        return redirect()->route('announcements.index')->with('success', 'Aankondiging succesvol aangemaakt!');
+        return redirect()->route('announcements.index')->with('success', 'Aankondiging aangemaakt.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Announcement $announcement)
     {
-        return view('admin.announcements.edit', compact('announcement'));
+        return view('admin.announcements.form', compact('announcement'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(AnnouncementRequest $request, Announcement $announcement)
     {
         $data = $request->validated();
+        $this->announcementService->update($announcement, $data, $request);
 
-        if ($request->hasFile('image')) {
-            if ($announcement->image && Storage::disk('public')->exists($announcement->image)) {
-                Storage::disk('public')->delete($announcement->image);
-            }
-
-            $data['image'] = $request->file('image')->store('announcements', 'public');
-        } else {
-            $data['image'] = $announcement->image;
-        }
-
-        $announcement->update([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'image' => $data['image'],
-        ]);
-
-        return redirect()->route('announcements.index')->with('success', 'Aankondiging succesvol bijgewerkt!');
+        return redirect()->route('announcements.index')->with('success', 'Aankondiging bijgewerkt.');
     }
 
-    /**
-     * Remove the specified resource from storage.No records found
-     */
     public function destroy(Announcement $announcement)
     {
-        if ($announcement->image && Storage::disk('public')->exists($announcement->image)) {
-            Storage::disk('public')->delete($announcement->image);
-        }
+        $this->announcementService->delete($announcement);
 
-        $announcement->delete();
-
-        return redirect()->route('announcements.index')->with('success', 'Aankondiging succesvol verwijderd!');
+        return redirect()->route('announcements.index')->with('success', 'Aankondiging verwijderd.');
     }
 }

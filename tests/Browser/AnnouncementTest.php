@@ -18,7 +18,7 @@ class AnnouncementTest extends DuskTestCase
         $this->artisan('db:seed');
     }
 
-    public function testCreateAnnouncement()
+    public function test_create_announcement()
     {
         $admin = User::where('email', 'admin@agile.nl')->first();
 
@@ -34,7 +34,7 @@ class AnnouncementTest extends DuskTestCase
         });
     }
 
-    public function testEditAnnouncement()
+    public function test_edit_announcement()
     {
         $admin = User::where('email', 'admin@agile.nl')->first();
         $announcement = Announcement::factory()->create([
@@ -54,7 +54,7 @@ class AnnouncementTest extends DuskTestCase
         });
     }
 
-    public function testDeleteAnnouncement()
+    public function test_delete_announcement()
     {
         $admin = User::where('email', 'admin@agile.nl')->first();
         $announcement = Announcement::factory()->create([

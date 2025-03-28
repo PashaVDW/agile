@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SponsorController;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Middleware\RoleMiddleware;
 
 // Admin Routes
 Route::middleware(['role:admin'])->group(function () {
@@ -14,7 +13,6 @@ Route::middleware(['role:admin'])->group(function () {
 });
 
 Route::middleware(['role:admin'])->resource('announcements', AnnouncementController::class)->except('show');
-;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

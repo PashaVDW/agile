@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Announcement extends Model
 {
@@ -15,4 +14,14 @@ class Announcement extends Model
         'description',
         'image',
     ];
+
+    protected $searchable = [
+        'title',
+        'description',
+    ];
+
+    public function getSearchable()
+    {
+        return $this->searchable;
+    }
 }

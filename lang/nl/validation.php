@@ -136,6 +136,10 @@ return [
         'email' => 'e-mailadres',
         'password' => 'wachtwoord',
         'name' => 'naam',
+
+        'title' => 'titel',
+        'description' => 'omschrijving',
+        'image' => 'afbeelding',
     ],
 
 ];
