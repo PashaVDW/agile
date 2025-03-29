@@ -57,10 +57,10 @@ class SearchService
             $this->singleSearch($query, date('m-d', strtotime($formattedDate)), $class);
         }
         else if (array_key_exists(strtolower($search), $this->translatedEventCategory)) {
-            $this->singleSearch($query, $this->translatedEventCategory[$search], $class);
+            $this->singleSearch($query, $this->translatedEventCategory[strtolower($search)], $class);
         }
         else if (array_key_exists(strtolower($search), $this->translatedActiveType)) {
-            $this->singleSearch($query, $this->translatedActiveType[$search], $class);
+            $this->singleSearch($query, $this->translatedActiveType[strtolower($search)], $class);
         }
         else {
             $this->singleSearch($query, $search, $class);
