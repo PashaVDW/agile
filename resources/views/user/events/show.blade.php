@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="section">
-        <div class="container">
+        <div class="container has-sidebar">
             <div class="info">
                 <div class="intro">
                     <h2>{{$event->title}}</h2>
@@ -12,8 +12,8 @@
                         {!! $event->description !!}
                     </p>
                 </div>
-                <x-swiper :item="$event->sponsors"/>
-                <x-swiper :item="$event" />
+                <x-swiper :item="$event->sponsors" id="gallerySwiper"/>
+                <x-swiper :item="$event" id="gallerySwiper"/>
             </div>
             <div class="sidebar">
                 <h2 class="has-background">Informatie</h2>

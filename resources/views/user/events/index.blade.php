@@ -4,7 +4,7 @@
 
 @section("content")
     <div class="section">
-        <div class="container">
+        <div class="container has-sidebar">
             <div class="items">
                 @foreach($events as $event)
                     <x-item :item="$event" alt="{{$event->banner ? 'Poster voor '.$event->title : ''}}" route="user.event.show"/>

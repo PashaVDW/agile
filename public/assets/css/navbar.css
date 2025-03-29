@@ -140,7 +140,6 @@
                     &.active {
                         .nav-link {
                             &::after {
-                                width: 250%;
                                 left: 50%;
                             }
                         }

@@ -1,12 +1,13 @@
 import Swiper from "swiper/bundle";
 
 document.addEventListener('DOMContentLoaded', function() {
-    carouselSwiper();
+    carouselSwiper('#gallerySwiper');
+    carouselSwiper('#homeSwiper');
     openModal();
 });
 
-function carouselSwiper() {
-    new Swiper('#gallerySwiper', {
+function carouselSwiper(swiperId) {
+    new Swiper(swiperId, {
         slidesPerView: 1,
         spaceBetween: 0,
         speed: 300,
@@ -26,7 +27,7 @@ function carouselSwiper() {
                 slidesPerView: 2,
             },
             980: {
-                slidesPerView: 3,
+                slidesPerView: swiperId === '#homeSwiper' ? 2 : 3,
             }
         }
     });
