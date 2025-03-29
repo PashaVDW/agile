@@ -5,12 +5,8 @@
 @section("content")
     <div class="container">
         <div class="filter-wrapper">
-            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                <x-forms.input-select :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
-            </form>
-            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                <x-forms.input-field label="Zoeken" name="search" value="{{ request('search') }}"/>
-            </form>
+            <x-filters.dropdown :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}" :params="$bindings"/>
+            <x-filters.search-bar label="Zoeken" placeholder="Zoeken..." :params="$bindings"/>
             <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
         </div>
         <table class="table">
