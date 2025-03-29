@@ -43,7 +43,7 @@ class AnnouncementController extends Controller
         $data = $request->validated();
         $this->announcementService->store($data, $request);
 
-        return redirect()->route('announcements.index')->with('success', 'Aankondiging aangemaakt.');
+        return redirect()->route('announcements.index');
     }
 
     public function edit(Announcement $announcement)
@@ -56,13 +56,13 @@ class AnnouncementController extends Controller
         $data = $request->validated();
         $this->announcementService->update($announcement, $data, $request);
 
-        return redirect()->route('announcements.index')->with('success', 'Aankondiging bijgewerkt.');
+        return redirect()->route('announcements.index');
     }
 
     public function destroy(Announcement $announcement)
     {
         $this->announcementService->delete($announcement);
 
-        return redirect()->route('announcements.index')->with('success', 'Aankondiging verwijderd.');
+        return redirect()->route('announcements.index');
     }
 }
