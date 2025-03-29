@@ -24,4 +24,9 @@ class Announcement extends Model
     {
         return $this->searchable;
     }
+
+    public function getImageUrlAttribute()
+    {
+        return asset('storage/' . $this->image);
+    }
 }

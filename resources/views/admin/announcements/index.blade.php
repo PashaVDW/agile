@@ -66,7 +66,7 @@
                   <td>
                     @if ($announcement->image)
                       <img
-                        src="{{ asset("storage/" . $announcement->image) }}"
+                        src="{{ asset($announcement->image_url) }}"
                         class="w-12 h-12 object-cover rounded-md"
                       />
                     @else

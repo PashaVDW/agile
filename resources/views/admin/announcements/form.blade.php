@@ -27,7 +27,7 @@
             </div>
             @if(isset($announcement) && $announcement->image)
                 <div class="flex justify-center mb-4">
-                    <img src="{{ asset('storage/' . $announcement->image) }}" class="h-20 rounded-lg shadow" alt="afbeelding van {{ $announcement->title }}">
+                    <img src="{{ asset($announcement->image_url) }}" class="h-20 rounded-lg shadow" alt="afbeelding van {{ $announcement->title }}">
                 </div>
             @endif
             @error('image')
