@@ -20,7 +20,7 @@ class EventService
     public function storeEvent($request)
     {
         $data = $request->validated();
-        $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
+        $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::create($data);
         $event->sponsors()->sync($request->input('sponsors', []));
@@ -34,7 +34,7 @@ class EventService
 
         if ($request->hasFile('banner')) {
             ImageService::deleteImage(Event::class, $event, 'banner');
-            $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
+            $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         }
 
         if ($request->hasFile('gallery')) {
