@@ -19,10 +19,25 @@
             <h4>{{__($event->category->value)}}</h4>
             <p>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</p>
             <ul>
-                <li><span>Datum:</span> {{$event->formatted_date}}</li>
-                <li><span>Prijs:</span> {{$event->price}}</li>
-                <li><span>Aantal plaatsen:</span> {{$event->capacity}}</li>
-                <li><span>Betalen voor: </span><a href="{{$event->payment_link}}" target="_blank">{{$event->title}}</a></li>
+                @if($event->location)
+                    <li><span>Locatie:</span> {{$event->location}}</li>
+                @endif
+                @if($event->start_date && $event->end_date)
+                    <li><span>Start datum:</span> {{$event->getFormattedDate($event->start_date)}}</li>
+                    <li><span>Eind datum:</span> {{$event->getFormattedDate($event->end_date)}}</li>
+                @endif
+                @if(!$event->end_date)
+                    <li><span>Datum:</span> {{$event->getFormattedDate($event->start_date)}}</li>
+                @endif
+                @if($event->price)
+                     <li><span>Prijs:</span> {{$event->price}}</li>
+                @endif
+                @if($event->capacity)
+                    <li><span>Aantal plaatsen:</span> {{$event->capacity}}</li>
+                @endif
+                @if($event->payment_link)
+                    <li><span>Betalen voor: </span><a href="{{$event->payment_link}}" target="_blank">{{$event->title}}</a></li>
+                @endif
             </ul>
         </div>
     </div>

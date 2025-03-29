@@ -17,7 +17,7 @@
     @endif
   </label>
 
-    @if ($value && $value !== "assets/images/no-image.png")
+    @if ($value && $value !== "assets/images/logo-black.svg")
         <div class="mb-2">
             <a href="{{ asset($value) }}" target="_blank" class="file">
                 {{ str_replace('/storage/files/', '',$value) ?: 'Bekijk bestand' }}
@@ -43,7 +43,7 @@
     {{ $required ? "required" : "" }}
     {{ $multiple ? "multiple" : "" }}
   />
-  @error($name)
+    @error($name . ($multiple ? '.*' : ''))
     <span class="text-xs italic">{{ $message }}</span>
   @enderror
 </div>

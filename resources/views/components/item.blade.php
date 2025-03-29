@@ -1,7 +1,7 @@
 @props(['event'])
 <div class="item">
     <div class="block image-block">
-        <img src="{{ asset($event->banner_url)}}" alt="{{ $event->title }}">
+        <img src="{{ asset($event->banner_url)}}" alt="{{ $event->title }}" @if(!$event->banner) class="no-image" @endif>
     </div>
     <div class="block text-block">
         <div class="item-header">
