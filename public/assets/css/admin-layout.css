@@ -13,4 +13,10 @@
             }
         }
     }
+
+    a {
+        &:after {
+            content: none;
+        }
+    }
 }
