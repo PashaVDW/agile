@@ -27,6 +27,10 @@ class Announcement extends Model
 
     public function getImageUrlAttribute()
     {
+        if ($this->image == null) {
+            return null;
+        }
+
         return asset('storage/' . $this->image);
     }
 }
