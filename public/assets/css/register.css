@@ -1,0 +1,38 @@
+.register {
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 50px;
+        .info {
+            width: 100%;
+            max-width: 980px;
+            .form {
+                background-color: var(--default-white);
+                padding: 40px;
+                border-radius: 25px;
+                h2 {
+                    font-size: 56px;
+                    font-weight: 700;
+                    margin-bottom: 30px;
+                }
+                p {
+                    font-size: 20px;
+                }
+                .btn-primary {
+                    background-color: var(--red);
+                    color: var(--white);
+                    box-shadow: var(--button-shadow);
+                    margin-top: 10px;
+                    font-size: 20px;
+                }
+
+                /* Primary Button Hover Effect */
+                .btn-primary:hover {
+                    background-color: var(--pink);
+                    box-shadow: var(--button-shadow-hover);
+                }
+            }
+        }
+    }
+}
