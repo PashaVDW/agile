@@ -16,7 +16,7 @@
                         <x-forms.input-field type="text" name="name" label="Naam" required value="{{ old('name', $boardMember->name ?? '') }}"/>
                         <x-forms.input-field type="text" name="role" label="Rol" required value="{{ old('role', $boardMember->role ?? '') }}"/>
                         <x-forms.input-textarea name="description" label="Omschrijving">{{ old('description', $boardMember->description ?? '') }}</x-forms.input-textarea>
-                        <x-forms.input-file name="image" label="Profiel foto" value="{{ $boardMember->image ?? '' }}"/>
+                        <x-forms.input-file name="image" label="Profiel foto" value="{{ $boardMember->image_url ?? '' }}"/>
 
                         <button type="submit" class="button right">{{ isset($boardMember) ? 'Bewerk bestuur lid' : 'Voeg bestuur lid toe' }}</button>
                     </form>

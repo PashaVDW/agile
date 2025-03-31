@@ -24,14 +24,9 @@
                 <tr>
                     <td>{{ $boardMember->name }}</td>
                     <td>{{ $boardMember->role }}</td>
-                    <td><img src="{{ asset('storage/' .$boardMember->image ?? 'assets/images/no-image.png') }}" width="50" height="50"></td>
+                    <td><img src="{{ asset($boardMember->image_url) }}" width="50" height="50"></td>
                     <td>
-                        <a href="{{ route("admin.board.show", ["id" => $boardMember->id]) }}">Bewerk</a> |
-                        <form method="POST" action="{{ route("admin.board.delete", ["id" => $boardMember->id]) }}" style="display:inline;">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="button delete">verwijder</button>
-                        </form>
+                        <a href="{{ route("admin.board.show", ["id" => $boardMember->id]) }}">Bewerk</a>
                     </td>
                 </tr>
             @endforeach

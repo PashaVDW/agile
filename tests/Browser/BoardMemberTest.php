@@ -9,16 +9,12 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\BoardMember;
 
-// to run tests indivdualy uncomment the login lines of an test, if the first tests login in uncommented all subsequent should function
 class BoardMemberTest extends DuskTestCase
 {
     public function testIndex()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/login')
-                ->typeSlowly('email', 'admin@agile.nl')
-                ->typeSlowly('password', 'test1234')
-                ->press('Inloggen')
+            $browser->loginAs(User::find(1))
                 ->visit('/admin/boards')
                 ->assertPathIs('/admin/boards')
                 ->assertSee('Voeg bestuur lid toe');
@@ -28,10 +24,7 @@ class BoardMemberTest extends DuskTestCase
     public function testCreateBoardMember()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/login')
-//                ->typeSlowly('email', 'admin@agile.nl')
-//                ->typeSlowly('password', 'test1234')
-//                ->press('Inloggen')
+            $browser->loginAs(User::find(1))
                 ->visit('/admin/board/create')
                 ->assertSee('Voeg bestuur lid toe')
                 ->typeSlowly('name', 'John Doe')
@@ -51,10 +44,7 @@ class BoardMemberTest extends DuskTestCase
         $boardMember = BoardMember::first(); // Ensure there's a board member
 
         $this->browse(function (Browser $browser) use ($boardMember) {
-            $browser->visit('/login')
-//                ->typeSlowly('email', 'admin@agile.nl')
-//                ->typeSlowly('password', 'test1234')
-//                ->press('Inloggen')
+            $browser->loginAs(User::find(1))
                 ->visit('/admin/boards/')
                 ->pause(2000)
                 ->assertSee($boardMember->name);
@@ -66,10 +56,7 @@ class BoardMemberTest extends DuskTestCase
         $boardMember = BoardMember::first();
 
         $this->browse(function (Browser $browser) use ($boardMember) {
-            $browser->visit('/login')
-//                ->typeSlowly('email', 'admin@agile.nl')
-//                ->typeSlowly('password', 'test1234')
-//                ->press('Inloggen')
+            $browser->loginAs(User::find(1))
                 ->visit('/admin/board/' . $boardMember->id)
                 ->typeSlowly('name', 'Jane Doe')
                 ->typeSlowly('role', 'Vice Chairman')
@@ -87,10 +74,7 @@ class BoardMemberTest extends DuskTestCase
         $boardMember = BoardMember::first();
 
         $this->browse(function (Browser $browser) use ($boardMember) {
-            $browser->visit('/login')
-//                ->typeSlowly('email', 'admin@agile.nl')
-//                ->typeSlowly('password', 'test1234')
-//                ->press('Inloggen')
+            $browser->loginAs(User::find(1))
                 ->visit('/admin/board/' . $boardMember->id)
                 ->pause(2000)
                 ->press('Verwijder bestuur lid')

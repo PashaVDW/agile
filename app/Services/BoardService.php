@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\BoardMemberRequest;
 use App\Models\BoardMember;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
@@ -20,25 +21,17 @@ class BoardService
         $boardMembers = $query->paginate(10);
         return $boardMembers;
     }
-    public function store($request)
+    public function store(BoardMemberRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|max:255|string',
-            'role' => 'required|max:255|string',
-            'description' => 'max:255|string',
-        ]);
+        $validated = $request->validated();
         $validated['image'] = ImageService::storeImage($request,'image','/board') ?? ($validated['image']?? null);
 
         BoardMember::create($validated);
     }
-    public function update($request, $id)
+    public function update(BoardMemberRequest $request, $id)
     {
         $board = BoardMember::findOrFail($id);
-        $validated = $request->validate([
-            'name' => 'required|max:255|string',
-            'role' => 'required|max:255|string',
-            'description' => 'max:255|string',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             $newImage = $request->file('image');

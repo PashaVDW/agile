@@ -15,11 +15,11 @@ class BoardMember extends Model
         'image'
     ];
 
-    public function getBannerUrlAttribute()
+    public function getImageUrlAttribute()
     {
-        if ($this->banner === null) {
+        if ($this->image === null) {
             return 'assets/images/no-image.png';
         }
-        return Storage::url($this->banner);
+        return Storage::url($this->image);
     }
 }

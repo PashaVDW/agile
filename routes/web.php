@@ -48,7 +48,7 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
             Route::get('/{id}', [BoardController::class, 'show'])->name('admin.board.show');
             Route::put('/update/{id}', [BoardController::class, 'update'])->name('admin.board.update');
             Route::delete('/delete/{id}', [BoardController::class, 'delete'])->name('admin.board.delete');
-
+        });
         Route::get('/statues', [StatueController::class, 'index'])->name('admin.statues.index');
 
         Route::prefix('statue')->group(function () {

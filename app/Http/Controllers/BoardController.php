@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BoardMemberRequest;
 use App\services\BoardService;
 use App\Http\Controllers\Controller;
 use App\Models\BoardMember;
@@ -25,7 +26,7 @@ class BoardController extends Controller
         return view('admin.board.form');
     }
 
-    public function store(Request $request)
+    public function store(BoardMemberRequest $request)
     {
         $this->board->store($request);
         return redirect()->route('admin.board.index');
@@ -37,7 +38,7 @@ class BoardController extends Controller
         return view('admin.board.form', compact('boardMember'));
     }
 
-    public function update(Request $request, $id)
+    public function update(BoardMemberRequest $request, $id)
     {
         $this->board->update($request, $id);
         return redirect()->route('admin.board.index');
