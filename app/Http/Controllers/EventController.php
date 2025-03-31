@@ -32,7 +32,7 @@ class EventController extends Controller
         }
 
         if ($request->has("search") && $request->search != '') {
-            $this->searchService->searchByDate($query, $request->search, Event::class);
+            $this->searchService->search($query, $request->search, Event::class);
         }
 
         $events = $query->paginate(10)->appends($request->query());

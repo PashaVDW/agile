@@ -43,7 +43,7 @@ class SearchService
         });
     }
 
-    public function searchByDate($query, mixed $search, string $class)
+    public function search($query, mixed $search, string $class)
     {
         if (preg_match('/\b\d{2}-\d{2}-\d{4}\b/', $search, $fullDate) > 0) {
             $this->singleSearch($query, date('Y-m-d', strtotime($fullDate[0])), $class);

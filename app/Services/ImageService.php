@@ -22,8 +22,8 @@ class ImageService
     public static function deleteImage($class, $model, $type)
     {
         if ($model->$type) {
-            $otherEvents = $class::where($type, $model->$type)->where('id', '!=', $model->id)->count();
-            if ($otherEvents === 0) {
+            $otherModels = $class::where($type, $model->$type)->where('id', '!=', $model->id)->count();
+            if ($otherModels === 0) {
                 Storage::disk('public')->delete($model->$type);
             }
         }
