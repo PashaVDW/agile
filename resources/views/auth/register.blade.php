@@ -21,7 +21,7 @@
                             <select id="major" name="major"
                                     class="bg-indigo-100 text-purple-400 px-2 py-2 rounded-xl outline-none focus:ring-2 focus:ring-indigo-300 w-auto"
                                     required>
-                                <option value="SO">SO</option>
+                                <option value="SO" selected>SO</option>
                                 <option value="BI">BI</option>
                             </select>
                             major aan Avans Hogeschool in 's-Hertogenbosch.<br />
