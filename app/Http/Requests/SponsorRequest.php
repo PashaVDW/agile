@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class SponsorRequest extends FormRequest
 {
@@ -25,7 +27,9 @@ class SponsorRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:65535',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => ['image', 'mimes:jpeg,jpg,png,gif,svg', 'max:2048', Rule::requiredIf(function () {
+                return $this->request->get('image') === null && DB::table('sponsors')->where('id', $this->route('id'))->value('image') === null;
+            })],
             'active' => 'required',
             'url' => 'required|url|max:255',
         ];
