@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Enums\ActiveTypeEnum;
 use App\Enums\EventCategoryEnum;
-use App\Services\TimezoneService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
@@ -16,17 +15,22 @@ class Event extends Model
         'description',
         'price',
         'capacity',
-        'date',
         'banner',
         'category',
         'payment_link',
         'gallery',
         'status',
+        'start_date',
+        'end_date',
+        'location',
     ];
 
     protected $searchable = [
         'title',
-        'date',
+        'start_date',
+        'location',
+        'status',
+        'category',
     ];
 
     public function sponsors(): BelongsToMany
@@ -36,15 +40,16 @@ class Event extends Model
 
     protected $casts = [
         'category' => EventCategoryEnum::class,
-        'date' => 'datetime',
+        'start_date' => 'datetime',
         'status' => ActiveTypeEnum::class,
         'gallery' => 'array',
+        'end_date' => 'datetime',
     ];
 
     public function getBannerUrlAttribute()
     {
         if ($this->banner === null) {
-            return 'assets/images/no-image.png';
+            return 'assets/images/logo-black.svg';
         }
         return Storage::url($this->banner);
     }
@@ -63,19 +68,20 @@ class Event extends Model
         return json_decode($this->gallery);
     }
 
-    public function getFormattedDateAttribute()
+    public function getFormattedDate($date)
     {
-        return $this->date->format('d-m-Y');
+        if ($date === null) {
+            return null;
+        }
+        return $date->format('H:i d-m-Y');
     }
 
-    public function getFormattedDateForInputAttribute()
+    public function getFormattedDateForInput($date)
     {
-        return $this->date->format('Y-m-d');
-    }
-
-    public function getFormattedDateTime($dateTime)
-    {
-        return TimezoneService::getTimezone($dateTime);
+        if ($date === null) {
+            return null;
+        }
+        return $date->format('Y-m-d H:i');
     }
 
     public function getSearchable()

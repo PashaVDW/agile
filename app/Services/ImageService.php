@@ -18,4 +18,36 @@ class ImageService
         }
         return null;
     }
+
+    public static function deleteImage($class, $model, $type)
+    {
+        if ($model->$type) {
+            $otherModels = $class::where($type, $model->$type)->where('id', '!=', $model->id)->count();
+            if ($otherModels === 0) {
+                Storage::disk('public')->delete($model->$type);
+            }
+        }
+    }
+
+    public static function deleteImages($class, $model)
+    {
+        $gallery = json_decode($model->gallery);
+        $otherModels = $class::where('id', '!=', $model->id)->get();
+
+        if (is_array($gallery)) {
+            foreach ($gallery as $image) {
+                $isUsed = false;
+                foreach ($otherModels as $otherModel) {
+                    $otherGallery = json_decode($otherModel->gallery);
+                    if (is_array($otherGallery) && in_array($image, $otherGallery)) {
+                        $isUsed = true;
+                        break;
+                    }
+                }
+                if (!$isUsed) {
+                    Storage::disk('public')->delete($image);
+                }
+            }
+        }
+    }
 }

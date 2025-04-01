@@ -16,7 +16,6 @@ class EventController extends Controller
     private SponsorService $sponsorService;
     private SearchService $searchService;
 
-
     public function __construct(EventService $eventService, SponsorService $sponsorService, SearchService $searchService)
     {
         $this->eventService = $eventService;
@@ -33,7 +32,7 @@ class EventController extends Controller
         }
 
         if ($request->has("search") && $request->search != '') {
-            $this->searchService->searchEvents($query, $request->search, Event::class);
+            $this->searchService->search($query, $request->search, Event::class);
         }
 
         $events = $query->paginate(10)->appends(request()->query());
