@@ -14,7 +14,7 @@
                         @endif
 
                         <x-forms.input-field type="text" name="names" label="Namen" required value="{{ old('names', $oldBoard->names ?? '') }}"/>
-                        <x-forms.input-field type="text" name="term" label="Termijn (bijv. 2024-2025)" required value="{{ old('term', $oldBoard->term ?? '') }}"/>
+                        <x-forms.input-field type="text" name="term" label="Termijn (bijv. 2024/2025)" required value="{{ old('term', $oldBoard->term ?? '') }}"/>
                         <x-forms.input-file name="image" label="Groepsfoto" value="{{ $oldBoard->image_url ?? '' }}"/>
 
                         <button type="submit" class="button right">{{ isset($oldBoard) ? 'Bewerk oud bestuur' : 'Voeg oud bestuur toe' }}</button>
