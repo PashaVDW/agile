@@ -14,7 +14,7 @@
                         @endif
 
                         <x-forms.input-field type="text" name="name" label="Naam" required value="{{ old('name', $commission->name ?? '') }}"/>
-                        <x-forms.input-textarea name="description" label="Omschrijving">{{ old('description', $commission->description ?? '') }}</x-forms.input-textarea>
+                        <x-forms.input-textarea name="description" label="Omschrijving" required>{{ old('description', $commission->description ?? '') }}</x-forms.input-textarea>
 
                         <button type="submit" class="button right">{{ isset($commission) ? 'Bewerk commissie' : 'Voeg commissie toe' }}</button>
                     </form>
