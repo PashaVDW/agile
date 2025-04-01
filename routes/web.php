@@ -5,7 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SponsorController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Fortify;
 use Spatie\Permission\Middleware\RoleMiddleware;
 
 // Admin Routes
