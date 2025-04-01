@@ -11,9 +11,7 @@
                 @endforeach
             </div>
             <div class="sidebar">
-                <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                    <x-forms.input-select :onchange="'this.form.submit()'" name="status" label="Status" default="Alle statussen" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
-                </form>
+                <x-filters.dropdown :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
             </div>
         </div>
     </div>

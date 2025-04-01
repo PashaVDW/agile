@@ -1,7 +1,7 @@
 @props(['item', 'alt' =>'', 'route'])
 <div class="item">
     <div class="block image-block">
-        <img src="{{ asset($item->banner_url)}}" alt="{{$alt}}" @if(!$event->banner) class="no-image" @endif>
+        <img src="{{ asset($item->banner_url)}}" alt="{{$alt}}" @if(!$item->banner) class="no-image" @endif>
     </div>
     <div class="block text-block">
         <div class="item-header">
