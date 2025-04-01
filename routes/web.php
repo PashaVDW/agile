@@ -7,6 +7,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
 use App\Http\Controllers\OldBoardsController;
+use App\Http\Controllers\CommissionController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\RoleMiddleware;
 
@@ -65,6 +66,15 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
             Route::get('/{id}', [OldBoardsController::class, 'show'])->name('admin.old_boards.show');
             Route::put('/update/{id}', [OldBoardsController::class, 'update'])->name('admin.old_boards.update');
             Route::delete('/delete/{id}', [OldBoardsController::class, 'delete'])->name('admin.old_boards.delete');
+        });
+
+        Route::get('/commissions', [CommissionController::class, 'index'])->name('admin.commission.index');
+        Route::prefix('/commission')->group(function () {
+            Route::get('/create', [CommissionController::class, 'create'])->name('admin.commission.create');
+            Route::post('/store', [CommissionController::class, 'store'])->name('admin.commission.store');
+            Route::get('/{id}', [CommissionController::class, 'show'])->name('admin.commission.show');
+            Route::put('/update/{id}', [CommissionController::class, 'update'])->name('admin.commission.update');
+            Route::delete('/delete/{id}', [CommissionController::class, 'delete'])->name('admin.commission.delete');
         });
     });
 });

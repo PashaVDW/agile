@@ -17,7 +17,7 @@ class OldBoardService
         $query = OldBoards::query();
 
         if ($search = $request->get('search')) {
-            $query->where('name', 'like', '%' . $search . '%');
+            $query->where('names', 'like', '%' . $search . '%');
         }
 
         $boardMembers = $query->paginate(10);
