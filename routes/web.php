@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
+use App\Http\Controllers\OldBoardsController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\RoleMiddleware;
 
@@ -56,6 +57,15 @@ Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
             Route::put('/update', [StatueController::class, 'update'])->name('admin.statue.update');
 
         });
+
+        Route::get('/old_boards', [OldBoardsController::class, 'index'])->name('admin.old_boards.index');
+        Route::prefix('/old_boards')->group(function () {
+            Route::get('/create', [OldBoardsController::class, 'create'])->name('admin.old_boards.create');
+            Route::post('/store', [OldBoardsController::class, 'store'])->name('admin.old_boards.store');
+            Route::get('/{id}', [OldBoardsController::class, 'show'])->name('admin.old_boards.show');
+            Route::put('/update/{id}', [OldBoardsController::class, 'update'])->name('admin.old_boards.update');
+            Route::delete('/delete/{id}', [OldBoardsController::class, 'delete'])->name('admin.old_boards.delete');
+        });
     });
 });
 
@@ -67,3 +77,5 @@ Route::middleware(['guest'])->group(function () {
 
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
 Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
+
+
