@@ -37,24 +37,26 @@
                             Ik hoop snel mee te kunnen doen aan alle leuke activiteiten die op de planning staan!
                         </p>
 
-                        <p>
-                            Wachtwoord: <br/>
-                            <input type="password" id="password" name="password"
-                                   class="bg-indigo-100 text-purple-400 px-2 py-2 rounded-xl outline-none focus:ring-2 focus:ring-indigo-300 w-auto"
-                                   required>
-                            <br/>
-                            Herhaal wachtwoord: <br/>
-                            <input type="password" id="confirm_password" name="password_confirmation"
-                                   class="bg-indigo-100 text-purple-400 px-2 py-2 rounded-xl outline-none focus:ring-2 focus:ring-indigo-300 w-auto"
-                                   required>
-                        </p>
+                        <div class="mt-3">
+                            <p>
+                                Wachtwoord: <br/>
+                                <input type="password" id="password" name="password"
+                                       class="bg-indigo-100 text-purple-400 px-2 py-2 rounded-xl outline-none focus:ring-2 focus:ring-indigo-300 w-auto"
+                                       required>
+                                <br/>
+                                Herhaal wachtwoord: <br/>
+                                <input type="password" id="confirm_password" name="password_confirmation"
+                                       class="bg-indigo-100 text-purple-400 px-2 py-2 rounded-xl outline-none focus:ring-2 focus:ring-indigo-300 w-auto"
+                                       required>
+                            </p>
 
-                        <p>
-                            <input type="checkbox" class="labeled" name="privacy" id="privacy" required />
-                            Daarnaast ga ik uiteraard akkoord met het privacybeleid.<br />
-                        </p>
+                            <p class="mt-2">
+                                <input type="checkbox" class="labeled" name="privacy" id="privacy" required />
+                                Daarnaast ga ik uiteraard akkoord met het privacybeleid.<br />
+                            </p>
+                        </div>
 
-                        <button type="submit"
+                        <button type="submit" name="register"
                                 class="btn btn-primary px-4 py-2 rounded-xl">
                             Registreren
                         </button>
