@@ -35,7 +35,7 @@ class BoardController extends Controller
     public function show($id)
     {
         $boardMember = BoardMember::findOrFail($id);
-        return view('admin.board.form', compact('boardMember'));
+        return view('admin.board.form', ['boardMember'=> $boardMember ]);
     }
 
     public function update(BoardMemberRequest $request, $id)
