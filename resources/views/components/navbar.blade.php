@@ -11,11 +11,15 @@
             <li class="nav-item {{ Request::is('events') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
+            </li>
 
-            @auth
+
+        @auth
                 @if(auth()->user()->hasRole('admin'))
                     <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin') }}">Admin</a>
+                        <a class="nav-link" blank="" href="{{ route('admin') }}">Admin</a>
                     </li>
                 @endif
 
