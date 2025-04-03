@@ -36,27 +36,7 @@ class OldBoardService
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
-            $newImage = $request->file('image');
-            $newImageHash = md5_file($newImage->getRealPath());
-
-            if($board->image){
-                $existingImagePath = public_path($board->image);
-
-                if(file_exists($existingImagePath)){
-                    $existingImageHash = md5_file($existingImagePath);
-                    if ($newImageHash !== $existingImageHash) {
-                        $validated['image'] = ImageService::storeImage($request,'image','/board');
-                    }
-                }
-                else{
-                    $validated['image'] = ImageService::storeImage($request,'image','/board');
-                }
-
-            }
-            else{
-                $validated['image'] = ImageService::storeImage($request,'image','/board');
-            }
-
+            $validated['image'] = ImageService::storeImage($request,'image','/board')  ?? ($validated['image'] ?? null);
         }
 
 
