@@ -20,7 +20,7 @@
     @if ($value && $value !== "assets/images/no-image.png")
         <div class="mb-2">
             <a href="{{ asset($value) }}" target="_blank" class="file">
-                {{ $title ?: 'Bekijk bestand' }}
+                {{ str_replace('/storage/files/', '',$value) ?: 'Bekijk bestand' }}
             </a>
         </div>
     @endif
