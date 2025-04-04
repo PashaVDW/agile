@@ -51,7 +51,7 @@
 }
 
 @media only screen and (max-width: 800px) {
-    .events {
+    .events, .event {
         .container {
             .sidebar {
                 min-width: 100%;

@@ -8,7 +8,7 @@
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}">Home</a>
             </li>
-            <li class="nav-item {{ Request::is('events') ? 'active' : '' }}">
+            <li class="nav-item {{ Request::is('event*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
             </li>
             <li class="nav-item">
@@ -17,7 +17,7 @@
             <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
             </li>
-            
+
             @auth
                 @if(auth()->user()->hasRole('admin'))
                     <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
