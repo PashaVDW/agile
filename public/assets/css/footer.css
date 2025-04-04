@@ -1,7 +1,7 @@
 footer {
     background-color: #e4e2ff;
     padding: 40px;
-    .container {
+    .container#footer-container {
         width: 100%;
         display: flex;
         justify-content: space-around;
@@ -58,7 +58,7 @@ footer {
 
 @media only screen and (max-width: 1024px) {
     footer {
-        .container {
+        .container#footer-container {
             flex-direction: column;
             gap: 20px;
             .footerNav {
