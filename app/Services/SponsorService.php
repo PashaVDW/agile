@@ -29,7 +29,7 @@ class SponsorService
     {
         $data = $request->validated();
         $sponsor = Sponsor::find($id);
-        if ($request->hasFile('banner')) {
+        if ($request->hasFile('image')) {
             ImageService::deleteImage(Sponsor::class, $sponsor, 'image');
             $data['image'] = ImageService::StoreImage($request, 'image', '/Sponsors') ?? ($data['image'] ?? null);
         }
