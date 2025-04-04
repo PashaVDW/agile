@@ -20,7 +20,7 @@
     @if ($value && $value !== "assets/images/no-image.png")
         <div class="mb-2">
             <a href="{{ asset($value) }}" target="_blank" class="file">
-                {{ $title ?: 'Bekijk bestand' }}
+                {{ str_replace('/storage/files/', '',$value) ?: 'Bekijk bestand' }}
             </a>
         </div>
     @endif
@@ -40,7 +40,6 @@
     type="file"
     name="{{ $name }}{{ $multiple ? '[]' : '' }}"
     class="border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 {{ $class }}"
-    {{ $required ? "required" : "" }}
     {{ $multiple ? "multiple" : "" }}
   />
   @error($name)
