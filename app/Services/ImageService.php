@@ -63,4 +63,14 @@ class ImageService
             }
         }
     }
+
+    public static function deleteStoredImages($class, $model, $type = null)
+    {
+        if ($type && $model->$type && $type !== 'gallery') {
+            ImageService::deleteImage($class, $model, $type);
+        }
+        if ($model->gallery) {
+            ImageService::deleteImages($class, $model);
+        }
+    }
 }

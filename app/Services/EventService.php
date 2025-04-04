@@ -57,17 +57,8 @@ class EventService
     {
         $event = Event::find($id);
         if ($event) {
-            $this->deleteImages($event);
+            ImageService::deleteStoredImages(Event::class, $event, 'banner');
             $event->delete();
-        }
-    }
-
-    private function deleteImages($event) {
-        if ($event->banner) {
-            ImageService::deleteImage(Event::class, $event, 'banner');
-        }
-        if ($event->gallery) {
-            ImageService::deleteImages(Event::class, $event);
         }
     }
 
