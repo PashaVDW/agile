@@ -8,10 +8,18 @@ use Tests\DuskTestCase;
 
 class SponsorsCrudTest extends DuskTestCase
 {
-    public function testIndex()
+    public function testIndexAdmin()
     {
         $this->browse(function (Browser $browser) {
             $browser->visitRoute('admin.sponsors.index')
+                ->assertSee('sponsors');
+        });
+    }
+
+    public function testIndexUser()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visitRoute('user.sponsors.index')
                 ->assertSee('sponsors');
         });
     }
@@ -28,7 +36,7 @@ class SponsorsCrudTest extends DuskTestCase
                 ->assertSee('test');
         });
     }
-    public function testShowSponsor()
+    public function testShowSponsorAdmin()
     {
         $this->browse(function (Browser $browser) {
             $browser->visitRoute('admin.sponsor.show', 1)

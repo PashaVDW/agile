@@ -8,8 +8,14 @@
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}">Home</a>
             </li>
-            <li class="nav-item {{ Request::is('events') ? 'active' : '' }}">
+            <li class="nav-item {{ Request::is('event*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
+            </li>
+            <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
             </li>
 
             @auth
@@ -29,6 +35,9 @@
                     </form>
                 </li>
             @else
+                <li class="nav-item {{ Request::is('register') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('register') }}">Inschrijven</a>
+                </li>
                 <li class="nav-item {{ Request::is('login') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('login') }}">Inloggen</a>
                 </li>
