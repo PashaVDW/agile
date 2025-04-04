@@ -55,3 +55,5 @@ Route::middleware(['guest'])->group(function () {
 
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
 Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
+
+Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
