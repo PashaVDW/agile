@@ -34,7 +34,7 @@
                     <td>{{ __($event->category->value)}}</td>
                     <td>{{ $event->getFormattedDate($event->created_at) }}</td>
                     <td>{{ $event->getFormattedDate($event->updated_at) }}</td>
-                    <td><a href="{{ route("admin.event.show", ["id" => $event->id]) }}">Updaten</a></td>
+                    <td><a href="{{ route("admin.event.show", ["id" => $event->id]) }}">Bewerken</a></td>
                 </tr>
             @endforeach
             </tbody>
