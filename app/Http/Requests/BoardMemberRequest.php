@@ -25,7 +25,7 @@ class BoardMemberRequest extends FormRequest
         return [
             'name' => 'required|max:255|string',
             'role' => 'required|max:255|string',
-            'description' => 'nullable|max:1000|string'
+            'description' => 'nullable'
 
         ];
     }
@@ -35,7 +35,6 @@ class BoardMemberRequest extends FormRequest
         return [
             'name.required' => 'De naam is verplicht.',
             'role.required' => 'De rol is verplicht.',
-            'description.max' => 'De beschrijving mag niet langer zijn dan 255 tekens.'
 
         ];
     }

@@ -13,10 +13,10 @@
         <table class="table">
             <thead>
             <tr>
-                <td>naam</td>
-                <td>rol</td>
-                <td>foto</td>
-                <td>acties</td>
+                <td>Naam</td>
+                <td>Rol</td>
+                <td>Foto</td>
+                <td>Acties</td>
             </tr>
             </thead>
             <tbody>

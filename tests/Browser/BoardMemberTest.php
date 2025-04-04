@@ -30,7 +30,6 @@ class BoardMemberTest extends DuskTestCase
                 ->typeSlowly('name', 'John Doe')
                 ->typeSlowly('role', 'Chairman')
                 ->typeSlowly('description', 'This is a test board member.')
-//                ->attach('image', storage_path('app/public/images/test-image.jpg'))
                 ->press('Voeg bestuur lid toe');
 
 
@@ -41,7 +40,7 @@ class BoardMemberTest extends DuskTestCase
 
     public function testShowBoardMember()
     {
-        $boardMember = BoardMember::first(); // Ensure there's a board member
+        $boardMember = BoardMember::first();
 
         $this->browse(function (Browser $browser) use ($boardMember) {
             $browser->loginAs(User::find(1))
@@ -61,7 +60,6 @@ class BoardMemberTest extends DuskTestCase
                 ->typeSlowly('name', 'Jane Doe')
                 ->typeSlowly('role', 'Vice Chairman')
                 ->typeSlowly('description', 'Updated description.')
-//                ->attach('image', storage_path('app/public/images/new-image.jpg'))
                 ->press('Bewerk bestuur lid');
 
             $browser->waitForLocation('/admin/boards')
