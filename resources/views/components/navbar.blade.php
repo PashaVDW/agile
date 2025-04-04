@@ -14,8 +14,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
             </li>
-
-
+            <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
+            </li>
+            
             @auth
                 @if(auth()->user()->hasRole('admin'))
                     <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
