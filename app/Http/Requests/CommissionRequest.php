@@ -24,7 +24,7 @@ class CommissionRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255|string',
-            'description' => 'required|max:1000|string'
+            'description' => 'required|max:10000'
 
         ];
     }
@@ -34,7 +34,7 @@ class CommissionRequest extends FormRequest
         return [
             'name.required' => 'De naam is verplicht.',
             'description.required' => 'De omschrijving is verplicht.',
-            'description.max' => 'De beschrijving mag niet langer zijn dan 1000 tekens.'
+            'description.max' => 'De beschrijving mag niet langer zijn dan 10000 tekens.'
 
         ];
     }
