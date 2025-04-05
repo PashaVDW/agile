@@ -9,7 +9,7 @@ class AnnouncementService
 {
     public function store(array $data, $request): Announcement
     {
-        $data['image'] = ImageService::StoreImage($request, 'image', '/announcements');
+        $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? null;
 
         return Announcement::create([
             'title' => $data['title'],
@@ -21,13 +21,8 @@ class AnnouncementService
     public function update(Announcement $announcement, array $data, $request): Announcement
     {
         if ($request->hasFile('image')) {
-            if ($announcement->image && Storage::disk('public')->exists($announcement->image)) {
-                Storage::disk('public')->delete($announcement->image);
-            }
-
-            $data['image'] = ImageService::StoreImage($request, 'image', '/announcements');
-        } else {
-            $data['image'] = $announcement->image;
+            ImageService::deleteImage(Announcement::class, $announcement, 'image');
+            $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? ($data['image'] ?? null);
         }
 
         $announcement->update([
@@ -41,10 +36,7 @@ class AnnouncementService
 
     public function delete(Announcement $announcement): void
     {
-        if ($announcement->image && Storage::disk('public')->exists($announcement->image)) {
-            Storage::disk('public')->delete($announcement->image);
-        }
-
+        ImageService::deleteImage(Announcement::class, $announcement, 'image');
         $announcement->delete();
     }
 }
