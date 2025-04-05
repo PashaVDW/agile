@@ -5,6 +5,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\StatueController;
 use Illuminate\Support\Facades\Route;
 
 // Admin Routes
@@ -39,6 +40,12 @@ Route::middleware(['role:admin'])->group(function () {
             Route::put('/update/{id}', [SponsorController::class, 'update'])->name('admin.sponsor.update');
             Route::delete('/delete/{id}', [SponsorController::class, 'delete'])->name('admin.sponsor.delete');
         });
+        Route::get('/statues', [StatueController::class, 'index'])->name('admin.statues.index');
+
+        Route::prefix('statue')->group(function () {
+            Route::post('/store', [StatueController::class, 'store'])->name('admin.statue.store');
+            Route::put('/update', [StatueController::class, 'update'])->name('admin.statue.update');
+        });
     });
 });
 
@@ -46,7 +53,13 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
     })->name('login');
+    Route::get('/register', function () {
+        return view('auth.register');
+    })->name('register');
 });
 
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
 Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
+
+
+Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');

@@ -18,7 +18,7 @@
                     <tr>
                         <td>{{$sponsor->name}}</td>
                         <td>{{__($sponsor->active)}}</td>
-                        <td><a href="{{ route("admin.sponsor.show", ["id" => $sponsor->id]) }}">Update</a></td>
+                        <td><a href="{{ route("admin.sponsor.show", ["id" => $sponsor->id]) }}">Bewerken</a></td>
                     </tr>
                 @endforeach
             </tbody>

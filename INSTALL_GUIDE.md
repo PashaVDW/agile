@@ -40,3 +40,7 @@
 
 ## composer, npm
 - `composer install` en `npm install` installeren alle benodigde packages voor het project wanneer er nieuwe packages zijn toegevoegd
+
+## env
+- `APP_LOCALE=nl` zorgt ervoor dat de website in het Nederlands is
+- `APP_TIMEZONE=CET` zorgt ervoor dat de tijd correct wordt weergegeven en wordt opgeslagen

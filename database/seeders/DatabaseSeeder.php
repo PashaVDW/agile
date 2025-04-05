@@ -19,7 +19,10 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'admin']);
 
         $user = new User;
+        $user->name = 'admin';
+        $user->major = 'SO';
         $user->email = 'admin@agile.nl';
+        $user->phone = '0612345678';
         $user->password = '$2y$12$RRFILOFFad.VuxS44qX7I.mUJxb1cqlO8exnjs9oqXRGpZi0XIqJW';
         $user->save();
         $user->assignRole('admin');

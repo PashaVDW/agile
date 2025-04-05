@@ -47,7 +47,9 @@ class SponsorService
 //            $data['image'] = $filePath;
 //        }
 
-        $data['image'] = ImageService::StoreImage($request, 'image', '/Sponsors') ?? ($data['image'] ?? null);
+        if ($request->hasFile('image')) {
+            $data['image'] = ImageService::StoreImage($request, 'image', '/Sponsors') ?? ($data['image'] ?? null);
+        }
         $sponsor = Sponsor::find($id);
         $sponsor->update($data);
         $sponsor->events()->sync($request->input('events', []));
