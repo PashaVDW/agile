@@ -21,7 +21,7 @@
                     <x-forms.input-checkbox name="events[]" :value="$event->id" :label="$event->title" :checked="isset($sponsor) && $sponsor->events->contains($event->id)"/>
                 @endforeach
             @endif
-            <button type="submit" class="button right">{{ isset($sponsor) ? 'Update sponsor' : 'Add sponsor' }}</button>
+            <button type="submit" class="button right">{{ isset($sponsor) ? 'Sponsor updaten' : 'Sponsor toevoegen' }}</button>
         </form>
         @if(isset($sponsor))
             <x-actions.crud-delete :item="$sponsor" route="admin.sponsor.delete" title="Sponsor verwijderen" message="Weet je zeker dat je deze wilt verwijderen?" />
