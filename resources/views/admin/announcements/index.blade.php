@@ -27,7 +27,7 @@
             href="{{ route("announcements.create") }}"
             class="btn btn-primary"
           >
-            Nieuwe Aanmaken
+            Nieuwe Announcement Aanmaken
           </a>
         </div>
       </div>
