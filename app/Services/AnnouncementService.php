@@ -11,11 +11,7 @@ class AnnouncementService
     {
         $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? null;
 
-        return Announcement::create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'image' => $data['image'],
-        ]);
+        return Announcement::create($data);
     }
 
     public function update(Announcement $announcement, array $data, $request): Announcement
@@ -25,11 +21,7 @@ class AnnouncementService
             $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? ($data['image'] ?? null);
         }
 
-        $announcement->update([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'image' => $data['image'],
-        ]);
+        $announcement->update($data);
 
         return $announcement;
     }
