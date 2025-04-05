@@ -16,17 +16,16 @@
       <span class="">*</span>
     @endif
   </label>
-
     @if ($value && $value !== "assets/images/logo-black.svg")
         <div class="mb-2">
             <a href="{{ asset($value) }}" target="_blank" class="file">
-                {{ str_replace('/storage/files/', '',$value) ?: 'Bekijk bestand' }}
+                {{ str_replace(config('app.url').'/storage/', '',$value) ?: 'Bekijk bestand' }}
             </a>
         </div>
     @endif
 
     @if ($multiple && $gallery->hasPhotos())
-        <div class="mb-2">
+        <div class="mb-2 flex flex-wrap gap-2">
             @foreach ($gallery->getDecodedPhotos() as $image)
                 <a href="{{ asset($gallery->getGalleryImagePath($image)) }}" target="_blank" class="file">{{ $image ?: 'Bekijk bestand' }}</a>
                 @if (!$loop->last)

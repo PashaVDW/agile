@@ -38,14 +38,7 @@ class EventService
         }
 
         if ($request->hasFile('gallery')) {
-            ImageService::deleteImages(Event::class, $event);
-            $galleryPaths = [];
-            foreach ($request->file('gallery') as $file) {
-                $filePath = $file->storeAs('images/gallery', $file->getClientOriginalName(), 'public');
-                ProcessImageUpload::dispatch($filePath, $file->getClientOriginalName(), 'images/gallery');
-                $galleryPaths[] = 'images/gallery/' . $file->getClientOriginalName();
-            }
-            $data['gallery'] = json_encode($galleryPaths);
+            $data['gallery'] = ImageService::storeGallery($request, Event::class, $event);
         }
 
         $event->update($data);
@@ -64,17 +57,8 @@ class EventService
     {
         $event = Event::find($id);
         if ($event) {
-            $this->deleteImages($event);
+            ImageService::deleteStoredImages(Event::class, $event, 'banner');
             $event->delete();
-        }
-    }
-
-    private function deleteImages($event) {
-        if ($event->banner) {
-            ImageService::deleteImage(Event::class, $event, 'banner');
-        }
-        if ($event->gallery) {
-            ImageService::deleteImages(Event::class, $event);
         }
     }
 

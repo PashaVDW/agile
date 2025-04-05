@@ -37,4 +37,7 @@
   <link href="assets/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
   <link href="assets/css/styles.css" rel="stylesheet" />
   <link href="assets/css/admin.css" rel="stylesheet" />
+    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
 </head>

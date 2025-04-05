@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\ProcessImageUpload;
 use Illuminate\Support\Facades\Storage;
 
 class ImageService
@@ -29,6 +30,18 @@ class ImageService
         }
     }
 
+    public static function storeGallery($request, $class, $model)
+    {
+        ImageService::deleteImages($class, $model);
+        $galleryPaths = [];
+        foreach ($request->file('gallery') as $file) {
+            $filePath = $file->storeAs('images/gallery', $file->getClientOriginalName(), 'public');
+            ProcessImageUpload::dispatch($filePath, $file->getClientOriginalName(), 'images/gallery');
+            $galleryPaths[] = 'images/gallery/' . $file->getClientOriginalName();
+        }
+        return json_encode($galleryPaths);
+    }
+
     public static function deleteImages($class, $model)
     {
         $gallery = json_decode($model->gallery);
@@ -48,6 +61,16 @@ class ImageService
                     Storage::disk('public')->delete($image);
                 }
             }
+        }
+    }
+
+    public static function deleteStoredImages($class, $model, $type = null)
+    {
+        if ($type && $model->$type && $type !== 'gallery') {
+            ImageService::deleteImage($class, $model, $type);
+        }
+        if ($model->gallery) {
+            ImageService::deleteImages($class, $model);
         }
     }
 }
