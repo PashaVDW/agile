@@ -9,6 +9,7 @@ class SearchService
     protected $models = [
         \App\Models\Event::class,
         \App\Models\Sponsor::class,
+        \App\Models\Announcement::class,
     ];
 
     protected $translatedEventCategory = [
@@ -28,7 +29,7 @@ class SearchService
         $query->where(function ($query) use ($searchTerm, $models) {
             foreach ($models as $model) {
                 foreach ($model->getSearchable() as $field) {
-                    $query->orWhereRaw('LOWER(' . $field . ') like ?', ['%' . $searchTerm . '%']);
+                    $query->orWhereRaw('LOWER('.$field.') like ?', ['%'.$searchTerm.'%']);
                 }
             }
         });
@@ -38,7 +39,7 @@ class SearchService
         $searchTerm = strtolower($request);
         $query->where(function ($query) use ($searchTerm, $model) {
             foreach ((new $model)->getSearchable() as $field) {
-                $query->orWhereRaw('LOWER(' . $field . ') like ?', ['%' . $searchTerm . '%']);
+                $query->orWhereRaw('LOWER('.$field.') like ?', ['%'.$searchTerm.'%']);
             }
         });
     }
