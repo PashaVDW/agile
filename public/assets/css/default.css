@@ -72,13 +72,19 @@ body {
 
 body:not(.home) {
     .section {
-        margin-top: 350px;
+        margin-top: 270px;
         background-color: var(--default-offwhite);
+        @media only screen and (max-width: 2100px) {
+            margin-top: 230px;
+        }
+        @media only screen and (max-width: 1440px) {
+            margin-top: 190px;
+        }
         @media only screen and (max-width: 1024px) {
             margin-top: 300px;
         }
         @media only screen and (max-width: 992px) {
-            margin-top: 250px;
+            margin-top: 200px;
             &:before {
                 top: -100px;
             }
