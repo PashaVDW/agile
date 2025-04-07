@@ -43,26 +43,28 @@ class AnnouncementController extends Controller
         $data = $request->validated();
         $this->announcementService->store($data, $request);
 
-        return redirect()->route('announcements.index');
+        return redirect()->route('admin.announcements.index');
     }
 
-    public function edit(Announcement $announcement)
+    public function edit($id)
     {
+        $announcement = Announcement::findOrFail($id);
         return view('admin.announcements.form', compact('announcement'));
     }
+
 
     public function update(AnnouncementRequest $request, Announcement $announcement)
     {
         $data = $request->validated();
         $this->announcementService->update($announcement, $data, $request);
 
-        return redirect()->route('announcements.index');
+        return redirect()->route('admin.announcements.index');
     }
 
     public function destroy(Announcement $announcement)
     {
         $this->announcementService->delete($announcement);
 
-        return redirect()->route('announcements.index');
+        return redirect()->route('admin.announcements.index');
     }
 }

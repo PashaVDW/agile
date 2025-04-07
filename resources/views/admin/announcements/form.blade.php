@@ -5,7 +5,7 @@
 @section("content")
     <div class="container max-w-lg mx-auto">
         <div class="mb-4">
-            <a href="{{ route('announcements.index') }}" class="inline-flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white">
+            <a href="{{ route('admin.announcements.index') }}" class="inline-flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white">
                 <svg class="w-4 h-4 me-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -14,7 +14,7 @@
         </div>
         <form
             method="POST"
-            action="{{ isset($announcement) ? route('announcements.update', $announcement->id) : route('announcements.store') }}"
+            action="{{ isset($announcement) ? route('admin.announcements.update', $announcement->id) : route('admin.announcements.store') }}"
             enctype="multipart/form-data"
         >
             @csrf

@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 class AnnouncementService
 {
+    public function getAnnouncements()
+    {
+        return Announcement::query();
+    }
+
     public function store(array $data, $request): Announcement
     {
         $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? null;

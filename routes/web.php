@@ -8,58 +8,57 @@ use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
 use Illuminate\Support\Facades\Route;
 
-// Admin Routes
-Route::middleware(['role:admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+// Admin home (route name: admin.index)
+Route::middleware(['role:admin'])->get('/admin', [AdminController::class, 'index'])->name('admin.index');
+
+// Admin panel routes
+Route::middleware(['role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        // Announcements
+        Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+        Route::get('/announcements/create', [AnnouncementController::class, 'create'])->name('announcements.create');
+        Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
+        Route::get('/announcements/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
+        Route::put('/announcements/{announcement}', [AnnouncementController::class, 'update'])->name('announcements.update');
+        Route::delete('/announcements/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+
+        // Events
+        Route::get('/events', [EventController::class, 'index'])->name('events.index');
+        Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
+        Route::post('/event/store', [EventController::class, 'store'])->name('event.store');
+        Route::get('/event/{id}', [EventController::class, 'show'])->name('event.show');
+        Route::put('/event/update/{id}', [EventController::class, 'update'])->name('event.update');
+        Route::delete('/event/delete/{id}', [EventController::class, 'delete'])->name('event.delete');
+
+        // Sponsors
+        Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsors.index');
+        Route::get('/sponsor/create', [SponsorController::class, 'create'])->name('sponsor.create');
+        Route::post('/sponsor/store', [SponsorController::class, 'store'])->name('sponsor.store');
+        Route::get('/sponsor/{id}', [SponsorController::class, 'show'])->name('sponsor.show');
+        Route::put('/sponsor/update/{id}', [SponsorController::class, 'update'])->name('sponsor.update');
+        Route::delete('/sponsor/delete/{id}', [SponsorController::class, 'delete'])->name('sponsor.delete');
+
+        // Statues
+        Route::get('/statues', [StatueController::class, 'index'])->name('statues.index');
+        Route::post('/statue/store', [StatueController::class, 'store'])->name('statue.store');
+        Route::put('/statue/update', [StatueController::class, 'update'])->name('statue.update');
+    });
+
+// Guest Auth Routes
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login', fn() => view('auth.login'))->name('login');
+    Route::get('/register', fn() => view('auth.register'))->name('register');
 });
 
-Route::middleware(['role:admin'])->resource('announcements', AnnouncementController::class)->except('show');
-
+// Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::middleware(['role:admin'])->group(function () {
-    Route::prefix('admin')->group(function () {
-        Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
-
-        Route::prefix('/event')->group(function () {
-            Route::get('/create', [EventController::class, 'create'])->name('admin.event.create');
-            Route::post('/store', [EventController::class, 'store'])->name('admin.event.store');
-
-            Route::get('/{id}', [EventController::class, 'show'])->name('admin.event.show');
-            Route::put('/update/{id}', [EventController::class, 'update'])->name('admin.event.update');
-            Route::delete('/delete/{id}', [EventController::class, 'delete'])->name('admin.event.delete');
-        });
-
-        Route::get('/sponsors', [SponsorController::class, 'index'])->name('admin.sponsors.index');
-
-        Route::prefix('/sponsor')->group(function () {
-            Route::get('/create', [SponsorController::class, 'create'])->name('admin.sponsor.create');
-            Route::post('/store', [SponsorController::class, 'store'])->name('admin.sponsor.store');
-
-            Route::get('/{id}', [SponsorController::class, 'show'])->name('admin.sponsor.show');
-            Route::put('/update/{id}', [SponsorController::class, 'update'])->name('admin.sponsor.update');
-            Route::delete('/delete/{id}', [SponsorController::class, 'delete'])->name('admin.sponsor.delete');
-        });
-        Route::get('/statues', [StatueController::class, 'index'])->name('admin.statues.index');
-
-        Route::prefix('statue')->group(function () {
-            Route::post('/store', [StatueController::class, 'store'])->name('admin.statue.store');
-            Route::put('/update', [StatueController::class, 'update'])->name('admin.statue.update');
-        });
-    });
-});
-
-Route::middleware(['guest'])->group(function () {
-    Route::get('/login', function () {
-        return view('auth.login');
-    })->name('login');
-    Route::get('/register', function () {
-        return view('auth.register');
-    })->name('register');
-});
-
+// Public Events and Sponsors
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
-Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
-
-
+Route::get('/event', [EventController::class, 'show'])->name('user.event.show');
 Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
+
+// Public Announcements
+Route::get('/announcements', [HomeController::class, 'announcements'])->name('public.announcements.index');

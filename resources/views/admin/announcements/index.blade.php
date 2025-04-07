@@ -10,7 +10,7 @@
         <div class="flex justify-center">
           <form
             method="GET"
-            action="{{ route("announcements.index") }}"
+            action="{{ route("admin.announcements.index") }}"
             class="w-full max-w-xs"
           >
             <input
@@ -24,7 +24,7 @@
         </div>
         <div class="flex justify-end">
           <a
-            href="{{ route("announcements.create") }}"
+            href="{{ route("admin.announcements.create") }}"
             class="btn btn-primary"
           >
             Nieuwe Announcement Aanmaken
@@ -75,7 +75,7 @@
                   </td>
                   <td>
                     <a
-                      href="{{ route("announcements.edit", $announcement->id) }}"
+                      href="{{ route("admin.announcements.edit", $announcement->id) }}"
                       class="btn btn-sm btn-icon btn-clear btn-light"
                     >
                       <i class="ki-outline ki-notepad-edit"></i>
@@ -84,7 +84,7 @@
                   <td>
                     <form
                       method="POST"
-                      action="{{ route("announcements.destroy", $announcement->id) }}"
+                      action="{{ route("admin.announcements.destroy", $announcement->id) }}"
                     >
                       @csrf
                       @method("DELETE")
