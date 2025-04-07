@@ -8,8 +8,10 @@
 >
   <head>
       <link href="assets/vendors/keenicons/styles.bundle.css" rel="stylesheet" />
+      <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>{{ config("app.name") }} | Login </title>
       <link rel="stylesheet" href="{{ asset("assets/css/login.css") }}" />
-      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
@@ -37,7 +39,7 @@
 
           <!-- Titel -->
           <div class="text-center mb-4">
-            <h3>Inloggen</h3>
+            <h3 class="has-background">Inloggen</h3>
           </div>
 
           <!-- Email Input -->
@@ -78,7 +80,7 @@
 
           <!-- Inloggen Knop -->
           <button
-            class="btn btn-primary mt-4 w-full"
+            class="btn delete mt-4 w-full"
             type="submit"
             id="login-btn"
           >
