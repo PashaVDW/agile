@@ -139,6 +139,11 @@ a {
             width: 100%;
         }
     }
+    &.no-line {
+        &:after {
+            content: none;
+        }
+    }
 }
 
 button, a.button {
