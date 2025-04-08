@@ -5,19 +5,15 @@
 @section("content")
     <div class="container">
         <div class="filter-wrapper">
-            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                <x-forms.input-select :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
-            </form>
-            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                <x-forms.input-field label="Zoeken" name="search" value="{{ request('search') }}"/>
-            </form>
+            <x-filters.dropdown :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}" :params="$bindings"/>
+            <x-filters.search-bar label="Zoeken" placeholder="Zoeken..." :params="$bindings"/>
             <a href="{{ route("admin.event.create") }}" class="button right">Event aanmaken</a>
         </div>
         <table class="table">
             <thead>
                 <tr>
                     <td>Titel</td>
-                    <td>Datum</td>
+                    <td>Datum / Start datum</td>
                     <td>Categorie</td>
                     <td>Aangemaakt op</td>
                     <td>Bijgewerkt op</td>
@@ -28,11 +24,11 @@
             @foreach ($events as $event)
                 <tr>
                     <td>{{ Str::of($event->title)->words(5, '...') }} <span>{{ $event->status->name === 'ARCHIVED' ? '(' . __("ARCHIVED") . ')' : "" }}</span></td>
-                    <td>{{ $event->formatted_date }} </td>
+                    <td>{{ $event->getFormattedDate($event->start_date) }} </td>
                     <td>{{ __($event->category->value)}}</td>
-                    <td>{{ $event->getFormattedDateTime($event->created_at) }}</td>
-                    <td>{{ $event->getFormattedDateTime($event->updated_at) }}</td>
-                    <td><a href="{{ route("admin.event.show", ["id" => $event->id]) }}">Updaten</a></td>
+                    <td>{{ $event->getFormattedDate($event->created_at) }}</td>
+                    <td>{{ $event->getFormattedDate($event->updated_at) }}</td>
+                    <td><a href="{{ route("admin.event.show", ["id" => $event->id]) }}">Bewerken</a></td>
                 </tr>
             @endforeach
             </tbody>

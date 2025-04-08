@@ -9,7 +9,6 @@ class EventRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        //update when authentication is added
         return true;
     }
 
@@ -20,12 +19,14 @@ class EventRequest extends FormRequest
             'description' => 'max:65535',
             'price' => 'numeric|max:2147483647|nullable|min:0',
             'capacity' => 'numeric|max:2147483647|nullable|min:0',
-            'date' => 'required|date',
             'banner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category' => 'required|string|in:'.implode(',', EventCategoryEnum::toArray()),
-            'payment_link' => 'nullable|string|max:255',
+            'payment_link' => 'nullable|url|max:255',
             'gallery' => 'nullable|array|max:50',
             'gallery.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'location' => 'nullable|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
         ];
     }
 
@@ -41,15 +42,21 @@ class EventRequest extends FormRequest
             'capacity.numeric' => 'De capaciteit dient een nummer te zijn',
             'capacity.max' => 'De capaciteit mag niet groter zijn dan 2147483647',
             'capacity.min' => 'De capaciteit dient minimaal 0 te zijn',
-            'date.required' => 'Een datum is verplicht',
             'banner.image' => 'Het bestand dient een afbeelding te zijn',
             'banner.mimes' => 'De afbeelding dient een bestand te zijn van het type: jpeg, png, jpg, gif, svg',
             'banner.max' => 'De afbeelding mag niet groter zijn dan 2048 kilobytes',
             'payment_link.max' => 'De betaallink mag niet langer zijn dan 255 karakters',
-            'payment_link.string' => 'De betaallink dient een string te zijn',
+            'payment_link.url' => 'De betaallink dient een URL te zijn',
             'category.required' => 'Een categorie is verplicht',
             'category.in' => 'De geselecteerde categorie is ongeldig',
             'gallery.max' => 'Er mogen maximaal 50 afbeeldingen worden geüpload',
+            'gallery.*.image' => 'De bestanden dienen afbeeldingen te zijn',
+            'gallery.*.mimes' => 'De afbeeldingen dienen bestanden te zijn van het type: jpeg, png, jpg, gif, svg',
+            'location.max' => 'De locatie mag niet langer zijn dan 255 karakters',
+            'start_date.required' => 'De startdatum dient verplicht in te worden gevuld',
+            'start_date.date' => 'De startdatum dient een datum te zijn',
+            'end_date.date' => 'De einddatum dient een datum te zijn',
+            'end_date.after_or_equal' => 'De einddatum dient na of gelijk te zijn aan de startdatum',
         ];
     }
 }

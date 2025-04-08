@@ -16,7 +16,6 @@ class EventController extends Controller
     private SponsorService $sponsorService;
     private SearchService $searchService;
 
-
     public function __construct(EventService $eventService, SponsorService $sponsorService, SearchService $searchService)
     {
         $this->eventService = $eventService;
@@ -33,13 +32,14 @@ class EventController extends Controller
         }
 
         if ($request->has("search") && $request->search != '') {
-            $this->searchService->searchEvents($query, $request->search, Event::class);
+            $this->searchService->search($query, $request->search, Event::class);
         }
 
-        $events = $query->paginate(10);
+        $events = $query->paginate(10)->appends(request()->query());
+        $bindings = array_keys(request()->query());
 
         if ($request->route()->named('admin.events.index')) {
-            return view('admin.events.index', ['events' => $events]);
+            return view('admin.events.index', ['events' => $events, 'bindings' => $bindings ]);
         }
         return view('user.events.index',['events' => $events]);
     }

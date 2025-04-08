@@ -13,7 +13,8 @@ class Sponsor extends Model
         'name',
         'description',
         'image',
-        'active'
+        'active',
+        'url'
     ];
 
     /**
