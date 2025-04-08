@@ -19,7 +19,6 @@ class BoardService
         $query = BoardMember::query();
 
         if ($search = $request->get('search')) {
-            //$query->where('name', 'like', '%' . $search . '%');
             $this->searchService->search($query, $search, BoardMember::class);
         }
 
