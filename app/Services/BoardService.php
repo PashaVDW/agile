@@ -9,13 +9,18 @@ use Illuminate\Http\Request;
 
 class BoardService
 {
-
+    private SearchService $searchService;
+    public function __construct(SearchService $searchService)
+    {
+        $this->searchService = $searchService;
+    }
     public function getEntries(Request $request)
     {
         $query = BoardMember::query();
 
         if ($search = $request->get('search')) {
-            $query->where('name', 'like', '%' . $search . '%');
+            //$query->where('name', 'like', '%' . $search . '%');
+            $this->searchService->search($query, $search, BoardMember::class);
         }
 
         $boardMembers = $query->paginate(10);
@@ -34,7 +39,7 @@ class BoardService
         $validated = $request->validated();
 
         if ($request->hasFile('image')) {
-
+            ImageService::deleteImage(BoardMember::class, $board, 'image');
             $validated['image'] = ImageService::storeImage($request,'image','/board')  ?? ($validated['image'] ?? null);
 
         }
@@ -47,7 +52,8 @@ class BoardService
     {
         $board = BoardMember::findOrFail($id);
         if ($board->image) {
-            @unlink(public_path($board->image)); // Delete old image
+            ImageService::deleteImage(BoardMember::class, $board, 'image');
+
         }
         $board->delete();
     }
