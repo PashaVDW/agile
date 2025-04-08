@@ -20,11 +20,12 @@
                     </form>
 
                     @if(isset($commission))
-                        <form method="POST" action="{{ route('admin.commission.delete', ['id' => $commission->id]) }}" class="mt-4">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="button delete">Verwijder commissie</button>
-                        </form>
-        @endif
+                        <x-actions.crud-delete
+                            :item="$commission"
+                            route="admin.commission.delete"
+                            title="Commissie verwijderen"
+                            message="Weet je zeker dat je deze commissie wilt verwijderen?"
+                        />
+                    @endif
     </div>
 @stop

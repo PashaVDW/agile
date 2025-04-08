@@ -21,12 +21,13 @@
                     </form>
 
                     @if(isset($oldBoard))
-                        <form method="POST" action="{{ route('admin.old_boards.delete', ['id' => $oldBoard->id]) }}" class="mt-4">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="button delete">Verwijder oud bestuur</button>
-                        </form>
-        @endif
+                        <x-actions.crud-delete
+                            :item="$oldBoard"
+                            route="admin.old_boards.delete"
+                            title="Oud bestuur verwijderen"
+                            message="Weet je zeker dat je dit oud bestuur wilt verwijderen?"
+                        />
+                    @endif
 
 
     </div>

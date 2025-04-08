@@ -12,4 +12,13 @@ class Commission extends Model
         'name',
         'description',
     ];
+
+    protected $searchable = [
+        'name',
+        'description',
+    ];
+    public function getSearchable()
+    {
+        return $this->searchable;
+    }
 }

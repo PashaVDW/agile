@@ -12,12 +12,17 @@ use Illuminate\Http\Request;
 class CommissionService
 {
 
+    private SearchService $searchService;
+    public function __construct(SearchService $searchService)
+    {
+        $this->searchService = $searchService;
+    }
     public function getEntries(Request $request)
     {
         $query = Commission::query();
 
         if ($search = $request->get('search')) {
-            $query->where('name', 'like', '%' . $search . '%');
+            $this->searchService->search($query, $search, Commission::class);
         }
 
         $boardMembers = $query->paginate(10);
