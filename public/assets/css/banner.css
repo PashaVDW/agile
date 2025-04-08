@@ -26,6 +26,8 @@ html, body {
     justify-content: center;
     align-items: center;
     padding: 2rem;
+
+    min-height: 500px;
 }
 
 .concat-title {
@@ -140,5 +142,16 @@ html, body {
         height: min(8em, 12vw);
         top: 85%;
         right: 8%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .concat-banner {
+        min-height: 400px;
+    }
+}
+@media only screen and (max-width: 700px) {
+    .concat-banner {
+        min-height: 300px;
     }
 }

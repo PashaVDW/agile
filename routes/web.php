@@ -63,7 +63,13 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
     })->name('login');
+    Route::get('/register', function () {
+        return view('auth.register');
+    })->name('register');
 });
 
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
 Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
+
+
+Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');

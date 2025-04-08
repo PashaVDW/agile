@@ -1,3 +1,10 @@
+.container.has-sidebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50px;
+}
+
 .sidebar {
     background-color: var(--default-white);
     padding: 40px;
@@ -8,7 +15,7 @@
     h2 {
         font-size: 24px;
     }
-    p{
+    p {
         color: var(--default-grey);
         font-weight: 700;
         font-style: italic;
@@ -29,13 +36,6 @@
             span {
                 font-weight: 700;
             }
-            a {
-                text-decoration: underline;
-                transition: 0.3s;
-                &:hover {
-                    color: var(--default-darkgrey);
-                }
-            }
         }
     }
 }
@@ -51,11 +51,10 @@
 }
 
 @media only screen and (max-width: 800px) {
-    .events {
-        .container {
-            .sidebar {
-                min-width: 100%;
-            }
+    .container.has-sidebar {
+        flex-direction: column-reverse;
+        .sidebar {
+            min-width: 100%;
         }
     }
 }

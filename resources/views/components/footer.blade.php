@@ -1,5 +1,5 @@
 <footer>
-    <div class="container">
+    <div class="container" id="footer-container">
         <div class="footerNav">
             <p>
                 <a href="mailto:info@svconcat.nl">info@svconcat.nl</a>

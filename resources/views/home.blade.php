@@ -13,20 +13,19 @@
             <div class="real-pseudo-element"></div>
         </div>
     </div>
-
-    <div class="events">
-        <div class="container">
-            <div class="items">
-                @foreach($events as $event)
-                    <x-item :event="$event"/>
-                @endforeach
-            </div>
-            @if($randomEvent)
-                <div class="sidebar">
-                    <x-swiper :item="$randomEvent" alt="title"/>
+    <div class="section">
+            <div class="container has-sidebar">
+                <div class="items">
+                    @foreach($events as $event)
+                        <x-item :item="$event" alt="{{$event->banner ? 'Poster voor '.$event->title : ''}}" route="user.event.show"/>
+                    @endforeach
                 </div>
-            @endif
-        </div>
+                @if($randomEvent)
+                    <div class="sidebar">
+                        <x-swiper :item="$randomEvent" id="homeSwiper" alt="title"/>
+                    </div>
+                @endif
+            </div>
     </div>
 @stop
 
