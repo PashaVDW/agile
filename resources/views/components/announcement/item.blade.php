@@ -14,7 +14,7 @@
             </p>
         </div>
         <div class="item-footer">
-            <a href="#" class="button item-button" aria-label="Lees meer over {{ $item->title }}">
+            <a href="{{$route}}" class="button item-button" aria-label="Lees meer over {{ $item->title }}">
                 Lees verder
             </a>
         </div>

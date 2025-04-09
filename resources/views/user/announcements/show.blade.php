@@ -3,7 +3,7 @@
 @section('title', $announcement->title)
 
 @section('content')
-    <div class="section">
+    <div class="section details">
         <div class="container">
             <div class="info">
                 <div class="intro">
@@ -16,10 +16,10 @@
             <div class="sidebar">
                 <ul>
                     @if($announcement->updated_at)
-                        <li><span>Gewijzigd op:</span> {{ $announcement->updated_at->format("d M, Y H:i")}}</li>
+                        <li><span>Gewijzigd op:</span> {{ $announcement->getFormattedDate($announcement->updated_at)}}</li>
                     @endif
                     @if($announcement->created_at)
-                        <li><span>Aangemaakt op:</span> {{ $announcement->created_at->format("d M, Y H:i")}}</li>
+                        <li><span>Aangemaakt op:</span> {{ $announcement->getFormattedDate($announcement->created_at)}}</li>
                     @endif
                 </ul>
                 @if($announcement->image)
