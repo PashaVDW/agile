@@ -25,12 +25,17 @@ class Announcement extends Model
         return $this->searchable;
     }
 
-    public function getImageUrlAttribute()
+    public function getBannerUrlAttribute()
     {
-        if ($this->image == null) {
-            return null;
+        if ($this->image === null) {
+            return 'assets/images/logo-black.svg';
         }
 
-        return asset('storage/' . $this->image);
+        return 'storage/' . $this->image;
+    }
+
+    public function getBannerAttribute()
+    {
+        return $this->image !== null;
     }
 }

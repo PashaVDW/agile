@@ -7,7 +7,7 @@
 
 @section("content")
 
-    <div class="register">
+    <div class="section">
         <div class="container">
             <div class="info">
                 <div class="form">

@@ -35,10 +35,11 @@ class EventController extends Controller
             $this->searchService->search($query, $request->search, Event::class);
         }
 
-        $events = $query->paginate(10)->appends($request->query());
+        $events = $query->paginate(10)->appends(request()->query());
+        $bindings = array_keys(request()->query());
 
         if ($request->route()->named('admin.events.index')) {
-            return view('admin.events.index', ['events' => $events]);
+            return view('admin.events.index', ['events' => $events, 'bindings' => $bindings ]);
         }
         return view('user.events.index',['events' => $events]);
     }

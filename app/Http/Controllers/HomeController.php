@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Services\EventService;
 use App\Services\AnnouncementService;
@@ -30,4 +31,5 @@ class HomeController extends Controller
         $announcements = $this->announcementService->getAnnouncements()->paginate(10);
         return view('user.announcements.index', ['announcements' => $announcements]);
     }
+
 }
