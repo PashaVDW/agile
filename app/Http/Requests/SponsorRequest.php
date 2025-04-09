@@ -13,7 +13,6 @@ class SponsorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-//        return Auth::user()->hasRole('admin');
         return true;
     }
 

@@ -46,12 +46,10 @@ class AnnouncementController extends Controller
         return redirect()->route('admin.announcements.index');
     }
 
-    public function edit($id)
+    public function edit(Announcement $announcement)
     {
-        $announcement = Announcement::findOrFail($id);
         return view('admin.announcements.form', compact('announcement'));
     }
-
 
     public function update(AnnouncementRequest $request, Announcement $announcement)
     {
