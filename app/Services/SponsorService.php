@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Http\Requests\SponsorRequest;
 use App\Models\Sponsor;
-use Illuminate\Support\Facades\Storage;
 
 class SponsorService
 {
@@ -16,15 +15,6 @@ class SponsorService
     public function storeSponsor(SponsorRequest $request)
     {
         $data = $request->validated();
-//        if ($request->hasFile('image')) {
-//            $file = $request->file('image');
-//            $filePath = 'images/' . $file->getClientOriginalName();
-//            if (!Storage::disk('public')->exists($filePath)) {
-//                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
-//            }
-//            $data['image'] = $filePath;
-//        }
-
         $data['image'] = ImageService::StoreImage($request, 'image', '/Sponsors') ?? ($data['image'] ?? null);
         $sponsor = Sponsor::create($data);
         $sponsor->events()->sync($request->input('events', []));
@@ -38,23 +28,21 @@ class SponsorService
     public function updateSponsor(SponsorRequest $request, $id)
     {
         $data = $request->validated();
-//        if ($request->hasFile('image')) {
-//            $file = $request->file('image');
-//            $filePath = 'images/' . $file->getClientOriginalName();
-//            if (!Storage::disk('public')->exists($filePath)) {
-//                $filePath = $file->storeAs('images', $file->getClientOriginalName(), 'public');
-//            }
-//            $data['image'] = $filePath;
-//        }
-
-        $data['image'] = ImageService::StoreImage($request, 'image', '/Sponsors') ?? ($data['image'] ?? null);
         $sponsor = Sponsor::find($id);
+        if ($request->hasFile('image')) {
+            ImageService::deleteImage(Sponsor::class, $sponsor, 'image');
+            $data['image'] = ImageService::StoreImage($request, 'image', '/Sponsors') ?? ($data['image'] ?? null);
+        }
         $sponsor->update($data);
         $sponsor->events()->sync($request->input('events', []));
     }
 
     public function deleteSponsor($id)
     {
-        Sponsor::destroy($id);
+        $sponsor = Sponsor::find($id);
+        if ($sponsor->image) {
+            ImageService::deleteImage(Sponsor::class, $sponsor, 'image');
+        }
+        $sponsor->delete();
     }
 }

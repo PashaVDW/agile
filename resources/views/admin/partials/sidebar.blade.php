@@ -6,14 +6,17 @@
             <span class="text-sm text-white font-medium">{{ config('app.url') }}</span>
         </a>
     </div>
+
+    <!-- Sidebar Menu -->
     <div class="flex items-stretch grow shrink-0 justify-center my-5" id="sidebar_menu">
         <div class="scrollable-y-auto grow [--tw-scrollbar-thumb-color:var(--tw-gray-300)]" data-scrollable="true">
             <div class="mb-5">
                 <div class="menu flex flex-col w-full gap-1.5 px-3.5" id="sidebar_primary_menu">
                     @foreach([
                         ['route' => 'admin.events.index', 'label' => 'Evenementen'],
+                        ['route' => 'announcements.index', 'label' => 'Nieuws'],
                         ['route' => 'admin.sponsors.index', 'label' => 'Sponsoren'],
-                        ['route' => 'admin.statues.index', 'label' => 'Statuten']
+                        ['route' => 'admin.statues.index', 'label' => 'Statuten'],
                     ] as $item)
                         <div class="menu-item">
                             <a class="menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"
@@ -29,6 +32,8 @@
                     @endforeach
                 </div>
             </div>
+
+            <!-- Logout Button -->
             <div class="mt-auto p-3">
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
