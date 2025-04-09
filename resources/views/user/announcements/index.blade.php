@@ -7,7 +7,11 @@
         <div class="container has-sidebar">
             <div class="items">
                 @foreach($announcements as $announcement)
-                    <x-announcement.item :announcement="$announcement" />
+                    <x-announcement.item
+                        :item="$announcement"
+                        :alt="$announcement->banner ? 'Afbeelding voor ' . $announcement->title : ''"
+                        route="#"
+                    />
                 @endforeach
             </div>
             <div class="sidebar">
