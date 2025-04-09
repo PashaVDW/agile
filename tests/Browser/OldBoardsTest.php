@@ -22,7 +22,7 @@ class OldBoardsTest extends DuskTestCase
         });
     }
 
-    public function testCreateBoardMember()
+    public function testCreateOldBoard()
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
@@ -39,7 +39,7 @@ class OldBoardsTest extends DuskTestCase
         });
     }
 
-    public function testShowBoardMember()
+    public function testShowOldBoard()
     {
         $oldBoards = OldBoards::first(); // Ensure there's a board member
 
@@ -51,7 +51,7 @@ class OldBoardsTest extends DuskTestCase
         });
     }
 
-    public function testUpdateBoardMember()
+    public function testUpdateOldBoard()
     {
         $oldBoards = OldBoards::first();
 
@@ -68,7 +68,7 @@ class OldBoardsTest extends DuskTestCase
         });
     }
 
-    public function testDeleteBoardMember()
+    public function testDeleteOldBoard()
     {
         $boardMember = OldBoards::first();
 
@@ -76,7 +76,8 @@ class OldBoardsTest extends DuskTestCase
             $browser->loginAs(User::find(1))
                 ->visit('/admin/old_boards/' . $boardMember->id)
                 ->pause(2000)
-                ->press('Verwijder oud bestuur')
+                ->press('Oud bestuur verwijderen')
+                ->press('Doorgaan')
                 ->waitForLocation('/admin/old_boards')
                 ->assertDontSee('jane Doe,peter');
         });

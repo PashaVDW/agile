@@ -22,7 +22,7 @@ class CommissionTest extends DuskTestCase
         });
     }
 
-    public function testCreateBoardMember()
+    public function testCreateCommission()
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::find(1))
@@ -38,7 +38,7 @@ class CommissionTest extends DuskTestCase
         });
     }
 
-    public function testShowBoardMember()
+    public function testShowCommission()
     {
         $Commission = Commission::first(); // Ensure there's a board member
 
@@ -50,7 +50,7 @@ class CommissionTest extends DuskTestCase
         });
     }
 
-    public function testUpdateBoardMember()
+    public function testUpdateCommission()
     {
         $boardMember = Commission::first();
 
@@ -66,15 +66,16 @@ class CommissionTest extends DuskTestCase
         });
     }
 
-    public function testDeleteBoardMember()
+    public function testDeleteCommission()
     {
-        $boardMember = BoardMember::first();
+        $boardMember = Commission::first();
 
         $this->browse(function (Browser $browser) use ($boardMember) {
             $browser->loginAs(User::find(1))
                 ->visit('/admin/commission/' . $boardMember->id)
                 ->pause(2000)
-                ->press('Verwijder commissie')
+                ->press('Commissie verwijderen')
+                ->press('Doorgaan')
                 ->waitForLocation('/admin/commissions')
                 ->assertDontSee('bakers commissie');
         });
