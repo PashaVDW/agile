@@ -21,7 +21,7 @@
                             </p>
                         </div>
                         <div class="item-footer">
-                            <a href="#" class="button item-button">Lees verder</a>
+                            <a href="{{route('user.announcement.show', ['id' => $announcement->id])}}" class="button item-button">Lees verder</a>
                         </div>
                     </div>
                 </div>

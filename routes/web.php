@@ -62,3 +62,4 @@ Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsor
 
 // Public Announcements
 Route::get('/announcements', [HomeController::class, 'announcements'])->name('public.announcements.index');
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('user.announcement.show');
