@@ -22,11 +22,12 @@
                     </form>
 
                     @if(isset($boardMember))
-                        <form method="POST" action="{{ route('admin.board.delete', ['id' => $boardMember->id]) }}" class="mt-4">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="button delete">Verwijder bestuur lid</button>
-                        </form>
-        @endif
+                        <x-actions.crud-delete
+                            :item="$boardMember"
+                            route="admin.board.delete"
+                            title="Bestuurslid verwijderen"
+                            message="Weet je zeker dat je dit bestuurslid wilt verwijderen?"
+                        />
+                    @endif
     </div>
 @stop

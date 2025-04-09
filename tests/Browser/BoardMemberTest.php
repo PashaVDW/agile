@@ -75,7 +75,8 @@ class BoardMemberTest extends DuskTestCase
             $browser->loginAs(User::find(1))
                 ->visit('/admin/board/' . $boardMember->id)
                 ->pause(2000)
-                ->press('Verwijder bestuur lid')
+                ->press('Bestuurslid verwijderen')
+                ->press('Doorgaan')
                 ->waitForLocation('/admin/boards')
                 ->assertDontSee('Jane Doe');
         });
