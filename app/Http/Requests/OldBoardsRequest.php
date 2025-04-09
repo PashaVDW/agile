@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TermRange;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,20 +25,7 @@ class OldBoardsRequest extends FormRequest
     {
         return [
             'names' => 'required|max:1000|string',
-            'term' => ['required', 'regex:/^(\d{4})\/(\d{4})$/', function ($attribute, $value, $fail) {
-                preg_match('/^(\d{4})\/(\d{4})$/', $value, $matches);
-
-                if (!$matches) {
-                    return $fail('het termijn formaat is: YYYY/YYYY.');
-                }
-
-                $startYear = (int) $matches[1];
-                $endYear = (int) $matches[2];
-
-                if ($endYear !== $startYear + 1) {
-                    return $fail('Het termijn moet op een volgende jaren zijn(e.g., 2024/2025).');
-                }
-            }],
+            'term' => ['required', new TermRange],
         ];
     }
 
