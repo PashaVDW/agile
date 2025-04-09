@@ -6,7 +6,8 @@
     <div class="container">
         <div class="filter-wrapper">
             <form method="GET" action="{{ route(Route::currentRouteName()) }}">
-                <x-forms.input-field label="Zoek" name="search" value="{{ request('search') }}"/>
+                <x-filters.search-bar label="Zoeken" placeholder="Zoeken..." :params="$bindings"/>
+
             </form>
             <a href="{{ route("admin.board.create") }}" class="button right">Voeg bestuur lid toe</a>
         </div>
@@ -20,6 +21,7 @@
             </tr>
             </thead>
             <tbody>
+
             @foreach ($boardMembers as $boardMember)
                 <tr>
                     <td>{{ $boardMember->name }}</td>

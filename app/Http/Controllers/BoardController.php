@@ -17,8 +17,13 @@ class BoardController extends Controller
     }
     public function index(Request $request){
 
-        $boardMembers = $this->board->getEntries($request);
-        return view('admin.board.index',['boardMembers'=> $boardMembers ] );
+        $data = $this->board->getEntries($request);
+
+
+        return view('admin.board.index', [
+            'boardMembers' => $data['boardMembers'],
+            'bindings' => $data['bindings'],
+        ]);
 
     }
     public function create()

@@ -25,8 +25,12 @@ class CommissionService
             $this->searchService->search($query, $search, Commission::class);
         }
 
-        $boardMembers = $query->paginate(10);
-        return $boardMembers;
+        $commissions = $query->paginate(10)->appends($request->query());
+        $bindings = array_keys($request->query());
+        return [
+            '$commissions' => $commissions,
+            'bindings' => $bindings,
+        ];
     }
     public function store(CommissionRequest $request)
     {

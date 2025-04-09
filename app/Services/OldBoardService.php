@@ -25,8 +25,12 @@ class OldBoardService
             $this->searchService->search($query, $search, OldBoards::class);
         }
 
-        $boardMembers = $query->paginate(10);
-        return $boardMembers;
+        $oldBoards = $query->paginate(10)->appends($request->query());
+        $bindings = array_keys($request->query());
+        return [
+            'oldBoards' => $oldBoards,
+            'bindings' => $bindings,
+        ];
     }
     public function store(OldBoardsRequest $request)
     {

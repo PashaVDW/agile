@@ -20,8 +20,11 @@ class CommissionController extends Controller
     }
     public function index(Request $request){
 
-        $commissions = $this->commission->getEntries($request);
-        return view('admin.commission.index',['commissions'=> $commissions ] );
+        $data = $this->commission->getEntries($request);
+        return view('admin.commission.index', [
+            'commissions' => $data['$commissions'],
+            'bindings' => $data['bindings'],
+        ]);
 
     }
     public function create()

@@ -18,8 +18,11 @@ class OldBoardsController extends Controller
     public function index(Request $request){
 
 
-        $oldBoards = $this->board->getEntries($request);
-        return view('admin.old_boards.index',['oldBoards'=> $oldBoards ] );
+        $data = $this->board->getEntries($request);
+        return view('admin.old_boards.index', [
+            'oldBoards' => $data['oldBoards'],
+            'bindings' => $data['bindings'],
+        ]);
 
     }
     public function create()
