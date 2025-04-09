@@ -81,7 +81,5 @@
     </div>
     <!-- End Wrapper -->
 </div>
-
-@include("admin.partials.scripts")
 </body>
 </html>
