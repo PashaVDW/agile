@@ -2,21 +2,23 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Middleware\RoleMiddleware;
 
 // Admin Routes
-Route::middleware(RoleMiddleware::class.':admin')->group(function () {
+Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
+Route::middleware(['role:admin'])->resource('announcements', AnnouncementController::class)->except('show');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::middleware([RoleMiddleware::class . ':admin'])->group(function () {
+Route::middleware(['role:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
 
