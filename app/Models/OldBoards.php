@@ -22,7 +22,7 @@ class OldBoards extends Model
     public function getImageUrlAttribute()
     {
         if ($this->image === null) {
-            return 'assets/images/no-image.png';
+            return 'assets/images/logo-black.svg';
         }
         return Storage::url($this->image);
     }
