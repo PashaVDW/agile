@@ -5,10 +5,7 @@
 @section("content")
     <div class="container">
         <div class="filter-wrapper">
-            <form method="GET" action="{{ route(Route::currentRouteName()) }}">
                 <x-filters.search-bar label="Zoeken" placeholder="Zoeken..." :params="$bindings"/>
-
-            </form>
             <a href="{{ route("admin.board.create") }}" class="button right">Voeg bestuur lid toe</a>
         </div>
         <table class="table">

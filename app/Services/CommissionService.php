@@ -28,7 +28,7 @@ class CommissionService
         $commissions = $query->paginate(10)->appends($request->query());
         $bindings = array_keys($request->query());
         return [
-            '$commissions' => $commissions,
+            'commissions' => $commissions,
             'bindings' => $bindings,
         ];
     }

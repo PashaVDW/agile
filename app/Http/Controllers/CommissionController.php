@@ -22,7 +22,7 @@ class CommissionController extends Controller
 
         $data = $this->commission->getEntries($request);
         return view('admin.commission.index', [
-            'commissions' => $data['$commissions'],
+            'commissions' => $data['commissions'],
             'bindings' => $data['bindings'],
         ]);
 
