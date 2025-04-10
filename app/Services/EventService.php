@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
+use App\Jobs\ProcessImageUpload;
 use App\Models\Event;
-use Illuminate\Support\Facades\Storage;
 
 class EventService
 {
-    public function getEvents($order = 'ASC')
+    public function getEvents()
     {
-        return Event::query()->orderBy('status', $order)->orderBy('date', $order)->with('sponsors');
+        return Event::query()->orderBy('status', 'ASC')->orderBy('start_date', 'DESC')->with('sponsors');
     }
 
     public function getEvent($id)
@@ -20,8 +20,8 @@ class EventService
     public function storeEvent($request)
     {
         $data = $request->validated();
-        $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
-        $data['status'] = $this->setStatus($data['date']);
+        $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
+        $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::create($data);
         $event->sponsors()->sync($request->input('sponsors', []));
     }
@@ -29,36 +29,37 @@ class EventService
     public function updateEvent($request, $id)
     {
         $data = $request->validated();
-        $data['status'] = $this->setStatus($data['date']);
+        $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
+        $event = Event::find($id);
+
         if ($request->hasFile('banner')) {
-            $data['banner'] = ImageService::StoreImage($request, 'banner', 'Events') ?? ($data['banner'] ?? null);
+            ImageService::deleteImage(Event::class, $event, 'banner');
+            $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         }
 
         if ($request->hasFile('gallery')) {
-            $galleryPaths = [];
-            foreach ($request->file('gallery') as $file) {
-                $filePath = 'images/gallery/' . $file->getClientOriginalName();
-                if (!Storage::disk('public')->exists($filePath)) {
-                    $filePath = $file->storeAs('images/gallery', $file->getClientOriginalName(), 'public');
-                }
-                $galleryPaths[] = $filePath;
-            }
-            $data['gallery'] = json_encode($galleryPaths);
+            $data['gallery'] = ImageService::storeGallery($request, Event::class, $event);
         }
 
-        $event = Event::find($id);
         $event->update($data);
         $event->sponsors()->sync($request->input('sponsors', []));
     }
 
-    private function setStatus($date)
+    private function setStatus($startDate, $endDate = null)
     {
-        return $date > now() ? 'ACTIVE' : 'ARCHIVED';
+        if($endDate) {
+            return $startDate > now() || $endDate > now() ? 'ACTIVE' : 'ARCHIVED';
+        }
+        return $startDate > now() ? 'ACTIVE' : 'ARCHIVED';
     }
 
     public function deleteEvent($id)
     {
-        Event::destroy($id);
+        $event = Event::find($id);
+        if ($event) {
+            ImageService::deleteStoredImages(Event::class, $event, 'banner');
+            $event->delete();
+        }
     }
 
     public function getRandomEvent()

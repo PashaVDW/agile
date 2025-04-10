@@ -33,7 +33,7 @@ class ArchiveEvents extends Command
 
         DB::table('events')
             ->where('status', 'ACTIVE')
-            ->where('date', '<', now())
+            ->where('start_date', '<', now() AND 'end_date', '<', now())
             ->update(['status' => 'ARCHIVED']);
 
         $this->info('Events have been archived.');
