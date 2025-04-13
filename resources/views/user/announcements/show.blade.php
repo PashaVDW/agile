@@ -24,7 +24,7 @@
                 </ul>
                 @if($announcement->image)
                     <div class="image-block">
-                        <img src="{{ asset($announcement->image_url) }}" alt="{{ $announcement->title }}">
+                        <img src="{{ asset($announcement->banner_url) }}" alt="{{ $announcement->title }}">
                     </div>
                 @endif
             </div>
