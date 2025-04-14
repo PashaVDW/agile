@@ -18,6 +18,8 @@
                         ['route' => 'admin.sponsors.index', 'label' => 'Sponsoren'],
                         ['route' => 'admin.statues.index', 'label' => 'Statuten'],
                         ['route' => 'admin.board.index', 'label' => 'Bestuur leden'],
+                        ['route' => 'admin.old_boards.index', 'label' => 'Oude besturen'],
+                        ['route' => 'admin.commission.index', 'label' => 'Commissies'],
                     ] as $item)
                         <div class="menu-item">
                             <a class="menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"
