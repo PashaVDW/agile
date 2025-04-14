@@ -36,5 +36,14 @@
         <div class="mt-4">
             {{ $events->links() }}
         </div>
+
+        <div>
+            <form method="POST" action="{{route('admin.home-images.update')}}" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <x-forms.input-file name="gallery" label="Home galerij" :multiple="true" :gallery="$homeImages ?? []"/>
+                <button type="submit" class="button right">Opslaan</button>
+            </form>
+        </div>
     </div>
 @stop
