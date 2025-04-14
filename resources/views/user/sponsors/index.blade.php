@@ -21,5 +21,10 @@
                 @endforeach
             </div>
         </div>
+        <div class="container pagination-container">
+            <div class="pagination">
+                {{ $sponsors->links() }}
+            </div>
+        </div>
     </div>
 @stop
