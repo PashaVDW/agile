@@ -3,7 +3,7 @@
 @section("title", "Events")
 
 @section("content")
-    <div class="container">
+    <div class="container has-sliders">
         <div class="filter-wrapper">
             <x-filters.dropdown :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}" :params="$bindings"/>
             <x-filters.search-bar label="Zoeken" placeholder="Zoeken..." :params="$bindings"/>
@@ -37,7 +37,7 @@
             {{ $events->links() }}
         </div>
 
-        <div>
+        <div class="sliders">
             <form method="POST" action="{{route('admin.home-images.update')}}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
