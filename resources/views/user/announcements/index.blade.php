@@ -7,19 +7,16 @@
         <div class="container has-sidebar">
             <div class="items">
                 @foreach($announcements as $announcement)
-                    <x-announcement.item
+                    <x-item
                         :item="$announcement"
                         :alt="$announcement->banner ? 'Afbeelding voor ' . $announcement->title : ''"
-                        route="#"
+                        route=""
                     />
                 @endforeach
-            </div>
-            <div class="sidebar">
-                <x-announcement.filters />
             </div>
         </div>
         <div class="mt-6">
             {{ $announcements->withQueryString()->links() }}
         </div>
     </div>
-@stop
+@endsection

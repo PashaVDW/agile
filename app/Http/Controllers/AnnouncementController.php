@@ -65,4 +65,11 @@ class AnnouncementController extends Controller
 
         return redirect()->route('admin.announcements.index');
     }
+
+    public function publicIndex()
+    {
+        $announcements = $this->announcementService->getPaginatedPublicAnnouncements();
+        return view('user.announcements.index', compact('announcements'));
+    }
+
 }
