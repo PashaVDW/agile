@@ -17,9 +17,9 @@ class HomeController extends Controller
     public function index()
     {
         $events = $this->eventService->getEvents()->limit(4)->get();
-        $randomEvent = $this->eventService->getHomeImages();
+        $homeImages = $this->eventService->getHomeImages();
 
-        return view('home', ['events' => $events, 'randomEvent' => $randomEvent]);
+        return view('home', ['events' => $events, 'homeImages' => $homeImages]);
     }
 
     public function store(HomeImagesRequest $request)

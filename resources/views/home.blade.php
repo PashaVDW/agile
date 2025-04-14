@@ -20,9 +20,9 @@
                         <x-item :item="$event" alt="{{$event->banner ? 'Poster voor '.$event->title : ''}}" route="user.event.show"/>
                     @endforeach
                 </div>
-                @if($randomEvent)
+                @if($homeImages->hasPhotos())
                     <div class="sidebar">
-                        <x-swiper :item="$randomEvent" id="homeSwiper" alt="title"/>
+                        <x-swiper :item="$homeImages" id="homeSwiper" alt="title"/>
                     </div>
                 @endif
             </div>
