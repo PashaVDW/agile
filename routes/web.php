@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
@@ -40,11 +41,22 @@ Route::middleware(['role:admin'])->group(function () {
             Route::put('/update/{id}', [SponsorController::class, 'update'])->name('admin.sponsor.update');
             Route::delete('/delete/{id}', [SponsorController::class, 'delete'])->name('admin.sponsor.delete');
         });
+
+
+        Route::get('/boards', [BoardController::class, 'index'])->name('admin.board.index');
+        Route::prefix('/board')->group(function () {
+            Route::get('/create', [BoardController::class, 'create'])->name('admin.board.create');
+            Route::post('/store', [BoardController::class, 'store'])->name('admin.board.store');
+            Route::get('/{id}', [BoardController::class, 'show'])->name('admin.board.show');
+            Route::put('/update/{id}', [BoardController::class, 'update'])->name('admin.board.update');
+            Route::delete('/delete/{id}', [BoardController::class, 'delete'])->name('admin.board.delete');
+        });
         Route::get('/statues', [StatueController::class, 'index'])->name('admin.statues.index');
 
         Route::prefix('statue')->group(function () {
             Route::post('/store', [StatueController::class, 'store'])->name('admin.statue.store');
             Route::put('/update', [StatueController::class, 'update'])->name('admin.statue.update');
+
         });
     });
 });
