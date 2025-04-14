@@ -10,6 +10,7 @@ use App\Http\Controllers\StatueController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/announcements', [AnnouncementController::class, 'publicIndex'])->name('public.announcements.index');
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('user.announcement.show');
 
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
 Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
