@@ -10,7 +10,7 @@
                     <x-item
                         :item="$announcement"
                         :alt="$announcement->banner ? 'Afbeelding voor ' . $announcement->title : ''"
-                        route="{{route('user.announcement.show', ['id' => $announcement->id])}}"
+                        route="user.announcement.show"
                     />
                 @endforeach
             </div>
