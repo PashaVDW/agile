@@ -20,5 +20,9 @@ php artisan route:cache
 php artisan view:cache
 ### Run database migrations (if any)
 php artisan migrate --force
+
+##### Seed the database (if any)
+php artisan db:seed --force
+
 ### Clear and cache application data
 php artisan optimize
