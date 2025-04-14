@@ -22,8 +22,12 @@ class BoardService
             $this->searchService->search($query, $search, BoardMember::class);
         }
 
-        $boardMembers = $query->paginate(10);
-        return $boardMembers;
+        $boardMembers = $query->paginate(10)->appends($request->query());
+        $bindings = array_keys($request->query());
+        return [
+            'boardMembers' => $boardMembers,
+            'bindings' => $bindings,
+        ];
     }
     public function store(BoardMemberRequest $request)
     {

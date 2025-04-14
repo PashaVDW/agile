@@ -5,21 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class BoardMember extends Model
+class OldBoards extends Model
 {
     protected $fillable = [
         'id',
-        'name',
-        'role',
-        'description',
+        'names',
+        'term',
         'image'
     ];
 
     protected $searchable = [
-        'name',
-        'role',
-        'description',
-        ];
+        'names',
+        'term',
+    ];
 
     public function getImageUrlAttribute()
     {
@@ -33,4 +31,5 @@ class BoardMember extends Model
     {
         return $this->searchable;
     }
+
 }
