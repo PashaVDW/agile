@@ -1,65 +1,57 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
-use Illuminate\Support\Facades\Route;
 
-// Admin home (route name: admin.index)
-Route::middleware(['role:admin'])->get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/announcements', [AnnouncementController::class, 'publicIndex'])->name('public.announcements.index');
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('user.announcement.show');
 
-// Admin panel routes
-Route::middleware(['role:admin'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-        // Announcements
-        Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
-        Route::get('/announcements/create', [AnnouncementController::class, 'create'])->name('announcements.create');
-        Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
-        Route::get('/announcements/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('announcements.edit');
-        Route::put('/announcements/{announcement}', [AnnouncementController::class, 'update'])->name('announcements.update');
-        Route::delete('/announcements/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
+Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
 
-        // Events
-        Route::get('/events', [EventController::class, 'index'])->name('events.index');
-        Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
-        Route::post('/event/store', [EventController::class, 'store'])->name('event.store');
-        Route::get('/event/{id}', [EventController::class, 'show'])->name('event.show');
-        Route::put('/event/update/{id}', [EventController::class, 'update'])->name('event.update');
-        Route::delete('/event/delete/{id}', [EventController::class, 'delete'])->name('event.delete');
+Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
 
-        // Sponsors
-        Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsors.index');
-        Route::get('/sponsor/create', [SponsorController::class, 'create'])->name('sponsor.create');
-        Route::post('/sponsor/store', [SponsorController::class, 'store'])->name('sponsor.store');
-        Route::get('/sponsor/{id}', [SponsorController::class, 'show'])->name('sponsor.show');
-        Route::put('/sponsor/update/{id}', [SponsorController::class, 'update'])->name('sponsor.update');
-        Route::delete('/sponsor/delete/{id}', [SponsorController::class, 'delete'])->name('sponsor.delete');
-
-        // Statues
-        Route::get('/statues', [StatueController::class, 'index'])->name('statues.index');
-        Route::post('/statue/store', [StatueController::class, 'store'])->name('statue.store');
-        Route::put('/statue/update', [StatueController::class, 'update'])->name('statue.update');
-    });
-
-// Guest Auth Routes
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', fn() => view('auth.login'))->name('login');
     Route::get('/register', fn() => view('auth.register'))->name('register');
 });
 
-// Home
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Admin routes
+Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
 
-// Public Events and Sponsors
-Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
-Route::get('/event', [EventController::class, 'show'])->name('user.event.show');
-Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
+    Route::resource('announcements', AnnouncementController::class)->except(['show']);
 
-// Public Announcements
-Route::get('/announcements', [HomeController::class, 'announcements'])->name('public.announcements.index');
-Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('user.announcement.show');
+    // Events
+    Route::get('/events', [EventController::class, 'index'])->name('events.index');
+
+    Route::prefix('event')->name('event.')->group(function () {
+        Route::get('/create', [EventController::class, 'create'])->name('create');
+        Route::post('/store', [EventController::class, 'store'])->name('store');
+        Route::get('/{id}', [EventController::class, 'show'])->name('show');
+        Route::put('/update/{id}', [EventController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [EventController::class, 'delete'])->name('delete');
+    });
+
+    // Sponsors
+    Route::get('/sponsors', [SponsorController::class, 'index'])->name('sponsors.index');
+
+    Route::prefix('sponsor')->name('sponsor.')->group(function () {
+        Route::get('/create', [SponsorController::class, 'create'])->name('create');
+        Route::post('/store', [SponsorController::class, 'store'])->name('store');
+        Route::get('/{id}', [SponsorController::class, 'show'])->name('show');
+        Route::put('/update/{id}', [SponsorController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [SponsorController::class, 'delete'])->name('delete');
+    });
+
+    // Statuten
+    Route::get('/statues', [StatueController::class, 'index'])->name('statues.index');
+    Route::post('/statue/store', [StatueController::class, 'store'])->name('statue.store');
+    Route::put('/statue/update', [StatueController::class, 'update'])->name('statue.update');
+});

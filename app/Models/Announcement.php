@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Announcement extends Model
 {
@@ -28,10 +29,10 @@ class Announcement extends Model
     public function getBannerUrlAttribute()
     {
         if ($this->image === null) {
-            return 'assets/images/logo-black.svg';
+            return asset('assets/images/logo-black.svg');
         }
 
-        return 'storage/' . $this->image;
+        return Storage::url($this->image);
     }
 
     public function getBannerAttribute()

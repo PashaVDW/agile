@@ -36,4 +36,11 @@ class AnnouncementService
         ImageService::deleteImage(Announcement::class, $announcement, 'image');
         $announcement->delete();
     }
+
+    public function getPaginatedPublicAnnouncements(int $perPage = 10)
+    {
+        return Announcement::query()
+            ->orderByDesc('created_at')
+            ->paginate($perPage);
+    }
 }

@@ -71,4 +71,11 @@ class AnnouncementController extends Controller
         $announcement = Announcement::findOrFail($id);
         return view('user.announcements.show', ['announcement' => $announcement]);
     }
+
+    public function publicIndex()
+    {
+        $announcements = $this->announcementService->getPaginatedPublicAnnouncements();
+        return view('user.announcements.index', compact('announcements'));
+    }
+
 }

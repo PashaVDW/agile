@@ -26,10 +26,4 @@ class HomeController extends Controller
         return view('home', ['events' => $events, 'randomEvent' => $randomEvent]);
     }
 
-    public function announcements()
-    {
-        $announcements = $this->announcementService->getAnnouncements()->paginate(10);
-        return view('user.announcements.index', ['announcements' => $announcements]);
-    }
-
 }
