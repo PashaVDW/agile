@@ -10,12 +10,10 @@ use App\Services\AnnouncementService;
 class HomeController extends Controller
 {
     private EventService $eventService;
-    private AnnouncementService $announcementService;
 
-    public function __construct(EventService $eventService, AnnouncementService $announcementService)
+    public function __construct(EventService $eventService)
     {
         $this->eventService = $eventService;
-        $this->announcementService = $announcementService;
     }
 
     public function index()
