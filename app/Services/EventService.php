@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Jobs\ProcessImageUpload;
 use App\Models\Event;
+use App\Models\HomeImages;
 
 class EventService
 {
@@ -62,10 +62,19 @@ class EventService
         }
     }
 
-    public function getRandomEvent()
+    public function updateHomeImages($request)
     {
-        return Event::whereNotNUll('gallery')
-            ->inRandomOrder()
-            ->first();
+        $data = $request->validated();
+        $homeImages = HomeImages::first();
+        if ($request->hasFile('gallery')) {
+            ImageService::deleteStoredImages(HomeImages::class, $homeImages);
+            $data['gallery'] = ImageService::storeGallery($request, HomeImages::class, $homeImages);
+        }
+        $homeImages->update($data);
+    }
+
+    public function getHomeImages()
+    {
+        return HomeImages::first();
     }
 }

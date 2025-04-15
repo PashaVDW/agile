@@ -39,7 +39,8 @@ class EventController extends Controller
         $bindings = array_keys(request()->query());
 
         if ($request->route()->named('admin.events.index')) {
-            return view('admin.events.index', ['events' => $events, 'bindings' => $bindings ]);
+            $homeImages = $this->eventService->getHomeImages();
+            return view('admin.events.index', ['events' => $events, 'bindings' => $bindings, 'homeImages' => $homeImages]);
         }
         return view('user.events.index',['events' => $events]);
     }
