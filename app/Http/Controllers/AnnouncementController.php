@@ -25,7 +25,7 @@ class AnnouncementController extends Controller
         $query = Announcement::query()->orderBy('created_at', 'desc');
 
         if ($request->filled('search')) {
-            $this->searchService->searchEvents($query, $request->search, Announcement::class);
+            $this->searchService->search($query, $request->search, Announcement::class);
         }
 
         $announcements = $query->get();

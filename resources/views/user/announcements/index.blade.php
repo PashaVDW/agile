@@ -8,25 +8,12 @@
             <div class="items-wrapper">
                 <div class="items">
                     @foreach($announcements as $announcement)
-                        <div class="item">
-                            <div class="block image-block">
-                                <img src="{{ asset($announcement->banner_url) }}" alt="{{ $announcement->banner ? 'Afbeelding voor ' . $announcement->title : '' }}" @if(!$announcement->banner) class="no-image" @endif>
-                            </div>
-                            <div class="block text-block">
-                                <div class="item-header">
-                                    <h3 class="has-background">{{ $announcement->title }}</h3>
-                                    <h6>Aankondiging</h6>
-                                </div>
-                                <div class="item-body">
-                                    <p>
-                                        {!! Str::of(strip_tags($announcement->description))->words(20, '...') !!}
-                                    </p>
-                                </div>
-                                <div class="item-footer">
-                                    <span class="button item-button opacity-50 cursor-not-allowed">Lees verder</span>
-                                </div>
-                            </div>
-                        </div>
+                        <x-item
+                                :item="$announcement"
+                                :alt="($announcement->banner ? 'Afbeelding voor ' . $announcement->title : '')"
+                                :image="$announcement->banner_url"
+                                :route="null"
+                        />
                     @endforeach
                 </div>
             </div>

@@ -44,7 +44,7 @@
                                 <td>{{ Str::limit($announcement->description, 100) }}</td>
                                 <td>
                                     @if ($announcement->image)
-                                        <img src="{{ asset($announcement->image_url) }}" class="w-12 h-12 object-cover rounded-md" />
+                                        <img src="{{ $announcement->banner_url }}" class="w-12 h-12 object-cover rounded-md" />
                                     @else
                                         —
                                     @endif
