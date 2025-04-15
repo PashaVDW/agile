@@ -3,36 +3,37 @@
 @section("title", "Board Members")
 
 @section("content")
-    <div class="container">
-        <div class="filter-wrapper">
-                <x-filters.search-bar label="Zoeken" placeholder="Zoeken..." :params="$bindings"/>
-            <a href="{{ route("admin.board.create") }}" class="button right">Voeg bestuur lid toe</a>
-        </div>
-        <table class="table">
-            <thead>
-            <tr>
-                <td>Naam</td>
-                <td>Rol</td>
-                <td>Foto</td>
-                <td>Acties</td>
-            </tr>
-            </thead>
-            <tbody>
+    <x-admin.datatable
+        :searchAction="route('admin.board.index')"
+        :createUrl="route('admin.board.create')"
+        createLabel="Voeg bestuur lid toe"
+        tableId="board-table"
+        searchPlaceholder="Zoeken..."
+    >
+        <x-slot:thead>
+            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Naam</th>
+            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Rol</th>
+            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Foto</th>
+            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Acties</th>
+        </x-slot:thead>
 
+        <x-slot:tbody>
             @foreach ($boardMembers as $boardMember)
-                <tr>
-                    <td>{{ $boardMember->name }}</td>
-                    <td>{{ $boardMember->role }}</td>
-                    <td><img src="{{ asset($boardMember->image_url) }}" width="50" height="50"></td>
-                    <td>
-                        <a href="{{ route("admin.board.show", ["id" => $boardMember->id]) }}">Bewerk</a>
+                <tr class="border-b border-gray-300">
+                    <td class="px-4 py-2">{{ $boardMember->name }}</td>
+                    <td class="px-4 py-2">{{ $boardMember->role }}</td>
+                    <td class="px-4 py-2">
+                        <img src="{{ asset($boardMember->image_url) }}" width="50" height="50" class="rounded-md object-cover" />
+                    </td>
+                    <td class="px-4 py-2">
+                        <a href="{{ route("admin.board.show", ["id" => $boardMember->id]) }}" class="text-blue-600 hover:underline">Bewerk</a>
                     </td>
                 </tr>
             @endforeach
-            </tbody>
-        </table>
-        <div class="mt-4">
-            {{ $boardMembers->links() }}
-        </div>
+        </x-slot:tbody>
+    </x-admin.datatable>
+
+    <div class="mt-4">
+        {{ $boardMembers->links() }}
     </div>
-@stop
+@endsection
