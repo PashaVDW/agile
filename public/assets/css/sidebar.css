@@ -40,6 +40,16 @@
     }
 }
 
+@media only screen and (max-width: 1080px) {
+    .event {
+        .container {
+            .sidebar {
+                max-width: 400px;
+            }
+        }
+    }
+}
+
 @media only screen and (max-width: 1024px) {
     .event {
         .container {

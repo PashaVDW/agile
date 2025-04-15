@@ -200,6 +200,32 @@ body {
         margin: 0 auto;
         padding: 0 20px;
     }
+    &:not(.admin) {
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+        }
+        .pagination {
+            margin: 0 auto;
+            nav {
+                border-radius: 15px;
+                overflow: hidden;
+                div {
+                    &:first-child {
+                        display: none;
+                    }
+                    &:last-child {
+                        display: block;
+                    }
+                }
+                a {
+                    &:after {
+                        content: none;
+                    }
+                }
+            }
+        }
+    }
 }
 
 form {
