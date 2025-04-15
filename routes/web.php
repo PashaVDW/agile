@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
+use App\Http\Controllers\OldBoardsController;
+use App\Http\Controllers\CommissionController;
 use Illuminate\Support\Facades\Route;
 
 // Admin Routes
@@ -19,6 +22,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['role:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
+        Route::put('/home-images/update', [HomeController::class, 'update'])->name('admin.home-images.update');
+
         Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
 
         Route::prefix('/event')->group(function () {
@@ -40,11 +45,40 @@ Route::middleware(['role:admin'])->group(function () {
             Route::put('/update/{id}', [SponsorController::class, 'update'])->name('admin.sponsor.update');
             Route::delete('/delete/{id}', [SponsorController::class, 'delete'])->name('admin.sponsor.delete');
         });
+
+
+        Route::get('/boards', [BoardController::class, 'index'])->name('admin.board.index');
+        Route::prefix('/board')->group(function () {
+            Route::get('/create', [BoardController::class, 'create'])->name('admin.board.create');
+            Route::post('/store', [BoardController::class, 'store'])->name('admin.board.store');
+            Route::get('/{id}', [BoardController::class, 'show'])->name('admin.board.show');
+            Route::put('/update/{id}', [BoardController::class, 'update'])->name('admin.board.update');
+            Route::delete('/delete/{id}', [BoardController::class, 'delete'])->name('admin.board.delete');
+        });
         Route::get('/statues', [StatueController::class, 'index'])->name('admin.statues.index');
 
         Route::prefix('statue')->group(function () {
             Route::post('/store', [StatueController::class, 'store'])->name('admin.statue.store');
             Route::put('/update', [StatueController::class, 'update'])->name('admin.statue.update');
+
+        });
+
+        Route::get('/old_boards', [OldBoardsController::class, 'index'])->name('admin.old_boards.index');
+        Route::prefix('/old_boards')->group(function () {
+            Route::get('/create', [OldBoardsController::class, 'create'])->name('admin.old_boards.create');
+            Route::post('/store', [OldBoardsController::class, 'store'])->name('admin.old_boards.store');
+            Route::get('/{id}', [OldBoardsController::class, 'show'])->name('admin.old_boards.show');
+            Route::put('/update/{id}', [OldBoardsController::class, 'update'])->name('admin.old_boards.update');
+            Route::delete('/delete/{id}', [OldBoardsController::class, 'delete'])->name('admin.old_boards.delete');
+        });
+
+        Route::get('/commissions', [CommissionController::class, 'index'])->name('admin.commission.index');
+        Route::prefix('/commission')->group(function () {
+            Route::get('/create', [CommissionController::class, 'create'])->name('admin.commission.create');
+            Route::post('/store', [CommissionController::class, 'store'])->name('admin.commission.store');
+            Route::get('/{id}', [CommissionController::class, 'show'])->name('admin.commission.show');
+            Route::put('/update/{id}', [CommissionController::class, 'update'])->name('admin.commission.update');
+            Route::delete('/delete/{id}', [CommissionController::class, 'delete'])->name('admin.commission.delete');
         });
     });
 });
