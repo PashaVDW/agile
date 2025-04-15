@@ -22,6 +22,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['role:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
+        Route::put('/home-images/update', [HomeController::class, 'update'])->name('admin.home-images.update');
+
         Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
 
         Route::prefix('/event')->group(function () {

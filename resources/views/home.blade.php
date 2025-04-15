@@ -22,9 +22,9 @@
                         @endforeach
                     </div>
                 </div>
-                @if($randomEvent)
+                @if($homeImages->hasPhotos())
                     <div class="sidebar">
-                        <x-swiper :item="$randomEvent" id="homeSwiper" alt="title"/>
+                        <x-swiper :item="$homeImages" id="homeSwiper" alt="title"/>
                     </div>
                 @endif
             </div>
