@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Storage;
 
 class AnnouncementService
 {
+    public function getAnnouncements()
+    {
+        return Announcement::query();
+    }
+
     public function store(array $data, $request): Announcement
     {
         $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? null;
@@ -30,5 +35,12 @@ class AnnouncementService
     {
         ImageService::deleteImage(Announcement::class, $announcement, 'image');
         $announcement->delete();
+    }
+
+    public function getPaginatedPublicAnnouncements(int $perPage = 10)
+    {
+        return Announcement::query()
+            ->orderByDesc('created_at')
+            ->paginate($perPage);
     }
 }
