@@ -3,6 +3,7 @@
     "EVENT" : "Evenement",
     "ACTIVE" : "Aankomend",
     "ARCHIVED" : "Gearchiveerd",
+    "COMMUNITY" : "Community Avond",
     "active" : "Actief",
     "inactive" : "Inactief"
 }
