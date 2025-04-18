@@ -62,6 +62,19 @@ class Event extends Model
         return Storage::url($this->banner);
     }
 
+    public function getRegistryCountAttribute()
+    {
+        return $this->registeredUsers()->count() > 0 ? $this->registeredUsers()->count() : '-';
+    }
+
+    public function getRegistryPercentageAttribute()
+    {
+        if ($this->capacity > 0) {
+            return round(($this->registeredUsers()->count() / $this->capacity) * 100, 2);
+        }
+        return null;
+    }
+
     public function getGalleryImagePath($image)
     {
         return Storage::url($image);
