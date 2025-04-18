@@ -6,6 +6,7 @@ use App\Enums\ActiveTypeEnum;
 use App\Enums\EventCategoryEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class Event extends Model
@@ -18,6 +19,7 @@ class Event extends Model
         'banner',
         'category',
         'payment_link',
+        'is_open',
         'gallery',
         'status',
         'start_date',
@@ -33,18 +35,24 @@ class Event extends Model
         'category',
     ];
 
-    public function sponsors(): BelongsToMany
-    {
-        return $this->belongsToMany(Sponsor::class, 'event_sponsors', 'event_id', 'sponsor_id');
-    }
-
     protected $casts = [
         'category' => EventCategoryEnum::class,
         'start_date' => 'datetime',
         'status' => ActiveTypeEnum::class,
         'gallery' => 'array',
         'end_date' => 'datetime',
+        'is_open' => 'boolean',
     ];
+
+    public function sponsors(): BelongsToMany
+    {
+        return $this->belongsToMany(Sponsor::class, 'event_sponsors', 'event_id', 'sponsor_id');
+    }
+
+    public function registeredUsers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'event_registries', 'event_id', 'user_id');
+    }
 
     public function getBannerUrlAttribute()
     {
@@ -87,5 +95,10 @@ class Event extends Model
     public function getSearchable()
     {
         return $this->searchable;
+    }
+
+    public function isRegistered()
+    {
+        return $this->registeredUsers->contains(Auth::user()->id);
     }
 }
