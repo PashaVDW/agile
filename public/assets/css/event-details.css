@@ -1,4 +1,4 @@
-.event {
+.details {
     .container {
         display: flex;
         flex-direction: row;
@@ -22,7 +22,7 @@
 }
 
 @media only screen and (max-width: 1420px) {
-    .event {
+    .details {
         .container {
             .info {
                 max-width: 800px;
@@ -33,7 +33,7 @@
 
 
 @media only screen and (max-width: 1024px) {
-    .event {
+    .details {
         .container {
             flex-direction: column-reverse;
             gap: 50px;

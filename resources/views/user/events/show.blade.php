@@ -3,7 +3,7 @@
 @section('title', $event->title)
 
 @section('content')
-    <div class="section">
+    <div class="section details">
         <div class="container has-sidebar">
             <div class="info">
                 <div class="intro">

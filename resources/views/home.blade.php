@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 @if($homeImages->hasPhotos())
-                    <div class="sidebar">
+                    <div class="sidebar sideslider">
                         <x-swiper :item="$homeImages" id="homeSwiper" alt="title"/>
                     </div>
                 @endif
