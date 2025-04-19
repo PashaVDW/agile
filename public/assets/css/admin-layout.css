@@ -29,4 +29,24 @@
             color: inherit;
         }
     }
+
+    .availability {
+        display: flex;
+        align-items: center;
+        .percentage-meter {
+            margin-left: 20px;
+            padding: 5px;
+            color: var(--default-black);
+            border-radius: 5px;
+            &.low {
+                background-color: greenyellow;
+            }
+            &.medium {
+                background-color: orange;
+            }
+            &.high {
+                background-color: red;
+            }
+        }
+    }
 }

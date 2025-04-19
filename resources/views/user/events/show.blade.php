@@ -40,6 +40,21 @@
                         <li><span>Betalen voor: </span><a href="{{$event->payment_link}}" target="_blank">{{$event->title}}</a></li>
                     @endif
                 </ul>
+                @if($event->is_open)
+                    @if(auth()->user())
+                        <form action="{{ $event->isRegistered() ? route('user.event.unregister', $event->id) : route('user.event.register', $event->id) }}" method="POST">
+                            @csrf
+                            @if($event->isRegistered())
+                                @method('DELETE')
+                            @endif
+                            <button type="submit" class="item-button">
+                                {{ $event->isRegistered() ? 'Afmelden' : 'Inschrijven' }}
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="no-line button item-button">Inloggen</a>
+                    @endif
+                @endif
             </div>
         </div>
     </div>

@@ -80,4 +80,16 @@ class EventController extends Controller
         $this->eventService->deleteEvent($id);
         return to_route('admin.events.index');
     }
+
+    public function register(Request $request, $id)
+    {
+        $this->eventService->registerUser($request, $id);
+        return to_route('user.event.show', ['id' => $id]);
+    }
+
+    public function unregister(Request $request, $id)
+    {
+        $this->eventService->unregisterUser($request, $id);
+        return to_route('user.event.show', ['id' => $id]);
+    }
 }

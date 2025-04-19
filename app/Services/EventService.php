@@ -20,6 +20,7 @@ class EventService
     public function storeEvent($request)
     {
         $data = $request->validated();
+        $data['is_open'] = $request->input('is_open', false) === 'on';
         $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::create($data);
@@ -29,6 +30,7 @@ class EventService
     public function updateEvent($request, $id)
     {
         $data = $request->validated();
+        $data['is_open'] = $request->input('is_open', false) === 'on';
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::find($id);
 
@@ -76,5 +78,21 @@ class EventService
     public function getHomeImages()
     {
         return HomeImages::first();
+    }
+
+    public function registerUser($request, $id)
+    {
+        $event = Event::find($id);
+        if ($event) {
+            $event->registeredUsers()->attach($request->user()->id);
+        }
+    }
+
+    public function unregisterUser($request, $id)
+    {
+        $event = Event::find($id);
+        if ($event) {
+            $event->registeredUsers()->detach($request->user()->id);
+        }
     }
 }
