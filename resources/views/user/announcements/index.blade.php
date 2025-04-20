@@ -18,8 +18,10 @@
                 </div>
             </div>
         </div>
-        <div class="mt-6">
-            {{ $announcements->withQueryString()->links() }}
+        <div class="container pagination-container">
+            <div class="pagination">
+                {{ $announcements->withQueryString()->links() }}
+            </div>
         </div>
     </div>
 @endsection
