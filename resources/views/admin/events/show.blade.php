@@ -16,7 +16,7 @@
             <x-forms.input-file name="banner" :title="($event->title ?? '')" label="Afbeelding" value="{{ $event->banner_url ?? '' }}"/>
             <x-forms.input-select name="category" :required="true" label="Categorie" :enum="$categories" value="{{old('category', $event->category->value ?? '')}}"/>
             <x-forms.input-field type="url" name="payment_link" label="Betaal link" value="{{old('payment_link',$event->payment_link ?? '')}}"/>
-            <x-forms.input-switch name="is_open" label="Inschrijf mogelijk?" :checked="old('is_open', $event->is_open ?? false)"/>
+            <x-forms.input-switch name="is_open" label="Inschrijven mogelijk?" :checked="old('is_open', $event->is_open ?? false)"/>
             <x-forms.input-field name="location" label="Locatie" value="{{old('location',$event->location ?? '')}}"/>
             <x-forms.input-field type="datetime-local" name="start_date" :required="true" label="Datum / Start datum" value="{{ old('start_date', isset($event) ? $event->getFormattedDateForInput($event->start_date) : '' ) }}"/>
             <x-forms.input-field type="datetime-local" name="end_date" label="Eind datum" value="{{ old('end_date', isset($event) ? $event->getFormattedDateForInput($event->end_date) : '' )}}"/>
