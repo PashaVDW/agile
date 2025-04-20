@@ -30,7 +30,15 @@ Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
     // Announcements
-    Route::resource('announcements', AnnouncementController::class)->except(['show']);
+    Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+    Route::prefix('announcement')->name('announcements.')->group(function () {
+        Route::get('/create', [AnnouncementController::class, 'create'])->name('create');
+        Route::post('/store', [AnnouncementController::class, 'store'])->name('store');
+        Route::get('/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('edit');
+        Route::put('/update/{announcement}', [AnnouncementController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [AnnouncementController::class, 'delete'])->name('delete');
+    });
+
 
     // Home images
     Route::put('/home-images/update', [HomeController::class, 'update'])->name('home-images.update');

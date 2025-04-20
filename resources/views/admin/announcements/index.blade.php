@@ -54,15 +54,6 @@
                                         <i class="ki-outline ki-notepad-edit"></i>
                                     </a>
                                 </td>
-                                <td>
-                                    <form method="POST" action="{{ route('admin.announcements.destroy', $announcement) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-icon btn-clear btn-light" onclick="return confirm('Weet je zeker dat je deze wilt verwijderen?')">
-                                            <i class="ki-outline ki-trash"></i>
-                                        </button>
-                                    </form>
-                                </td>
                             </tr>
                         @endforeach
                         </tbody>

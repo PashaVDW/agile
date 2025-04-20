@@ -59,8 +59,9 @@ class AnnouncementController extends Controller
         return redirect()->route('admin.announcements.index');
     }
 
-    public function destroy(Announcement $announcement)
+    public function delete($id)
     {
+        $announcement = Announcement::findOrFail($id);
         $this->announcementService->delete($announcement);
 
         return redirect()->route('admin.announcements.index');
