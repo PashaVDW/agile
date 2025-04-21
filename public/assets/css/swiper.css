@@ -30,3 +30,14 @@
         max-height: 300px;
     }
 }
+
+.home {
+    .sideslider {
+        padding: 0;
+        width: calc(100% - 25%);
+
+        .swiper-container {
+            margin: 0;
+        }
+    }
+}

@@ -8,7 +8,7 @@
             <div class="items-wrapper">
                 <div class="items">
                     @foreach($events as $event)
-                        <x-item :item="$event" alt="{{$event->banner ? 'Poster voor '.$event->title : ''}}" route="user.{{strToLower($event->category->value)}}.show"/>
+                        <x-item :item="$event" alt="{{$event->banner ? 'Poster voor '.$event->title : ''}}" route="user.{{strToLower($event->category->value) === 'community' ? strToLower($event->category->value) : 'event'}}.show"/>
                     @endforeach
                 </div>
                 <div class="pagination">
