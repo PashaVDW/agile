@@ -35,14 +35,15 @@ class EventController extends Controller
             $this->searchService->search($query, $request->search, Event::class);
         }
 
-        $events = $query->paginate(10)->appends(request()->query());
         $bindings = array_keys(request()->query());
 
         if ($request->route()->named('admin.events.index')) {
+            $events = $query->paginate(10)->appends(request()->query());
             $homeImages = $this->eventService->getHomeImages();
             return view('admin.events.index', ['events' => $events, 'bindings' => $bindings, 'homeImages' => $homeImages]);
         }
-        return view('user.events.index',['events' => $events]);
+        $events = $query->whereNot('category', EventCategoryEnum::COMMUNITY->value)->paginate(10)->appends(request()->query());
+        return view('user.events.index',['events' => $events, $bindings]);
     }
 
     public function create()
@@ -79,6 +80,20 @@ class EventController extends Controller
     {
         $this->eventService->deleteEvent($id);
         return to_route('admin.events.index');
+    }
+
+    public function community(Request $request)
+    {
+        $query = $this->eventService->getEvents()->where('category', EventCategoryEnum::COMMUNITY->value);
+
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
+        $events = $query->paginate(10)->appends(request()->query());
+        $bindings = array_keys(request()->query());
+
+        return view('user.events.index',['events' => $events, $bindings]);
     }
 
     public function register(Request $request, $id)

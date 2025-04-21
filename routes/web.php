@@ -99,4 +99,7 @@ Route::prefix('/event')->group(function () {
     Route::delete('/unregister/{id}', [EventController::class, 'unregister'])->name('user.event.unregister');
 });
 
+Route::get('/community', [EventController::class, 'community'])->name('user.community.index');
+Route::get('/community/{id}', [EventController::class, 'show'])->name('user.community.show');
+
 Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
