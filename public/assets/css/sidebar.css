@@ -54,6 +54,7 @@
     .details {
         .container {
             .sidebar {
+                padding: 30px;
                 max-width: 100%;
             }
         }
