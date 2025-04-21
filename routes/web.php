@@ -96,7 +96,7 @@ Route::get('/events', [EventController::class, 'index'])->name('user.events.inde
 Route::prefix('/event')->group(function () {
     Route::get('/{id}', [EventController::class, 'show'])->name('user.event.show');
     Route::middleware(['auth'])->group(function () {
-        Route::get('/register/{id}', [EventController::class, 'register'])->name('user.event.register');
+        Route::post('/register/{id}', [EventController::class, 'register'])->name('user.event.register');
         Route::delete('/unregister/{id}', [EventController::class, 'unregister'])->name('user.event.unregister');
     });
 });
