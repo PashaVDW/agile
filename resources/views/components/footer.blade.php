@@ -5,11 +5,6 @@
                 <a href="mailto:info@svconcat.nl">info@svconcat.nl</a>
                 <a href="tel:+31644848495">(0)6 44848495</a>
                 <br>
-{{--                <span class="flex gap-3">--}}
-{{--                      <a href="https://www.instagram.com/svconcat/" target="_blank">Instagram</a>--}}
-{{--                        <a href="https://www.linkedin.com/company/sv-concat" target="_blank">LinkedIn</a>--}}
-{{--                        <a href="https://discord.gg/XG69KMhhnh" target="_blank">Discord</a>--}}
-{{--                </span>--}}
             </p>
             <ul>
                 <li><a href="https://www.instagram.com/svconcat/" target="_blank">Instagram</a></li>
