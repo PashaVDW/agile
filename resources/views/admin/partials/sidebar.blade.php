@@ -13,7 +13,7 @@
             <div class="mb-5">
                 <div class="menu flex flex-col w-full gap-1.5 px-3.5" id="sidebar_primary_menu">
                     @foreach([
-                        ['route' => 'admin.events.index', 'label' => 'Evenementen'],
+                        ['route' => 'admin.events.index', 'label' => 'Evenementen / Community'],
                         ['route' => 'announcements.index', 'label' => 'Nieuws'],
                         ['route' => 'admin.sponsors.index', 'label' => 'Sponsoren'],
                         ['route' => 'admin.statues.index', 'label' => 'Statuten'],
