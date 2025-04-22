@@ -14,7 +14,7 @@
                 </form>
             </div>
             <div class="flex justify-end">
-                <a href="{{ $createUrl }}" class="btn btn-primary">
+                <a href="{{ $createUrl }}" class="button">
                     {{ $createLabel }}
                 </a>
             </div>

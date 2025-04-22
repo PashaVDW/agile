@@ -31,18 +31,9 @@
                         @endif
                     </td>
                     <td class="px-4 py-2">
-                        <a href="{{ route('admin.sponsor.show', ['id' => $sponsor->id]) }}" class="btn btn-sm btn-icon btn-clear btn-light">
-                            <i class="ki-outline ki-notepad-edit"></i>
+                        <a href="{{ route('admin.sponsor.show', ['id' =>  $sponsor->id]) }}" class="text-blue-600 hover:underline">
+                            Bewerk
                         </a>
-                    </td>
-                    <td class="px-4 py-2">
-                        <form method="POST" action="{{ route('admin.sponsor.delete', ['id' => $sponsor->id]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-icon btn-clear btn-light" onclick="return confirm('Weet je zeker dat je deze wilt verwijderen?')">
-                                <i class="ki-outline ki-trash"></i>
-                            </button>
-                        </form>
                     </td>
                 </tr>
             @endforeach

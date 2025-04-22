@@ -9,12 +9,12 @@
         searchPlaceholder="Zoek op titel of omschrijving..."
     >
         <x-slot:thead>
-            <th class="min-w-[200px] border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Datum & Tijd Aangemaakt</th>
-            <th class="w-[185px] border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Titel</th>
-            <th class="w-[185px] border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Omschrijving</th>
-            <th class="w-[120px] border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Afbeelding</th>
-            <th class="w-[60px] border-b border-gray-400 px-4 py-2"></th>
-            <th class="w-[60px] border-b border-gray-400 px-4 py-2"></th>
+            <th>Datum & Tijd Aangemaakt</th>
+            <th>Titel</th>
+            <th>Omschrijving</th>
+            <th>Afbeelding</th>
+            <th></th>
+            <th></th>
         </x-slot:thead>
 
         <x-slot:tbody>
@@ -31,18 +31,9 @@
                         @endif
                     </td>
                     <td class="px-4 py-2">
-                        <a href="{{ route('announcements.edit', $announcement->id) }}" class="btn btn-sm btn-icon btn-clear btn-light">
-                            <i class="ki-outline ki-notepad-edit"></i>
+                        <a href="{{ route('announcements.edit', ['announcement' => $announcement->id]) }}" class="text-blue-600 hover:underline">
+                            Bewerk
                         </a>
-                    </td>
-                    <td class="px-4 py-2">
-                        <form method="POST" action="{{ route('announcements.destroy', $announcement->id) }}">
-                            @csrf
-                            @method("DELETE")
-                            <button class="btn btn-sm btn-icon btn-clear btn-light" onclick="return confirm('Weet je zeker dat je deze wilt verwijderen?')">
-                                <i class="ki-outline ki-trash"></i>
-                            </button>
-                        </form>
                     </td>
                 </tr>
             @endforeach

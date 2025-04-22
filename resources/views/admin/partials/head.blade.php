@@ -22,6 +22,5 @@
     <!-- App Styles -->
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/admin.css') }}" rel="stylesheet" />
-
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
 </head>

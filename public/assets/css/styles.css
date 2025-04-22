@@ -3459,13 +3459,16 @@ video {
   vertical-align: inherit;
 }
 
-.table thead td, .table thead th, .table tfoot td, .table tfoot th {
-  background-color: var(--tw-table-head-background-color);
-  color: var(--tw-gray-600);
-  font-weight: 500;
-  font-size: 0.8125rem;
-  line-height: 1.125rem;
-  vertical-align: middle;
+.table thead td,
+.table thead th,
+.table tfoot td,
+.table tfoot th {
+    background-color: var(--tw-table-head-background-color);
+    color: var(--default-black);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    line-height: 1.125rem;
+    vertical-align: middle;
 }
 
 .table thead td, .table thead th {
