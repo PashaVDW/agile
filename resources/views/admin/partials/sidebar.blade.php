@@ -15,6 +15,8 @@
                     @foreach([
                         ['route' => 'admin.events.index', 'label' => 'Evenementen'],
                         ['route' => 'admin.announcements.index', 'label' => 'Nieuws'],
+                        ['route' => 'admin.events.index', 'label' => 'Evenementen / Community'],
+                        ['route' => 'admin.announcements.index', 'label' => 'Nieuws'],
                         ['route' => 'admin.sponsors.index', 'label' => 'Sponsoren'],
                         ['route' => 'admin.statues.index', 'label' => 'Statuten'],
                         ['route' => 'admin.board.index', 'label' => 'Bestuur leden'],

@@ -13,6 +13,8 @@
             </li>
             <li class="nav-item {{ Request::is('announcements') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
+            <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.community.index') }}">Community</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
