@@ -93,9 +93,15 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
-Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
+Route::prefix('/event')->group(function () {
+    Route::get('/{id}', [EventController::class, 'show'])->name('user.event.show');
+    Route::middleware(['auth'])->group(function () {
+        Route::post('/register/{id}', [EventController::class, 'register'])->name('user.event.register');
+        Route::delete('/unregister/{id}', [EventController::class, 'unregister'])->name('user.event.unregister');
+    });
+});
+
 Route::get('/community', [EventController::class, 'community'])->name('user.community.index');
 Route::get('/community/{id}', [EventController::class, 'show'])->name('user.community.show');
-
 
 Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
