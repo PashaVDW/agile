@@ -34,7 +34,7 @@ class EventController extends Controller
         if ($request->has("search") && $request->search != '') {
             $this->searchService->search($query, $request->search, Event::class);
         }
-        
+
         $bindings = array_keys(request()->query());
 
         if ($request->route()->named('admin.events.index')) {
@@ -94,5 +94,17 @@ class EventController extends Controller
         $bindings = array_keys(request()->query());
 
         return view('user.events.index',['events' => $events, $bindings]);
+    }
+
+    public function register(Request $request, $id)
+    {
+        $this->eventService->registerUser($request, $id);
+        return to_route('user.event.show', ['id' => $id]);
+    }
+
+    public function unregister(Request $request, $id)
+    {
+        $this->eventService->unregisterUser($request, $id);
+        return to_route('user.event.show', ['id' => $id]);
     }
 }
