@@ -19,7 +19,7 @@ class OldBoardService
     }
     public function getEntries(Request $request)
     {
-        $query = OldBoards::query();
+        $query = OldBoards::query()->orderBy('term', 'desc');
 
         if ($search = $request->get('search')) {
             $this->searchService->search($query, $search, OldBoards::class);

@@ -74,6 +74,11 @@
         .items {
             .item {
                 max-width: 100%;
+                .block {
+                    &.text-block {
+                        padding: 30px
+                    }
+                }
             }
         }
     }
