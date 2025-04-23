@@ -17,6 +17,11 @@ Route::get('/announcements', [AnnouncementController::class, 'publicIndex'])->na
 Route::get('/events', [EventController::class, 'index'])->name('user.events.index');
 Route::get('/event/{id}', [EventController::class, 'show'])->name('user.event.show');
 
+Route::middleware(['auth'])->group(function () {
+    Route::post('/event/register/{id}', [EventController::class, 'register'])->name('user.event.register');
+    Route::delete('/event/unregister/{id}', [EventController::class, 'unregister'])->name('user.event.unregister');
+});
+
 Route::get('/community', [EventController::class, 'community'])->name('user.community.index');
 Route::get('/community/{id}', [EventController::class, 'show'])->name('user.community.show');
 
@@ -42,7 +47,6 @@ Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(functi
         Route::put('/update/{announcement}', [AnnouncementController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [AnnouncementController::class, 'delete'])->name('delete');
     });
-
 
     // Home images
     Route::put('/home-images/update', [HomeController::class, 'update'])->name('home-images.update');
