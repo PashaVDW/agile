@@ -16,11 +16,9 @@
                         />
                     @endforeach
                 </div>
-                <div class="container pagination-container">
                     <div class="pagination">
                         {{ $announcements->withQueryString()->links() }}
                     </div>
-                </div>
             </div>
         </div>
     </div>
