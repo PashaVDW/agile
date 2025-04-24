@@ -4,7 +4,7 @@
 
 @section("content")
     <div class="section">
-        <div class="container has-sidebar">
+        <div class="container">
             <div class="items-wrapper">
                 <div class="items">
                     @foreach($announcements as $announcement)
@@ -16,11 +16,11 @@
                         />
                     @endforeach
                 </div>
-            </div>
-        </div>
-        <div class="container pagination-container">
-            <div class="pagination">
-                {{ $announcements->withQueryString()->links() }}
+                <div class="container pagination-container">
+                    <div class="pagination">
+                        {{ $announcements->withQueryString()->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
