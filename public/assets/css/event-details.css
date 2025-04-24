@@ -40,8 +40,8 @@
             gap: 50px;
             .info {
                 max-width: 100%;
-                padding: 30px;
                 .intro {
+                    padding: 30px;
                     h2 {
                         font-size: 36px;
                     }
