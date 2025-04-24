@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class HomeImages extends Model
+class Gallery extends Model
 {
-    protected $table = 'home_images';
+    protected $table = 'galleries';
 
     protected $fillable = [
         'gallery',
+    ];
+
+    protected $casts = [
+        'gallery' => 'array',
     ];
 
     public function getGalleryImagePath($image)
@@ -24,7 +28,7 @@ class HomeImages extends Model
     }
 
     public function getDecodedPhotos() {
-        return json_decode($this->gallery);
+        return $this->gallery;
     }
 
 }

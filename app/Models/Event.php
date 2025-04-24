@@ -86,7 +86,7 @@ class Event extends Model
     }
 
     public function getDecodedPhotos() {
-        return json_decode($this->gallery);
+        return $this->gallery;
     }
 
     public function getFormattedDate($date)
