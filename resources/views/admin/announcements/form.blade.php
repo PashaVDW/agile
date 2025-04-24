@@ -5,7 +5,7 @@
 @section("content")
     <div class="container max-w-lg mx-auto">
         <div class="mb-4">
-            <a href="{{ route('announcements.index') }}" class="inline-flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white">
+            <a href="{{ route('admin.announcements.index') }}" class="inline-flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white">
                 <svg class="w-4 h-4 me-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -14,7 +14,7 @@
         </div>
         <form
             method="POST"
-            action="{{ isset($announcement) ? route('announcements.update', $announcement->id) : route('announcements.store') }}"
+            action="{{ isset($announcement) ? route('admin.announcements.update', $announcement->id) : route('admin.announcements.store') }}"
             enctype="multipart/form-data"
         >
             @csrf
@@ -22,17 +22,6 @@
                 @method('PUT')
             @endif
 
-            <div class="flex justify-center items-center mb-3">
-                <input name="image" class="file-input" type="file" />
-            </div>
-            @if(isset($announcement) && $announcement->image)
-                <div class="flex justify-center mb-4">
-                    <img src="{{ asset($announcement->image_url) }}" class="h-20 rounded-lg shadow" alt="afbeelding van {{ $announcement->title }}">
-                </div>
-            @endif
-            @error('image')
-            <p class="text-sm text-red-600 text-center mb-4">{{ $message }}</p>
-            @enderror
             <div class="mb-5">
                 <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Titel <span class="text-red-600">*</span>
@@ -50,6 +39,7 @@
                 <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
             <div class="mb-5">
                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Omschrijving <span class="text-red-600">*</span>
@@ -66,14 +56,32 @@
                 <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
+            <div class="mb-5">
+                <x-forms.input-file name="image" label="Afbeelding" :title="($announcement->title ?? '')" value="{{ $announcement->banner_url ?? '' }}" />
+                @error('image')
+                <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <div class="mb-3">
                 <button
                     type="submit"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    class="button right"
                 >
                     {{ isset($announcement) ? 'Bijwerken' : 'Aanmaken' }}
                 </button>
             </div>
         </form>
+
+        @if(isset($announcement))
+            <x-actions.crud-delete
+                :item="$announcement"
+                route="admin.announcements.delete"
+                title="Aankondiging verwijderen"
+                message="Weet je zeker dat je deze aankondiging wilt verwijderen?"
+            />
+        @endif
+
     </div>
 @endsection

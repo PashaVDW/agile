@@ -25,7 +25,7 @@ class AnnouncementController extends Controller
         $query = Announcement::query()->orderBy('created_at', 'desc');
 
         if ($request->filled('search')) {
-            $this->searchService->searchEvents($query, $request->search, Announcement::class);
+            $this->searchService->search($query, $request->search, Announcement::class);
         }
 
         $announcements = $query->get();
@@ -43,7 +43,7 @@ class AnnouncementController extends Controller
         $data = $request->validated();
         $this->announcementService->store($data, $request);
 
-        return redirect()->route('announcements.index');
+        return redirect()->route('admin.announcements.index');
     }
 
     public function edit(Announcement $announcement)
@@ -56,13 +56,21 @@ class AnnouncementController extends Controller
         $data = $request->validated();
         $this->announcementService->update($announcement, $data, $request);
 
-        return redirect()->route('announcements.index');
+        return redirect()->route('admin.announcements.index');
     }
 
-    public function destroy(Announcement $announcement)
+    public function delete($id)
     {
+        $announcement = Announcement::findOrFail($id);
         $this->announcementService->delete($announcement);
 
-        return redirect()->route('announcements.index');
+        return redirect()->route('admin.announcements.index');
     }
+
+    public function publicIndex()
+    {
+        $announcements = $this->announcementService->getPaginatedPublicAnnouncements();
+        return view('user.announcements.index', compact('announcements'));
+    }
+
 }

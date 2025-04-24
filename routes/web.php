@@ -16,7 +16,7 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
-Route::middleware(['role:admin'])->resource('announcements', AnnouncementController::class)->except('show');
+Route::get('/announcements', [AnnouncementController::class, 'publicIndex'])->name('public.announcements.index');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -25,6 +25,17 @@ Route::middleware(['role:admin'])->group(function () {
         Route::put('/home-images/update', [HomeController::class, 'update'])->name('admin.home-images.update');
 
         Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+
+        // Announcements
+        Route::get('/announcements', [AnnouncementController::class, 'index'])->name('admin.announcements.index');
+        Route::prefix('announcement')->name('admin.announcements.')->group(function () {
+            Route::get('/create', [AnnouncementController::class, 'create'])->name('create');
+            Route::post('/store', [AnnouncementController::class, 'store'])->name('store');
+            Route::get('/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('edit');
+            Route::put('/update/{announcement}', [AnnouncementController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [AnnouncementController::class, 'delete'])->name('delete');
+        });
 
         Route::prefix('/event')->group(function () {
             Route::get('/create', [EventController::class, 'create'])->name('admin.event.create');

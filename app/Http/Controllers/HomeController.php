@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Enums\EventCategoryEnum;
 use App\Http\Requests\HomeImagesRequest;
-
 use App\Services\EventService;
 
 class HomeController extends Controller
 {
     private EventService $eventService;
+
     public function __construct(EventService $eventService)
     {
         $this->eventService = $eventService;
