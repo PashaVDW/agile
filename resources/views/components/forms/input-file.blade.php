@@ -41,7 +41,13 @@
     class="border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 {{ $class }}"
     {{ $multiple ? "multiple" : "" }}
   />
-    @error($name . ($multiple ? '.*' : ''))
-    <span class="text-xs italic">{{ $message }}</span>
-  @enderror
+    @error($name)
+    <span class="text-xs italic text-red-500">{{ $message }}</span>
+    @enderror
+
+    @if ($multiple)
+        @error($name . '.*')
+        <span class="text-xs italic text-red-500">{{ $message }}</span>
+        @enderror
+    @endif
 </div>

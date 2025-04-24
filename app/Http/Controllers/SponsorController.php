@@ -21,12 +21,14 @@ class SponsorController extends Controller
 
     public function index(Request $request)
     {
-       $sponsors = $this->sponsorService->getSponsors()->paginate(10);
-       $sponsorsUser = $sponsors->where('active', 'active');
+       $sponsors = $this->sponsorService->getSponsors();
 
         if ($request->route()->named('admin.sponsors.index')) {
+            $sponsors = $sponsors->paginate(10);
             return view('admin.sponsors.index', ['sponsors' => $sponsors, 'types' => $this->types]);
         }
+
+        $sponsorsUser = $sponsors->where('active', 'active')->paginate(10);
         return view('user.sponsors.index', ['sponsors' => $sponsorsUser, 'types' => $this->types]);
     }
 

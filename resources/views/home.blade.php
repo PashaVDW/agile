@@ -15,14 +15,16 @@
     </div>
     <div class="section">
             <div class="container has-sidebar">
-                <div class="items">
-                    @foreach($events as $event)
-                        <x-item :item="$event" alt="{{$event->banner ? 'Poster voor '.$event->title : ''}}" route="user.event.show"/>
-                    @endforeach
+                <div class="items-wrapper">
+                    <div class="items">
+                        @foreach($events as $event)
+                            <x-item :item="$event" alt="{{$event->banner ? 'Poster voor '.$event->title : ''}}" route="user.event.show"/>
+                        @endforeach
+                    </div>
                 </div>
-                @if($randomEvent)
-                    <div class="sidebar">
-                        <x-swiper :item="$randomEvent" id="homeSwiper" alt="title"/>
+                @if($homeImages->hasPhotos())
+                    <div class="sidebar sideslider">
+                        <x-swiper :item="$homeImages" id="homeSwiper" alt="title"/>
                     </div>
                 @endif
             </div>

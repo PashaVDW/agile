@@ -1,5 +1,7 @@
 .admin {
     .container {
+        height: 100%;
+        position: relative;
         .filter-wrapper {
             width: 100%;
             display: flex;
@@ -12,6 +14,9 @@
                 }
             }
         }
+        &.has-sliders {
+
+        }
     }
 
     a {
@@ -22,6 +27,26 @@
     #sidebar {
         a:hover {
             color: inherit;
+        }
+    }
+
+    .availability {
+        display: flex;
+        align-items: center;
+        .percentage-meter {
+            margin-left: 20px;
+            padding: 5px;
+            color: var(--default-black);
+            border-radius: 5px;
+            &.low {
+                background-color: greenyellow;
+            }
+            &.medium {
+                background-color: orange;
+            }
+            &.high {
+                background-color: red;
+            }
         }
     }
 }

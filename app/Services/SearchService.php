@@ -15,6 +15,7 @@ class SearchService
     protected $translatedEventCategory = [
         'evenement' => 'EVENT',
         'borrel' => 'DRINKS',
+        'community avond' => 'COMMUNITY',
     ];
 
     protected $translatedActiveType = [

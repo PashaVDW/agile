@@ -30,9 +30,11 @@ class ImageService
         }
     }
 
-    public static function storeGallery($request, $class, $model)
+    public static function storeGallery($request, $class, $model = null)
     {
-        ImageService::deleteImages($class, $model);
+        if ($model) {
+            ImageService::deleteImages($class, $model);
+        }
         $galleryPaths = [];
         foreach ($request->file('gallery') as $file) {
             $filePath = $file->storeAs('images/gallery', $file->getClientOriginalName(), 'public');

@@ -44,7 +44,7 @@
                                 <td>{{ Str::limit($announcement->description, 100) }}</td>
                                 <td>
                                     @if ($announcement->image)
-                                        <img src="{{ asset($announcement->image_url) }}" class="w-12 h-12 object-cover rounded-md" />
+                                        <img src="{{ $announcement->banner_url }}" class="w-12 h-12 object-cover rounded-md" />
                                     @else
                                         —
                                     @endif
@@ -53,15 +53,6 @@
                                     <a href="{{ route('admin.announcements.edit', $announcement) }}" class="btn btn-sm btn-icon btn-clear btn-light">
                                         <i class="ki-outline ki-notepad-edit"></i>
                                     </a>
-                                </td>
-                                <td>
-                                    <form method="POST" action="{{ route('admin.announcements.destroy', $announcement) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-icon btn-clear btn-light" onclick="return confirm('Weet je zeker dat je deze wilt verwijderen?')">
-                                            <i class="ki-outline ki-trash"></i>
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -4,19 +4,21 @@
 
 @section("content")
     <div class="section">
-        <div class="container has-sidebar">
-            <div class="items">
-                @foreach($announcements as $announcement)
-                    <x-item
-                        :item="$announcement"
-                        :alt="$announcement->banner ? 'Afbeelding voor ' . $announcement->title : ''"
-                        route="user.announcement.show"
-                    />
-                @endforeach
+        <div class="container">
+            <div class="items-wrapper">
+                <div class="items">
+                    @foreach($announcements as $announcement)
+                        <x-item
+                                :item="$announcement"
+                                :alt="($announcement->banner ? 'Afbeelding voor ' . $announcement->title : '')" :route="user.announcement.show"
+                        />
+                    @endforeach
+                </div>
+                    <div class="pagination">
+                        {{ $announcements->withQueryString()->links() }}
+                    </div>
             </div>
         </div>
-        <div class="mt-6">
-            {{ $announcements->withQueryString()->links() }}
-        </div>
     </div>
+
 @endsection

@@ -7,7 +7,7 @@
     <div class="block text-block">
         <div class="item-header">
             <h3 class="has-background">{{ $item->title }}</h3>
-            <h6>{{ $item->category ? __($item->category->value) : 'Geen categorie' }}</h6>
+            <h6>{{ $item->category ? __($item->category->value) : '' }}</h6>
         </div>
         <div class="item-body">
             <p>
