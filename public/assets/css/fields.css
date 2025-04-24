@@ -11,7 +11,7 @@
 
 form.dropzone {
     span {
-        color: var(--default-black);
+        color: var(--default-white);
     }
     .dz-error-message {
         margin-top: 20px;
