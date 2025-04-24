@@ -10,9 +10,7 @@
                     @foreach($announcements as $announcement)
                         <x-item
                                 :item="$announcement"
-                                :alt="($announcement->banner ? 'Afbeelding voor ' . $announcement->title : '')"
-                                :image="$announcement->banner_url"
-                                :route="null"
+                                :alt="($announcement->banner ? 'Afbeelding voor ' . $announcement->title : '')" :route="null"
                         />
                     @endforeach
                 </div>
