@@ -119,5 +119,5 @@ Route::prefix('/event')->group(function () {
 
 Route::get('/community', [EventController::class, 'community'])->name('user.community.index');
 Route::get('/community/{id}', [EventController::class, 'show'])->name('user.community.show');
-
+Route::get('/gallery', [GalleryController::class, 'index'])->name('user.galleries.index');
 Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');

@@ -11,6 +11,7 @@ class Gallery extends Model
 
     protected $fillable = [
         'gallery',
+        'page_key',
     ];
 
     protected $casts = [
