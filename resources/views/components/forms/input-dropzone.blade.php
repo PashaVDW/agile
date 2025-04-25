@@ -52,10 +52,8 @@
                             attribute: "{{ $attribute }}"
                         },
                         success: function (response) {
-                            // console.log("File removed successfully:", response);
                         },
                         error: function (xhr, status, error) {
-                            // console.error("Error removing file:", error);
                         }
                     });
 
@@ -84,7 +82,6 @@
                             }
                         },
                         error: function (xhr, status, error) {
-                            // console.error("Error fetching images:", error);
                         }
                     });
                 @endif
