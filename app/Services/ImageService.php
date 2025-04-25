@@ -32,14 +32,14 @@ class ImageService
 
     public static function deleteImages($class, $model)
     {
-        $gallery = json_decode($model->gallery);
+        $gallery = $model->gallery;
         $otherModels = $class::where('id', '!=', $model->id)->get();
 
         if (is_array($gallery)) {
             foreach ($gallery as $image) {
                 $isUsed = false;
                 foreach ($otherModels as $otherModel) {
-                    $otherGallery = json_decode($otherModel->gallery);
+                    $otherGallery = $otherModel->gallery;
                     if (is_array($otherGallery) && in_array($image, $otherGallery)) {
                         $isUsed = true;
                         break;

@@ -3,7 +3,7 @@
 @if($item instanceof \Illuminate\Database\Eloquent\Model && $item->hasPhotos())
     <div class="swiper-container" id="{{ $id }}">
         <div class="swiper-wrapper">
-            @foreach($item->getDecodedPhotos() as $image)
+            @foreach($item->gallery as $image)
                 <div class="swiper-slide">
                     <img src="{{ asset($item->getGalleryImagePath($image)) }}" alt="">
                 </div>

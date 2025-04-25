@@ -26,9 +26,4 @@ class Gallery extends Model
     {
         return !empty($this->gallery);
     }
-
-    public function getDecodedPhotos() {
-        return $this->gallery;
-    }
-
 }
