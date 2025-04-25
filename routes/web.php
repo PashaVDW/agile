@@ -17,6 +17,7 @@ Route::middleware(['role:admin'])->group(function () {
 });
 
 Route::get('/announcements', [AnnouncementController::class, 'publicIndex'])->name('public.announcements.index');
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('user.announcement.show');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

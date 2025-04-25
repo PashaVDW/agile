@@ -1,4 +1,4 @@
-@props(['item', 'alt' => '', 'route'])
+@props(['item', 'alt' => '', 'route' => null])
 
 <div class="item">
     <div class="block image-block">
@@ -16,9 +16,7 @@
         </div>
         <div class="item-footer">
             @if($route)
-                <a href="{{ route($route, $item->id) }}" class="button item-button" aria-label="Lees meer over {{ $item->title }}">Lees verder</a>
-            @else
-                <span class="button item-button opacity-50 cursor-not-allowed">Lees verder</span>
+                <a href="{{ route($route, [$item->id]) }}" class="button item-button" aria-label="Lees meer over {{ $item->title }}">Lees verder</a>
             @endif
         </div>
     </div>

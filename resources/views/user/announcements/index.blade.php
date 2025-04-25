@@ -10,7 +10,7 @@
                     @foreach($announcements as $announcement)
                         <x-item
                                 :item="$announcement"
-                                :alt="($announcement->banner ? 'Afbeelding voor ' . $announcement->title : '')" :route="null"
+                                :alt="($announcement->banner ? 'Afbeelding voor ' . $announcement->title : '')" route="user.announcement.show"
                         />
                     @endforeach
                 </div>
