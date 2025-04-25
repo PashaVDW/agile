@@ -22,8 +22,11 @@ function carouselSwiper(swiperId) {
             prevEl: '.swiper-button-prev',
         },
         breakpoints: {
-            768: {
+            500: {
                 slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
             },
             980: {
                 slidesPerView: swiperId === '#homeSwiper' ? 2 : 3,
