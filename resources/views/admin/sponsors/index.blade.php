@@ -9,12 +9,12 @@
         searchPlaceholder="Zoek op naam..."
     >
         <x-slot:thead>
-            <th class="min-w-[200px] border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Naam</th>
-            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Beschrijving</th>
-            <th class="w-[120px] border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Status</th>
-            <th class="w-[120px] border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Afbeelding</th>
-            <th class="w-[60px] border-b border-gray-400 px-4 py-2"></th>
-            <th class="w-[60px] border-b border-gray-400 px-4 py-2"></th>
+            <th>Naam</th>
+            <th>Beschrijving</th>
+            <th>Status</th>
+            <th>Afbeelding</th>
+            <th></th>
+            <th></th>
         </x-slot:thead>
 
         <x-slot:tbody>

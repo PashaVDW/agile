@@ -4,7 +4,7 @@
     <x-admin.datatable
         :searchAction="route('announcements.index')"
         :createUrl="route('announcements.create')"
-        createLabel="Nieuwe Announcement Aanmaken"
+        createLabel="Announcement Aanmaken"
         tableId="announcement-table"
         searchPlaceholder="Zoek op titel of omschrijving..."
     >

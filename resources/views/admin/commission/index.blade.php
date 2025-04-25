@@ -11,9 +11,9 @@
         searchPlaceholder="Zoeken..."
     >
         <x-slot:thead>
-            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Naam</th>
-            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Omschrijving</th>
-            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Acties</th>
+            <th>Naam</th>
+            <th>Omschrijving</th>
+            <th>Acties</th>
         </x-slot:thead>
 
         <x-slot:tbody>

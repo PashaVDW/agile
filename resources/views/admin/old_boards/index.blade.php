@@ -11,10 +11,10 @@
         searchPlaceholder="Zoeken..."
     >
         <x-slot:thead>
-            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Namen</th>
-            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Termijn</th>
-            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Foto</th>
-            <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Acties</th>
+            <th>Namen</th>
+            <th>Termijn</th>
+            <th>Foto</th>
+            <th>Acties</th>
         </x-slot:thead>
 
         <x-slot:tbody>

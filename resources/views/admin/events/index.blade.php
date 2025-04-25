@@ -12,13 +12,13 @@
             searchPlaceholder="Zoek op titel..."
         >
             <x-slot:thead>
-                <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Titel</th>
-                <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Datum / Start datum</th>
-                <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Categorie</th>
-                <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Aangemaakt op</th>
-                <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Bijgewerkt op</th>
-                <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Banner</th>
-                <th class="border-b border-gray-400 px-4 py-2 text-gray-900 font-bold">Acties</th>
+                <th>Titel</th>
+                <th>Datum / Start datum</th>
+                <th>Categorie</th>
+                <th>Aangemaakt op</th>
+                <th>Bijgewerkt op</th>
+                <th>Banner</th>
+                <th>Acties</th>
             </x-slot:thead>
 
             <x-slot:tbody>
