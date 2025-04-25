@@ -22,23 +22,23 @@
     });
 
     function mDropzone() {
-        var maxFilesizeVal = 5; // MB
-        var maxFilesVal = null;
+        var maxFilesize = 5; // MB
+        var maxFilesAmount = null; // unlimited
 
         Dropzone.options.{{$id}} = {
             paramName:"{{$attribute}}",
-            maxFilesize: maxFilesizeVal, // MB
-            maxFiles: maxFilesVal,
+            maxFilesize: maxFilesize, // MB
+            maxFiles: maxFilesAmount,
             resizeQuality: 1.0,
             acceptedFiles: ".jpeg,.jpg,.png,.webp,.gif,.svg",
             addRemoveLinks: {{ isset($model) }},
             timeout: 60000,
             dictDefaultMessage: "Sleep bestanden hierheen of klik om te uploaden",
-            dictFileTooBig: "Bestand is te groot (max. "+maxFilesizeVal+" MB)",
+            dictFileTooBig: "Bestand is te groot (max. "+maxFilesize+" MB)",
             dictInvalidFileType: "Bestandstype ongeldig. Alleen JPG, JPEG, PNG, WEBP, GIF, SVG zijn toegestaan.",
             maxfilesexceeded: function(file) {
                 this.removeFile(file);
-                document.getElementById("message").innerHTML = "Je kunt niet meer dan " + maxFilesVal + " bestanden uploaden.";
+                document.getElementById("message").innerHTML = "Je kunt niet meer dan " + maxFilesAmount + " bestanden uploaden.";
                 },
             removedfile: function (file) {
                 @if(isset($model))
