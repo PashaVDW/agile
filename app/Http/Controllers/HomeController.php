@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\EventCategoryEnum;
 use App\Http\Requests\HomeImagesRequest;
-
 use App\Services\EventService;
 
 class HomeController extends Controller
 {
     private EventService $eventService;
+
     public function __construct(EventService $eventService)
     {
         $this->eventService = $eventService;
@@ -16,7 +17,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $events = $this->eventService->getEvents()->limit(4)->get();
+        $events = $this->eventService->getEvents()->whereNot('category', EventCategoryEnum::COMMUNITY->value)->limit(4)->get();
         $homeImages = $this->eventService->getHomeImages();
 
         return view('home', ['events' => $events, 'homeImages' => $homeImages]);

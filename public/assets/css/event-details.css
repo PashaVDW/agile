@@ -1,4 +1,4 @@
-.event {
+.details {
     .container {
         display: flex;
         flex-direction: row;
@@ -7,6 +7,7 @@
         .info {
             width: 100%;
             max-width: 980px;
+            overflow: hidden;
             .intro {
                 background-color: var(--default-white);
                 padding: 40px;
@@ -22,8 +23,8 @@
 }
 
 @media only screen and (max-width: 1420px) {
-    .event {
-        .container {
+    .details {
+        .container, .container.has-sidebar {
             .info {
                 max-width: 800px;
             }
@@ -33,12 +34,13 @@
 
 
 @media only screen and (max-width: 1024px) {
-    .event {
-        .container {
+    .details {
+        .container, .container.has-sidebar {
             flex-direction: column-reverse;
             gap: 50px;
             .info {
                 max-width: 100%;
+                padding: 30px;
                 .intro {
                     h2 {
                         font-size: 36px;

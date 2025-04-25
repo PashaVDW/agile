@@ -3,6 +3,9 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 50px;
+    .items-wrapper {
+        max-width: 1024px;
+    }
 }
 
 .sidebar {
@@ -41,7 +44,7 @@
 }
 
 @media only screen and (max-width: 1080px) {
-    .event {
+    .details {
         .container {
             .sidebar {
                 max-width: 400px;
@@ -51,9 +54,10 @@
 }
 
 @media only screen and (max-width: 1024px) {
-    .event {
+    .details {
         .container {
             .sidebar {
+                padding: 30px;
                 max-width: 100%;
             }
         }
