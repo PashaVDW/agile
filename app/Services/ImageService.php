@@ -77,7 +77,11 @@ class ImageService
 
     private static function processGalleryImages($files, $model, $type, $maxFiles = 0) // 0 means no limit
     {
-        $galleryPaths = ImageService::save($files, strtolower(class_basename($model)), $type);
+        [$galleryPaths, $errors] = ImageService::save($files, strtolower(class_basename($model)), $type);
+        if (!empty($errors)) {
+            return response()->json(['error' => $errors], 400);
+        }
+
         $error = ImageService::mergeImages($galleryPaths, $model, $type, $maxFiles);
 
         if ($error) {
@@ -89,19 +93,21 @@ class ImageService
     private static function save($files, $class, $type)
     {
         $galleryPaths = [];
+        $errors = [];
         foreach ($files as $file) {
             $filename = $file->getClientOriginalName();
             $path = 'images/'.$class.'/'.$type;
             $relativePath = $path.'/' . $filename;
 
-            if (!Storage::disk('public')->exists($relativePath)) {
+            if (Storage::disk('public')->exists($relativePath) || in_array($relativePath, $galleryPaths)) {
+                $errors[] = "Het bestand $filename bestaat al.";
+            } else {
                 $filePath = $file->storeAs($path, $file->getClientOriginalName(), 'public');
                 ProcessImageUpload::dispatch($filePath, $file->getClientOriginalName(), $path);
+                $galleryPaths[] = $relativePath;
             }
-
-            $galleryPaths[] = $relativePath;
         }
-        return $galleryPaths;
+        return [$galleryPaths, $errors];
     }
 
     private static function mergeImages($galleryPaths, $model, $type, $maxFiles)
@@ -112,7 +118,7 @@ class ImageService
             $mergedImages = array_merge($existingImages, $galleryPaths);
 
             if ($maxFiles > 0 && count($mergedImages) > $maxFiles) {
-                $error = 'The gallery cannot contain more than ' . $maxFiles . ' files.';
+                $error = "De gallerij kan niet meer dan " . $maxFiles . " bestanden bevatten.";
                 $mergedImages = array_slice($mergedImages, 0, $maxFiles);
             }
             $model->update([$type => empty($mergedImages) ? null : $mergedImages]);

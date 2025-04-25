@@ -11,10 +11,13 @@
 
 form.dropzone {
     span {
-        color: var(--default-white);
+        color: var(--default-black);
     }
     .dz-error-message {
         margin-top: 20px;
+        span {
+            color: var(--default-white);
+        }
     }
     .dz-preview {
         .dz-image {
