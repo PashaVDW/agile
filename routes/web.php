@@ -110,4 +110,4 @@ Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsor
 
 Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
 Route::post('/profile/update', [UserController::class, 'update'])->name('user.profile.update');
-Route::post('/profile/password', [UpdateUserPassword::class, 'password'])->name('user.profile.password');
+Route::post('/profile/password', [UserController::class, 'password'])->name('user.password.update');

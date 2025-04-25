@@ -17,7 +17,7 @@
                 </form>
 
                 <h2>Wachtwoord</h2>
-                <form>
+                <form method="POST" action="{{ route('user.password.update') }}">
                     @csrf
                     <x-forms.input-field type="password" name="current_password" label="Huidig wachtwoord" :required="true"/>
                     <x-forms.input-field type="password" name="password" label="Nieuw wachtwoord" :required="true"/>
