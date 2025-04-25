@@ -1,5 +1,6 @@
 <?php
 
+use App\Actions\Fortify\UpdateUserPassword;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
@@ -108,3 +109,5 @@ Route::get('/community/{id}', [EventController::class, 'show'])->name('user.comm
 Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
 
 Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
+Route::post('/profile/update', [UserController::class, 'update'])->name('user.profile.update');
+Route::post('/profile/password', [UpdateUserPassword::class, 'password'])->name('user.profile.password');

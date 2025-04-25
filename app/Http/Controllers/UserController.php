@@ -13,10 +13,11 @@ class UserController extends Controller
         return view('user.profile', ['user' => $user, 'majors' => $majors]);
     }
 
-    /*public function update(UserRequest $request, $id)
+    public function update()
     {
-        $this->userService->updateEvent($request, $id);
+        dd("aaaa");
+        //$this->userService->updateEvent($request, $id);
         return to_route('user.profile.index');
-    }*/
+    }
 
 }
