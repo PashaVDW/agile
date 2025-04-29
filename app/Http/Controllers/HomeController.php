@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Enums\EventCategoryEnum;
-use App\Http\Requests\HomeImagesRequest;
 use App\Services\EventService;
 
 class HomeController extends Controller
@@ -21,17 +20,5 @@ class HomeController extends Controller
         $homeImages = $this->eventService->getHomeImages();
 
         return view('home', ['events' => $events, 'homeImages' => $homeImages]);
-    }
-
-    public function store(HomeImagesRequest $request)
-    {
-        $this->eventService->storeHomeImages($request);
-        return to_route('admin.events.index');
-    }
-
-    public function update(HomeImagesRequest $request)
-    {
-        $this->eventService->updateHomeImages($request);
-        return to_route('admin.events.index');
     }
 }
