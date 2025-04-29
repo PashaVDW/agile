@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ActiveTypeEnum;
 use App\Enums\EventCategoryEnum;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Event extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'title',
         'description',
