@@ -80,3 +80,6 @@ bootstrap/app.php -> $schedule->command('app:archive-events')->daily(); kan de s
 ## testing
 - db opnieuw maken: php artisan migrate:fresh -> php artisan db:seed
 - test de classes, kijk of de ids kloppen -> eventueel even wijzigen, kijk eventueel voor de images
+
+## Seed Gallery
+- php artisan db:seed --class=GallerySeeder

@@ -22,6 +22,7 @@
     - check of `APP_NAME=` op `SVConcat` staat en niet op `Laravel`.
 - Voer het command `php artisan migrate:fresh` uit in de root van het project (voert alle migrations uit en leegt de database als deze er is)
 - Voer het commando `php artisan db:seed` uit in de root van het project (voert alle seeders uit)
+- Voer het commando `php artisan db:seed --class=GallerySeeder` uit in de root van het project (voert de seeder voor de gallery uit)
 - voer het commando `npm run dev` uit in de root van het project (compileert de assets)
 - voer het commando `php artisan serve` uit in de root van het project (start de server)
 - Als het goed is draait de website nu op `localhost:8000 of 127.0.0.1`
