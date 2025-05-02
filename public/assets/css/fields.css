@@ -8,3 +8,21 @@
         margin: 0 auto 15px;
     }
 }
+
+form.dropzone {
+    span {
+        color: var(--default-black);
+    }
+    .dz-error-message {
+        margin-top: 20px;
+        span {
+            color: var(--default-white);
+        }
+    }
+    .dz-preview {
+        .dz-image {
+            display: flex;
+            align-items: center;
+        }
+    }
+}

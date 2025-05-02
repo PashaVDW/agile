@@ -26,7 +26,7 @@
 
     @if ($multiple && $gallery->hasPhotos())
         <div class="mb-2 flex flex-wrap gap-2">
-            @foreach ($gallery->getDecodedPhotos() as $image)
+            @foreach ($gallery->gallery as $image)
                 <a href="{{ asset($gallery->getGalleryImagePath($image)) }}" target="_blank" class="file">{{ $image ?: 'Bekijk bestand' }}</a>
                 @if (!$loop->last)
                     ,

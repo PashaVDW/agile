@@ -47,12 +47,7 @@
         </div>
 
         <div class="sliders">
-            <form method="POST" action="{{route('admin.home-images.update')}}" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <x-forms.input-file name="gallery" label="Home galerij" :multiple="true" :gallery="$homeImages ?? []"/>
-                <button type="submit" class="button right">Opslaan</button>
-            </form>
+            <x-forms.input-dropzone attribute="gallery" :model="$gallery" id="homeGallery" label="Gallerij"/>
         </div>
     </div>
 @stop
