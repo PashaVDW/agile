@@ -17,9 +17,19 @@
         display: flex;
         margin: auto;
         align-content: center;
+        align-items: center;
+        text-align: left;
+        flex-direction: column;
         img {
-            margin: auto;
             max-height: 300px;
+            margin-bottom: 1rem;
+            width: auto;
+            height: auto;
+        }
+
+        h3{
+            margin: 0.2em 0;
+            color: var(--default-black);
         }
     }
 }

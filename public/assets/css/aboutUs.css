@@ -4,7 +4,9 @@
 }
 
 .about-us {
+    margin-top: 6rem;
     .container {
+        margin-bottom: 1rem;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -37,6 +39,7 @@
 
 @media (max-width: 768px) {
     .about-us {
+        margin-top: 0.5rem;
         .container {
             flex-direction: column;
 

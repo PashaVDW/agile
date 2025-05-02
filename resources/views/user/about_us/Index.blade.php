@@ -3,9 +3,7 @@
 @section("title", "Over Ons")
 
 @section("content")
-    <br />
-    <br />
-    <br />
+
     <div class="about-us">
         <div class="container">
             <div class="info">
@@ -30,10 +28,6 @@
             </div>
         </div>
 
-
-        <br />
-
-
         {{-- Boards --}}
         <div class="comiboards-wrapper">
             <div class="container">
@@ -46,14 +40,26 @@
             </div>
 
             {{-- Commissions --}}
-            <div class="container mt-10">
-
-                <div class="comiboards">
+            <div class="container">
+                <div class="info">
                     @foreach($commissions as $commission)
-                        <x-comiboard :item="$commission" alt="" />
+                        <h2>{{$commission->name}}</h2>
+
+                        <p>
+                            {{$commission->description}}
+                        </p>
                     @endforeach
                 </div>
             </div>
+
+            <div class="container">
+                <div class="info">
+                    <x-swiper :item="$oldboards" id="gallerySwiper"/>
+                    @foreach($oldboards as $commission)
+                    @endforeach
+                </div>
+            </div>
+
         </div>
 
     </div>
