@@ -23,6 +23,9 @@
             <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
             </li>
+            <li class="nav-item {{ Request::is('about_us') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.about_us.index') }}">Over ons</a>
+            </li>
 
             @auth
                 @if(auth()->user()->hasRole('admin'))
