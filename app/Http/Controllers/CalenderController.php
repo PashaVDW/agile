@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Event;
 
 class CalenderController extends Controller
 {
     public function index()
     {
-        return view('user.calender.index');
+        $events = Event::query()
+            ->where('status', 'active')
+            ->orderBy('start_date', 'ASC') // Zorg ervoor dat dit 'ASC' is om de evenementen chronologisch te sorteren
+            ->get();
+
+        return view('user.calender.index', ['events' => $events]);
     }
 }
