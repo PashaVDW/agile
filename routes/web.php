@@ -108,6 +108,8 @@ Route::get('/community/{id}', [EventController::class, 'show'])->name('user.comm
 
 Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
 
-Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
-Route::post('/profile/update', [UserController::class, 'update'])->name('user.profile.update');
-Route::post('/profile/password', [UserController::class, 'password'])->name('user.password.update');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
+    Route::post('/profile/update', [UserController::class, 'update'])->name('user.profile.update');
+    Route::post('/profile/password', [UserController::class, 'password'])->name('user.password.update');
+});
