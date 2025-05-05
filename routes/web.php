@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
@@ -122,3 +123,5 @@ Route::get('/community', [EventController::class, 'community'])->name('user.comm
 Route::get('/community/{id}', [EventController::class, 'show'])->name('user.community.show');
 
 Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
+
+Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
