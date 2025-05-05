@@ -40,23 +40,24 @@
             </div>
 
             {{-- Commissions --}}
-            <div class="container">
-                <div class="info">
-                    @foreach($commissions as $commission)
-                        <h2>{{$commission->name}}</h2>
+            @if($commissions !== null && $commissions->isNotEmpty())
+                <div class="container">
+                    <div class="info">
+                        @foreach($commissions as $commission)
+                            <h2>{{$commission->name}}</h2>
 
-                        <p>
-                            {{$commission->description}}
-                        </p>
-                    @endforeach
+                            <p>
+                                {{$commission->description}}
+                            </p>
+                            <hr>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endif
 
-            <div class="container">
-                <div class="info">
+            <div class="about-us-swiper">
+                <div class="container">
                     <x-swiper :item="$oldboards" id="gallerySwiper"/>
-                    @foreach($oldboards as $commission)
-                    @endforeach
                 </div>
             </div>
 
