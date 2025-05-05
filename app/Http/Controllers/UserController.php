@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\Fortify\UpdateUserPassword;
+use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Enums\UserMajorEnum;
 use Illuminate\Http\Request;
 
@@ -15,10 +16,10 @@ class UserController extends Controller
         return view('user.profile', ['user' => $user, 'majors' => $majors]);
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        dd("aaaa");
-        //$this->userService->updateEvent($request, $id);
+        $user = auth()->user();
+        app(UpdateUserProfileInformation::class)->update($user, $request->all());
         return to_route('user.profile.index');
     }
 
