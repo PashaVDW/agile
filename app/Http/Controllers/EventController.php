@@ -39,8 +39,8 @@ class EventController extends Controller
 
         if ($request->route()->named('admin.events.index')) {
             $events = $query->paginate(10)->appends(request()->query());
-            $homeImages = $this->eventService->getHomeImages();
-            return view('admin.events.index', ['events' => $events, 'bindings' => $bindings, 'homeImages' => $homeImages]);
+            $gallery = $this->eventService->getHomeImages();
+            return view('admin.events.index', ['events' => $events, 'bindings' => $bindings, 'gallery' => $gallery]);
         }
         $events = $query->whereNot('category', EventCategoryEnum::COMMUNITY->value)->paginate(10)->appends(request()->query());
         return view('user.events.index',['events' => $events, $bindings]);

@@ -52,6 +52,7 @@
                 @csrf
                 @method('PUT')
                 <x-forms.input-file name="gallery" label="Home galerij" :multiple="true" :gallery="$homeImages ?? []" />
+                <x-forms.input-dropzone attribute="gallery" :model="$gallery" id="homeGallery" label="Gallerij"/>
                 <button type="submit" class="button right">Opslaan</button>
             </form>
         </div>
