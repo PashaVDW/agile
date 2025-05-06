@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
@@ -18,36 +19,53 @@ Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
-Route::middleware(['role:admin'])->resource('announcements', AnnouncementController::class)->except('show');
+Route::get('/announcements', [AnnouncementController::class, 'publicIndex'])->name('public.announcements.index');
+Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('user.announcement.show');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['role:admin'])->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::put('/home-images/update', [HomeController::class, 'update'])->name('admin.home-images.update');
+
+        Route::prefix('gallery')->name('admin.gallery.')->group(function () {
+            Route::get('/', [GalleryController::class, 'index'])->name('index');
+            Route::post('/store/{modelname}', [GalleryController::class, 'storeGallery'])->name('store');
+            Route::prefix('{model}/{id}')->group(function () {
+                Route::post('/upload', [GalleryController::class, 'uploadGallery'])->name('upload');
+                Route::get('/fetch', [GalleryController::class, 'fetchGallery'])->name('fetch');
+                Route::delete('/delete', [GalleryController::class, 'deleteGallery'])->name('delete');
+            });
+        });
+
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+
+        // Announcements
+        Route::get('/announcements', [AnnouncementController::class, 'index'])->name('admin.announcements.index');
+        Route::prefix('announcement')->name('admin.announcements.')->group(function () {
+            Route::get('/create', [AnnouncementController::class, 'create'])->name('create');
+            Route::post('/store', [AnnouncementController::class, 'store'])->name('store');
+            Route::get('/{announcement}/edit', [AnnouncementController::class, 'edit'])->name('edit');
+            Route::put('/update/{announcement}', [AnnouncementController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [AnnouncementController::class, 'delete'])->name('delete');
+        });
 
         Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
-
         Route::prefix('/event')->group(function () {
             Route::get('/create', [EventController::class, 'create'])->name('admin.event.create');
             Route::post('/store', [EventController::class, 'store'])->name('admin.event.store');
-
             Route::get('/{id}', [EventController::class, 'show'])->name('admin.event.show');
             Route::put('/update/{id}', [EventController::class, 'update'])->name('admin.event.update');
             Route::delete('/delete/{id}', [EventController::class, 'delete'])->name('admin.event.delete');
         });
 
         Route::get('/sponsors', [SponsorController::class, 'index'])->name('admin.sponsors.index');
-
         Route::prefix('/sponsor')->group(function () {
             Route::get('/create', [SponsorController::class, 'create'])->name('admin.sponsor.create');
             Route::post('/store', [SponsorController::class, 'store'])->name('admin.sponsor.store');
-
             Route::get('/{id}', [SponsorController::class, 'show'])->name('admin.sponsor.show');
             Route::put('/update/{id}', [SponsorController::class, 'update'])->name('admin.sponsor.update');
             Route::delete('/delete/{id}', [SponsorController::class, 'delete'])->name('admin.sponsor.delete');
         });
-
 
         Route::get('/boards', [BoardController::class, 'index'])->name('admin.board.index');
         Route::prefix('/board')->group(function () {
@@ -57,12 +75,11 @@ Route::middleware(['role:admin'])->group(function () {
             Route::put('/update/{id}', [BoardController::class, 'update'])->name('admin.board.update');
             Route::delete('/delete/{id}', [BoardController::class, 'delete'])->name('admin.board.delete');
         });
-        Route::get('/statues', [StatueController::class, 'index'])->name('admin.statues.index');
 
+        Route::get('/statues', [StatueController::class, 'index'])->name('admin.statues.index');
         Route::prefix('statue')->group(function () {
             Route::post('/store', [StatueController::class, 'store'])->name('admin.statue.store');
             Route::put('/update', [StatueController::class, 'update'])->name('admin.statue.update');
-
         });
 
         Route::get('/old_boards', [OldBoardsController::class, 'index'])->name('admin.old_boards.index');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BoardMemberRequest;
-use App\services\BoardService;
+use App\Services\BoardService;
 use App\Http\Controllers\Controller;
 use App\Models\BoardMember;
 use Illuminate\Http\Request;

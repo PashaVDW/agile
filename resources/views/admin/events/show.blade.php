@@ -21,10 +21,6 @@
             <x-forms.input-field type="datetime-local" name="start_date" :required="true" label="Datum / Start datum" value="{{ old('start_date', isset($event) ? $event->getFormattedDateForInput($event->start_date) : '' ) }}"/>
             <x-forms.input-field type="datetime-local" name="end_date" label="Eind datum" value="{{ old('end_date', isset($event) ? $event->getFormattedDateForInput($event->end_date) : '' )}}"/>
 
-            @if(isset($event) && $event->status->name === 'ARCHIVED')
-                <x-forms.input-file name="gallery" :title="($event->title ?? '')" label="Galerij" :multiple="true" :gallery="$event ?? []"/>
-            @endif
-
             @if($sponsors->count() > 0)
                 <h2 class="mt-4">Sponsoren</h2>
                 @foreach($sponsors as $sponsor)
@@ -38,8 +34,13 @@
             <button id="submitButton" type="submit" class="button right">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
             <x-modal id="dateModal" title="Datum formatting" message="Ingevoerde datum ligt vóór de huidige datum. Klopt dit?" />
         </form>
+
         @if(isset($event))
             <x-actions.crud-delete :item="$event" route="admin.event.delete" title="Evenement verwijderen" message="Weet je zeker dat je deze wilt verwijderen?" />
+        @endif
+
+        @if(isset($event) && $event->status->name === 'ARCHIVED')
+            <x-forms.input-dropzone attribute="gallery" :model="$event" id="eventGallery" label="Gallerij"/>
         @endif
     </div>
 @stop

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Event;
-use App\Models\HomeImages;
+use App\Models\Gallery;
 
 class EventService
 {
@@ -39,10 +39,6 @@ class EventService
             $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         }
 
-        if ($request->hasFile('gallery')) {
-            $data['gallery'] = ImageService::storeGallery($request, Event::class, $event);
-        }
-
         $event->update($data);
         $event->sponsors()->sync($request->input('sponsors', []));
     }
@@ -64,20 +60,9 @@ class EventService
         }
     }
 
-    public function updateHomeImages($request)
-    {
-        $data = $request->validated();
-        $homeImages = HomeImages::first();
-        if ($request->hasFile('gallery')) {
-            ImageService::deleteStoredImages(HomeImages::class, $homeImages);
-            $data['gallery'] = ImageService::storeGallery($request, HomeImages::class, $homeImages);
-        }
-        $homeImages->update($data);
-    }
-
     public function getHomeImages()
     {
-        return HomeImages::first();
+        return Gallery::first();
     }
 
     public function registerUser($request, $id)

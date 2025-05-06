@@ -11,6 +11,9 @@
             <li class="nav-item {{ Request::is('event*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
             </li>
+            <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
+            </li>
             <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.community.index') }}">Community</a>
             </li>
@@ -24,7 +27,7 @@
             @auth
                 @if(auth()->user()->hasRole('admin'))
                     <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('admin') }}">Admin</a>
+                        <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
                     </li>
                 @endif
 
