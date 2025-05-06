@@ -14,4 +14,12 @@ class UserAnnouncementsTest extends DuskTestCase
                 ->assertSee('Lees verder');
         });
     }
+
+    public function testShowAnnouncement()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visitRoute('user.announcement.show', 1)
+                ->assertUrlIs(route('user.announcement.show', 1));
+        });
+    }
 }

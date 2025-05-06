@@ -14,7 +14,8 @@
             <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>
             </li>
-            <li class="nav-item {{ Request::is('announcements') ? 'active' : '' }}">
+            <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
+
                 <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
             </li>
             <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">

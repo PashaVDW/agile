@@ -67,6 +67,12 @@ class AnnouncementController extends Controller
         return redirect()->route('admin.announcements.index');
     }
 
+    public function show($id)
+    {
+        $announcement = Announcement::findOrFail($id);
+        return view('user.announcements.show', ['announcement' => $announcement]);
+    }
+
     public function publicIndex()
     {
         $announcements = $this->announcementService->getPaginatedPublicAnnouncements();

@@ -39,4 +39,12 @@ class Announcement extends Model
     {
         return $this->image !== null;
     }
+
+    public function getFormattedDate($date)
+    {
+        if ($date === null) {
+            return null;
+        }
+        return $date->format('H:i d-m-Y');
+    }
 }
