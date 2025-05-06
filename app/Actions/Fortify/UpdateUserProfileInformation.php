@@ -49,7 +49,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 Rule::unique('users')->ignore($user->id),
             ],
             'phone' => ['required', 'string', 'min:10', 'max:20'],
-        ], $messages)->validateWithBag('updateProfileInformation');
+        ], $messages)->validate();
 
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
