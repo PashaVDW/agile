@@ -14,9 +14,9 @@
                         <ul>
                             @foreach ($monthEvents as $event)
                                 <li>
-                                    <strong>{{ $event->start_date->format('d-m-Y') }} </strong> -
-                                    {{ __($event->category->value) }} -
+                                    <strong>{{ $event->start_date->format('d-m-Y') }}</strong> -
                                     {{ $event->title }}
+                                    <i>{{ __($event->category->value) }}</i>
                                 </li>
                             @endforeach
                         </ul>
