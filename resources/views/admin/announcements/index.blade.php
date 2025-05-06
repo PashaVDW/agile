@@ -2,8 +2,8 @@
 
 @section("content")
     <x-admin.datatable
-        :searchAction="route('announcements.index')"
-        :createUrl="route('announcements.create')"
+        :searchAction="route('admin.announcements.index')"
+        :createUrl="route('admin.announcements.create')"
         createLabel="Announcement Aanmaken"
         tableId="announcement-table"
         searchPlaceholder="Zoek op titel of omschrijving..."
@@ -31,7 +31,7 @@
                         @endif
                     </td>
                     <td class="px-4 py-2">
-                        <a href="{{ route('announcements.edit', ['announcement' => $announcement->id]) }}" class="text-blue-600 hover:underline">
+                        <a href="{{ route('admin.announcements.edit', ['announcement' => $announcement->id]) }}" class="text-blue-600 hover:underline">
                             Bewerk
                         </a>
                     </td>
