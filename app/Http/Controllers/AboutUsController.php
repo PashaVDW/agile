@@ -19,7 +19,7 @@ class AboutUsController extends Controller
 
         return view('user.about_us.index', [
             'boards' => $data['boards'],
-            'oldboards' => $data['oldboards'],
+            'oldBoards' => $data['oldBoards'],
             'commissions' => $data['commissions']
         ]);
     }

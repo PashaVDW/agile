@@ -11,7 +11,7 @@ class AboutUsService
 
     public function getAboutUsData(){
         $boards = BoardMember::all();
-        $oldboards = OldBoards::all()->sortByDesc(function($item)
+        $oldBoards = OldBoards::all()->sortByDesc(function($item)
             {
                 preg_match('/^(\d{4})/',$item->term,$matches);
                 return isset($matches[1]) ? $matches[1] : 0;
@@ -19,7 +19,7 @@ class AboutUsService
         $commissions = Commission::all();
         return [
             'boards' => $boards,
-            'oldboards' => $oldboards,
+            'oldBoards' => $oldBoards,
             'commissions' => $commissions
         ];
     }

@@ -7,7 +7,6 @@
     <div class="about-us">
         <div class="container">
             <div class="info">
-
                     <h2>Over Ons</h2>
 
                     <p>
@@ -24,7 +23,6 @@
                     <p>
                         Studievereniging Concat heeft twee hoofddoelen: studenten verbinden en een extensie zijn van de opleiding. Studenten verbinden met elkaar, docenten en het bedrijfsleven. Op deze manier willen wij studenten helpen om een gezellige studietijd te hebben en na de studietijd helemaal voorbereid te zijn voor het bedrijfsleven.
                     </p>
-
             </div>
         </div>
 
@@ -57,7 +55,7 @@
 
             <div class="about-us-swiper">
                 <div class="container">
-                    <x-swiper :item="$oldboards" id="gallerySwiper"/>
+                    <x-swiper :item="$oldBoards" id="gallerySwiper"/>
                 </div>
             </div>
 
