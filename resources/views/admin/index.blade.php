@@ -53,6 +53,12 @@
         id="header"
     >
         <div class="container-fixed flex items-center justify-between flex-wrap gap-3">
+            <button
+                class="btn btn-icon btn-light btn-clear btn-sm -me-2"
+                data-drawer-toggle="#sidebar"
+            >
+                <i class="ki-filled ki-menu"></i>
+            </button>
         </div>
     </header>
     <!-- End Header -->
@@ -83,3 +89,15 @@
 </div>
 </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButton = document.querySelector('[data-drawer-toggle="#sidebar"]');
+        const sidebar = document.querySelector('#sidebar');
+
+        if (toggleButton && sidebar) {
+            toggleButton.addEventListener('click', () => {
+                sidebar.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
