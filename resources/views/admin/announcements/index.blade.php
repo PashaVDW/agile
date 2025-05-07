@@ -25,7 +25,7 @@
                     <td class="px-4 py-2">{{ Str::limit($announcement->description, 100) }}</td>
                     <td class="px-4 py-2">
                         @if ($announcement->image)
-                            <img src="{{ asset($announcement->image_url) }}" class="w-12 h-12 object-cover rounded-md" />
+                            <img src="{{ asset($announcement->banner_url) }}" class="w-12 h-12 object-cover rounded-md" />
                         @else
                             —
                         @endif
