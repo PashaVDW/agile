@@ -4,6 +4,7 @@ use App\Actions\Fortify\UpdateUserPassword;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
@@ -130,3 +131,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [UserController::class, 'update'])->name('user.profile.update');
     Route::post('/profile/password', [UserController::class, 'password'])->name('user.password.update');
 });
+
+Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
