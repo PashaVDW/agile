@@ -67,14 +67,12 @@
                     opacity: 0;
                     transition: 0.3s;
                     position: absolute;
-                    left: 0;
+                    left: -15px;
                     transform-origin: top right;
                     min-width: 200px;
                     background-color: var(--blue);
                     padding: 15px;
-                    border-bottom-left-radius: 20px;
-                    border-bottom-right-radius: 20px;
-                    border-top-right-radius: 20px;
+                    border-radius: 20px;
                     top: 40px;
                     li {
                         margin: auto;
