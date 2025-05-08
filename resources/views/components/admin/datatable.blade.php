@@ -5,10 +5,10 @@
                 {{$filters ?? ''}}
             </div>
             <div class="flex justify-center searchbar">
-                <x-filters.search-bar placeholder="Zoeken..." :params="$bindings"/>
+                <x-filters.search-bar placeholder="Zoeken..." :params="$bindings ?? []"/>
             </div>
-            <div class="flex justify-end">
-                <a href="{{ $createUrl }}" class="button">
+            <div class="">
+                <a href="{{ $createUrl }}" class="button right create-button">
                     {{ $createLabel }}
                 </a>
             </div>

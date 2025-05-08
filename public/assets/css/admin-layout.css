@@ -23,11 +23,6 @@
                 align-self: flex-end;
             }
         }
-        .searchbar {
-            form > .mb-4 {
-                margin-bottom: 0!important;
-            }
-        }
     }
 
     a {

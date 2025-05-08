@@ -13,7 +13,7 @@
             :bindings="$bindings"
         >
             <x-slot:filters>
-                <x-filters.dropdown :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}" :params="$bindings"/>
+                <x-filters.dropdown :onchange="'this.form.submit()'" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}" :params="$bindings"/>
             </x-slot:filters>
 
             <x-slot:thead>

@@ -31,3 +31,25 @@ form.dropzone {
         }
     }
 }
+
+.admin {
+    .dropdown, .searchbar {
+        width: 100%;
+        > .mb-4 {
+            margin-bottom: 0!important;
+        }
+
+        select, input {
+            height: 2.25rem;
+            color: var(--tw-gray-900);
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            border-color: var(--tw-gray-400);
+            border-width: 1px;
+            border-radius: 0.375rem;
+            width: 100%;
+        }
+    }
+}
