@@ -43,10 +43,6 @@
             </x-slot:tbody>
         </x-admin.datatable>
 
-        <div class="mt-4">
-            {{ $events->links() }}
-        </div>
-
         <div class="sliders">
             <x-forms.input-dropzone attribute="gallery" :model="$gallery" id="homeGallery" label="Gallerij"/>
         </div>

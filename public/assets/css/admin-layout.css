@@ -1,5 +1,5 @@
 .admin {
-    .container {
+    main > .container {
         height: 100%;
         position: relative;
         .filter-wrapper {
@@ -15,7 +15,13 @@
             }
         }
         &.has-sliders {
-
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 50px;
+            .sliders {
+                align-self: flex-end;
+            }
         }
     }
 

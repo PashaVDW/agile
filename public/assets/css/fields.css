@@ -1,9 +1,7 @@
 .sliders {
-    position: absolute;
-    bottom: 0;
     width: 100%;
-    left: 0;
     padding: 0 20px;
+    margin-top: auto;
     .button {
         margin: 0 auto 15px;
     }
@@ -15,14 +13,21 @@ form.dropzone {
     }
     .dz-error-message {
         margin-top: 20px;
+        overflow-wrap: anywhere;
         span {
             color: var(--default-white);
         }
+    }
+    .dz-filename {
+        overflow-wrap: anywhere;
     }
     .dz-preview {
         .dz-image {
             display: flex;
             align-items: center;
+        }
+        .dz-remove {
+            margin: 0 auto;
         }
     }
 }
