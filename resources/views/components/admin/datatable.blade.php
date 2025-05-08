@@ -1,17 +1,11 @@
 <div class="container">
     <div class="min-w-full">
         <div class="py-2 grid grid-cols-3 gap-3 w-full max-w-6xl mx-auto items-center">
-            <div></div>
-            <div class="flex justify-center">
-                <form method="GET" action="{{ $searchAction }}" class="w-full max-w-xs">
-                    <input
-                        type="search"
-                        name="search"
-                        value="{{ request('search') }}"
-                        class="h-9 w-full px-3 text-sm text-gray-900 border border-gray-400 rounded-md bg-gray-50 dark:bg-gray-700 dark:border-gray-500 dark:text-white"
-                        placeholder="{{ $searchPlaceholder ?? 'Zoek...' }}"
-                    />
-                </form>
+            <div>
+                {{$filters ?? ''}}
+            </div>
+            <div class="flex justify-center searchbar">
+                <x-filters.search-bar placeholder="Zoeken..." :params="$bindings"/>
             </div>
             <div class="flex justify-end">
                 <a href="{{ $createUrl }}" class="button">

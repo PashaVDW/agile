@@ -10,7 +10,12 @@
             createLabel="Event aanmaken"
             tableId="events-table"
             searchPlaceholder="Zoek op titel..."
+            :bindings="$bindings"
         >
+            <x-slot:filters>
+                <x-filters.dropdown :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}" :params="$bindings"/>
+            </x-slot:filters>
+
             <x-slot:thead>
                 <th>Titel</th>
                 <th>Datum / Start datum</th>
