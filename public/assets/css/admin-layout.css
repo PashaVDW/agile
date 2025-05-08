@@ -37,7 +37,6 @@
     }
 
     .availability {
-        display: flex;
         align-items: center;
         .percentage-meter {
             margin-left: 20px;
