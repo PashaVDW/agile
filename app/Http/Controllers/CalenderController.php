@@ -10,8 +10,11 @@ class CalenderController extends Controller
     {
         $events = Event::query()
             ->where('status', 'active')
-            ->orderBy('start_date', 'ASC') // Zorg ervoor dat dit 'ASC' is om de evenementen chronologisch te sorteren
-            ->get();
+            ->orderBy('start_date', 'ASC')
+            ->get()
+            ->groupBy(function ($event) {
+                return $event->start_date->format('F');
+            });
 
         return view('user.calender.index', ['events' => $events]);
     }
