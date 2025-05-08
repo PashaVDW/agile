@@ -3,19 +3,11 @@
 namespace Tests\Browser;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class ProfileTest extends DuskTestCase
 {
-    use DatabaseMigrations;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->artisan('db:seed');
-    }
 
     public function test_update_profile_information(){
 
@@ -35,14 +27,12 @@ class ProfileTest extends DuskTestCase
     }
 
     public function test_update_password(){
-        $user = User::factory()->create([
-            'password' => bcrypt('oldpassword')
-            ]);
+        $user = User::factory()->create();
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
                 ->visit('/profile')
-                ->type('current_password', 'oldpassword')
+                ->type('current_password', 'test1234')
                 ->type('password', 'newpassword')
                 ->type('password_confirmation', 'newpassword')
                 ->press('Update wachtwoord')
