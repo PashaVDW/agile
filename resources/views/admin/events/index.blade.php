@@ -20,7 +20,7 @@
                 <th>Titel</th>
                 <th>Datum / Start datum</th>
                 <th>Categorie</th>
-                <td>Registraties</td>
+                <th>Registraties</th>
                 <th>Aangemaakt op</th>
                 <th>Bijgewerkt op</th>
                 <th>Banner</th>
