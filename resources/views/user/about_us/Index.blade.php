@@ -3,10 +3,10 @@
 @section("title", "Over Ons")
 
 @section("content")
-
-    <div class="about-us">
-        <div class="container">
-            <div class="info">
+    <div class="section">
+        <div class="about-us">
+            <div class="container">
+                <div class="info">
                     <h2>Over Ons</h2>
 
                     <p>
@@ -23,43 +23,47 @@
                     <p>
                         Studievereniging Concat heeft twee hoofddoelen: studenten verbinden en een extensie zijn van de opleiding. Studenten verbinden met elkaar, docenten en het bedrijfsleven. Op deze manier willen wij studenten helpen om een gezellige studietijd te hebben en na de studietijd helemaal voorbereid te zijn voor het bedrijfsleven.
                     </p>
-            </div>
-        </div>
-
-        {{-- Boards --}}
-        <div class="comiboards-wrapper">
-            <div class="container">
-
-                <div class="comiboards">
-                    @foreach($boards as $member)
-                        <x-comiboard :item="$member" alt="Bestuurslid" />
-                    @endforeach
                 </div>
             </div>
 
-            {{-- Commissions --}}
-            @if($commissions !== null && $commissions->isNotEmpty())
+            {{-- Boards --}}
+            <div class="comiboards-wrapper">
                 <div class="container">
-                    <div class="info">
-                        @foreach($commissions as $commission)
-                            <h2>{{$commission->name}}</h2>
 
-                            <p>
-                                {{$commission->description}}
-                            </p>
-                            <hr>
+                    <div class="comiboards">
+                        @foreach($boards as $member)
+                            <x-comiboard :item="$member" alt="Bestuurslid" />
                         @endforeach
                     </div>
                 </div>
-            @endif
 
-            <div class="about-us-swiper">
-                <div class="container">
-                    <x-swiper :item="$oldBoards" id="gallerySwiper"/>
+                {{-- Commissions --}}
+                @if($commissions !== null && $commissions->isNotEmpty())
+                    <div class="container">
+                        <div class="info">
+                            @foreach($commissions as $commission)
+                                <h2>{{$commission->name}}</h2>
+
+                                <p>
+                                    {{$commission->description}}
+                                </p>
+                                <hr>
+                            @endforeach
+                                <p>
+                                    Wil je lid worden van 1 onze commissies? Mail dan naar: <a href="mailto:info@svconcat.nl">info@svconcat.nl</a>
+                                </p>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="about-us-swiper">
+                    <div class="container">
+                        <x-swiper :item="$oldBoards" id="boardSwiper"/>
+                    </div>
                 </div>
+
             </div>
 
         </div>
-
     </div>
 @stop

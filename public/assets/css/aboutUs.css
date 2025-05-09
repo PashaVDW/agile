@@ -4,14 +4,11 @@
 }
 
 .about-us {
-    margin-top: 6rem;
     .container {
         margin-bottom: 1rem;
         display: flex;
         flex-direction: row;
         justify-content: center;
-        /*gap: 50px;*/
-
         .info {
             width: 100%;
             max-width: 2000px;
@@ -39,7 +36,6 @@
 
 @media (max-width: 768px) {
     .about-us {
-        margin-top: 0.5rem;
         .container {
             flex-direction: column;
 

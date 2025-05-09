@@ -3,12 +3,13 @@ import Swiper from "swiper/bundle";
 document.addEventListener('DOMContentLoaded', function() {
     carouselSwiper('#gallerySwiper');
     carouselSwiper('#homeSwiper');
+    carouselSwiper('#boardSwiper');
 });
 
 function carouselSwiper(swiperId) {
     new Swiper(swiperId, {
         slidesPerView: 1,
-        spaceBetween: 0,
+        spaceBetween: swiperId === '#boardSwiper' ? 20: 0,
         speed: 300,
         loop: true,
         autoplay: {
@@ -32,5 +33,6 @@ function carouselSwiper(swiperId) {
                 slidesPerView: swiperId === '#homeSwiper' ? 2 : 3,
             }
         }
+
     });
 }
