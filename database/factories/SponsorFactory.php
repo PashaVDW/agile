@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BoardMember>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sponsor>
  */
-class BoardMemberFactory extends Factory
+class SponsorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,11 @@ class BoardMemberFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'role' => $this->faker->word(),
+            'name' => $this->faker->company(),
             'description' => $this->faker->paragraph(),
             'image' => null,
+            'active' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
+            'url' => $this->faker->url(),
         ];
     }
 }

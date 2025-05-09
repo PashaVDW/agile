@@ -3,39 +3,37 @@
 @section("title", "Oude Besturen")
 
 @section("content")
-    <div class="container">
-        <div class="filter-wrapper">
+    <x-admin.datatable
+        :searchAction="route('admin.old_boards.index')"
+        :createUrl="route('admin.old_boards.create')"
+        createLabel="Voeg oud bestuur toe"
+        tableId="old-boards-table"
+        searchPlaceholder="Zoeken..."
+    >
+        <x-slot:thead>
+            <th>Namen</th>
+            <th>Termijn</th>
+            <th>Foto</th>
+            <th>Acties</th>
+        </x-slot:thead>
 
-            <x-filters.search-bar label="Zoeken" placeholder="Zoeken..." :params="$bindings"/>
-
-            <a href="{{ route("admin.old_boards.create") }}" class="button right">Voeg oud bestuur toe</a>
-        </div>
-
-        <table class="table">
-            <thead>
-            <tr>
-                <td>Namen</td>
-                <td>Termijn</td>
-                <td>Foto</td>
-                <td>Acties</td>
-            </tr>
-            </thead>
-            <tbody>
+        <x-slot:tbody>
             @foreach ($oldBoards as $oldBoard)
-                <tr>
-                    <td>{{ $oldBoard->names }}</td>
-                    <td>{{ $oldBoard->term }}</td>
-                    <td><img src="{{ asset($oldBoard->image_url) }}" width="50" height="50"></td>
-                    <td>
-                        <a href="{{ route("admin.old_boards.show", ["id" => $oldBoard->id]) }}">Bewerk</a>
+                <tr class="border-b border-gray-300">
+                    <td class="px-4 py-2">{{ $oldBoard->names }}</td>
+                    <td class="px-4 py-2">{{ $oldBoard->term }}</td>
+                    <td class="px-4 py-2">
+                        <img src="{{ asset($oldBoard->image_url) }}" width="50" height="50" class="rounded-md object-cover" />
+                    </td>
+                    <td class="px-4 py-2">
+                        <a href="{{ route('admin.old_boards.show', ['id' => $oldBoard->id]) }}" class="text-blue-600 hover:underline">Bewerk</a>
                     </td>
                 </tr>
             @endforeach
-            </tbody>
-        </table>
+        </x-slot:tbody>
+    </x-admin.datatable>
 
-        <div class="mt-4">
-            {{ $oldBoards->links() }}
-        </div>
+    <div class="mt-4">
+        {{ $oldBoards->links() }}
     </div>
-@stop
+@endsection
