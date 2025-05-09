@@ -33,21 +33,26 @@
                 <span class="nav-link">Account</span>
                 <ul class="submenu">
                     @auth
-                    @if(auth()->user()->hasRole('admin'))
-                        <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
+                        @if(auth()->user()->hasRole('admin'))
+                            <li class="nav-item {{ Request::is('admin') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
+                            </li>
+                        @endif
+
+                        <li class="nav-item {{ Request::is('profile') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('user.profile.index') }}">Profiel</a>
                         </li>
-                    @endif
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Uitloggen
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
-                        @else
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Uitloggen
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    @else
                         <li class="nav-item {{ Request::is('register') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('register') }}">Inschrijven</a>
                         </li>
