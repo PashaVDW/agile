@@ -50,7 +50,7 @@
                                 <hr>
                             @endforeach
 {{--                                <p>--}}
-{{--                                    Wil je lid worden van 1 onze commissies? Mail dan naar: <a href="mailto:info@svconcat.nl">info@svconcat.nl</a>--}}
+{{--                                    Wil je lid worden van Eén  onze commissies? Mail dan naar: <a href="mailto:info@svconcat.nl">info@svconcat.nl</a>--}}
 {{--                                </p>--}}
                         </div>
                     </div>
