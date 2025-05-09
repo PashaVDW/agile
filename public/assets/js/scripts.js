@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     openModal();
+    mobileMenu();
 });
 
 function openModal() {
@@ -11,13 +12,15 @@ function openModal() {
     const modals = document.getElementsByClassName('modal-wrapper');
 
     function checkDate() {
-        const selectedDate = eventDateInput.value;
-        if (selectedDate < today) {
-            openModalButton.classList.remove('hidden');
-            submitButton.classList.add('hidden');
-        } else {
-            openModalButton.classList.add('hidden');
-            submitButton.classList.remove('hidden');
+        if (eventDateInput) {
+            const selectedDate = eventDateInput.value;
+            if (selectedDate < today) {
+                openModalButton?.classList.remove('hidden');
+                submitButton?.classList.add('hidden');
+            } else {
+                openModalButton?.classList.add('hidden');
+                submitButton?.classList.remove('hidden');
+            }
         }
     }
 
@@ -28,14 +31,33 @@ function openModal() {
             }
         }
     }
-    openModalDeleteButton.addEventListener('click', function () {
-        showModal(openModalDeleteButton);
-    });
 
-    eventDateInput.addEventListener('change', checkDate);
-    openModalButton.addEventListener('click', function () {
-        showModal(openModalButton);
-    });
+    if (openModalDeleteButton) {
+        openModalDeleteButton.addEventListener('click', function () {
+            showModal(openModalDeleteButton);
+        });
+    }
+
+    if (eventDateInput) {
+        eventDateInput.addEventListener('change', checkDate);
+    }
+
+    if (openModalButton) {
+        openModalButton.addEventListener('click', function () {
+            showModal(openModalButton);
+        });
+    }
 
     checkDate();
+}
+
+function mobileMenu() {
+    const toggleButton = document.querySelector('[data-drawer-toggle="#sidebar"]');
+    const sidebar = document.querySelector('#sidebar');
+
+    if (toggleButton && sidebar) {
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+    }
 }

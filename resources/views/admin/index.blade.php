@@ -89,15 +89,3 @@
 </div>
 </body>
 </html>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const toggleButton = document.querySelector('[data-drawer-toggle="#sidebar"]');
-        const sidebar = document.querySelector('#sidebar');
-
-        if (toggleButton && sidebar) {
-            toggleButton.addEventListener('click', () => {
-                sidebar.classList.toggle('hidden');
-            });
-        }
-    });
-</script>
