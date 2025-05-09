@@ -1,30 +1,46 @@
 @extends("admin.index")
 
-@section("title", "Sponsoren")
-
 @section("content")
-    <div class="container">
-        <a href="{{route('admin.sponsor.create')}}" class="button right">Sponsor aanmaken</a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>Naam</td>
-                    <td>Status</td>
-                    <td>Acties</td>
+    <x-admin.datatable
+        :searchAction="route('admin.sponsors.index')"
+        :createUrl="route('admin.sponsor.create')"
+        createLabel="Voeg sponsor toe"
+        tableId="sponsors-table"
+        searchPlaceholder="Zoek op naam..."
+    >
+        <x-slot:thead>
+            <th>Naam</th>
+            <th>Beschrijving</th>
+            <th>Status</th>
+            <th>Afbeelding</th>
+            <th></th>
+            <th></th>
+        </x-slot:thead>
+
+        <x-slot:tbody>
+            @foreach ($sponsors as $sponsor)
+                <tr class="border-b border-gray-300">
+                    <td class="px-4 py-2">{{ $sponsor->name }}</td>
+                    <td class="px-4 py-2">{{ $sponsor->description }}</td>
+                    <td class="px-4 py-2">{{ $sponsor->active }}</td>
+                    <td class="px-4 py-2">
+                        @if ($sponsor->image_url)
+                            <img src="{{ asset($sponsor->image_url) }}" class="w-12 h-12 object-cover rounded-md" />
+                        @else
+                            —
+                        @endif
+                    </td>
+                    <td class="px-4 py-2">
+                        <a href="{{ route('admin.sponsor.show', ['id' =>  $sponsor->id]) }}" class="text-blue-600 hover:underline">
+                            Bewerk
+                        </a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach($sponsors as $sponsor)
-                    <tr>
-                        <td>{{$sponsor->name}}</td>
-                        <td>{{__($sponsor->active)}}</td>
-                        <td><a href="{{ route("admin.sponsor.show", ["id" => $sponsor->id]) }}">Bewerken</a></td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div class="mt-4">
-            {{ $sponsors->links() }}
-        </div>
+            @endforeach
+        </x-slot:tbody>
+    </x-admin.datatable>
+
+    <div class="mt-4">
+        {{ $sponsors->links() }}
     </div>
-@stop
+@endsection
