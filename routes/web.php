@@ -12,6 +12,7 @@ use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
 use App\Http\Controllers\OldBoardsController;
 use App\Http\Controllers\CommissionController;
+use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -121,6 +122,8 @@ Route::prefix('/event')->group(function () {
         Route::delete('/unregister/{id}', [EventController::class, 'unregister'])->name('user.event.unregister');
     });
 });
+
+Route::get('/about-us',[AboutUsController::class,'index'])->name('user.about_us.index');
 
 Route::get('/community', [EventController::class, 'community'])->name('user.community.index');
 Route::get('/community/{id}', [EventController::class, 'show'])->name('user.community.show');
