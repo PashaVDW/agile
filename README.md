@@ -82,6 +82,6 @@ bootstrap/app.php -> $schedule->command('app:archive-events')->daily(); kan de s
 - test de classes, kijk of de ids kloppen -> eventueel even wijzigen, kijk eventueel voor de images
 - test seeder command: php artisan seed:testdata
 
+
 ## Seed Gallery
 - php artisan db:seed --class=GallerySeeder
-
