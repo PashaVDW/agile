@@ -31,6 +31,7 @@
         }
     }
     #sidebar {
+        background-color: #111217;
         a:hover {
             color: inherit;
         }
