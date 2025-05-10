@@ -186,6 +186,7 @@
             dictDefaultMessage: "Sleep bestanden hierheen of klik om te uploaden",
             dictFileTooBig: "Bestand is te groot (max. "+maxFilesize+" MB)",
             dictInvalidFileType: "Bestandstype ongeldig. Alleen JPG, JPEG, PNG, WEBP, GIF, SVG zijn toegestaan.",
+            dictRemoveFile: "Verwijder bestand",
             maxfilesexceeded: function(file) {
                 this.removeFile(file);
                 document.getElementById("message").innerHTML = "Je kunt niet meer dan " + maxFilesAmount + " bestanden uploaden.";

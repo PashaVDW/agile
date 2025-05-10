@@ -27,9 +27,16 @@ form.dropzone {
         .dz-image {
             display: flex;
             align-items: center;
+            margin: 0 auto;
         }
         .dz-remove {
             margin: 0 auto;
+        }
+        .dz-error-message {
+            left: 5px;
+        }
+        .dz-success-mark, .dz-error-mark {
+            top: 30%;
         }
     }
 }
@@ -87,6 +94,10 @@ form.dropzone {
     .btn-container {
         display: flex;
         justify-content: space-between;
+    }
+    .dz-metadata-container {
+        display: flex;
+        justify-content: center;
     }
 
     .dz-metadata-button {
