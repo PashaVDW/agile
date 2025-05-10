@@ -83,7 +83,7 @@
             }
         @endforeach
 
-        // add edit button
+        // add edit button, is reachable even if it says it isn't!
         if (@json(count($metadatas) > 0) && !container.querySelector('.dz-edit-form') && !container.querySelector('.dz-edit-button')) {
             var editButton = createEditButton(fileName, metadataValues, container);
             container.appendChild(editButton);

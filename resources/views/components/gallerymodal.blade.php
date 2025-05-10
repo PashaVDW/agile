@@ -20,8 +20,12 @@
                 </div>
             </div>
             <div class="modal-footer flex-col align-items-start">
-                <p>Evenement: {{$image['event_name']}}</p>
-                <p>Datum: {{$image['event_date']}}</p>
+                @if($image['event_name'])
+                    <p>Evenement: {{$image['event_name']}}</p>
+                @endif
+                @if($image['event_date'])
+                    <p>Datum: {{$image['event_date']}}</p>
+                @endif
             </div>
         </div>
     </div>
