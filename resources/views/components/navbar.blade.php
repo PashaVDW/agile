@@ -17,10 +17,10 @@
                     <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('user.community.index') }}">Community</a>
                     </li>
+                    <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>
+                    </li>
                 </ul>
-            </li>
-            <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>
             </li>
             <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
 
