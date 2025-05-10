@@ -231,4 +231,43 @@ class ImageService
             $model->update([$type => array_values($updatedImages)]);
         }
     }
+
+    public static function processGalleryMetadata($request, $model)
+    {
+        $fileName = $request->input('file_name');
+        $attribute = $request->input('attribute');
+        $gallery = $model->$attribute;
+
+        if (is_array($gallery)) {
+            // Update the metadata for the specified file
+            foreach ($gallery as $key => $imageData) {
+                $imagePath = is_string($imageData) ? $imageData : ($imageData['path'] ?? null);
+                $imageName = basename($imagePath);
+
+                if ($imageName === $fileName) {
+                    if (is_string($imageData)) {
+                        $gallery[$key] = [
+                            'path' => $imageData,
+                            'created_at' => now()->toDateTimeString()
+                        ];
+                    }
+
+                    // Get all request inputs except these specific ones
+                    $excludedKeys = ['_token', 'file_name', 'attribute'];
+                    foreach ($request->all() as $metadataKey => $metadataValue) {
+                        if (!in_array($metadataKey, $excludedKeys)) {
+                            $gallery[$key][$metadataKey] = $metadataValue;
+                        }
+                    }
+
+                    break;
+                }
+            }
+            $model->update([$attribute => $gallery]);
+
+            return response()->json(['success' => 'Metadata updated successfully']);
+        }
+
+        return response()->json(['error' => 'Failed to update metadata'], 400);
+    }
 }

@@ -8,19 +8,19 @@
     'metadatas' => [],
    ])
 <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $id }}">
-            {{ ucfirst($label) }}
-        </label>
-        <h5 id="message" class="text-center text-danger"></h5>
+    <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $id }}">
+        {{ ucfirst($label) }}
+    </label>
+    <h5 id="message" class="text-center text-danger"></h5>
 
-        <form action="{{ isset($model) ? route( 'admin.gallery.upload',  [strtolower(class_basename($model)), $model->id]) : route('admin.gallery.store', $modelname) }}" method="POST" enctype="multipart/form-data" class="dropzone border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 {{ $class }}" id="{{$id}}">
-            @csrf
-            <input type="hidden" name="attribute" value="{{ $attribute }}">
-            <input type="hidden" name="metadata_names" id="hidden_metadata_names_{{ $id }}" value="{{ json_encode(array_column($metadatas, 'name')) }}">
-            @foreach($metadatas as $metadata)
-                <input type="hidden" name="{{ $metadata['name'] }}" id="hidden_{{ $metadata['name'] }}_{{ $id }}">
-            @endforeach
-        </form>
+    <form action="{{ isset($model) ? route( 'admin.gallery.upload',  [strtolower(class_basename($model)), $model->id]) : route('admin.gallery.store', $modelname) }}" method="POST" enctype="multipart/form-data" class="dropzone border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 {{ $class }}" id="{{$id}}">
+        @csrf
+        <input type="hidden" name="attribute" value="{{ $attribute }}">
+        <input type="hidden" name="metadata_names" id="hidden_metadata_names_{{ $id }}" value="{{ json_encode(array_column($metadatas, 'name')) }}">
+        @foreach($metadatas as $metadata)
+            <input type="hidden" name="{{ $metadata['name'] }}" id="hidden_{{ $metadata['name'] }}_{{ $id }}">
+        @endforeach
+    </form>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -53,10 +53,7 @@
             type: "POST",
             data: data,
             success: function(response) {
-                alert('Metadata succesvol bijgewerkt!');
-
-                // Update the display without reloading the page
-                // After saving, we want to show the metadata values and the edit button
+                // show metadata values
                 updateMetadataDisplay(metadataContainer, fileName, metadataValues);
             },
             error: function(xhr, status, error) {
@@ -66,13 +63,10 @@
     }
 
     function updateMetadataDisplay(container, fileName, metadataValues) {
-        // Clear the container
         container.innerHTML = '';
-
-        // Track if any metadata field has a value
         var hasMetadataValues = false;
 
-        // Add all metadata fields dynamically
+        // create metadata display fields
         @foreach($metadatas as $metadata)
             if (metadataValues['{{ $metadata['name'] }}']) {
                 hasMetadataValues = true;
@@ -83,8 +77,7 @@
             }
         @endforeach
 
-        // Add edit button if metadata fields are defined, regardless of whether they have values
-        // But only if we're not already showing the edit form and there's no edit button already
+        // add edit button
         if (@json(count($metadatas) > 0) && !container.querySelector('.dz-edit-form') && !container.querySelector('.dz-edit-button')) {
             var editButton = createEditButton(fileName, metadataValues, container);
             container.appendChild(editButton);
@@ -108,10 +101,8 @@
     }
 
     function showEditForm(container, fileName, metadataValues) {
-        // Clear the container
         container.innerHTML = '';
 
-        // Create form elements
         var form = document.createElement('div');
         form.className = 'dz-edit-form';
 
@@ -120,7 +111,7 @@
             metadataValues = {};
         }
 
-        // Create inputs for each metadata field dynamically
+        // Create metadata input fields
         @foreach($metadatas as $metadata)
             var {{ $metadata['name'] }}Label = document.createElement('label');
             {{ $metadata['name'] }}Label.className = 'block text-gray-700 text-xs font-bold mb-1 mt-2';
@@ -181,8 +172,6 @@
     function mDropzone() {
         var maxFilesize = 5; // MB
         var maxFilesAmount = null; // unlimited
-
-        // We'll update hidden fields when the user saves the metadata form
 
         Dropzone.options.{{$id}} = {
             paramName:"{{$attribute}}",
@@ -245,10 +234,7 @@
 
                 // Add event handler for addedfile to add metadata form to new uploads
                 this.on("addedfile", function(file) {
-                    // Check if this is a file loaded from server (has isLoadedFromServer flag)
-                    // Only add metadata container for new uploads, not for existing files loaded from server
                     if (!file.isLoadedFromServer && @json(count($metadatas) > 0)) {
-                        // Only add metadata form to new uploads, not existing ones with metadata
                         var hasExistingMetadata = false;
                         @foreach($metadatas as $metadata)
                             if (file.{{ $metadata['name'] }}) {
@@ -257,17 +243,16 @@
                         @endforeach
 
                         if (!hasExistingMetadata) {
-                            // Add metadata container after file is added
+                            // Add metadata container
                             setTimeout(function() {
                                 if (file.previewElement) {
                                     var metadataContainer = document.createElement('div');
                                     metadataContainer.className = 'dz-metadata-container';
 
-                                    // For new uploads, show metadata and edit button, not the edit form
                                     updateMetadataDisplay(metadataContainer, file.name, {});
                                     file.previewElement.appendChild(metadataContainer);
                                 }
-                            }, 100); // Small delay to ensure previewElement is ready
+                            }, 100);
                         }
                     }
                 });
@@ -283,10 +268,9 @@
                                 var mockFile = {
                                     name: file.name,
                                     size: file.size,
-                                    isLoadedFromServer: true // Flag to indicate this file is loaded from server
+                                    isLoadedFromServer: true
                                 };
 
-                                // Add all metadata fields to the mockFile
                                 var metadataValues = {};
                                 @foreach($metadatas as $metadata)
                                     mockFile.{{ $metadata['name'] }} = file.{{ $metadata['name'] }};
@@ -302,7 +286,6 @@
                                     var metadataContainer = document.createElement('div');
                                     metadataContainer.className = 'dz-metadata-container';
 
-                                    // For existing files, only show metadata and edit button, not the edit form
                                     updateMetadataDisplay(metadataContainer, file.name, metadataValues);
                                     mockFile.previewElement.appendChild(metadataContainer);
                                 }
