@@ -7,7 +7,7 @@
         <div class="image-container">
             @foreach($gallery->gallery as $image)
                     <button type="button" class="image" data-bs-toggle="modal" data-bs-target="#exampleModal{{$loop->index}}">
-                        <img src="{{ asset($gallery->getGalleryImagePath($image)) }}" class="gallery-image">
+                        <img src="{{ asset($gallery->getGalleryImagePath($image['path'])) }}" class="gallery-image">
                     </button>
             @endforeach
         </div>

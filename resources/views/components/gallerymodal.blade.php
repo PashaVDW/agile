@@ -15,9 +15,13 @@
             <div class="modal-body d-flex justify-center align-middle">
                 <div class="w-100 h-100 overflow-hidden zoom-wrapper">
                     <div class="d-flex justify-center area-wrapper">
-                        <img src="{{ asset($gallery->getGalleryImagePath($image)) }}" class="d-block">
+                        <img src="{{ asset($gallery->getGalleryImagePath($image['path'])) }}" class="d-block">
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer flex-col align-items-start">
+                <p>Evenement: {{$image['event_name']}}</p>
+                <p>Datum: {{$image['event_date']}}</p>
             </div>
         </div>
     </div>

@@ -67,7 +67,7 @@ class ImageService
         try {
             if ($request->hasFile($type)) {
                 $files = is_array($request->file($type)) ? $request->file($type) : [$request->file($type)];
-                return ImageService::processGalleryImages($files, $model, $type);
+                return ImageService::processGalleryImages($files, $model, $type, 0, $request);
             }
             return response()->json(['success' => 'Images uploaded successfully']);
         } catch (\Exception $e) {
@@ -75,14 +75,14 @@ class ImageService
         }
     }
 
-    private static function processGalleryImages($files, $model, $type, $maxFiles = 0) // 0 means no limit
+    private static function processGalleryImages($files, $model, $type, $maxFiles = 0, $request = null) // 0 means no limit
     {
-        [$galleryPaths, $errors] = ImageService::save($files, strtolower(class_basename($model)), $type);
+        [$galleryPaths, $errors] = ImageService::save($files, strtolower(class_basename($model)), $type, $request);
         if (!empty($errors)) {
             return response()->json(['error' => $errors], 400);
         }
 
-        $error = ImageService::mergeImages($galleryPaths, $model, $type, $maxFiles);
+        $error = ImageService::mergeImages($galleryPaths, $model, $type, $maxFiles, $request);
 
         if ($error) {
             return response()->json(['error' => $error], 400);
@@ -90,10 +90,12 @@ class ImageService
         return response()->json(['success' => 'Images uploaded successfully']);
     }
 
-    private static function save($files, $class, $type)
+    private static function save($files, $class, $type, $request = null)
     {
         $galleryPaths = [];
         $errors = [];
+        $metadataNames = json_decode($request->input('metadata_names'), true);
+
         foreach ($files as $file) {
             $filename = $file->getClientOriginalName();
             $path = 'images/'.$class.'/'.$type;
@@ -104,17 +106,42 @@ class ImageService
             } else {
                 $filePath = $file->storeAs($path, $file->getClientOriginalName(), 'public');
                 ProcessImageUpload::dispatch($filePath, $file->getClientOriginalName(), $path);
-                $galleryPaths[] = $relativePath;
+
+                $galleryPaths[] = [
+                    'path' => $relativePath,
+                    'created_at' => now()->toDateTimeString()
+                ];
+
+                foreach ($metadataNames as $metadata) {
+                    $galleryPaths[count($galleryPaths) - 1][$metadata] = $request->input($metadata);
+                }
             }
         }
         return [$galleryPaths, $errors];
     }
 
-    private static function mergeImages($galleryPaths, $model, $type, $maxFiles)
+    private static function mergeImages($galleryPaths, $model, $type, $maxFiles, $request = null)
     {
         $error = null;
         if($model) {
             $existingImages = $model->$type ?? [];
+
+            // Convert existing images to new format if they are just strings (paths)
+            if (!empty($existingImages) && is_array($existingImages)) {
+                foreach ($existingImages as $key => $value) {
+                    if (is_string($value)) {
+                        $existingImages[$key] = [
+                            'path' => $value,
+                            'created_at' => now()->toDateTimeString()
+                        ];
+
+                        foreach ($request->input('metadata_names') as $metadata) {
+                            $existingImages[$key][$metadata] = $request->input($metadata);
+                        }
+                    }
+                }
+            }
+
             $mergedImages = array_merge($existingImages, $galleryPaths);
 
             if ($maxFiles > 0 && count($mergedImages) > $maxFiles) {
@@ -126,20 +153,37 @@ class ImageService
         return $error;
     }
 
-    public static function fetchDropzoneImages($model, $type)
+    public static function fetchDropzoneImages($model, $type, $request = null)
     {
         try {
             $files = [];
             if ($model) {
                 $imageArray = is_array($model->$type) ? $model->$type : json_decode($model->$type, true);
                 if (is_array($imageArray)) {
-                    foreach ($imageArray as $imagePath) {
-                        $filePath = public_path($imagePath);
-                        $files[] = [
-                            'name' => basename($imagePath),
-                            'size' => file_exists($filePath) ? filesize($filePath) : 0,
-                            'path' => asset(Storage::url($imagePath)),
-                        ];
+                    foreach ($imageArray as $imageData) {
+                        // Handle both old format (string path) and new format (array with metadata)
+                        $imagePath = is_string($imageData) ? $imageData : ($imageData['path'] ?? null);
+
+                        if ($imagePath) {
+                            $filePath = public_path($imagePath);
+                            $file = [
+                                'name' => basename($imagePath),
+                                'size' => file_exists($filePath) ? filesize($filePath) : 0,
+                                'path' => asset(Storage::url($imagePath)),
+                            ];
+
+                            // Add all metadata fields dynamically if they exist
+                            if (is_array($imageData)) {
+                                foreach ($imageData as $key => $value) {
+                                    // Skip non-metadata fields
+                                    if (!in_array($key, ['path', 'created_at'])) {
+                                        $file[$key] = $value;
+                                    }
+                                }
+                            }
+
+                            $files[] = $file;
+                        }
                     }
                 }
             }
@@ -165,13 +209,20 @@ class ImageService
         if ($model && is_array($model->$type)) {
             $normalizedFileNames = array_map('strtolower', array_map('trim', $fileNames));
             $updatedImages = array_filter($model->$type, function ($image) use ($type, $normalizedFileNames, $model) {
-                $imageName = strtolower(basename($image));
+                // Handle both old format (string path) and new format (array with metadata)
+                $imagePath = is_string($image) ? $image : ($image['path'] ?? null);
+
+                if (!$imagePath) {
+                    return false; // Remove invalid entries
+                }
+
+                $imageName = strtolower(basename($imagePath));
                 if (in_array($imageName, $normalizedFileNames)) {
                     $isUsedInOtherModels = get_class($model)::where($type, 'like', '%' . $imageName . '%')
                         ->where('id', '!=', $model->id)
                         ->exists();
                     if (!$isUsedInOtherModels) {
-                        Storage::disk('public')->delete($image);
+                        Storage::disk('public')->delete($imagePath);
                     }
                     return false;
                 }
