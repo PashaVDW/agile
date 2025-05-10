@@ -22,8 +22,11 @@ class UpdateUserPassword implements UpdatesUserPasswords
             'current_password' => ['required', 'string', 'current_password:web'],
             'password' => $this->passwordRules(),
         ], [
-            'current_password.current_password' => __('The provided password does not match your current password.'),
-        ])->validateWithBag('updatePassword');
+            'current_password.current_password' => 'Het wachtwoord komt niet overeen met het huidige wachtwoord.',
+            'password.required' => 'Het wachtwoord is verplicht.',
+            'password.min' => 'Het wachtwoord moet minimaal 8 tekens lang zijn.',
+            'password.confirmed' => 'Het wachtwoord en de bevestiging komen niet overeen.'
+        ])->validate();
 
         $user->forceFill([
             'password' => Hash::make($input['password']),

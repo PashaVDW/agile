@@ -23,7 +23,7 @@
                         ['route' => 'admin.gallery.index', 'label' => 'Gallerij'],
                     ] as $item)
                         <div class="menu-item">
-                            <a class="menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"
+                            <a class="no-line menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"
                                href="{{ route($item['route']) }}">
                                 <span class="menu-icon items-start text-lg text-gray-600 menu-item-active:text-gray-900">
                                     <i class="ki-filled ki-home-3"></i>

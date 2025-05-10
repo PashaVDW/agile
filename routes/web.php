@@ -1,8 +1,10 @@
 <?php
 
+use App\Actions\Fortify\UpdateUserPassword;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
 use App\Http\Controllers\OldBoardsController;
 use App\Http\Controllers\CommissionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Admin Routes
@@ -122,3 +125,11 @@ Route::get('/community', [EventController::class, 'community'])->name('user.comm
 Route::get('/community/{id}', [EventController::class, 'show'])->name('user.community.show');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('user.galleries.index');
 Route::get('/sponsors', [SponsorController::class, 'index'])->name('user.sponsors.index');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserController::class, 'index'])->name('user.profile.index');
+    Route::post('/profile/update', [UserController::class, 'update'])->name('user.profile.update');
+    Route::post('/profile/password', [UserController::class, 'password'])->name('user.password.update');
+});
+
+Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
