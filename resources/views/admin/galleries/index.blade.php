@@ -8,7 +8,10 @@
                                 :model="$gallery"
                                 id="homeGallery"
                                 label="Gallerij"
-                                :metadatas="[['type' => 'text', 'name' => 'event_name', 'label' => 'Evenement'], ['type' => 'date', 'name' => 'event_date', 'label' => 'Datum']]"
+                                :metadatas="[
+                                                ['type' => 'text', 'name' => 'event_name', 'label' => 'Evenement'],
+                                                ['type' => 'date', 'name' => 'event_date', 'label' => 'Datum']
+                                            ]"
         />
     </div>
 @stop

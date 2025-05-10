@@ -153,7 +153,7 @@ class ImageService
         return $error;
     }
 
-    public static function fetchDropzoneImages($model, $type, $request = null)
+    public static function fetchDropzoneImages($model, $type)
     {
         try {
             $files = [];

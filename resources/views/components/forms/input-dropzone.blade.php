@@ -16,7 +16,8 @@
         <form action="{{ isset($model) ? route( 'admin.gallery.upload',  [strtolower(class_basename($model)), $model->id]) : route('admin.gallery.store', $modelname) }}" method="POST" enctype="multipart/form-data" class="dropzone border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 {{ $class }}" id="{{$id}}">
             @csrf
             <input type="hidden" name="attribute" value="{{ $attribute }}">
-            <input type="hidden" name="metadata_names" id="hidden_metadata_names_{{ $id }}" value="{{ json_encode(array_column($metadatas, 'name')) }}">            @foreach($metadatas as $metadata)
+            <input type="hidden" name="metadata_names" id="hidden_metadata_names_{{ $id }}" value="{{ json_encode(array_column($metadatas, 'name')) }}">
+            @foreach($metadatas as $metadata)
                 <input type="hidden" name="{{ $metadata['name'] }}" id="hidden_{{ $metadata['name'] }}_{{ $id }}">
             @endforeach
         </form>
@@ -73,13 +74,13 @@
 
         // Add all metadata fields dynamically
         @foreach($metadatas as $metadata)
-        if (metadataValues['{{ $metadata['name'] }}']) {
-            hasMetadataValues = true;
-            var element = document.createElement('div');
-            element.className = 'dz-metadata-{{ $metadata['name'] }}';
-            element.innerHTML = '<strong>{{ $metadata['label'] }}:</strong> ' + metadataValues['{{ $metadata['name'] }}'];
-            container.appendChild(element);
-        }
+            if (metadataValues['{{ $metadata['name'] }}']) {
+                hasMetadataValues = true;
+                var element = document.createElement('div');
+                element.className = 'dz-metadata-{{ $metadata['name'] }}';
+                element.innerHTML = '<strong>{{ $metadata['label'] }}:</strong> ' + metadataValues['{{ $metadata['name'] }}'];
+                container.appendChild(element);
+            }
         @endforeach
 
         // Add edit button if metadata fields are defined, regardless of whether they have values
@@ -121,19 +122,18 @@
 
         // Create inputs for each metadata field dynamically
         @foreach($metadatas as $metadata)
-        // {{ $metadata['label'] }} input
-        var {{ $metadata['name'] }}Label = document.createElement('label');
-        {{ $metadata['name'] }}Label.className = 'block text-gray-700 text-xs font-bold mb-1 mt-2';
-        {{ $metadata['name'] }}Label.innerHTML = '{{ $metadata['label'] }}:';
-        form.appendChild({{ $metadata['name'] }}Label);
+            var {{ $metadata['name'] }}Label = document.createElement('label');
+            {{ $metadata['name'] }}Label.className = 'block text-gray-700 text-xs font-bold mb-1 mt-2';
+            {{ $metadata['name'] }}Label.innerHTML = '{{ $metadata['label'] }}:';
+            form.appendChild({{ $metadata['name'] }}Label);
 
-        var {{ $metadata['name'] }}Input = document.createElement('input');
-        {{ $metadata['name'] }}Input.type = '{{ $metadata['type'] }}';
-        {{ $metadata['name'] }}Input.name = '{{ $metadata['name'] }}';
-        {{ $metadata['name'] }}Input.className = 'border border-gray-400 bg-white rounded-md w-full py-1 px-2 text-gray-700 text-xs';
-        {{ $metadata['name'] }}Input.value = metadataValues['{{ $metadata['name'] }}'] || '';
-        {{ $metadata['name'] }}Input.placeholder = 'Voer {{ strtolower($metadata['label']) }} in';
-        form.appendChild({{ $metadata['name'] }}Input);
+            var {{ $metadata['name'] }}Input = document.createElement('input');
+            {{ $metadata['name'] }}Input.type = '{{ $metadata['type'] }}';
+            {{ $metadata['name'] }}Input.name = '{{ $metadata['name'] }}';
+            {{ $metadata['name'] }}Input.className = 'border border-gray-400 bg-white rounded-md w-full py-1 px-2 text-gray-700 text-xs';
+            {{ $metadata['name'] }}Input.value = metadataValues['{{ $metadata['name'] }}'] || '';
+            {{ $metadata['name'] }}Input.placeholder = 'Voer {{ strtolower($metadata['label']) }} in';
+            form.appendChild({{ $metadata['name'] }}Input);
         @endforeach
 
         // Buttons container
@@ -152,7 +152,7 @@
             // Collect all metadata values
             var newMetadataValues = {};
             @foreach($metadatas as $metadata)
-            newMetadataValues['{{ $metadata['name'] }}'] = form.querySelector('input[name="{{ $metadata['name'] }}"]').value;
+                newMetadataValues['{{ $metadata['name'] }}'] = form.querySelector('input[name="{{ $metadata['name'] }}"]').value;
             @endforeach
 
             // Update metadata
@@ -207,11 +207,11 @@
                         var form = metadataContainer.querySelector('.dz-edit-form');
                         if (form) {
                             @foreach($metadatas as $metadata)
-                            var {{ $metadata['name'] }}Input = form.querySelector('input[name="{{ $metadata['name'] }}"]');
-                            if ({{ $metadata['name'] }}Input && {{ $metadata['name'] }}Input.value) {
-                                formData.append('{{ $metadata['name'] }}', {{ $metadata['name'] }}Input.value);
-                                document.getElementById('hidden_{{ $metadata['name'] }}_{{$id}}').value = {{ $metadata['name'] }}Input.value;
-                            }
+                                var {{ $metadata['name'] }}Input = form.querySelector('input[name="{{ $metadata['name'] }}"]');
+                                if ({{ $metadata['name'] }}Input && {{ $metadata['name'] }}Input.value) {
+                                    formData.append('{{ $metadata['name'] }}', {{ $metadata['name'] }}Input.value);
+                                    document.getElementById('hidden_{{ $metadata['name'] }}_{{$id}}').value = {{ $metadata['name'] }}Input.value;
+                                }
                             @endforeach
                         }
                     }
@@ -251,9 +251,9 @@
                         // Only add metadata form to new uploads, not existing ones with metadata
                         var hasExistingMetadata = false;
                         @foreach($metadatas as $metadata)
-                        if (file.{{ $metadata['name'] }}) {
-                            hasExistingMetadata = true;
-                        }
+                            if (file.{{ $metadata['name'] }}) {
+                                hasExistingMetadata = true;
+                            }
                         @endforeach
 
                         if (!hasExistingMetadata) {
@@ -289,8 +289,8 @@
                                 // Add all metadata fields to the mockFile
                                 var metadataValues = {};
                                 @foreach($metadatas as $metadata)
-                                mockFile.{{ $metadata['name'] }} = file.{{ $metadata['name'] }};
-                                metadataValues['{{ $metadata['name'] }}'] = file.{{ $metadata['name'] }};
+                                    mockFile.{{ $metadata['name'] }} = file.{{ $metadata['name'] }};
+                                    metadataValues['{{ $metadata['name'] }}'] = file.{{ $metadata['name'] }};
                                 @endforeach
 
                                 myDropzone.emit("addedfile", mockFile);
