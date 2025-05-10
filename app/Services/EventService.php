@@ -62,7 +62,7 @@ class EventService
 
     public function getHomeImages()
     {
-        return Gallery::first();
+        return Gallery::where('page_key', 'home')->first();
     }
 
     public function registerUser($request, $id)

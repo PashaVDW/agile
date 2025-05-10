@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gallery;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $galleries = Gallery::where('page_key', 'gallery')->first();
+        if($request->route()->named('admin.gallery.index'))
+        {
+            return view('admin.galleries.index', ['gallery' => $galleries]);
+        }
+        return view('user.galleries.index', ['gallery' => $galleries]);
+    }
+
+
 
     public function storeGallery(Request $request, $model)
     {
