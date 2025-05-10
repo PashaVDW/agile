@@ -71,8 +71,14 @@
             if (metadataValues['{{ $metadata['name'] }}']) {
                 hasMetadataValues = true;
                 var element = document.createElement('div');
-                element.className = 'dz-metadata-{{ $metadata['name'] }}';
-                element.innerHTML = '<strong>{{ $metadata['label'] }}:</strong> ' + metadataValues['{{ $metadata['name'] }}'];
+                element.className = 'dz-metadata';
+
+                var metadataType = '{{ $metadata['type'] }}';
+                if (metadataType === 'date' || metadataType === 'datetime') {
+                    element.innerHTML = '<span>{{ $metadata['label'] }}:</span> ' + new Date(metadataValues['{{ $metadata['name'] }}']).toLocaleDateString('nl-NL');
+                } else {
+                    element.innerHTML = '<span>{{ $metadata['label'] }}:</span> ' + metadataValues['{{ $metadata['name'] }}'] + (metadataValues['{{ $metadata['name'] }}'].length > 10 ? '...' : '');
+                }
                 container.appendChild(element);
             }
         @endforeach
@@ -86,14 +92,12 @@
 
     function createEditButton(fileName, metadataValues, container) {
         var editButton = document.createElement('button');
-        editButton.className = 'dz-edit-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs mt-2';
+        editButton.className = 'dz-metadata-button dz-edit-button';
         editButton.innerHTML = 'Bewerk Metadata';
         editButton.type = 'button';
         editButton.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-
-            // Replace display with edit form
             showEditForm(container, fileName, metadataValues);
         };
 
@@ -114,14 +118,14 @@
         // Create metadata input fields
         @foreach($metadatas as $metadata)
             var {{ $metadata['name'] }}Label = document.createElement('label');
-            {{ $metadata['name'] }}Label.className = 'block text-gray-700 text-xs font-bold mb-1 mt-2';
+            {{ $metadata['name'] }}Label.className = 'dz-metadata-input-label';
             {{ $metadata['name'] }}Label.innerHTML = '{{ $metadata['label'] }}:';
             form.appendChild({{ $metadata['name'] }}Label);
 
             var {{ $metadata['name'] }}Input = document.createElement('input');
             {{ $metadata['name'] }}Input.type = '{{ $metadata['type'] }}';
             {{ $metadata['name'] }}Input.name = '{{ $metadata['name'] }}';
-            {{ $metadata['name'] }}Input.className = 'border border-gray-400 bg-white rounded-md w-full py-1 px-2 text-gray-700 text-xs';
+            {{ $metadata['name'] }}Input.className = 'dz-metadata-input';
             {{ $metadata['name'] }}Input.value = metadataValues['{{ $metadata['name'] }}'] || '';
             {{ $metadata['name'] }}Input.placeholder = 'Voer {{ strtolower($metadata['label']) }} in';
             form.appendChild({{ $metadata['name'] }}Input);
@@ -129,11 +133,11 @@
 
         // Buttons container
         var buttonsContainer = document.createElement('div');
-        buttonsContainer.className = 'flex justify-between mt-2';
+        buttonsContainer.className = 'btn-container';
 
         // Save button
         var saveButton = document.createElement('button');
-        saveButton.className = 'bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded text-xs';
+        saveButton.className = 'dz-metadata-button dz-metadata-save-button';
         saveButton.innerHTML = 'Opslaan';
         saveButton.type = 'button';
         saveButton.onclick = function(e) {
@@ -153,14 +157,12 @@
 
         // Cancel button
         var cancelButton = document.createElement('button');
-        cancelButton.className = 'bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded text-xs';
+        cancelButton.className = 'dz-metadata-button dz-metadata-cancel-button';
         cancelButton.innerHTML = 'Annuleren';
         cancelButton.type = 'button';
         cancelButton.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-
-            // Restore display
             updateMetadataDisplay(container, fileName, metadataValues);
         };
         buttonsContainer.appendChild(cancelButton);
