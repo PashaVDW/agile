@@ -45,6 +45,12 @@ class GalleryController extends Controller
         return ImageService::deleteDropzoneImages($model, $request, $request->attribute);
     }
 
+    public function updateMetadata(Request $request, $model, $id)
+    {
+        $model = $this->getModel($model, $id);
+        return ImageService::processGalleryMetadata($request, $model);
+    }
+
     public function getModel($model, $id)
     {
         $modelClass = 'App\\Models\\' . ucfirst($model);

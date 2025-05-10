@@ -79,7 +79,8 @@ class Event extends Model
 
     public function getGalleryImagePath($image)
     {
-        return Storage::url($image);
+        $imagePath = is_array($image) ? ($image['path'] ?? null) : $image;
+        return Storage::url($imagePath);
     }
 
     public function hasPhotos()

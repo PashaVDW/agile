@@ -35,6 +35,7 @@ Route::middleware(['role:admin'])->group(function () {
                 Route::post('/upload', [GalleryController::class, 'uploadGallery'])->name('upload');
                 Route::get('/fetch', [GalleryController::class, 'fetchGallery'])->name('fetch');
                 Route::delete('/delete', [GalleryController::class, 'deleteGallery'])->name('delete');
+                Route::post('/update-metadata', [GalleryController::class, 'updateMetadata'])->name('update-metadata');
             });
         });
 

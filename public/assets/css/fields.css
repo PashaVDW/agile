@@ -22,12 +22,21 @@ form.dropzone {
         overflow-wrap: anywhere;
     }
     .dz-preview {
+        width: 100%;
+        max-width: 150px;
         .dz-image {
             display: flex;
             align-items: center;
+            margin: 0 auto;
         }
         .dz-remove {
             margin: 0 auto;
+        }
+        .dz-error-message {
+            left: 5px;
+        }
+        .dz-success-mark, .dz-error-mark {
+            top: 30%;
         }
     }
 }
@@ -50,6 +59,78 @@ form.dropzone {
             border-width: 1px;
             border-radius: 0.375rem;
             width: 100%;
+        }
+    }
+    .dz-metadata {
+        overflow-wrap: anywhere;
+        max-width: 150px;
+        font-size: 14px;
+        span {
+            font-weight: 700;
+        }
+    }
+
+    .dz-metadata-input, .dz-metadata-input-label{
+        line-height: 1rem;
+        color: #071437;
+        margin-bottom: 0.25rem;
+        margin-top: 0.25rem;
+    }
+
+    .dz-metadata-input {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.375rem;
+        border: 1px solid #071437;
+        width: 100%;
+        background-color: #ffffff;
+
+    }
+    .dz-metadata-input-label {
+        font-size: 14px;
+        display: block;
+        font-weight: 700;
+    }
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .dz-metadata-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .dz-metadata-button {
+        padding: 0.25rem 0.5rem;
+        font-weight: 700;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        border-radius: 0.25rem;
+        transition: 0.3s;
+        cursor: pointer;
+        color: #ffffff;
+        border: 1px solid #007bff;
+        margin: 20px auto;
+        &:hover {
+            color: #007bff;
+            background-color: #ffffff;
+        }
+        &.dz-metadata-save-button {
+            background-color: #10b981;
+            border-color: #10b981;
+            &:hover {
+                background-color: #ffffff;
+                color: #10b981;
+            }
+        }
+        &.dz-metadata-cancel-button {
+            background-color: #6b7280;
+            border-color: #6b7280;
+            &:hover {
+                background-color: #ffffff;
+                color: #6b7280;
+            }
         }
     }
 }
