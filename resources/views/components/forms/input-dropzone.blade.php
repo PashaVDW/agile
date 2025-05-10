@@ -128,6 +128,13 @@
             {{ $metadata['name'] }}Input.className = 'dz-metadata-input';
             {{ $metadata['name'] }}Input.value = metadataValues['{{ $metadata['name'] }}'] || '';
             {{ $metadata['name'] }}Input.placeholder = 'Voer {{ strtolower($metadata['label']) }} in';
+
+            {{ $metadata['name'] }}Input.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                }
+            });
+
             form.appendChild({{ $metadata['name'] }}Input);
         @endforeach
 
