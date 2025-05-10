@@ -11,7 +11,7 @@
 ])
 
 <div class="mb-4">
-  <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $name }}">
+  <label class="block text-gray-700 text-sm font-bold mb-1 {{$label ? '' : 'hidden'}}" for="{{ $name }}">
       {{ ucfirst($label) }}
   @if ($required)
       <span class="">*</span>

@@ -201,6 +201,9 @@ button, a.button {
             color: var(--default-red);
         }
     }
+    &.create-button {
+        margin: 15px auto;
+    }
 }
 
 body {
