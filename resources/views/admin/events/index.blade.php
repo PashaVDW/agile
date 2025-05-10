@@ -10,11 +10,17 @@
             createLabel="Event aanmaken"
             tableId="events-table"
             searchPlaceholder="Zoek op titel..."
+            :bindings="$bindings"
         >
+            <x-slot:filters>
+                <x-filters.dropdown :onchange="'this.form.submit()'" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}" :params="$bindings"/>
+            </x-slot:filters>
+
             <x-slot:thead>
                 <th>Titel</th>
                 <th>Datum / Start datum</th>
                 <th>Categorie</th>
+                <th>Registraties</th>
                 <th>Aangemaakt op</th>
                 <th>Bijgewerkt op</th>
                 <th>Banner</th>
@@ -30,6 +36,14 @@
                         </td>
                         <td class="px-4 py-2">{{ $event->getFormattedDate($event->start_date) }}</td>
                         <td class="px-4 py-2">{{ __($event->category->value) }}</td>
+                        <td class="availability">
+                            {{$event->registry_count}}
+                            @if($event->registry_percentage !== null && $event->is_open)
+                                <span class="percentage-meter {{$event->registry_percentage < 25 ? 'low' : ($event->registry_percentage > 25 && $event->registry_percentage < 75 ? 'medium' : 'high') }}">
+                                {{$event->registry_percentage}}%
+                            </span>
+                            @endif
+                        </td>
                         <td class="px-4 py-2">{{ $event->getFormattedDate($event->created_at) }}</td>
                         <td class="px-4 py-2">{{ $event->getFormattedDate($event->updated_at) }}</td>
                         <td class="px-4 py-2">
@@ -42,10 +56,6 @@
                 @endforeach
             </x-slot:tbody>
         </x-admin.datatable>
-
-        <div class="mt-4">
-            {{ $events->links() }}
-        </div>
 
         <div class="sliders">
             <x-forms.input-dropzone attribute="gallery" :model="$gallery" id="homeGallery" label="Gallerij"/>

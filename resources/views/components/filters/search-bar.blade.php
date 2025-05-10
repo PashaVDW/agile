@@ -1,11 +1,11 @@
-@props(['label' => 'Zoeken', 'placeholder' => 'Zoeken...', 'params' => []])
+@props(['label' => '', 'placeholder' => 'Zoeken...', 'params' => [], 'class' => ''])
 
-<form method="GET" action="{{ route(Route::currentRouteName()) }}">
+<form method="GET" action="{{ route(Route::currentRouteName()) }}" class="searchbar">
     @foreach($params as $name)
         @if($name === 'search')
             @continue
         @endif
         <input type="hidden" name="{{ $name }}" value="{{ request($name) }}">
     @endforeach
-    <x-forms.input-field label="{{$label}}" name="search" placeholder="{{$placeholder}}" value="{{ request('search') }}"/>
+    <x-forms.input-field label="{{$label}}" type="search" name="search" placeholder="{{$placeholder}}" value="{{ request('search') }}" class="{{$class}}"/>
 </form>
