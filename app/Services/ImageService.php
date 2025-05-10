@@ -77,7 +77,7 @@ class ImageService
 
     private static function processGalleryImages($files, $model, $type, $maxFiles = 0, $request = null) // 0 means no limit
     {
-        [$galleryPaths, $errors] = ImageService::save($files, strtolower(class_basename($model)), $type, $request);
+        [$galleryPaths, $errors] = ImageService::save($files, strtolower(class_basename($model)), $type, $model->page_key, $request);
         if (!empty($errors)) {
             return response()->json(['error' => $errors], 400);
         }
@@ -90,7 +90,7 @@ class ImageService
         return response()->json(['success' => 'Images uploaded successfully']);
     }
 
-    private static function save($files, $class, $type, $request = null)
+    private static function save($files, $class, $type, $pageKey, $request = null)
     {
         $galleryPaths = [];
         $errors = [];
@@ -98,7 +98,7 @@ class ImageService
 
         foreach ($files as $file) {
             $filename = $file->getClientOriginalName();
-            $path = 'images/'.$class.'/'.$type;
+            $path = 'images/'.$class.'/'.$pageKey.'/'.$type;
             $relativePath = $path.'/' . $filename;
 
             if (Storage::disk('public')->exists($relativePath) || in_array($relativePath, $galleryPaths)) {
