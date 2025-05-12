@@ -25,7 +25,7 @@ class EventService
         $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::create($data);
-        dispatch_sync(new CreateGoogleCalendarEvent($data['start_date'], $data['end_date'], $data['title'], $data['category']));
+        dispatch_sync(new CreateGoogleCalendarEvent($data['start_date'], $data['end_date'], $data['title'], $data['category'], $event->id));
         $event->sponsors()->sync($request->input('sponsors', []));
     }
 

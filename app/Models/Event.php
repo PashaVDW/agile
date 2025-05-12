@@ -27,6 +27,7 @@ class Event extends Model
         'start_date',
         'end_date',
         'location',
+        'google_calendar_event_id',
     ];
 
     protected $searchable = [

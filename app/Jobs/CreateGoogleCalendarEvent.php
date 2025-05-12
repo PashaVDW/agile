@@ -16,16 +16,18 @@ class CreateGoogleCalendarEvent implements ShouldQueue
     private string $endDate;
     private string $title;
     private string $category;
+    private int $eventId;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(string $startDate, string $endDate, string $title, string $category)
+    public function __construct(string $startDate, string $endDate, string $title, string $category, int $eventId)
     {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
         $this->title = $title;
         $this->category = $category;
+        $this->eventId = $eventId;
     }
 
     /**
@@ -37,7 +39,8 @@ class CreateGoogleCalendarEvent implements ShouldQueue
             $this->startDate,
             $this->endDate,
             $this->title,
-            $this->category
+            $this->category,
+            $this->eventId
         );
     }
 }
