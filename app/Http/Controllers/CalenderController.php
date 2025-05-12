@@ -26,19 +26,19 @@ class CalenderController extends Controller
 
         return response($icsContent, 200)
             ->header('Content-Type', 'text/calendar')
-            ->header('Content-Disposition', 'attachment; filename="calendar.ics"');
+            ->header('Content-Disposition', 'attachment; filename="svconcat-calendar.ics"');
     }
 
     private function generateICSContent($events)
     {
         $ics = "BEGIN:VCALENDAR\r\n";
         $ics .= "VERSION:2.0\r\n";
-        $ics .= "PRODID:-//127.0.0.1:8000//NONSGML v1.0//EN\r\n";
+        $ics .= "PRODID:-//" . request()->getHost() . "//NONSGML v1.0//EN\r\n";
 
         foreach ($events as $event) {
             if ($event->start_date) {
                 $ics .= "BEGIN:VEVENT\r\n";
-                $ics .= "UID:" . uniqid() . "@yourwebsite.com\r\n";
+                $ics .= "UID:" . uniqid() . "@" . request()->getHost() . "\r\n";
                 $ics .= "DTSTAMP:" . now()->format('Ymd\THis\Z') . "\r\n";
                 $ics .= "DTSTART:" . $event->start_date->format('Ymd\THis\Z') . "\r\n";
                 $ics .= "DTEND:" . ($event->end_date ? $event->end_date->format('Ymd\THis\Z') : $event->start_date->addHour()->format('Ymd\THis\Z')) . "\r\n";
