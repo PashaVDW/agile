@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\CreateGoogleCalendarEvent;
 use App\Models\Event;
 use App\Models\Gallery;
 
@@ -24,6 +25,7 @@ class EventService
         $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::create($data);
+        dispatch_sync(new CreateGoogleCalendarEvent($data['start_date'], $data['end_date'], $data['title'], $data['category']));
         $event->sponsors()->sync($request->input('sponsors', []));
     }
 
