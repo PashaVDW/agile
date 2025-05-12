@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class CreateGoogleCalendarEvent implements ShouldQueue
+class UpdateGoogleCalendarEvent implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, \Illuminate\Bus\Queueable, SerializesModels;
 
@@ -35,7 +35,7 @@ class CreateGoogleCalendarEvent implements ShouldQueue
      */
     public function handle(GoogleCalendarService $googleCalendarService)
     {
-        $googleCalendarService->createEvent(
+        $googleCalendarService->updateEvent(
             $this->startDate,
             $this->endDate,
             $this->title,

@@ -20,4 +20,25 @@ class GoogleCalendarService
             'google_calendar_event_id' => $savedEvent->id,
         ]);
     }
+
+    public function updateEvent(string $startDate, string $endDate, string $title, string $category, int $eventId)
+    {
+        $event = Event::where('id', $eventId)->first();
+
+        if (!$event || !$event->google_calendar_event_id) {
+            throw new \Exception('Event not found or missing Google Calendar Event ID.');
+        }
+
+        $googleEvent = \Spatie\GoogleCalendar\Event::find($event->google_calendar_event_id);
+
+        if (!$googleEvent) {
+            throw new \Exception('Google Calendar Event not found.');
+        }
+
+        $googleEvent->name = $title;
+        $googleEvent->description = $category;
+        $googleEvent->startDateTime = Carbon::parse($startDate);
+        $googleEvent->endDateTime = Carbon::parse($endDate);
+        $googleEvent->save();
+    }
 }

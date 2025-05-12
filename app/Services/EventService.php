@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Jobs\CreateGoogleCalendarEvent;
+use App\Jobs\UpdateGoogleCalendarEvent;
 use App\Models\Event;
 use App\Models\Gallery;
 
@@ -42,6 +43,7 @@ class EventService
         }
 
         $event->update($data);
+        dispatch_sync(new UpdateGoogleCalendarEvent($data['start_date'], $data['end_date'], $data['title'], $data['category'], $event->id));
         $event->sponsors()->sync($request->input('sponsors', []));
     }
 
@@ -58,6 +60,7 @@ class EventService
         $event = Event::find($id);
         if ($event) {
             ImageService::deleteStoredImages(Event::class, $event, 'banner');
+            (new \Spatie\GoogleCalendar\Event)->delete($event->google_calendar_event_id);
             $event->delete();
         }
     }
