@@ -15,6 +15,7 @@
     </div>
 
     <div class="section">
+        <a href="{{ route('calendar.ics') }}" target="_blank">Sync with Calendar</a>
             <div class="container has-sidebar">
                 <div class="items-wrapper">
                     <div class="items">

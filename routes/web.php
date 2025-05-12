@@ -138,3 +138,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
+Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');
