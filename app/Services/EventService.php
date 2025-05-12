@@ -60,7 +60,17 @@ class EventService
         $event = Event::find($id);
         if ($event) {
             ImageService::deleteStoredImages(Event::class, $event, 'banner');
-            (new \Spatie\GoogleCalendar\Event)->delete($event->google_calendar_event_id);
+            if($event->google_calendar_event_id) {
+                try {
+                    $googleEvent = \Spatie\GoogleCalendar\Event::find($event->google_calendar_event_id);
+                    if ($googleEvent) {
+                        $googleEvent->delete();
+                    }
+                }
+                catch (\Exception $e) {
+                    \Log::error('Error deleting Google Calendar event: ' . $e->getMessage());
+                }
+            }
             $event->delete();
         }
     }
