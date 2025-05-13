@@ -15,6 +15,7 @@ use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Spatie\GoogleCalendar\Event;
 
 // Admin Routes
 Route::middleware(['role:admin'])->group(function () {
@@ -137,3 +138,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
+Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');
