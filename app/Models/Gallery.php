@@ -5,26 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-class HomeImages extends Model
+class Gallery extends Model
 {
-    protected $table = 'home_images';
+    protected $table = 'galleries';
 
     protected $fillable = [
         'gallery',
+        'page_key',
+    ];
+
+    protected $casts = [
+        'gallery' => 'array',
     ];
 
     public function getGalleryImagePath($image)
     {
-        return Storage::url($image);
+        $imagePath = is_array($image) ? ($image['path'] ?? null) : $image;
+        return Storage::url($imagePath);
     }
 
     public function hasPhotos()
     {
         return !empty($this->gallery);
     }
-
-    public function getDecodedPhotos() {
-        return json_decode($this->gallery);
-    }
-
 }

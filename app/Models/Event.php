@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ActiveTypeEnum;
 use App\Enums\EventCategoryEnum;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Event extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'title',
         'description',
@@ -25,6 +27,7 @@ class Event extends Model
         'start_date',
         'end_date',
         'location',
+        'google_calendar_event_id',
     ];
 
     protected $searchable = [
@@ -77,16 +80,13 @@ class Event extends Model
 
     public function getGalleryImagePath($image)
     {
-        return Storage::url($image);
+        $imagePath = is_array($image) ? ($image['path'] ?? null) : $image;
+        return Storage::url($imagePath);
     }
 
     public function hasPhotos()
     {
         return !empty($this->gallery);
-    }
-
-    public function getDecodedPhotos() {
-        return json_decode($this->gallery);
     }
 
     public function getFormattedDate($date)

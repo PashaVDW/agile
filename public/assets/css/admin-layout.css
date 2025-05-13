@@ -1,5 +1,5 @@
 .admin {
-    .container {
+    main > .container {
         height: 100%;
         position: relative;
         .filter-wrapper {
@@ -15,7 +15,13 @@
             }
         }
         &.has-sliders {
-
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 50px;
+            .sliders {
+                align-self: flex-end;
+            }
         }
     }
 
@@ -25,13 +31,13 @@
         }
     }
     #sidebar {
+        background-color: #111217;
         a:hover {
             color: inherit;
         }
     }
 
     .availability {
-        display: flex;
         align-items: center;
         .percentage-meter {
             margin-left: 20px;

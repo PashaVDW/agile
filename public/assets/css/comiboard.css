@@ -1,0 +1,93 @@
+.comiboards-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 50px;
+    .comiboards {
+        max-width: 1500px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+        justify-content: space-between;
+        .comiboard {
+            border-radius: 25px;
+            background-color: var(--default-white);
+            max-width: calc(100% / 2 - 50px);
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+
+            .block {
+                &.image-block {
+                    img {
+                        max-height: 400px;
+                        width: 100%;
+                        object-fit: cover;
+                        margin: 0 auto;
+                        &.no-image {
+                            object-fit: contain;
+                            opacity: 0.6;
+                        }
+                    }
+                }
+                &.text-block {
+                    padding: 40px;
+                    height: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .item-header {
+                        width: 100%;
+                        flex: 1 1 auto;
+                        height: auto;
+                        h3 {
+                            font-size: 28px;
+                        }
+                        h6 {
+                            font-size: 14px;
+                            font-weight: 700;
+                        }
+                    }
+                    .item-body {
+                        width: 100%;
+
+                        p {
+                            color: var(--default-grey);
+                            font-size: 20px;
+                        }
+                    }
+                    .item-footer {
+                        width: 100%;
+                        align-content: flex-end;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .comiboards-wrapper {
+        .comiboards {
+            .comiboard {
+                max-width: 100%;
+                .block {
+                    &.text-block {
+                        padding: 30px
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .comiboards-wrapper {
+        .comiboards  {
+            max-width: 100%;
+        }
+    }
+}

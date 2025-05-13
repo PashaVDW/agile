@@ -13,6 +13,7 @@
             <div class="real-pseudo-element"></div>
         </div>
     </div>
+
     <div class="section">
             <div class="container has-sidebar">
                 <div class="items-wrapper">

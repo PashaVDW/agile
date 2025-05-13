@@ -8,7 +8,7 @@
 .navbar {
     width: 100%;
     position: fixed;
-    max-width: 60%;
+    max-width: 65%;
     left: 25px;
     top: 25px;
     background-color: var(--blue) !important;
@@ -49,7 +49,7 @@
                         position: absolute;
                         top: 100%;
                         left: 50%;
-                        width: 120%;
+                        width: 110%;
                         height: var(--line-width);
                         background-color: var(--red);
                         border-radius: 999px;
@@ -58,11 +58,47 @@
                     }
                 }
             }
+            &.has-children {
+                span.nav-link {
+                    cursor: default;
+                }
+                .submenu {
+                    display: none;
+                    opacity: 0;
+                    transition: 0.3s;
+                    position: absolute;
+                    left: -15px;
+                    transform-origin: top right;
+                    min-width: 200px;
+                    background-color: var(--blue);
+                    padding: 15px;
+                    border-radius: 20px;
+                    top: 40px;
+                    li {
+                        margin: auto;
+                        a, a:visited {
+                            background-color: transparent;
+                            width: 100%;
+                            &:after {
+                                content: none;
+                            }
+                        }
+                    }
+                }
+                &:hover {
+                    .submenu {
+                        transition: 0.3s;
+                        display: block;
+                        opacity: 1;
+                        transform: scale(1) translate(0, 0);
+                    }
+                }
+            }
         }
     }
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 1200px) {
     .navbar {
         max-width: 20%;
         margin-left: auto;
@@ -111,6 +147,7 @@
             }
         }
         .navbar-collapse {
+            overflow-y: auto;
             position: fixed;
             top: 0;
             left: 0;
@@ -136,11 +173,60 @@
                     .nav-link {
                         text-align: center;
                         color: black !important;
+                        margin: 0 auto;
                     }
                     &.active {
                         .nav-link {
                             &::after {
                                 left: 50%;
+                            }
+                        }
+                    }
+                    &.has-children {
+                        .nav-link {
+                            margin-bottom: 1.5em;
+                        }
+                        span.nav-link {
+                            display: none;
+                        }
+                        .submenu {
+                            display: inline-grid;
+                            opacity: 1;
+                            position: static;
+                            transform: none;
+                            background-color: transparent;
+                            padding: 0;
+                            border-radius: 0;
+                            gap: 1.5em;
+                            li {
+                                margin: 0;
+                                a, a:visited {
+                                    color: black !important;
+                                    margin: 0 auto;
+                                }
+                                &.active {
+                                    a, a:visited {
+                                        &:after {
+                                            content: '';
+                                            display: block;
+                                            position: absolute;
+                                            top: 100%;
+                                            left: 50%;
+                                            width: 120%;
+                                            height: var(--line-width);
+                                            background-color: var(--red);
+                                            border-radius: 999px;
+                                            box-shadow: 0 4px 6px 2px rgba(254, 64, 64, 0.3);
+                                            transform: translateX(-50%);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        &:hover {
+                            .submenu {
+                                display: inline-grid;
+                                transform: scale(1) translate(0, 0);
                             }
                         }
                     }

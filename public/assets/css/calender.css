@@ -1,0 +1,71 @@
+.calender-container {
+    width: 100%;
+    .calender {
+        background-color: white;
+        border-radius: 25px;
+        padding: 40px;
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        i {
+            font-size: 12px;
+        }
+        .calender-month{
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.calender {
+    .sidebar {
+        position: relative;
+    }
+
+    .tip {
+        opacity: 1;
+        display: block;
+        position: absolute;
+        cursor: default;
+        background-color: var(--default-button-color);
+        padding: 5px 13px;
+        border-radius: 50%;
+        font-weight: 700;
+        right: 40px;
+        top: 40px;
+        .tooltiptext {
+            visibility: hidden;
+            width: 350px;
+            background-color: black;
+            color: #fff;
+            text-align: left;
+            border-radius: 25px;
+            padding: 15px;
+            position: absolute;
+            z-index: 1;
+            top: -5px;
+            right: 105%;
+            font-size: 16px;
+        }
+        &:hover {
+            .tooltiptext {
+                visibility: visible;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .calender {
+        .sidebar {
+            .buttons {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                .button {
+                    margin: 30px 0 0;
+                }
+            }
+        }
+    }
+}

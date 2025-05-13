@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Jobs\CreateGoogleCalendarEvent;
+use App\Jobs\UpdateGoogleCalendarEvent;
 use App\Models\Event;
-use App\Models\HomeImages;
+use App\Models\Gallery;
 
 class EventService
 {
@@ -24,6 +26,7 @@ class EventService
         $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::create($data);
+        dispatch_sync(new CreateGoogleCalendarEvent($data['start_date'], $data['end_date'], $data['title'], $data['category'], $event->id));
         $event->sponsors()->sync($request->input('sponsors', []));
     }
 
@@ -39,11 +42,8 @@ class EventService
             $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
         }
 
-        if ($request->hasFile('gallery')) {
-            $data['gallery'] = ImageService::storeGallery($request, Event::class, $event);
-        }
-
         $event->update($data);
+        dispatch_sync(new UpdateGoogleCalendarEvent($data['start_date'], $data['end_date'], $data['title'], $data['category'], $event->id));
         $event->sponsors()->sync($request->input('sponsors', []));
     }
 
@@ -60,24 +60,24 @@ class EventService
         $event = Event::find($id);
         if ($event) {
             ImageService::deleteStoredImages(Event::class, $event, 'banner');
+            if($event->google_calendar_event_id) {
+                try {
+                    $googleEvent = \Spatie\GoogleCalendar\Event::find($event->google_calendar_event_id);
+                    if ($googleEvent) {
+                        $googleEvent->delete();
+                    }
+                }
+                catch (\Exception $e) {
+                    \Log::error('Error deleting Google Calendar event: ' . $e->getMessage());
+                }
+            }
             $event->delete();
         }
     }
 
-    public function updateHomeImages($request)
-    {
-        $data = $request->validated();
-        $homeImages = HomeImages::first();
-        if ($request->hasFile('gallery')) {
-            ImageService::deleteStoredImages(HomeImages::class, $homeImages);
-            $data['gallery'] = ImageService::storeGallery($request, HomeImages::class, $homeImages);
-        }
-        $homeImages->update($data);
-    }
-
     public function getHomeImages()
     {
-        return HomeImages::first();
+        return Gallery::where('page_key', 'home')->first();
     }
 
     public function registerUser($request, $id)

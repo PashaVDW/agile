@@ -6,7 +6,7 @@
     --default-offwhite: #ecebff;
     --default-red: #dc3545;
     --default-black: #000000;
-    --default-grey: #B0B0B0;
+    --default-grey: #707070;
     --default-darkgrey: #707070;
     --default-button-color: #e8f0fe;
     --input-shadow-color: #E1DEFF;
@@ -26,6 +26,11 @@ body {
     &.home {
         background-color: var(--default-offwhite);
     }
+    &:not(.admin) {
+        main {
+            overflow-x: hidden;
+        }
+    }
 }
 
 .section {
@@ -43,6 +48,7 @@ body {
         position: absolute;
         top: -200px;
         left: 0;
+        transform: scaleX(1);
     }
 
     @media only screen and (max-width: 2100px) {
@@ -74,6 +80,9 @@ body:not(.home) {
     .section {
         margin-top: 270px;
         background-color: var(--default-offwhite);
+        &:before {
+            transform: scaleX(1.25);
+        }
         @media only screen and (max-width: 2100px) {
             margin-top: 230px;
         }
@@ -191,6 +200,9 @@ button, a.button {
             background-color: var(--default-white);
             color: var(--default-red);
         }
+    }
+    &.create-button {
+        margin: 15px auto;
     }
 }
 
