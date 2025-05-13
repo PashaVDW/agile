@@ -4,7 +4,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav flex-wrap">
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}">Home</a>
             </li>
@@ -23,17 +23,18 @@
                 </ul>
             </li>
             <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
-
                 <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
             </li>
-            <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
-            </li>
-            <li class="nav-item {{ Request::is('about_us') ? 'active' : '' }}">
+            <li class="nav-item has-children {{ Request::is('about_us') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.about_us.index') }}">Over ons</a>
+                <ul class="submenu">
+                    <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item has-children">
