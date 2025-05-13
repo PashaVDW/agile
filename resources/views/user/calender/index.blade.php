@@ -30,7 +30,7 @@
                 <span class="tip">
                     ?
                     <span class="tooltiptext">
-                        Door op de Goole agenda knop te klikken wordt je automatisch doorgewezen naar je persoonlijke google agenda waar de concat agenda is toegevoegd.
+                        Door op de Google agenda knop te klikken wordt je automatisch doorgewezen naar je persoonlijke google agenda waar de concat agenda is toegevoegd.
                         <br />
                         Het downloaden van de agenda is een moment opname van de agenda op dat moment. Dit is een .ics bestand die je kan importeren in je eigen agenda.
                     </span>
