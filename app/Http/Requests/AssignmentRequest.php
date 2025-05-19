@@ -25,7 +25,7 @@ class AssignmentRequest extends FormRequest
             'title' => 'required|string|max:255',
             'company' => 'required|string|max:255',
             'description' => 'required|max:65535',
-            'reward' => 'decimal:2|nullable|max:21474836.47|min:0',
+            'reward' => 'numeric|nullable|max:21474836.47|min:0',
             'url' => 'required|url|max:255',
             'contact_email' => 'required|email|max:255',
             'contact_phone' => 'required|string|max:20',

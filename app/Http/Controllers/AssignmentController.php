@@ -33,7 +33,7 @@ class AssignmentController extends Controller
             $assignments = $query->paginate(10)->appends(request()->query());
             return view('admin.assignments.index', ['assignments' => $assignments, 'bindings' => $bindings,]);
         }
-        $assignments = $query->where('active', ActiveTypeEnum::ACTIVE->value)->paginate(10)->appends(request()->query());
+        $assignments = $query->where('active', true)->paginate(10)->appends(request()->query());
         return view('user.assignments.index', ['assignments' => $assignments, 'bindings' => $bindings]);
     }
 

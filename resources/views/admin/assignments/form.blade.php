@@ -13,11 +13,11 @@
             <x-forms.input-field type="text" name="title" label="Title" :required="true" value="{{ old('title', $assignment->title ?? '') }}" />
             <x-forms.input-field type="text" name="company" label="Company" :required="true" value="{{ old('company', $assignment->company ?? '') }}" />
             <x-forms.input-textarea name="description" label="Description" :required="true">{{ old('description', $assignment->description ?? '') }}</x-forms.input-textarea>
-            <x-forms.input-field type="number" step="0.01" name="reward" label="Reward" step="0.01" value="{{ old('reward', $assignment->reward ?? '') }}" />
+            <x-forms.input-field type="number" name="reward" label="Reward" step="any" value="{{ old('reward', $assignment->reward ?? '') }}" />
             <x-forms.input-field type="url" name="url" label="URL" :required="true" value="{{ old('url', $assignment->url ?? '') }}" />
             <x-forms.input-field type="email" name="contact_email" label="Contact Email" :required="true" value="{{ old('contact_email', $assignment->contact_email ?? '') }}" />
             <x-forms.input-field type="text" name="contact_phone" label="Contact Phone" :required="true" value="{{ old('contact_phone', $assignment->contact_phone ?? '') }}" />
-            <x-forms.input-switch name="active" label="Active" :checked="old('active', $assignment->active ?? true)" />
+            <x-forms.input-switch name="active" label="Active" :checked="old('active', $assignment->active ?? false)" />
 
             <button type="submit" class="button right">{{ isset($assignment) ? 'Update Assignment' : 'Create Assignment' }}</button>
         </form>
