@@ -29,13 +29,12 @@ class AssignmentController extends Controller
             $this->searchService->search($query, $request->search, Assignment::class);
         }
 
-        $assignments = $query->paginate(10)->appends(request()->query());
-
-
-        return view('admin.assignments.index', [
-            'assignments' => $assignments,
-            'bindings' => $bindings,
-        ]);
+        if ($request->route()->named('admin.assignments.index')) {
+            $assignments = $query->paginate(10)->appends(request()->query());
+            return view('admin.assignments.index', ['assignments' => $assignments, 'bindings' => $bindings,]);
+        }
+        $assignments = $query->where('active', ActiveTypeEnum::ACTIVE->value)->paginate(10)->appends(request()->query());
+        return view('user.assignments.index', ['assignments' => $assignments, 'bindings' => $bindings]);
     }
 
     public function create()
@@ -49,12 +48,13 @@ class AssignmentController extends Controller
         return to_route('admin.assignments.index');
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $assignment = Assignment::findOrFail($id);
-        return view('admin.assignments.form', [
-            'assignment' => $assignment,
-        ]);
+        if ($request->route()->named('admin.assignment.show')) {
+            return view('admin.assignments.form', ['assignment' => $assignment]);
+        }
+        return view('user.assignments.show', ['assignment' => $assignment]);
     }
 
     public function update(AssignmentRequest $request, $id)

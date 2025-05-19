@@ -147,5 +147,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/password', [UserController::class, 'password'])->name('user.password.update');
 });
 
+Route::get('/assignments', [AssignmentController::class, 'index'])->name('user.assignments.index');
+Route::get('/assignment/{id}', [AssignmentController::class, 'show'])->name('user.assignment.show');
+
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
 Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');
