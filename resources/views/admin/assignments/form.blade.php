@@ -1,0 +1,29 @@
+@extends('admin.index')
+
+@section("title", isset($assignment) ? $assignment->title : 'Create Assignment')
+
+@section("content")
+    <div class="container">
+        <form method="POST" action="{{ isset($assignment) ? route('admin.assignment.update', ['id' => $assignment->id]) : route('admin.assignment.store') }}" enctype="multipart/form-data">
+            @csrf
+            @if(isset($assignment))
+                @method('PUT')
+            @endif
+
+            <x-forms.input-field type="text" name="title" label="Title" :required="true" value="{{ old('title', $assignment->title ?? '') }}" />
+            <x-forms.input-field type="text" name="company" label="Company" :required="true" value="{{ old('company', $assignment->company ?? '') }}" />
+            <x-forms.input-textarea name="description" label="Description" :required="true">{{ old('description', $assignment->description ?? '') }}</x-forms.input-textarea>
+            <x-forms.input-field type="number" step="0.01" name="reward" label="Reward" step="0.01" value="{{ old('reward', $assignment->reward ?? '') }}" />
+            <x-forms.input-field type="url" name="url" label="URL" :required="true" value="{{ old('url', $assignment->url ?? '') }}" />
+            <x-forms.input-field type="email" name="contact_email" label="Contact Email" :required="true" value="{{ old('contact_email', $assignment->contact_email ?? '') }}" />
+            <x-forms.input-field type="text" name="contact_phone" label="Contact Phone" :required="true" value="{{ old('contact_phone', $assignment->contact_phone ?? '') }}" />
+            <x-forms.input-switch name="active" label="Active" :checked="old('active', $assignment->active ?? true)" />
+
+            <button type="submit" class="button right">{{ isset($assignment) ? 'Update Assignment' : 'Create Assignment' }}</button>
+        </form>
+
+        @if(isset($assignment))
+            <x-actions.crud-delete :item="$assignment" route="admin.assignment.delete" title="Delete Assignment" message="Are you sure you want to delete this assignment?" />
+        @endif
+    </div>
+@endsection

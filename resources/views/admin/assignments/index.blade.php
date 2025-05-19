@@ -1,0 +1,48 @@
+@extends("admin.index")
+
+@section("title", "Assignments")
+
+@section("content")
+    <div class="container has-sliders">
+        <x-admin.datatable
+            :searchAction="route('admin.assignments.index')"
+            :createUrl="route('admin.assignment.create')"
+            createLabel="Assignment aanmaken"
+            tableId="assignments-table"
+            searchPlaceholder="Zoek op titel..."
+            :bindings="$bindings"
+        >
+            <x-slot:filters>
+                <x-filters.dropdown :onchange="'this.form.submit()'" default="Alle statussen" name="active" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('active') }}" :params="$bindings"/>
+            </x-slot:filters>
+
+            <x-slot:thead>
+                <th>Title</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Reward</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </x-slot:thead>
+
+            <x-slot:tbody>
+                @foreach ($assignments as $assignment)
+                    <tr class="border-b border-gray-300">
+                        <td class="px-4 py-2">{{ Str::of($assignment->title)->words(5, '...') }}</td>
+                        <td class="px-4 py-2">{{ $assignment->contact_email }}</td>
+                        <td class="px-4 py-2">{{ $assignment->contact_phone }}</td>
+                        @if(!$assignment->reward)
+                            <td class="px-4 py-2">-</td>
+                        @else
+                            <td class="px-4 py-2">€{{ $assignment->reward }}</td>
+                        @endif
+                        <td class="px-4 py-2">{{ $assignment->active ? __('Ja') : __('Nee') }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{{ route('admin.assignment.show', ['id' => $assignment->id]) }}" class="text-blue-600 hover:underline">Bewerken</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </x-slot:tbody>
+        </x-admin.datatable>
+    </div>
+@endsection
