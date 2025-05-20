@@ -1,6 +1,5 @@
 <?php
 
-use App\Actions\Fortify\UpdateUserPassword;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
@@ -8,14 +7,16 @@ use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
 use App\Http\Controllers\OldBoardsController;
 use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Spatie\GoogleCalendar\Event;
+use Illuminate\Support\Str;
 
 // Admin Routes
 Route::middleware(['role:admin'])->group(function () {
@@ -139,3 +140,17 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
 Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');
+
+
+Route::get("/create-token", function (Request $request) {
+    $request->session()->put("state", $state = Str::random(40));
+
+    return redirect("https://auth.openticket.tech/tokens/authorize?" . http_build_query([
+            "client_id" => env("OAUTH_CLIENT_ID", ""),
+            "redirect_uri" => env("OAUTH_CLIENT_REDIRECT", ""),
+            "response_type" => "code",
+            "state" => $state,
+        ]));
+})->name("create-token");
+
+Route::get('/callback', [OAuthController::class, 'callback'])->name('callback');

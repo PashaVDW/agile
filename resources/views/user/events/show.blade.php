@@ -41,7 +41,7 @@
                     @endif
                 </ul>
                 @if($event->is_open)
-                    @if(auth()->user())
+                    @if(auth()->user() && !$event->weeztix_event_id)
                         <form action="{{ $event->isRegistered() ? route('user.event.unregister', $event->id) : route('user.event.register', $event->id) }}" method="POST">
                             @csrf
                             @if($event->isRegistered())
@@ -51,6 +51,10 @@
                                 {{ $event->isRegistered() ? 'Afmelden' : 'Inschrijven' }}
                             </button>
                         </form>
+                    @elseif($event->weeztix_event_id && $availability < 100)
+                        <a href="https://shop.weeztix.com/3fab2a15-071c-11f0-a9cb-7e126431635e/tickets" class="no-line button item-button">Inschrijven</a>
+                    @elseif($event->weeztix_event_id && $availability >= 100)
+                        <span class="item-button">Geen plaatsen meer beschikbaar</span>
                     @else
                         <a href="{{ route('login') }}" class="no-line button item-button">Inloggen</a>
                     @endif
