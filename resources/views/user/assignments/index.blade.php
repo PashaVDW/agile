@@ -8,7 +8,7 @@
             <div class="items-wrapper">
                 <div class="items">
                     @foreach($assignments as $assignment)
-                        <x-item :item="$assignment" route="user.assignment.show"/>
+                        <x-item :item="$assignment" route="user.assignment.show" word_count="100"/>
                     @endforeach
                 </div>
                 <div class="pagination">

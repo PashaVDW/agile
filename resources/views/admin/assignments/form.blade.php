@@ -19,11 +19,11 @@
             <x-forms.input-field type="text" name="contact_phone" label="Contact Phone" :required="true" value="{{ old('contact_phone', $assignment->contact_phone ?? '') }}" />
             <x-forms.input-switch name="active" label="Active" :checked="old('active', $assignment->active ?? false)" />
 
-            <button type="submit" class="button right">{{ isset($assignment) ? 'Update Assignment' : 'Create Assignment' }}</button>
+            <button type="submit" class="button right">{{ isset($assignment) ? 'Update opdracht' : 'Opdracht creëren ' }}</button>
         </form>
 
         @if(isset($assignment))
-            <x-actions.crud-delete :item="$assignment" route="admin.assignment.delete" title="Delete Assignment" message="Are you sure you want to delete this assignment?" />
+            <x-actions.crud-delete :item="$assignment" route="admin.assignment.delete" title="Opdracht verwijderen" message="Weet je zeker dat je deze opdracht wilt verwijderen?" />
         @endif
     </div>
 @endsection

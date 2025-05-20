@@ -3,11 +3,11 @@
 @section("title", "Assignments")
 
 @section("content")
-    <div class="container has-sliders">
+    <div class="container">
         <x-admin.datatable
             :searchAction="route('admin.assignments.index')"
             :createUrl="route('admin.assignment.create')"
-            createLabel="Assignment aanmaken"
+            createLabel="Opdracht aanmaken"
             tableId="assignments-table"
             searchPlaceholder="Zoek op titel..."
             :bindings="$bindings"
@@ -17,12 +17,12 @@
             </x-slot:filters>
 
             <x-slot:thead>
-                <th>Title</th>
+                <th>Titel</th>
                 <th>Email</th>
-                <th>Phone Number</th>
-                <th>Reward</th>
-                <th>Active</th>
-                <th>Actions</th>
+                <th>Telefoonnummer</th>
+                <th>Beloning</th>
+                <th>Actief</th>
+                <th>Bewerken</th>
             </x-slot:thead>
 
             <x-slot:tbody>

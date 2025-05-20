@@ -1,4 +1,4 @@
-@props(['item', 'alt' => '', 'route' => null])
+@props(['item', 'alt' => '', 'route' => null, 'word_count' => 20])
 
 <div class="item">
     @if($item->hasAttribute('banner') || $item->hasAttribute('image'))
@@ -19,7 +19,7 @@
                 </p>
             @endif
             <p>
-                {!! Str::of(strip_tags($item->description))->words(20, '...') !!}
+                {!! Str::of(strip_tags($item->description))->words($word_count, '...') !!}
             </p>
 
         </div>
