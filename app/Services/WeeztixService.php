@@ -16,9 +16,9 @@ class WeeztixService
         $response = (new Client)->post('https://auth.openticket.tech/tokens', [
             'form_params' => [
                 'grant_type' => 'authorization_code',
-                'client_id' => env('OAUTH_CLIENT_ID', ''),
-                'client_secret' => env('OAUTH_CLIENT_SECRET', ''),
-                'redirect_uri' => env('OAUTH_CLIENT_REDIRECT', ''),
+                'client_id' => config('app.oauth_client_id'),
+                'client_secret' => config('app.oauth_client_secret'),
+                'redirect_uri' => config('app.oauth_redirect_uri'),
                 'code' => $request->code,
             ],
         ]);
@@ -44,8 +44,8 @@ class WeeztixService
                 'form_params' => [
                     'grant_type' => 'refresh_token',
                     'refresh_token' => $refreshToken,
-                    'client_id' => env('OAUTH_CLIENT_ID', ''),
-                    'client_secret' => env('OAUTH_CLIENT_SECRET', ''),
+                    'client_id' => config('app.oauth_client_id'),
+                    'client_secret' => config('app.oauth_client_secret'),
                 ],
             ]);
 
@@ -67,55 +67,14 @@ class WeeztixService
 
     public function getEvents(): array
     {
-        $curl = curl_init();
-        $GUID = Token::first()->guid;
-        $accessToken = decrypt(Token::first()->access_token);
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.weeztix.com/event/',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer $accessToken",
-                "Company: $GUID",
-                'Accept: application/json'
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
+        $response = $this->makeCurlUrlRequest('https://api.weeztix.com/event/');
         $responseData = json_decode($response, true);
-
         return array_column($responseData, 'name', 'guid');
     }
 
     public function getEventCapacity($eventId)
     {
-        $curl = curl_init();
-        $GUID = Token::first()->guid;
-        $accessToken = decrypt(Token::first()->access_token);
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.weeztix.com/event/' . $eventId . '/ticket',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                "Authorization: Bearer $accessToken",
-                "Company: $GUID",
-                'Accept: application/json'
-            ),
-        ));
-        $response = curl_exec($curl);
-        curl_close($curl);
+        $response = $this->makeCurlUrlRequest('https://api.weeztix.com/event/' . $eventId . '/ticket');
         $responseData = json_decode($response, true);
 
         $totalSoldCount = array_sum(array_column($responseData, 'sold_count'));
@@ -189,5 +148,31 @@ class WeeztixService
         } else {
             \Log::error('No hits found in API response', $responseData);
         }
+    }
+
+    private function makeCurlUrlRequest($url)
+    {
+        $curl = curl_init();
+        $GUID = Token::first()->guid;
+        $accessToken = decrypt(Token::first()->access_token);
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer $accessToken",
+                "Company: $GUID",
+                'Accept: application/json'
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
     }
 }
