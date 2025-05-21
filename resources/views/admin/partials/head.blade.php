@@ -23,5 +23,6 @@
     <!-- App Styles -->
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/admin.css') }}" rel="stylesheet" />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
 </head>

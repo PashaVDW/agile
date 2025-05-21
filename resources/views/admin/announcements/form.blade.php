@@ -57,6 +57,49 @@
                 @enderror
             </div>
 
+            <x-accordion>
+                <div class="space-y-6 pt-2">
+                    <div>
+                        <label for="discord_webhook" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Webhook URL</label>
+                        <input type="text" id="discord_webhook" name="discord_webhook" value="{{ old('discord_webhook', $announcement->discord_webhook ?? '') }}" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="https://discord.com/api/webhooks/...">
+                        <p class="mt-1 text-xs text-gray-500">Enter the Discord webhook URL to send the announcement notification to.</p>
+                    </div>
+
+                    <div>
+                        <label class="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Message Formatting</label>
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div>
+                                <div class="mb-2 flex items-center">
+                                    <input id="format_plain" name="message_format" type="radio" value="plain" class="h-4 w-4 border-gray-300 focus:ring-gray-500" checked>
+                                    <label for="format_plain" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Plain Text</label>
+                                </div>
+                                <div class="rounded-lg border border-gray-200 bg-white p-4 text-sm dark:border-gray-600 dark:bg-gray-700">
+                                    <p class="text-gray-700 dark:text-gray-300">New announcement: Title</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mb-2 flex items-center">
+                                    <input id="format_embed" name="message_format" type="radio" value="embed" class="h-4 w-4 border-gray-300 focus:ring-gray-500">
+                                    <label for="format_embed" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Embed</label>
+                                </div>
+                                <div class="rounded-lg border border-gray-200 bg-white p-4 text-sm dark:border-gray-600 dark:bg-gray-700">
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Title</p>
+                                        <p class="text-gray-700 dark:text-gray-300">New announcement posted!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="discord_message" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Custom Message</label>
+                        <textarea id="discord_message" name="discord_message" rows="5" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="Optional custom message to include with the announcement">{{ old('discord_message', $announcement->discord_message ?? '') }}</textarea>
+                        <p class="mt-1 text-xs text-gray-500">Format with Markdown: **bold**, *italic*, ~~strikethrough~~, `code`</p>
+                    </div>
+                </div>
+            </x-accordion>
+            
             <div class="mb-5">
                 <x-forms.input-file name="image" label="Afbeelding" :title="($announcement->title ?? '')" value="{{ $announcement->banner_url ?? '' }}" />
                 @error('image')
