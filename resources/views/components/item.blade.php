@@ -12,7 +12,7 @@
             <h6>{{ $item->category ? __($item->category->value) : '' }}</h6>
         </div>
         <div class="item-body">
-            @if($item->hasAttribute('reward'))
+            @if($item->reward)
                 <p>
                     <strong>{{ __('Beloning') }}:</strong>
                     €{{ $item->reward }}
