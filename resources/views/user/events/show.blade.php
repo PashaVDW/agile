@@ -56,7 +56,7 @@
                     @elseif($event->weeztix_event_id && $availability >= 100)
                         <span class="item-button">Geen plaatsen meer beschikbaar</span>
                     @else
-                        <a href="{{ route('login') }}" class="no-line button item-button">Inloggen</a>
+                        <a href="{{ route('login') }}" class="">Login om in te schrijven</a>
                     @endif
                 @endif
             </div>
