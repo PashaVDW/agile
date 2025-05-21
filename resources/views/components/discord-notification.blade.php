@@ -17,20 +17,26 @@
     <!-- Message Type Selection -->
     <div class="text-center mb-8">
         <label class="block mb-4 text-sm font-medium text-gray-700 dark:text-gray-300">Message Type</label>
-        <div class="inline-flex rounded-md shadow-sm p-1 bg-gray-50 border border-gray-200 dark:bg-gray-800 dark:border-gray-700" role="group">
+        <div class="inline-flex rounded-lg p-1 bg-transparent" role="group">
             <button 
                 @click.prevent="messageType = 'normal'" 
                 type="button" 
-                :class="{ 'bg-white shadow text-gray-900 dark:bg-gray-700 dark:text-white': messageType === 'normal', 'text-gray-700 dark:text-gray-300': messageType !== 'normal' }" 
-                class="px-6 py-2.5 text-sm font-medium rounded-md transition-all duration-200 mx-1"
+                :class="{ 
+                    'border-b-2 border-orange-500 text-gray-900 dark:text-white': messageType === 'normal', 
+                    'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white': messageType !== 'normal' 
+                }" 
+                class="px-6 py-2.5 text-sm font-medium rounded-md transition-all duration-200 mx-2 bg-transparent hover:bg-gray-50/30 dark:hover:bg-gray-700/30"
             >
                 Normal
             </button>
             <button 
                 @click.prevent="messageType = 'embed'" 
                 type="button" 
-                :class="{ 'bg-white shadow text-gray-900 dark:bg-gray-700 dark:text-white': messageType === 'embed', 'text-gray-700 dark:text-gray-300': messageType !== 'embed' }" 
-                class="px-6 py-2.5 text-sm font-medium rounded-md transition-all duration-200 mx-1"
+                :class="{ 
+                    'border-b-2 border-orange-500 text-gray-900 dark:text-white': messageType === 'embed', 
+                    'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white': messageType !== 'embed' 
+                }" 
+                class="px-6 py-2.5 text-sm font-medium rounded-md transition-all duration-200 mx-2 bg-transparent hover:bg-gray-50/30 dark:hover:bg-gray-700/30"
             >
                 Embed
             </button>
@@ -121,11 +127,23 @@
             ></textarea>
             <div class="mt-2 text-xs text-gray-500">
                 <div class="flex flex-wrap gap-2 mt-1">
-                    <button @click.prevent="embed.description += '**Bold Text**'" class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">Bold</button>
-                    <button @click.prevent="embed.description += '*Italic Text*'" class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">Italic</button>
-                    <button @click.prevent="embed.description += '~~Strikethrough~~'" class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">Strikethrough</button>
-                    <button @click.prevent="embed.description += '`Code`'" class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">Code</button>
-                    <button @click.prevent="embed.description += '[Link Text](https://example.com)'" class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600">Link</button>
+                    <button @click.prevent="embed.description += '**Bold Text**'" class="px-3 py-1.5 bg-transparent border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-50/30 dark:hover:bg-gray-700/30 hover:text-gray-900 dark:hover:text-white transition-all duration-200 text-sm">
+                        <span class="font-bold">B</span>
+                    </button>
+                    <button @click.prevent="embed.description += '*Italic Text*'" class="px-3 py-1.5 bg-transparent border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-50/30 dark:hover:bg-gray-700/30 hover:text-gray-900 dark:hover:text-white transition-all duration-200 text-sm">
+                        <span class="italic">I</span>
+                    </button>
+                    <button @click.prevent="embed.description += '~~Strikethrough~~'" class="px-3 py-1.5 bg-transparent border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-50/30 dark:hover:bg-gray-700/30 hover:text-gray-900 dark:hover:text-white transition-all duration-200 text-sm">
+                        <span class="line-through">S</span>
+                    </button>
+                    <button @click.prevent="embed.description += '`Code`'" class="px-3 py-1.5 bg-transparent border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-50/30 dark:hover:bg-gray-700/30 hover:text-gray-900 dark:hover:text-white transition-all duration-200 text-sm">
+                        <span class="font-mono">{}</span>
+                    </button>
+                    <button @click.prevent="embed.description += '[Link Text](https://example.com)'" class="px-3 py-1.5 bg-transparent border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 rounded-md hover:bg-gray-50/30 dark:hover:bg-gray-700/30 hover:text-gray-900 dark:hover:text-white transition-all duration-200 text-sm">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
