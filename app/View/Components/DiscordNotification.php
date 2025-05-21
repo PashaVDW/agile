@@ -1,0 +1,35 @@
+<?php
+
+namespace App\View\Components;
+
+use Closure;
+use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
+
+class DiscordNotification extends Component
+{
+    /**
+     * Discord message content
+     *
+     * @var string
+     */
+    public string $discordMessage;
+
+    /**
+     * Create a new component instance.
+     *
+     * @param string $discordMessage
+     */
+    public function __construct(string $discordMessage = '')
+    {
+        $this->discordMessage = $discordMessage;
+    }
+
+    /**
+     * Get the view / contents that represent the component.
+     */
+    public function render(): View|Closure|string
+    {
+        return view('components.discord-notification');
+    }
+} 
