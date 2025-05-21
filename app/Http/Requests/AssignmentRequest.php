@@ -52,7 +52,7 @@ class AssignmentRequest extends FormRequest
             'contact_email.max' => 'Het contact e-mailadres mag niet langer zijn dan 255 karakters',
             'contact_phone.required' => 'Een contact telefoonnummer is verplicht',
             'contact_phone.string' => 'Het contact telefoonnummer is ongeldig',
-            'contact_phone.max' => 'Het contact telefoonnummer mag niet langer zijn dan 255 karakters',
+            'contact_phone.max' => 'Het contact telefoonnummer mag niet langer zijn dan 20 karakters',
         ];
     }
 }
