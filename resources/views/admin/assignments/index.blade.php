@@ -38,8 +38,8 @@
             <x-slot:tbody>
                 @foreach ($assignments as $assignment)
                     <tr class="border-b border-gray-300">
-                        <td class="px-4 py-2">{{ Str::of($assignment->title)->words(5, '...') }}</td>
-                        <td class="px-4 py-2">{{ $assignment->contact_email }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($assignment->title, 15) }}</td>
+                        <td class="px-4 py-2">{{ Str::limit($assignment->contact_email, 30) }}</td>
                         <td class="px-4 py-2">{{ $assignment->contact_phone }}</td>
                         @if(!$assignment->reward)
                             <td class="px-4 py-2">-</td>
