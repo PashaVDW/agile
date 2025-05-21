@@ -58,44 +58,81 @@
             </div>
 
             <x-accordion>
-                <div class="space-y-6 pt-2">
-                    <div>
-                        <label for="discord_webhook" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Webhook URL</label>
-                        <input type="text" id="discord_webhook" name="discord_webhook" value="{{ old('discord_webhook', $announcement->discord_webhook ?? '') }}" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="https://discord.com/api/webhooks/...">
-                        <p class="mt-1 text-xs text-gray-500">Enter the Discord webhook URL to send the announcement notification to.</p>
+                <div class="space-y-6 pt-2" x-data="{ messageType: 'normal', webhookName: '' }">
+                    <!-- Message Type Selection -->
+                    <div class="text-center mb-6">
+                        <label class="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Message Type</label>
+                        <div class="inline-flex rounded-md shadow-sm" role="group">
+                            <button @click="messageType = 'normal'" type="button" :class="{ 'bg-gray-100 text-gray-900': messageType === 'normal', 'bg-white text-gray-700': messageType !== 'normal' }" class="px-4 py-2 text-sm font-medium border border-gray-200 rounded-l-lg focus:z-10 focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:text-white">
+                                Normal
+                            </button>
+                            <button @click="messageType = 'embed'" type="button" :class="{ 'bg-gray-100 text-gray-900': messageType === 'embed', 'bg-white text-gray-700': messageType !== 'embed' }" class="px-4 py-2 text-sm font-medium border border-gray-200 rounded-r-lg focus:z-10 focus:ring-2 focus:ring-gray-500 dark:border-gray-600 dark:text-white">
+                                Embed
+                            </button>
+                        </div>
                     </div>
 
-                    <div>
-                        <label class="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Message Formatting</label>
-                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                            <div>
-                                <div class="mb-2 flex items-center">
-                                    <input id="format_plain" name="message_format" type="radio" value="plain" class="h-4 w-4 border-gray-300 focus:ring-gray-500" checked>
-                                    <label for="format_plain" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Plain Text</label>
+                    <!-- Webhook Name Selection -->
+                    <div class="mb-5">
+                        <label for="webhook_name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Webhook Name</label>
+                        <select id="webhook_name" name="webhook_name" x-model="webhookName" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                            <option value="" selected disabled>Select a webhook</option>
+                            <option value="general">General Announcements</option>
+                            <option value="events">Event Notifications</option>
+                        </select>
+                    </div>
+
+                    <!-- Normal Message Type -->
+                    <div x-show="messageType === 'normal'" x-transition>
+                        <div>
+                            <label for="discord_message" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                            <textarea id="discord_message" name="discord_message" rows="5" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" placeholder="Enter your message here...">{{ old('discord_message', $announcement->discord_message ?? '') }}</textarea>
+                            <p class="mt-1 text-xs text-gray-500">Format with Markdown: **bold**, *italic*, ~~strikethrough~~, `code`</p>
+                        </div>
+
+                        <div class="mt-4 p-3 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">Preview: New announcement posted!</p>
+                        </div>
+                    </div>
+
+                    <!-- Embed Message Type -->
+                    <div x-show="messageType === 'embed'" x-transition class="space-y-4">
+                        <div>
+                            <label for="embed_title" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
+                            <input type="text" id="embed_title" name="embed_title" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" placeholder="Enter embed title">
+                        </div>
+
+                        <div>
+                            <label for="embed_description" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                            <textarea id="embed_description" name="embed_description" rows="3" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" placeholder="Enter embed description"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="embed_color" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Color</label>
+                            <input type="color" id="embed_color" name="embed_color" value="#E77625" class="h-10 w-full rounded-lg border border-gray-300 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600">
+                        </div>
+
+                        <div class="border-t border-gray-200 pt-4 dark:border-gray-600">
+                            <h4 class="mb-3 font-medium text-sm text-gray-700 dark:text-gray-300">Author</h4>
+                            
+                            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                                <div>
+                                    <label for="author_name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                                    <input type="text" id="author_name" name="author_name" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" placeholder="Author name">
                                 </div>
-                                <div class="rounded-lg border border-gray-200 bg-white p-4 text-sm dark:border-gray-600 dark:bg-gray-700">
-                                    <p class="text-gray-700 dark:text-gray-300">New announcement: Title</p>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="mb-2 flex items-center">
-                                    <input id="format_embed" name="message_format" type="radio" value="embed" class="h-4 w-4 border-gray-300 focus:ring-gray-500">
-                                    <label for="format_embed" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Embed</label>
-                                </div>
-                                <div class="rounded-lg border border-gray-200 bg-white p-4 text-sm dark:border-gray-600 dark:bg-gray-700">
-                                    <div>
-                                        <p class="font-medium text-gray-900 dark:text-white">Title</p>
-                                        <p class="text-gray-700 dark:text-gray-300">New announcement posted!</p>
-                                    </div>
+                                <div>
+                                    <label for="author_url" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">URL</label>
+                                    <input type="url" id="author_url" name="author_url" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" placeholder="https://example.com">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div>
-                        <label for="discord_message" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Custom Message</label>
-                        <textarea id="discord_message" name="discord_message" rows="5" class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="Optional custom message to include with the announcement">{{ old('discord_message', $announcement->discord_message ?? '') }}</textarea>
-                        <p class="mt-1 text-xs text-gray-500">Format with Markdown: **bold**, *italic*, ~~strikethrough~~, `code`</p>
+
+                        <div class="mt-4 p-3 border rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                            <div class="border-l-4 border-orange-500 pl-3">
+                                <p class="font-medium text-gray-900 dark:text-white">Embed Preview</p>
+                                <p class="text-sm text-gray-700 dark:text-gray-300">This will be sent as a rich embed to Discord</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </x-accordion>
