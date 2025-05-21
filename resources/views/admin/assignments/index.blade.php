@@ -13,7 +13,17 @@
             :bindings="$bindings"
         >
             <x-slot:filters>
-                <x-filters.dropdown :onchange="'this.form.submit()'" default="Alle statussen" name="active" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('active') }}" :params="$bindings"/>
+                <x-filters.dropdown
+                    :onchange="'this.form.submit()'"
+                    default="Alle statussen"
+                    name="active"
+                    :list="[
+                        '1' => 'Actief',
+                        '0' => 'Niet Actief'
+                    ]"
+                    value="{{ request('active') }}"
+                    :params="$bindings"
+                />
             </x-slot:filters>
 
             <x-slot:thead>

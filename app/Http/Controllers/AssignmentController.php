@@ -30,6 +30,9 @@ class AssignmentController extends Controller
         }
 
         if ($request->route()->named('admin.assignments.index')) {
+            if($request->has('active') && $request->active != '') {
+                $query->where('active', $request->active);
+            }
             $assignments = $query->paginate(10)->appends(request()->query());
             return view('admin.assignments.index', ['assignments' => $assignments, 'bindings' => $bindings,]);
         }
