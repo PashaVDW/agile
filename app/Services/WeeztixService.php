@@ -54,8 +54,8 @@ class WeeztixService
             // Update the tokens in the database
             $token = Token::first();
             $token->update([
-                'access_token' => $data['access_token'],
-                'refresh_token' => $data['refresh_token'],
+                'access_token' => encrypt($data['access_token']),
+                'refresh_token' => encrypt($data['refresh_token']),
                 'expires_in' => $data['expires_in'],
                 'refresh_token_expires_in' => $data['refresh_token_expires_in'],
             ]);
@@ -63,7 +63,6 @@ class WeeztixService
             \Log::error('Failed to refresh token: ' . $e->getMessage());
         }
     }
-
 
     public function getEvents(): array
     {
@@ -174,5 +173,10 @@ class WeeztixService
         $response = curl_exec($curl);
         curl_close($curl);
         return $response;
+    }
+
+    public function checkTokenExists()
+    {
+        return Token::exists();
     }
 }

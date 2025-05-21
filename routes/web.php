@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CalenderController;
@@ -104,6 +105,12 @@ Route::middleware(['role:admin'])->group(function () {
             Route::put('/update/{id}', [CommissionController::class, 'update'])->name('admin.commission.update');
             Route::delete('/delete/{id}', [CommissionController::class, 'delete'])->name('admin.commission.delete');
         });
+        Route::prefix('/api')->name('admin.api.')->group(function () {
+            Route::get('/', [ApiController::class, 'index'])->name('index');
+            Route::get('/callback', [ApiController::class, 'callback'])->name('callback');
+            Route::get("/create-token", [ApiController::class, "createToken"])->name("create-token");
+            Route::post('/refresh-token', [ApiController::class, 'refreshToken'])->name('refresh-token');
+        });
     });
 });
 
@@ -140,17 +147,3 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
 Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');
-
-
-Route::get("/create-token", function (Request $request) {
-    $request->session()->put("state", $state = Str::random(40));
-
-    return redirect("https://auth.openticket.tech/tokens/authorize?" . http_build_query([
-            "client_id" => env("OAUTH_CLIENT_ID", ""),
-            "redirect_uri" => env("OAUTH_CLIENT_REDIRECT", ""),
-            "response_type" => "code",
-            "state" => $state,
-        ]));
-})->name("create-token");
-
-Route::get('/callback', [OAuthController::class, 'callback'])->name('callback');

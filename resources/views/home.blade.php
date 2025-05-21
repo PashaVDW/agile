@@ -15,9 +15,6 @@
     </div>
 
     <div class="section">
-
-        <a href="{{route('create-token')}}" class="button">create first token</a>
-
             <div class="container has-sidebar">
                 <div class="items-wrapper">
                     <div class="items">
