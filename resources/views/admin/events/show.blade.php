@@ -32,7 +32,7 @@
             @if(!isset($event) || $event->status->name !== 'ARCHIVED')
                 <button id="openModalButton" type="button" class="button right hidden" data-modal-id="dateModal">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
             @endif
-            <button id="submitButton" type="submit" class="button right">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
+            <button id="submitButton" type="submit" class="button right" data-state="{{$event->status->name ?? ''}}">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
             <x-modal id="dateModal" title="Datum formatting" message="Ingevoerde datum ligt vóór de huidige datum. Klopt dit?" />
         </form>
 

@@ -181,39 +181,30 @@ class WeeztixService
      */
     private function makeCurlUrlRequest($url): bool|string
     {
-        try {
-            $curl = curl_init();
-            $GUID = Token::first()->guid;
-            $accessToken = decrypt(Token::first()->access_token);
+        $curl = curl_init();
+        $GUID = Token::first()->guid;
+        $accessToken = decrypt(Token::first()->access_token);
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => $url,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                CURLOPT_HTTPHEADER => array(
-                    "Authorization: Bearer $accessToken",
-                    "Company: $GUID",
-                    'Accept: application/json'
-                ),
-            ));
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer $accessToken",
+                "Company: $GUID",
+                'Accept: application/json'
+            ),
+        ));
 
-            $response = curl_exec($curl);
+        $response = curl_exec($curl);
 
-            if (curl_errno($curl)) {
-                throw new \Exception('cURL error: ' . curl_error($curl));
-            }
-
-            curl_close($curl);
-            return $response;
-        } catch (\Exception $e) {
-            \Log::error('Failed to make cURL request: ' . $e->getMessage());
-            return false;
-        }
+        curl_close($curl);
+        return $response;
     }
 
     public function checkTokenExists()
