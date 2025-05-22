@@ -15,10 +15,12 @@ class MailService
         Mail::to($to)->send(new NotifactionMail([
             'subject' => "nieuwe melding van concat: {$ann->title}",
             'title' => $ann->title,
+            'id' => $ann->id,
             'body' => $ann->description,
             'imageUrl' => $ann->banner ? $ann->banner_url : null,
-            'btnText'   => 'Bekijk op de website',
-            'btnUrl'    => route('public.announcements.index', $ann),
+            'btnText' => 'Bekijk op de website',
+            'btnUrl' => route('user.announcement.show', $ann),
+            'type' => 'announcement',
         ]));
     }
     public function sendEvent(Event $event, string|array $to): void
@@ -27,12 +29,14 @@ class MailService
         $dates = "Datum: {$event->formatted_date}\n";
 
         Mail::to($to)->send(new NotifactionMail([
-            'subject'   => " Nieuw evenement van concat: {$event->title}",
-            'title'     => $event->title,
-            'body'      => "{$event->description}\n\n{$price}{$dates}",
-            'imageUrl'  => $event->banner ? $event->banner_url : null,
-            'btnText'   => 'Meer informatie & tickets',
-            'btnUrl'    => route('user.event.show', $event),
+            'subject' => " Nieuw evenement van concat: {$event->title}",
+            'title' => $event->title,
+            'id' => $event->id,
+            'body' => "{$event->description}\n\n{$price}{$dates}",
+            'imageUrl' => $event->banner ? $event->banner_url : null,
+            'btnText' => 'Meer informatie & tickets',
+            'btnUrl' => route('user.event.show', $event),
+            'type' => 'event',
         ]));
     }
 }
