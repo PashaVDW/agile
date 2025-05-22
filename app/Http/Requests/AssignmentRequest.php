@@ -42,7 +42,7 @@ class AssignmentRequest extends FormRequest
             'description.required' => 'De beschrijving dient verplicht in te worden gevuld',
             'description.max' => 'De beschrijving mag niet langer zijn dan 65535 karakters',
             'reward.decimal' => 'De beloning dient een decimaal getal te zijn',
-            'reward.max' => 'De beloning mag niet groter zijn dan 2147483647',
+            'reward.max' => 'De beloning mag niet groter zijn dan 21474836.47',
             'reward.min' => 'De beloning dient minimaal 0 te zijn',
             'url.required' => 'Een URL is verplicht',
             'url.url' => 'De URL is ongeldig',

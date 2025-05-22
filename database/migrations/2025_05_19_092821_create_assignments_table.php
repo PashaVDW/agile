@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('company');
             $table->text('description');
-            $table->decimal('reward', 8, 2)->nullable();
+            $table->decimal('reward', 10, 2)->nullable();
             $table->string('url');
             $table->string('contact_email');
             $table->string('contact_phone');
