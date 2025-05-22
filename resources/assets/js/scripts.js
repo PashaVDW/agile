@@ -52,7 +52,6 @@ function copyToClipboard(text) {
                 webcalButton.innerText = 'Webcal';
             }, 2000);
         }
-        console.log('Text copied to clipboard: ', text);
     }).catch(err => {
         console.error('Failed to copy text: ', err);
     });
