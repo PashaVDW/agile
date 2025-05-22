@@ -55,4 +55,24 @@
             }
         }
     }
+    .container {
+        .wrapper {
+            h2 {
+                font-size: revert;
+            }
+            .button-wrapper {
+                .button {
+                    margin: 15px auto;
+                }
+                form {
+                    .button {
+                        margin-bottom: 5px;
+                    }
+                    p {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
 }
