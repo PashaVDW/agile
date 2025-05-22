@@ -37,7 +37,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item has-children">
+            <li class="nav-item has-children" tabindex="0">
                 <span class="nav-link">Account</span>
                 <ul class="submenu">
                     @auth

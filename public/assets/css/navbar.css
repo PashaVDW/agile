@@ -229,9 +229,20 @@
                                 transform: scale(1) translate(0, 0);
                             }
                         }
+                        &:focus-within {
+                            .submenu {
+                                display: block;
+                            }
+                        }
                     }
                 }
             }
         }
     }
+}
+/* Add styles for the submenu */
+.submenu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
 }
