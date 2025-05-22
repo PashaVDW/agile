@@ -189,7 +189,7 @@
         </div>
 
         <!-- Author Section -->
-        <div class="bg-gray-50/50 dark:bg-gray-800/30 rounded-lg p-6 mb-6">
+        <div class="bg-gray-50/50 dark:bg-gray-800/30 rounded-lg p-6 mb-8">
             <h3 class="text-sm font-medium text-gray-800 dark:text-gray-200 mb-4">Author Information</h3>
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div class="space-y-2">
@@ -216,9 +216,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="mt-6 border rounded-lg overflow-hidden">
-            <div class="flex items-center p-4 bg-gray-50 dark:bg-gray-800 border-b">
+        
+        <!-- Embed Preview Section -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-5 border border-gray-200 dark:border-gray-700 shadow-sm mb-3">
+            <h3 class="text-sm font-medium text-gray-800 dark:text-gray-200 mb-4">Embed Preview</h3>
+            <div class="flex items-center mb-3 pb-3 border-b border-gray-100 dark:border-gray-700">
                 <div class="flex-shrink-0 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
                     <span x-text="webhookName ? webhookName.charAt(0).toUpperCase() : 'W'"></span>
                 </div>
@@ -226,18 +228,18 @@
                     <p class="text-sm font-medium text-gray-900 dark:text-white" x-text="webhookName ? (webhookName === 'general' ? 'General Announcements' : 'Event Notifications') : 'Webhook'"></p>
                 </div>
             </div>
-            <div class="p-4">
-                <div class="border-l-4 rounded-sm pl-3 py-2" :style="'border-color:' + embed.color">
-                    <p class="font-medium text-base text-gray-900 dark:text-white" x-text="embed.title || 'Embed Title'"></p>
-                    <p class="text-sm text-gray-700 dark:text-gray-300 mt-1.5 whitespace-pre-line" x-text="embed.description || 'Embed description will appear here'"></p>
-                    <div class="mt-3 text-xs text-gray-500" x-show="embed.authorName">
-                        <span x-text="embed.authorName"></span>
-                        <span x-show="embed.authorUrl">
-                            • <a :href="embed.authorUrl" class="text-blue-500 hover:underline" target="_blank" x-text="embed.authorUrl"></a>
-                        </span>
-                    </div>
+            <div class="border-l-4 rounded-sm pl-3 py-2" :style="'border-color:' + embed.color">
+                <p class="font-medium text-base text-gray-900 dark:text-white" x-text="embed.title || 'Embed Title'"></p>
+                <p class="text-sm text-gray-700 dark:text-gray-300 mt-1.5 whitespace-pre-line" x-text="embed.description || 'Embed description will appear here'"></p>
+                <div class="mt-3 text-xs text-gray-500" x-show="embed.authorName">
+                    <span x-text="embed.authorName"></span>
+                    <span x-show="embed.authorUrl">
+                        • <a :href="embed.authorUrl" class="text-blue-500 hover:underline" target="_blank" x-text="embed.authorUrl"></a>
+                    </span>
                 </div>
             </div>
         </div>
+
+
     </div>
 </div> 
