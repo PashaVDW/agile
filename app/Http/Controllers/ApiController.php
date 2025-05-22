@@ -34,7 +34,7 @@ class ApiController extends Controller
     public function callback(Request $request)
     {
         $this->weeztixService->callback($request);
-        return view('admin.api.index');
+        return to_route("admin.api.index");
     }
 
     /**
