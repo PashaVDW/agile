@@ -40,8 +40,17 @@
                         <li><span>Betalen voor: </span><a href="{{$event->payment_link}}" target="_blank">{{$event->title}}</a></li>
                     @endif
                 </ul>
-                @if($event->is_open)
-                    @if(auth()->user() && !$event->weeztix_event_id)
+
+                @auth
+                    @if($event->is_open && !$event->weeztix_event_id && $event->registry_percentage >= 100 && $event->isRegistered())
+                        <form action="{{route('user.event.unregister', $event->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="item-button">
+                               Afmelden
+                            </button>
+                        </form>
+                    @elseif($event->is_open && !$event->weeztix_event_id && $event->registry_percentage < 100)
                         <form action="{{ $event->isRegistered() ? route('user.event.unregister', $event->id) : route('user.event.register', $event->id) }}" method="POST">
                             @csrf
                             @if($event->isRegistered())
@@ -52,13 +61,21 @@
                             </button>
                         </form>
                     @elseif($event->weeztix_event_id && $availability < 100)
-                        <a href="https://shop.weeztix.com/3fab2a15-071c-11f0-a9cb-7e126431635e/tickets" class="no-line button item-button">Inschrijven</a>
-                    @elseif($event->weeztix_event_id && $availability >= 100)
+                        @if($event->isRegistered())
+                            <span class="item-button">Ingeschreven</span>
+                        @else
+                            <a href="https://shop.weeztix.com/3fab2a15-071c-11f0-a9cb-7e126431635e/tickets" class="no-line button item-button">Inschrijven</a>
+                        @endif
+                    @elseif($event->weeztix_event_id && $availability >= 100 || $event->registry_percentage >= 100)
+                        <span class="item-button">Geen plaatsen meer beschikbaar</span>
+                    @endif
+                @else
+                    @if(($event->registry_percentage >= 100 || $event->availability >= 100) && ($event->is_open || $event->weeztix_event_id))
                         <span class="item-button">Geen plaatsen meer beschikbaar</span>
                     @else
                         <a href="{{ route('login') }}" class="">Login om in te schrijven</a>
                     @endif
-                @endif
+                @endauth
             </div>
         </div>
     </div>

@@ -8,16 +8,13 @@ use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OAuthController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\StatueController;
 use App\Http\Controllers\OldBoardsController;
 use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 // Admin Routes
 Route::middleware(['role:admin'])->group(function () {

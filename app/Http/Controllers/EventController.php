@@ -72,7 +72,7 @@ class EventController extends Controller
             $weeztixEvents = $this->weeztixService->getEvents();
             return view('admin.events.show', ['event' => $event, 'categories' => $categories, 'sponsors' => $sponsors, 'weeztixEvents' => $weeztixEvents]);
         }
-        $availability = $event->weeztix_id !== null ? $this->weeztixService->getEventCapacity($event->weeztix_event_id) : null;
+        $availability = $event->weeztix_event_id !== null ? $this->weeztixService->getEventCapacity($event->weeztix_event_id) : null;
         return view('user.events.show', ['event' => $event, 'sponsors' => $sponsors, 'availability' => $availability]);
     }
 
