@@ -2,13 +2,37 @@
 
 namespace App\Services;
 
-use App\Mail\TestMailableMail;
+use App\Mail\AnnouncementMail;
+use App\Mail\NotifactionMail;
+use App\Models\Announcement;
+use App\Models\Event;
 use Illuminate\Support\Facades\Mail;
 
 class MailService
 {
-    public function sendTestMail(string $toEmail, string $message): void
+    public function sendAnnouncementMail(Announcement $ann, string|array $to) : void
     {
-        Mail::to($toEmail)->send(new TestMailableMail($message));
+        Mail::to($to)->send(new NotifactionMail([
+            'subject' => "nieuwe melding van concat: {$ann->title}",
+            'title' => $ann->title,
+            'body' => $ann->description,
+            'imageUrl' => $ann->banner ? $ann->banner_url : null,
+            'btnText'   => 'Bekijk op de website',
+            'btnUrl'    => route('public.announcements.index', $ann),
+        ]));
+    }
+    public function sendEvent(Event $event, string|array $to): void
+    {
+        $price = $event->price ? "Prijs: €{$event->price}\n" : '';
+        $dates = "Datum: {$event->formatted_date}\n";
+
+        Mail::to($to)->send(new NotifactionMail([
+            'subject'   => " Nieuw evenement van concat: {$event->title}",
+            'title'     => $event->title,
+            'body'      => "{$event->description}\n\n{$price}{$dates}",
+            'imageUrl'  => $event->banner ? $event->banner_url : null,
+            'btnText'   => 'Meer informatie & tickets',
+            'btnUrl'    => route('user.event.show', $event),
+        ]));
     }
 }

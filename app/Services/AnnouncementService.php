@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class AnnouncementService
 {
+    private MailService $mailService;
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
     public function getAnnouncements()
     {
         return Announcement::query();
@@ -30,7 +35,8 @@ class AnnouncementService
         }
 
         $announcement->update($data);
-        Mail::to('jozefmamaa@gmail.com')->send(new AnnouncementMail($announcement));
+        $this->mailService->sendAnnouncementMail($announcement,'jozefmamaa@gmail.com');
+        //Mail::to('jozefmamaa@gmail.com')->send(new AnnouncementMail($announcement));
         return $announcement;
     }
 
