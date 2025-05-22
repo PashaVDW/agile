@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     carouselSwiper('#gallerySwiper');
     carouselSwiper('#homeSwiper');
     carouselSwiper('#boardSwiper');
+    navbar()
 });
 
 function carouselSwiper(swiperId) {
@@ -35,4 +36,19 @@ function carouselSwiper(swiperId) {
         }
 
     });
+}
+
+function navbar()
+{
+        const parentItems = document.querySelectorAll(".nav-item.has-children");
+
+        parentItems.forEach(item => {
+            item.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    const submenu = item.querySelector(".submenu");
+                    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+                }
+            });
+        });
 }
