@@ -1,7 +1,7 @@
 <?php
 
-use App\Actions\Fortify\UpdateUserPassword;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\WeeztixController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CalenderController;
@@ -15,7 +15,6 @@ use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use Spatie\GoogleCalendar\Event;
 
 // Admin Routes
 Route::middleware(['role:admin'])->group(function () {
@@ -102,6 +101,12 @@ Route::middleware(['role:admin'])->group(function () {
             Route::get('/{id}', [CommissionController::class, 'show'])->name('admin.commission.show');
             Route::put('/update/{id}', [CommissionController::class, 'update'])->name('admin.commission.update');
             Route::delete('/delete/{id}', [CommissionController::class, 'delete'])->name('admin.commission.delete');
+        });
+        Route::prefix('/weeztix')->name('admin.weeztix.')->group(function () {
+            Route::get('/', [WeeztixController::class, 'index'])->name('index');
+            Route::get('/callback', [WeeztixController::class, 'callback'])->name('callback');
+            Route::get("/create-token", [WeeztixController::class, "createToken"])->name("create-token");
+            Route::post('/refresh-token', [WeeztixController::class, 'refreshToken'])->name('refresh-token');
         });
     });
 });

@@ -20,6 +20,7 @@
             <x-forms.input-field name="location" label="Locatie" value="{{old('location',$event->location ?? '')}}"/>
             <x-forms.input-field type="datetime-local" name="start_date" :required="true" label="Datum / Start datum" value="{{ old('start_date', isset($event) ? $event->getFormattedDateForInput($event->start_date) : '' ) }}"/>
             <x-forms.input-field type="datetime-local" name="end_date" label="Eind datum" value="{{ old('end_date', isset($event) ? $event->getFormattedDateForInput($event->end_date) : '' )}}"/>
+            <x-forms.input-select name="weeztix_event_id" label="Weeztix evenement" :list="$weeztixEvents" value="{{ old('weeztix_event_id', $event->weeztix_event_id ?? '') }}"/>
 
             @if($sponsors->count() > 0)
                 <h2 class="mt-4">Sponsoren</h2>
@@ -31,7 +32,7 @@
             @if(!isset($event) || $event->status->name !== 'ARCHIVED')
                 <button id="openModalButton" type="button" class="button right hidden" data-modal-id="dateModal">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
             @endif
-            <button id="submitButton" type="submit" class="button right">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
+            <button id="submitButton" type="submit" class="button right" data-state="{{$event->status->name ?? ''}}">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
             <x-modal id="dateModal" title="Datum formatting" message="Ingevoerde datum ligt vóór de huidige datum. Klopt dit?" />
         </form>
 

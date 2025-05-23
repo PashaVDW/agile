@@ -14,10 +14,16 @@ function openModal() {
     function checkDate() {
         if (eventDateInput) {
             const selectedDate = eventDateInput.value;
-            if (selectedDate < today) {
+            const isArchived = submitButton?.getAttribute('data-state') === 'ARCHIVED';
+            if (isArchived) {
+                openModalButton?.classList.add('hidden');
+                submitButton?.classList.remove('hidden');
+            }
+            else if (selectedDate < today) {
                 openModalButton?.classList.remove('hidden');
                 submitButton?.classList.add('hidden');
-            } else {
+            }
+            else {
                 openModalButton?.classList.add('hidden');
                 submitButton?.classList.remove('hidden');
             }

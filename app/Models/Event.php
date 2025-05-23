@@ -28,6 +28,7 @@ class Event extends Model
         'end_date',
         'location',
         'google_calendar_event_id',
+        'weeztix_event_id',
     ];
 
     protected $searchable = [

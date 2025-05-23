@@ -38,7 +38,7 @@
                         <td class="px-4 py-2">{{ __($event->category->value) }}</td>
                         <td class="availability">
                             {{$event->registry_count}}
-                            @if($event->registry_percentage !== null && $event->is_open)
+                            @if($event->registry_percentage !== null)
                                 <span class="percentage-meter {{$event->registry_percentage < 25 ? 'low' : ($event->registry_percentage > 25 && $event->registry_percentage < 75 ? 'medium' : 'high') }}">
                                 {{$event->registry_percentage}}%
                             </span>
