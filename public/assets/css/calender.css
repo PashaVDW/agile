@@ -20,6 +20,11 @@
 .calender {
     .sidebar {
         position: relative;
+        .button.item-button, button.item-button {
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
     }
 
     .tip {
@@ -62,7 +67,9 @@
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
-                .button {
+                gap: 30px;
+                .button, button {
+                    width: revert;
                     margin: 30px 0 0;
                 }
             }
