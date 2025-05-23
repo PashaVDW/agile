@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\WeeztixController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CalenderController;
@@ -102,11 +102,11 @@ Route::middleware(['role:admin'])->group(function () {
             Route::put('/update/{id}', [CommissionController::class, 'update'])->name('admin.commission.update');
             Route::delete('/delete/{id}', [CommissionController::class, 'delete'])->name('admin.commission.delete');
         });
-        Route::prefix('/api')->name('admin.api.')->group(function () {
-            Route::get('/', [ApiController::class, 'index'])->name('index');
-            Route::get('/callback', [ApiController::class, 'callback'])->name('callback');
-            Route::get("/create-token", [ApiController::class, "createToken"])->name("create-token");
-            Route::post('/refresh-token', [ApiController::class, 'refreshToken'])->name('refresh-token');
+        Route::prefix('/weeztix')->name('admin.weeztix.')->group(function () {
+            Route::get('/', [WeeztixController::class, 'index'])->name('index');
+            Route::get('/callback', [WeeztixController::class, 'callback'])->name('callback');
+            Route::get("/create-token", [WeeztixController::class, "createToken"])->name("create-token");
+            Route::post('/refresh-token', [WeeztixController::class, 'refreshToken'])->name('refresh-token');
         });
     });
 });

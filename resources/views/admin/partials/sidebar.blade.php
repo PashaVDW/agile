@@ -21,7 +21,7 @@
                         ['route' => 'admin.old_boards.index', 'label' => 'Oude besturen'],
                         ['route' => 'admin.commission.index', 'label' => 'Commissies'],
                         ['route' => 'admin.gallery.index', 'label' => 'Gallerij'],
-                        ['route' => 'admin.api.index', 'label' => 'API']
+                        ['route' => 'admin.weeztix.index', 'label' => 'Weeztix']
                     ] as $item)
                         <div class="menu-item">
                             <a class="no-line menu-link gap-2.5 py-2 px-2.5 rounded-md menu-item-active:bg-gray-100 menu-link-hover:bg-gray-100 !menu-item-here:bg-transparent"

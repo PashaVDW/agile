@@ -6,7 +6,7 @@ use App\Services\WeeztixService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ApiController extends Controller
+class WeeztixController extends Controller
 {
     private WeeztixService $weeztixService;
     public function __construct(WeeztixService $weeztixService)
@@ -22,7 +22,7 @@ class ApiController extends Controller
     public function index()
     {
         $exists = $this->weeztixService->checkTokenExists();
-        return view('admin.api.index',['tokenExists' => $exists]);
+        return view('admin.weeztix.index',['tokenExists' => $exists]);
     }
 
     /**
@@ -34,7 +34,7 @@ class ApiController extends Controller
     public function callback(Request $request)
     {
         $this->weeztixService->callback($request);
-        return to_route("admin.api.index");
+        return to_route("admin.weeztix.index");
     }
 
     /**
