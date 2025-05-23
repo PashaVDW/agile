@@ -62,6 +62,6 @@ class WeeztixController extends Controller
     public function refreshToken()
     {
         $this->weeztixService->refreshToken();
-        return redirect()->back();
+        return redirect()->back()->with("success", "Token succesvol ververst");
     }
 }
