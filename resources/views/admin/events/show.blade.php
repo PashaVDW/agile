@@ -11,7 +11,7 @@
             @endif
             <x-forms.input-field type="text" name="title" label="Titel" :required="true" value="{{ old('title', $event->title ?? '')}}"/>
             <x-forms.input-textarea name="description" label="Beschrijving" :class="'max-h-[300px]'">{{ old('description',$event->description ?? '')}}</x-forms.input-textarea>
-            <x-forms.input-field type="number" name="price" label="Prijs" value="{{ old('price',$event->price ?? '' )}}"/>
+            <x-forms.input-field step="any" type="number" name="price" label="Prijs" value="{{ old('price',$event->price ?? '' )}}"/>
             <x-forms.input-field type="number" name="capacity" label="Aantal plaatsen" value="{{ old('capacity',$event->capacity ?? '' )}}"/>
             <x-forms.input-file name="banner" :title="($event->title ?? '')" label="Afbeelding" value="{{ $event->banner_url ?? '' }}"/>
             <x-forms.input-select name="category" :required="true" label="Categorie" :enum="$categories" value="{{old('category', $event->category->value ?? '')}}"/>
