@@ -1,11 +1,62 @@
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/discord-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/discord-modal.css') }}">
 @endpush
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="{{ asset('js/discord-modal.js') }}"></script>
+    <script src="{{ asset('assets/js/discord-modal.js') }}"></script>
 @endpush
+
+<div class="discord-section">
+    <label for="discordToggle" class="discord-label">
+        Discord Bericht
+    </label>
+    <div class="discord-controls">
+        <div class="discord-checkbox-wrapper">
+            <input type="checkbox" id="discordToggle" class="discord-checkbox">
+        </div>
+        <button type="button" id="openModalBtn" class="discord-button" disabled>
+            Discord Bericht Configureren
+        </button>
+    </div>
+    <div id="discord-hint" class="discord-hint">
+        Vink het vakje aan om een Discord bericht te configureren
+    </div>
+
+    <div id="discord-preview" class="preview-content dark:bg-gray-700 mt-4" style="display: none;">
+        <h4 class="text-lg font-semibold mb-3 dark:text-white">Discord Bericht Voorbeeld:</h4>
+        <div class="discord-message-card">
+            <div class="message-header">
+                <img src="{{ asset('images/bot-avatar.png') }}" alt="Bot Avatar" class="bot-avatar">
+                <span class="bot-name dark:text-white">Discord Bot</span>
+                <span class="message-timestamp dark:text-gray-400">vandaag om {{ now()->format('H:i') }}</span>
+            </div>
+            <div class="message-content">
+                <div class="message-tag dark:text-blue-400" id="preview-tag"></div>
+                <div id="preview-standard" style="display: none;">
+                    <div class="message-title dark:text-white" id="preview-title"></div>
+                    <div class="message-description dark:text-gray-300" id="preview-description"></div>
+                </div>
+                <div id="preview-embed" style="display: none;">
+                    <div class="discord-embed">
+                        <div class="embed-color-bar"></div>
+                        <div class="embed-rich-content">
+                            <div class="embed-author">
+                                <span class="embed-author-name" id="preview-embed-author"></span>
+                                <a class="embed-author-link" id="preview-embed-author-url" target="_blank"></a>
+                            </div>
+                            <div class="embed-title" id="preview-embed-title"></div>
+                            <div class="embed-description" id="preview-embed-description"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="message-footer dark:text-gray-400">
+                <small>Verzonden naar <span class="channel-name" id="preview-channel"></span></small>
+            </div>
+        </div>
+    </div>
+</div>
 
 {{-- Discord Modal Component --}}
 <div id="myModal" class="modal">

@@ -58,49 +58,7 @@
             </div>
 
             <div class="mb-5">
-                <label for="discordToggle" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Discord Bericht
-                </label>
-                <div class="flex gap-4 items-center">
-                    <input type="checkbox" id="discordToggle" class="w-16 h-16 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
-                    <button type="button" id="openModalBtn" class="button item-button">
-                        Discord Bericht Configureren
-                    </button>
-                </div>
-                <div id="discord-preview" class="preview-content dark:bg-gray-700 mt-4" style="display: none;">
-                    <h4 class="text-lg font-semibold mb-3 dark:text-white">Discord Bericht Voorbeeld:</h4>
-                    <div class="discord-message-card">
-                        <div class="message-header">
-                            <img src="{{ asset('images/bot-avatar.png') }}" alt="Bot Avatar" class="bot-avatar">
-                            <span class="bot-name dark:text-white">Discord Bot</span>
-                            <span class="message-timestamp dark:text-gray-400">vandaag om {{ now()->format('H:i') }}</span>
-                        </div>
-                        <div class="message-content">
-                            <div class="message-tag dark:text-blue-400" id="preview-tag"></div>
-                            <div id="preview-standard" style="display: none;">
-                                <div class="message-title dark:text-white" id="preview-title"></div>
-                                <div class="message-description dark:text-gray-300" id="preview-description"></div>
-                            </div>
-                            <div id="preview-embed" style="display: none;">
-                                <div class="discord-embed">
-                                    <div class="embed-color-bar"></div>
-                                    <div class="embed-rich-content">
-                                        <div class="embed-author">
-                                            <span class="embed-author-name" id="preview-embed-author"></span>
-                                            <a class="embed-author-link" id="preview-embed-author-url" target="_blank"></a>
-                                        </div>
-                                        <div class="embed-title" id="preview-embed-title"></div>
-                                        <div class="embed-description" id="preview-embed-description"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="message-footer dark:text-gray-400">
-                            <small>Verzonden naar <span class="channel-name" id="preview-channel"></span></small>
-                        </div>
-                    </div>
-                </div>
-                @include('components.discord-modal')
+                <x-discord-modal />
             </div>
 
             <div class="mb-5">
