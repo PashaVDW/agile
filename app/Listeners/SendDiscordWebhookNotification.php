@@ -14,7 +14,6 @@ class SendDiscordWebhookNotification
             return;
         }
 
-        // Determine the model based on event type
         $model = $this->getModelFromEvent($event);
 
         if ($model) {
@@ -65,7 +64,6 @@ class SendDiscordWebhookNotification
         try {
             $response = Http::post($webhookUrl, $payload);
         } catch (\Exception $e) {
-            \Log::error('Discord webhook failed: ' . $e->getMessage());
         }
     }
 
@@ -130,7 +128,6 @@ class SendDiscordWebhookNotification
             ];
         }
 
-        // Add fields specific to events
         if (in_array($eventType, ['event_created', 'event_updated'])) {
             $embed['fields'] = $this->buildEventFields($model);
         }

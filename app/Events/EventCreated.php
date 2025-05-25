@@ -15,17 +15,13 @@ class EventCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $event;
-    public $discordSettings;
-
     /**
      * Create a new event instance.
      */
-    public function __construct(Event $event, array $discordSettings = [])
-    {
-        $this->event = $event;
-        $this->discordSettings = $discordSettings;
-    }
+    public function __construct(
+        public Event $event,
+        public ?array $discordSettings = null
+    ) {}
 
     /**
      * Get the channels the event should broadcast on.
