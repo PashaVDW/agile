@@ -14,6 +14,15 @@ class Announcement extends Model
         'title',
         'description',
         'image',
+        'discord_enabled',
+        'discord_type',
+        'discord_channel',
+        'discord_tag',
+        'discord_title',
+        'discord_description',
+        'discord_embed_color',
+        'discord_embed_author',
+        'discord_embed_author_url',
     ];
 
     protected $searchable = [

@@ -163,39 +163,11 @@
 
 /* Navigation Buttons */
 .button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 500;
+    display: inline-block;
 }
 
-.button.left {
-    background-color: #e5e7eb;
-    color: #374151;
-}
-
-.button.left:hover {
-    background-color: #d1d5db;
-}
-
-.button.right {
-    background-color: #3b82f6;
-    color: white;
-}
-
-.button.right:hover {
-    background-color: #2563eb;
-}
-
-.action-button {
-    background-color: #10b981;
-    color: white;
-}
-
-.action-button:hover {
-    background-color: #059669;
+.button[style*="display: none"] {
+    display: none !important;
 }
 
 .discord-embed-card {
@@ -417,15 +389,6 @@
     font-weight: 500;
 }
 
-.embed-author-link {
-    color: #00aff4;
-    text-decoration: none;
-}
-
-.embed-author-link:hover {
-    text-decoration: underline;
-}
-
 .embed-title {
     color: #ffffff;
     font-size: 16px;
@@ -465,121 +428,6 @@
 }
 
 /* Discord Section Styles */
-.discord-section .discord-controls {
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    gap: 1.5rem !important;
-}
-
-.discord-section .discord-button {
-    margin: 0 !important;
-    justify-content: flex-start !important;
-    background-color: #5865F2 !important;
-    color: white !important;
-    padding: 0.75rem 1.5rem !important;
-    border-radius: 8px !important;
-    font-weight: 500 !important;
-    transition: all 0.2s ease-in-out !important;
-    border: none !important;
-    box-shadow: 0 2px 5px rgba(88, 101, 242, 0.2) !important;
-}
-
-.discord-section .discord-button:hover:not(:disabled) {
-    background-color: #4752C4 !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 8px rgba(88, 101, 242, 0.3) !important;
-}
-
-.discord-section .discord-button:disabled {
-    background-color: #7984F5 !important;
-    opacity: 0.7 !important;
-    cursor: not-allowed !important;
-    box-shadow: none !important;
-}
-
-.discord-section .discord-checkbox-wrapper {
-    position: relative !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-.discord-section .discord-checkbox {
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 8px !important;
-    border: 2px solid #E2E8F0 !important;
-    transition: all 0.2s ease-in-out !important;
-    cursor: pointer !important;
-    position: relative !important;
-    background-color: white !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
-}
-
-.discord-section .discord-checkbox:checked {
-    background-color: #5865F2 !important;
-    border-color: #5865F2 !important;
-}
-
-.discord-section .discord-checkbox:checked::after {
-    content: '✓' !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    color: white !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-}
-
-.discord-section .discord-checkbox:hover:not(:checked) {
-    border-color: #5865F2 !important;
-    box-shadow: 0 2px 4px rgba(88, 101, 242, 0.2) !important;
-}
-
-.dark .discord-section .discord-checkbox {
-    background-color: #2D3748 !important;
-    border-color: #4A5568 !important;
-}
-
-.dark .discord-section .discord-checkbox:checked {
-    background-color: #5865F2 !important;
-    border-color: #5865F2 !important;
-}
-
-.dark .discord-section .discord-checkbox:hover:not(:checked) {
-    border-color: #5865F2 !important;
-}
-
-.discord-section .discord-label {
-    font-weight: 600 !important;
-    font-size: 0.95rem !important;
-    margin-bottom: 0.75rem !important;
-    color: #1a202c !important;
-}
-
-.dark .discord-section .discord-label {
-    color: #E2E8F0 !important;
-}
-
-.discord-section .discord-hint {
-    font-size: 0.875rem !important;
-    color: #64748b !important;
-    margin-top: 0.5rem !important;
-    transition: opacity 0.2s ease-in-out !important;
-}
-
-.discord-section .discord-hint.hidden {
-    opacity: 0 !important;
-}
-
-.dark .discord-section .discord-hint {
-    color: #94a3b8 !important;
-}
-
-/* Discord Section Component Styles */
 .discord-section .discord-controls {
     display: flex !important;
     justify-content: flex-start !important;

@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use App\Events\AnnouncementCreated;
 use App\Models\Announcement;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 
 class AnnouncementService
 {
-    public function getAnnouncements()
+    public function getAnnouncements(): Builder
     {
         return Announcement::query();
     }
@@ -15,9 +17,13 @@ class AnnouncementService
     public function store(array $data, $request): Announcement
     {
         $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? null;
+        $announcement = Announcement::create($data);
+        $discordSettings = $request->input('discord') ?? null;
 
-        return Announcement::create($data);
+        event(new AnnouncementCreated($announcement, $discordSettings));
+        return $announcement;
     }
+
 
     public function update(Announcement $announcement, array $data, $request): Announcement
     {

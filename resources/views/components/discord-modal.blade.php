@@ -3,19 +3,38 @@
 @endpush
 
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="{{ asset('assets/js/discord-modal.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 @endpush
 
+@php
+    $discordChannels = config('discord.channels', []);
+    $discordTags = config('discord.tags', []);
+    $defaultColor = config('discord.default_embed_color', '#3498db');
+    $botName = config('discord.bot_name', 'Discord Bot');
+@endphp
+
 <div class="discord-section">
+    {{-- Hidden inputs to store Discord configuration --}}
+    <div data-discord-config>
+        <input type="hidden" name="discord[enabled]" id="discord_enabled" value="{{ old('discord.enabled', '0') }}">
+        <input type="hidden" name="discord[type]" id="discord_type" value="{{ old('discord.type', 'standard') }}">
+        <input type="hidden" name="discord[channel]" id="discord_channel" value="{{ old('discord.channel', '') }}">
+        <input type="hidden" name="discord[tag]" id="discord_tag" value="{{ old('discord.tag', '') }}">
+        <input type="hidden" name="discord[title]" id="discord_title" value="{{ old('discord.title', '') }}">
+        <input type="hidden" name="discord[description]" id="discord_description" value="{{ old('discord.description', '') }}">
+        <input type="hidden" name="discord[embed_color]" id="discord_embed_color" value="{{ old('discord.embed_color', $defaultColor) }}">
+        <input type="hidden" name="discord[embed_author]" id="discord_embed_author" value="{{ old('discord.embed_author', '') }}">
+    </div>
+
     <label for="discordToggle" class="discord-label">
         Discord Bericht
     </label>
     <div class="discord-controls">
         <div class="discord-checkbox-wrapper">
-            <input type="checkbox" id="discordToggle" class="discord-checkbox">
+            <input type="checkbox" id="discordToggle" class="discord-checkbox" {{ old('discord.enabled') ? 'checked' : '' }}>
         </div>
-        <button type="button" id="openModalBtn" class="discord-button" disabled>
+        <button type="button" id="openModalBtn" class="discord-button" {{ old('discord.enabled') ? '' : 'disabled' }}>
             Discord Bericht Configureren
         </button>
     </div>
@@ -23,36 +42,48 @@
         Vink het vakje aan om een Discord bericht te configureren
     </div>
 
-    <div id="discord-preview" class="preview-content dark:bg-gray-700 mt-4" style="display: none;">
+    <div id="discord-preview" class="preview-content dark:bg-gray-700 mt-4" style="display: {{ old('discord.enabled') ? 'block' : 'none' }}">
         <h4 class="text-lg font-semibold mb-3 dark:text-white">Discord Bericht Voorbeeld:</h4>
         <div class="discord-message-card">
             <div class="message-header">
-                <img src="{{ asset('images/bot-avatar.png') }}" alt="Bot Avatar" class="bot-avatar">
-                <span class="bot-name dark:text-white">Discord Bot</span>
+                <span class="bot-name dark:text-white">{{ $botName }}</span>
                 <span class="message-timestamp dark:text-gray-400">vandaag om {{ now()->format('H:i') }}</span>
             </div>
             <div class="message-content">
-                <div class="message-tag dark:text-blue-400" id="preview-tag"></div>
-                <div id="preview-standard" style="display: none;">
-                    <div class="message-title dark:text-white" id="preview-title"></div>
-                    <div class="message-description dark:text-gray-300" id="preview-description"></div>
+                @php
+                    $selectedTag = old('discord.tag');
+                    $tagDisplay = $selectedTag && isset($discordTags[$selectedTag]) ? $discordTags[$selectedTag]['name'] : '';
+                @endphp
+                <div class="message-tag dark:text-blue-400" id="preview-tag">{{ $tagDisplay }}</div>
+
+                <div id="preview-standard" style="display: {{ old('discord.type', 'standard') === 'standard' ? 'block' : 'none' }}">
+                    <div class="message-title dark:text-white" id="preview-title">{{ old('discord.title') }}</div>
+                    <div class="message-description dark:text-gray-300" id="preview-description">{{ old('discord.description') }}</div>
                 </div>
-                <div id="preview-embed" style="display: none;">
+
+                <div id="preview-embed" style="display: {{ old('discord.type') === 'embed' ? 'block' : 'none' }}">
                     <div class="discord-embed">
-                        <div class="embed-color-bar"></div>
+                        <div class="embed-color-bar" style="background-color: {{ old('discord.embed_color', $defaultColor) }}"></div>
                         <div class="embed-rich-content">
-                            <div class="embed-author">
-                                <span class="embed-author-name" id="preview-embed-author"></span>
-                                <a class="embed-author-link" id="preview-embed-author-url" target="_blank"></a>
-                            </div>
-                            <div class="embed-title" id="preview-embed-title"></div>
-                            <div class="embed-description" id="preview-embed-description"></div>
+                            @if(old('discord.embed_author'))
+                                <div class="embed-author">
+                                    <span class="embed-author-name">{{ old('discord.embed_author') }}</span>
+                                </div>
+                            @endif
+                            <div class="embed-title">{{ old('discord.title') }}</div>
+                            <div class="embed-description">{{ old('discord.description') }}</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="message-footer dark:text-gray-400">
-                <small>Verzonden naar <span class="channel-name" id="preview-channel"></span></small>
+                @php
+                    $selectedChannel = old('discord.channel');
+                    $channelDisplay = $selectedChannel && isset($discordChannels[$selectedChannel])
+                        ? $discordChannels[$selectedChannel]['name']
+                        : '(Geen kanaal geselecteerd)';
+                @endphp
+                <small>Verzonden naar <span class="channel-name">#{{ $channelDisplay }}</span></small>
             </div>
         </div>
     </div>
@@ -65,179 +96,122 @@
         <h2 class="text-2xl font-bold mb-6 dark:text-white">Discord Bericht Configureren</h2>
 
         <div class="tabs">
-            <button type="button" class="tab-button active dark:text-gray-300" data-tab="standard">Standaard</button>
-            <button type="button" class="tab-button dark:text-gray-300" data-tab="embed">Embed</button>
+            <button type="button" class="tab-button {{ old('discord.type', 'standard') === 'standard' ? 'active' : '' }} dark:text-gray-300" data-tab="standard">Standaard</button>
+            <button type="button" class="tab-button {{ old('discord.type') === 'embed' ? 'active' : '' }} dark:text-gray-300" data-tab="embed">Embed</button>
         </div>
 
-        <div id="standard-content" class="tab-content active">
+        <div id="standard-content" class="tab-content {{ old('discord.type', 'standard') === 'standard' ? 'active' : '' }}">
             <div class="step-pages">
-                {{-- Standard Page 1: Channel & Tag --}}
                 <div class="step-page active" data-page="1">
-                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Stap 1: Kanaal & Tag Selectie</h3>
+                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Kanaal & Tag Selectie</h3>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="standard-channel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer Kanaal:</label>
-                            <select id="standard-channel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                            <label for="discord_channel_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer Kanaal:</label>
+                            <select name="discord[channel]" id="discord_channel_modal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                 <option value="">-- Selecteer Kanaal --</option>
-                                <option value="general">#general</option>
-                                <option value="announcements">#announcements</option>
-                                <option value="support">#support</option>
-                                <option value="off-topic">#off-topic</option>
+                                @foreach($discordChannels as $key => $channel)
+                                    <option value="{{ $key }}" {{ old('discord.channel') === $key ? 'selected' : '' }}>
+                                        #{{ $channel['name'] }}
+                                    </option>
+                                @endforeach
                             </select>
+                            @if(old('discord.channel') && isset($discordChannels[old('discord.channel')]))
+                                <small class="text-gray-500 dark:text-gray-400 mt-1">
+                                    {{ $discordChannels[old('discord.channel')]['description'] }}
+                                </small>
+                            @endif
                         </div>
 
                         <div class="form-group">
-                            <label for="standard-tag" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer Tag:</label>
-                            <select id="standard-tag" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                            <label for="discord_tag_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer Tag:</label>
+                            <select name="discord[tag]" id="discord_tag_modal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                 <option value="">-- Selecteer Tag --</option>
-                                <option value="everyone">@everyone</option>
-                                <option value="here">@here</option>
-                                <option value="role-dev">@Developer</option>
-                                <option value="role-user">@User</option>
+                                @foreach($discordTags as $key => $tag)
+                                    <option value="{{ $key }}" {{ old('discord.tag') === $key ? 'selected' : '' }}>
+                                        {{ $tag['name'] }}
+                                    </option>
+                                @endforeach
                             </select>
+                            @if(old('discord.tag') && isset($discordTags[old('discord.tag')]))
+                                <small class="text-gray-500 dark:text-gray-400 mt-1">
+                                    {{ $discordTags[old('discord.tag')]['description'] }}
+                                </small>
+                            @endif
                         </div>
                     </div>
                 </div>
 
-                {{-- Standard Page 2: Message Content --}}
                 <div class="step-page" data-page="2">
-                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Stap 2: Bericht Inhoud</h3>
+                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Bericht Inhoud</h3>
                     <div class="form-group">
-                        <label for="standard-title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bericht Titel:</label>
-                        <input type="text" id="standard-title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Voer bericht titel in">
+                        <label for="discord_title_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bericht Titel:</label>
+                        <input type="text" name="discord[title]" id="discord_title_modal" value="{{ old('discord.title') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Voer bericht titel in">
                     </div>
 
                     <div class="form-group">
-                        <label for="standard-description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bericht Inhoud:</label>
-                        <textarea id="standard-description" rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Voer het bericht in"></textarea>
+                        <label for="discord_description_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bericht Inhoud:</label>
+                        <textarea name="discord[description]" id="discord_description_modal" rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Voer het bericht in">{{ old('discord.description') }}</textarea>
                     </div>
-                </div>
-
-                {{-- Standard Page 3: Review & Send --}}
-                <div class="step-page" data-page="3">
-                    <form id="standard-form" onsubmit="return false;">
-                        <h3 class="text-xl font-semibold mb-4 dark:text-white">Stap 3: Controleren & Versturen</h3>
-                        <div class="preview-content dark:bg-gray-700">
-                            <h4 class="text-lg font-semibold mb-3 dark:text-white">Live Voorbeeld:</h4>
-                            <div class="discord-message-card">
-                                <div class="message-header">
-                                    <img src="{{ asset('images/bot-avatar.png') }}" alt="Bot Avatar" class="bot-avatar">
-                                    <span class="bot-name dark:text-white">Discord Bot</span>
-                                    <span class="message-timestamp dark:text-gray-400">vandaag om {{ now()->format('H:i') }}</span>
-                                </div>
-                                <div class="message-content">
-                                    <div class="message-tag dark:text-blue-400" id="preview-standard-tag"></div>
-                                    <div class="message-title dark:text-white" id="preview-standard-title"></div>
-                                    <div class="message-description dark:text-gray-300" id="preview-standard-description"></div>
-                                </div>
-                                <div class="message-footer dark:text-gray-400">
-                                    <small>Verzonden naar <span class="channel-name" id="preview-standard-channel"></span></small>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
 
-        <div id="embed-content" class="tab-content">
+        <div id="embed-content" class="tab-content {{ old('discord.type') === 'embed' ? 'active' : '' }}">
             <div class="step-pages">
-                {{-- Embed Page 1: Channel & Tag --}}
                 <div class="step-page active" data-page="1">
-                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Stap 1: Kanaal & Tag Selectie</h3>
+                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Kanaal, Tag & Kleur</h3>
                     <div class="form-grid-3">
                         <div class="form-group">
-                            <label for="embed-channel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer Kanaal:</label>
-                            <select id="embed-channel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                            <label for="discord_channel_embed_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer Kanaal:</label>
+                            <select name="discord[channel]" id="discord_channel_embed_modal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                 <option value="">-- Selecteer Kanaal --</option>
-                                <option value="general">#general</option>
-                                <option value="announcements">#announcements</option>
-                                <option value="support">#support</option>
-                                <option value="off-topic">#off-topic</option>
+                                @foreach($discordChannels as $key => $channel)
+                                    <option value="{{ $key }}" {{ old('discord.channel') === $key ? 'selected' : '' }}>
+                                        #{{ $channel['name'] }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="embed-tag" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer Tag:</label>
-                            <select id="embed-tag" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                            <label for="discord_tag_embed_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecteer Tag:</label>
+                            <select name="discord[tag]" id="discord_tag_embed_modal" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                 <option value="">-- Selecteer Tag --</option>
-                                <option value="everyone">@everyone</option>
-                                <option value="here">@here</option>
-                                <option value="role-dev">@Developer</option>
-                                <option value="role-user">@User</option>
+                                @foreach($discordTags as $key => $tag)
+                                    <option value="{{ $key }}" {{ old('discord.tag') === $key ? 'selected' : '' }}>
+                                        {{ $tag['name'] }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="embed-color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Embed Kleur:</label>
-                            <input type="color" id="embed-color" value="#3498db" class="bg-gray-50 border border-gray-300 rounded-lg w-16 h-10">
+                            <label for="discord_embed_color_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Embed Kleur:</label>
+                            <input type="color" name="discord[embed_color]" id="discord_embed_color_modal" value="{{ old('discord.embed_color', $defaultColor) }}" class="bg-gray-50 border border-gray-300 rounded-lg w-16 h-10">
                         </div>
                     </div>
                 </div>
 
-                {{-- Embed Page 2: Author Info --}}
                 <div class="step-page" data-page="2">
-                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Stap 2: Auteur Informatie</h3>
-                    <div class="form-grid-2">
-                        <div class="form-group">
-                            <label for="embed-author" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Auteur Naam:</label>
-                            <input type="text" id="embed-author" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="bijv. Bot Naam">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="embed-author-url" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Auteur URL (optioneel):</label>
-                            <input type="url" id="embed-author-url" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="bijv. https://uw-bot.nl">
-                        </div>
+                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Auteur Informatie</h3>
+                    <div class="form-group">
+                        <label for="discord_embed_author_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Auteur Naam:</label>
+                        <input type="text" name="discord[embed_author]" id="discord_embed_author_modal" value="{{ old('discord.embed_author') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="bijv. {{ $botName }}">
                     </div>
                 </div>
 
-                {{-- Embed Page 3: Message Content --}}
                 <div class="step-page" data-page="3">
-                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Stap 3: Bericht Inhoud</h3>
+                    <h3 class="text-xl font-semibold mb-4 dark:text-white">Bericht Inhoud</h3>
                     <div class="form-group">
-                        <label for="embed-title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Embed Titel:</label>
-                        <input type="text" id="embed-title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Voer embed titel in">
+                        <label for="discord_title_embed_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Embed Titel:</label>
+                        <input type="text" name="discord[title]" id="discord_title_embed_modal" value="{{ old('discord.title') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Voer embed titel in">
                     </div>
 
                     <div class="form-group">
-                        <label for="embed-description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Embed Tekst (met opmaak):</label>
-                        <textarea id="embed-description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Gebruik **vet**, *cursief*, __onderstreept__, ~~doorgestreept~~ voor opmaak."></textarea>
+                        <label for="discord_description_embed_modal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Embed Tekst (met opmaak):</label>
+                        <textarea name="discord[description]" id="discord_description_embed_modal" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Gebruik **vet**, *cursief*, __onderstreept__, ~~doorgestreept~~ voor opmaak.">{{ old('discord.description') }}</textarea>
                         <small class="text-gray-500 dark:text-gray-400">Markdown zoals **vet**, *cursief*, `code` wordt ondersteund.</small>
                     </div>
-                </div>
-
-                {{-- Embed Page 4: Preview & Send --}}
-                <div class="step-page" data-page="4">
-                    <form id="embed-form" onsubmit="return false;">
-                        <h3 class="text-xl font-semibold mb-4 dark:text-white">Stap 4: Voorbeeld & Versturen</h3>
-                        <div class="preview-content dark:bg-gray-700">
-                            <h4 class="text-lg font-semibold mb-3 dark:text-white">Live Voorbeeld:</h4>
-                            <div class="discord-message-card">
-                                <div class="message-header">
-                                    <img src="{{ asset('images/bot-avatar.png') }}" alt="Bot Avatar" class="bot-avatar">
-                                    <span class="bot-name dark:text-white">Discord Bot</span>
-                                    <span class="message-timestamp dark:text-gray-400">vandaag om {{ now()->format('H:i') }}</span>
-                                </div>
-                                <div class="message-content">
-                                    <div class="message-tag dark:text-blue-400" id="preview-embed-tag"></div>
-                                    <div class="discord-embed">
-                                        <div class="embed-color-bar"></div>
-                                        <div class="embed-rich-content">
-                                            <div class="embed-author">
-                                                <span class="embed-author-name" id="preview-embed-author"></span>
-                                                <a class="embed-author-link" id="preview-embed-author-url" target="_blank"></a>
-                                            </div>
-                                            <div class="embed-title" id="preview-embed-title"></div>
-                                            <div class="embed-description" id="preview-embed-description"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="message-footer dark:text-gray-400">
-                                    <small>Verzonden naar <span class="channel-name" id="preview-embed-channel"></span></small>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -245,7 +219,7 @@
         <div class="flex justify-between mt-6">
             <button type="button" class="button left step-btn-prev" style="display: none;">Vorige</button>
             <button type="button" class="button right step-btn-next">Volgende</button>
-            <button type="submit" class="action-button button right step-btn-submit" style="display: none;">Bericht Versturen</button>
+            <button type="button" class="button right step-btn-submit" style="display: none;">Configuratie Opslaan</button>
         </div>
     </div>
 </div>
