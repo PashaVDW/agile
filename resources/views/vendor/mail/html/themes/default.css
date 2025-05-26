@@ -85,6 +85,16 @@ img {
     padding: 0;
     width: 100%;
 }
+.title-text {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.email-image {
+    max-width: 100%;
+    height: auto;
+}
 
 .content {
     -premailer-cellpadding: 0;

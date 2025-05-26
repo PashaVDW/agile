@@ -35,8 +35,6 @@ class AnnouncementService
         }
 
         $announcement->update($data);
-        $this->mailService->sendAnnouncementMail($announcement,'jozefmamaa@gmail.com');
-        //Mail::to('jozefmamaa@gmail.com')->send(new AnnouncementMail($announcement));
         return $announcement;
     }
 

@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Mail\AnnouncementMail;
+use App\Mail\NewsLettermail;
 use App\Mail\NotifactionMail;
 use App\Models\Announcement;
 use App\Models\Event;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 
 class MailService
@@ -26,7 +28,7 @@ class MailService
     public function sendEvent(Event $event, string|array $to): void
     {
         $price = $event->price ? "Prijs: €{$event->price}\n" : '';
-        $dates = "Datum: {$event->formatted_date}\n";
+        $dates = "Datum: {$event->start_date}\n";
 
         Mail::to($to)->send(new NotifactionMail([
             'subject' => " Nieuw evenement van concat: {$event->title}",
@@ -38,5 +40,12 @@ class MailService
             'btnUrl' => route('user.event.show', $event),
             'type' => 'event',
         ]));
+    }
+
+    public function sendNewsLetter(array|string $to, array $data, string $newsLetterTemplateview = 'pdf.newsletter')
+    {
+        $pdf = pdf::loadView($newsLetterTemplateview, ['data' => $data])->output();
+
+        mail::to($to)->send(new newsletterMail($data,$pdf));
     }
 }

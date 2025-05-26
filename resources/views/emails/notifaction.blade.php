@@ -1,13 +1,14 @@
 @component('mail::message')
-    <p style="font-size: 22px; font-weight: bold; margin-bottom: 20px;">
+    <p class="title-text">
         {{ $payload['title'] }}
     </p>
 
 {!! nl2br(e($payload['body'])) !!}
 
-{{--    @if(!empty($payload['imageUrl']))--}}
-{{--        {!! '<img src="' . asset($payload['imageUrl']) . '" alt="Afbeelding" style="max-width: 100%; height: auto;" />' !!}--}}
-{{--    @endif--}}
+    <br>
+    @if(!empty($payload['imageUrl']))
+        <img src="{{ asset($payload['imageUrl']) }}" alt="Afbeelding" class="email-image">
+    @endif
 
 
     @if($payload['type'] === 'announcement')
@@ -18,7 +19,7 @@
 
     @if($payload['type'] === 'event')
         @component('mail::button', ['url' => route('user.event.show', ['id' => $payload['id']])])
-            Bekijk evenement
+            Bekijk evenement op onze site voor meer informatie
         @endcomponent
     @endif
 
