@@ -15,11 +15,10 @@ class CommissionService
     private SearchService $searchService;
 
 
-    protected MailService $mailService;
-    public function __construct(SearchService $searchService,MailService $mailService)
+
+    public function __construct(SearchService $searchService)
     {
         $this->searchService = $searchService;
-        $this->mailService = $mailService;
     }
     public function getEntries(Request $request)
     {
@@ -39,10 +38,7 @@ class CommissionService
     public function store(CommissionRequest $request)
     {
 
-        // DIT IS EEN TEST GEDEELTE HAAL DIT LATER WEG
 
-        $this->mailService->sendTestMail('jozefmamaa@gmail.com','test test hi');
-        // BALLS EINDE TEST
         $validated = $request->validated();
 
         Commission::create($validated);
