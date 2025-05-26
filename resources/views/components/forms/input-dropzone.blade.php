@@ -8,10 +8,10 @@
     'metadatas' => [],
    ])
 <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $id }}">
+    <label class="block text-gray-700 font-bold mb-1" for="{{ $id }}">
         {{ ucfirst($label) }}
     </label>
-    <h5 id="message" class="">
+    <h5 id="message" class="text-sm text-gray-700 font-bold mb-1">
         Sleep bestanden hierheen of klik om te uploaden
     </h5>
 
