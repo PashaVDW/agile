@@ -20,6 +20,9 @@
                     <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>
                     </li>
+                    <li class="nav-item {{Request::is('assignment*') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{ route('user.assignments.index') }}">Prikbord</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
