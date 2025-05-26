@@ -3,18 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use Illuminate\Http\Request;
 
 class CalenderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::query()
-            ->where('status', 'active')
-            ->orderBy('start_date', 'ASC')
-            ->get()
-            ->groupBy(function ($event) {
-                return $event->start_date->format('F');
+        $today = now()->startOfDay();
+
+        $query = Event::query()->where('status', 'active')->where('start_date', '>=', $today)->orderBy('start_date', 'ASC');
+
+        if ($request->has('status') && $request->status === 'my_events' && auth()->check()) {
+            $query->whereHas('registeredUsers', function ($q) {
+                $q->where('user_id', auth()->id());
             });
+        }
+
+        $events = $query->get()->groupBy(function ($event) {
+            return $event->start_date->format('F');
+        });
 
         return view('user.calender.index', ['events' => $events]);
     }
