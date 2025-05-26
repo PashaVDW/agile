@@ -13,9 +13,7 @@ class NewsLettermail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
+
 
     public array $data;
     public string $pdf;
@@ -35,33 +33,5 @@ class NewsLettermail extends Mailable
             ]);
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'News Lettermail',
-        );
-    }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            markdown: 'emails.newsletter',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
-    }
 }
