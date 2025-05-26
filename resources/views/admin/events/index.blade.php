@@ -58,7 +58,7 @@
         </x-admin.datatable>
 
         <div class="sliders">
-            <x-forms.input-dropzone attribute="gallery" :model="$gallery" id="homeGallery" label="Gallerij"/>
+            <x-forms.input-dropzone attribute="gallery" :model="$gallery" id="homeGallery" label="Home gallerij"/>
         </div>
     </div>
 @endsection

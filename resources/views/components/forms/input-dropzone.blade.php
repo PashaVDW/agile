@@ -11,7 +11,9 @@
     <label class="block text-gray-700 text-sm font-bold mb-1" for="{{ $id }}">
         {{ ucfirst($label) }}
     </label>
-    <h5 id="message" class="text-center text-danger"></h5>
+    <h5 id="message" class="">
+        Sleep bestanden hierheen of klik om te uploaden
+    </h5>
 
     <form action="{{ isset($model) ? route( 'admin.gallery.upload',  [strtolower(class_basename($model)), $model->id]) : route('admin.gallery.store', $modelname) }}" method="POST" enctype="multipart/form-data" class="dropzone border border-gray-400 bg-white rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-500 {{ $class }}" id="{{$id}}">
         @csrf
@@ -93,7 +95,7 @@
     function createEditButton(fileName, metadataValues, container) {
         var editButton = document.createElement('button');
         editButton.className = 'dz-metadata-button dz-edit-button';
-        editButton.innerHTML = 'Bewerk Metadata';
+        editButton.innerHTML = 'Bewerk data';
         editButton.type = 'button';
         editButton.onclick = function(e) {
             e.preventDefault();
@@ -190,7 +192,7 @@
             acceptedFiles: ".jpeg,.jpg,.png,.webp,.gif,.svg",
             addRemoveLinks: {{ isset($model) }},
             timeout: 60000,
-            dictDefaultMessage: "Sleep bestanden hierheen of klik om te uploaden",
+            dictDefaultMessage: "",
             dictFileTooBig: "Bestand is te groot (max. "+maxFilesize+" MB)",
             dictInvalidFileType: "Bestandstype ongeldig. Alleen JPG, JPEG, PNG, WEBP, GIF, SVG zijn toegestaan.",
             dictRemoveFile: "Verwijder bestand",
