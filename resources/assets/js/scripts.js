@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
     carouselSwiper('#boardSwiper');
     navbar()
 });
+    const webcalButton = document.getElementById('webcal');
+    if (webcalButton) {
+        webcalButton.addEventListener('click', function() {
+            const webcalLink = `webcal://${window.location.host}/calendar.ics`;
+            copyToClipboard(webcalLink);
+        });
+    }});
 
 function carouselSwiper(swiperId) {
     new Swiper(swiperId, {
@@ -35,6 +42,20 @@ function carouselSwiper(swiperId) {
             }
         }
 
+    });
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        const webcalButton = document.getElementById('webcal');
+        if (webcalButton) {
+            webcalButton.innerText = 'Gekopieerd!';
+            setTimeout(() => {
+                webcalButton.innerText = 'Webcal';
+            }, 2000);
+        }
+    }).catch(err => {
+        console.error('Failed to copy text: ', err);
     });
 }
 
