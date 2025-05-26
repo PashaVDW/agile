@@ -21,6 +21,7 @@
                         ['route' => 'admin.old_boards.index', 'label' => 'Oude besturen'],
                         ['route' => 'admin.commission.index', 'label' => 'Commissies'],
                         ['route' => 'admin.gallery.index', 'label' => 'Gallerij'],
+                        ['route' => 'admin.assignments.index', 'label' => 'Prikbord'],
                         ['route' => 'admin.weeztix.index', 'label' => 'Weeztix']
                     ] as $item)
                         <div class="menu-item">

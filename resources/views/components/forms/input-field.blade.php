@@ -6,6 +6,7 @@
   "type" => "text",
   "label" => "",
   "placeholder" => "",
+  "step" => ""
 ])
 
 <div class="mb-4">
@@ -18,6 +19,7 @@
   </label>
   <input
     type="{{ $type }}"
+    @if($type === 'number')step="{{ $step }}" @endif
     name="{{ $name }}"
     value="{{ $value }}"
     placeholder="{{ $placeholder }}"
