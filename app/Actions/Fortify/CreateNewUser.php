@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -58,12 +59,16 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ], $messages)->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'major' => $input['major'],
             'email' => $input['email'],
             'phone' => $input['phone'],
             'password' => Hash::make($input['password']),
         ]);
+
+        event(new Registered($user));
+
+        return $user;
     }
 }

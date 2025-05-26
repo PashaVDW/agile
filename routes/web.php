@@ -15,6 +15,8 @@ use App\Http\Controllers\OldBoardsController;
 use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\GoogleCalendar\Event;
 
@@ -152,3 +154,17 @@ Route::get('/assignment/{id}', [AssignmentController::class, 'show'])->name('use
 
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
 Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/login');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
