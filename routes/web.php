@@ -1,6 +1,6 @@
 <?php
 
-use App\Actions\Fortify\UpdateUserPassword;
+use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BoardController;
@@ -15,6 +15,9 @@ use App\Http\Controllers\OldBoardsController;
 use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -157,14 +160,34 @@ Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('c
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+})->name('verification.notice');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-    return redirect('/login');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
+    $user = User::findOrFail($id);
+
+    // Controleer of de hash overeenkomt
+    if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        abort(403, 'Ongeldige verificatielink.');
+    }
+
+    if (! $user->hasVerifiedEmail()) {
+        $user->markEmailAsVerified();
+        event(new Verified($user));
+    }
+
+    return redirect('/login')->with('status', 'Je e-mailadres is geverifieerd. Je kunt nu inloggen.');
+})->middleware(['signed'])->name('verification.verify');
+
 
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::post('/register', function (Request $request) {
+    $user = app(CreateNewUser::class)->create($request->all());
+
+    event(new Registered($user));
+
+    return redirect()->route('verification.notice');
+})->name('register');
