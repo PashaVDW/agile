@@ -101,6 +101,9 @@ class WeeztixService
         $responseData = json_decode($response, true);
         $totalSoldCount = array_sum(array_column($responseData, 'sold_count'));
         $totalAvailableCount = array_sum(array_column($responseData, 'available_stock'));
+        if( $totalAvailableCount === 0) {
+            return -1; // Return -1 to indicate unlimited capacity
+        }
         $availability = $totalSoldCount / $totalAvailableCount * 100;
         return $availability;
     }
