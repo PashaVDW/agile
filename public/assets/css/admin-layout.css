@@ -57,7 +57,9 @@
     }
     .container {
         .wrapper {
+            text-align: center;
             h2 {
+                font-weight: 700;
                 font-size: revert;
             }
             .button-wrapper {
