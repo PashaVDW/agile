@@ -26,9 +26,24 @@ class CalenderController extends Controller
         return view('user.calender.index', ['events' => $events]);
     }
 
-    public function generateICS()
+    public function generateICS(Request $request)
     {
-        $events = Event::all();
+//        $events = Event::all();
+//        $icsContent = $this->generateICSContent($events);
+//
+//        return response($icsContent, 200)
+//            ->header('Content-Type', 'text/calendar')
+//            ->header('Content-Disposition', 'attachment; filename="svconcat-calendar.ics"');
+
+        $query = Event::query()->where('status', 'active');
+
+        if ($request->has('status') && $request->status === 'my_events' && auth()->check()) {
+            $query->whereHas('registeredUsers', function ($q) {
+                $q->where('user_id', auth()->id());
+            });
+        }
+
+        $events = $query->get();
         $icsContent = $this->generateICSContent($events);
 
         return response($icsContent, 200)

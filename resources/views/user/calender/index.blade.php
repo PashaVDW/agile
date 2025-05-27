@@ -26,7 +26,12 @@
                 @endif
             </div>
             <div class="sidebar">
-                <h2 class="has-background">Agenda's</h2>
+                @if(request('status') === 'my_events')
+                    <h2 class="has-background">Eigen Agenda's</h2>
+                    <p>Gefilterd op eigen activiteiten. Dus alleen deze zullen op het moment aan uw eigen agenda worden toegevoegd.</p>
+                @else
+                    <h2 class="has-background">Agenda's</h2>
+                @endif
                 <span class="tip">
                     ?
                     <span class="tooltiptext">
@@ -40,7 +45,7 @@
                 <br />
                 <div class="buttons">
                     <button class="item-button" id="webcal">Webcal</button>
-                    <a href="{{ route('calendar.ics') }}" target="_blank" class="button item-button">Download</a>
+                    <a href="{{ route('calendar.ics', ['status' => request('status', 'all')]) }}" target="_blank" class="button item-button">Download</a>
                     <a href="https://calendar.google.com/calendar/u/0?cid=NTUwYjc2YTM3N2JmNDg2MjNjYWY5MTIzMmY2ZjI1MzI0NWEyNWVkMjYzYmY3OGQ3NmVkNjIwNmJkOWEwMDNjMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" class="button item-button">Google agenda</a>
                 </div>
                 <br />
