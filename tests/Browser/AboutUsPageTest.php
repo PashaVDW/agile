@@ -40,7 +40,7 @@ class AboutUsPageTest extends DuskTestCase
                 ->assertSee($board->name)
                 ->scrollIntoView("div.info")
                 ->assertSee($commission->name)
-                ->scrollIntoView("#gallerySwiper")
+                ->scrollIntoView("#boardSwiper")
                 ->assertSee($oldBoard->term);
         });
     }

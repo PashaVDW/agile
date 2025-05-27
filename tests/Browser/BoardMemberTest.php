@@ -2,19 +2,37 @@
 
 namespace Tests\Browser;
 
-
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
-use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\BoardMember;
+use Spatie\Permission\Models\Role;
 
 class BoardMemberTest extends DuskTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Ensure admin role exists
+        if (!Role::where('name', 'admin')->exists()) {
+            Role::create(['name' => 'admin']);
+        }
+    }
+
+    private function createAdminUser(): User
+    {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+        return $user;
+    }
+
     public function testIndex()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+        $user = $this->createAdminUser();
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
                 ->visit('/admin/boards')
                 ->assertPathIs('/admin/boards')
                 ->assertSee('Voeg bestuur lid toe');
@@ -23,59 +41,70 @@ class BoardMemberTest extends DuskTestCase
 
     public function testCreateBoardMember()
     {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::find(1))
+        $user = $this->createAdminUser();
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
                 ->visit('/admin/board/create')
                 ->assertSee('Voeg bestuur lid toe')
                 ->typeSlowly('name', 'John Doe')
                 ->typeSlowly('role', 'Chairman')
                 ->typeSlowly('description', 'This is a test board member.')
-                ->press('Voeg bestuur lid toe');
-
-
-            $browser->waitForLocation('/admin/boards')
+                ->press('Voeg bestuur lid toe')
+                ->waitForLocation('/admin/boards')
                 ->assertSee('John Doe');
         });
     }
 
     public function testShowBoardMember()
     {
-        $boardMember = BoardMember::first();
+        $user = $this->createAdminUser();
+        $boardMember = BoardMember::factory()->create(['name' => 'John Doe']);
 
-        $this->browse(function (Browser $browser) use ($boardMember) {
-            $browser->loginAs(User::find(1))
-                ->visit('/admin/boards/')
-                ->pause(2000)
+        $this->browse(function (Browser $browser) use ($user, $boardMember) {
+            $browser->loginAs($user)
+                ->visit('/admin/boards')
+                ->pause(1000)
                 ->assertSee($boardMember->name);
         });
     }
 
     public function testUpdateBoardMember()
     {
-        $boardMember = BoardMember::first();
+        $user = $this->createAdminUser();
+        $boardMember = BoardMember::factory()->create([
+            'name' => 'John Doe',
+            'role' => 'Chairman',
+            'description' => 'Before update',
+        ]);
 
-        $this->browse(function (Browser $browser) use ($boardMember) {
-            $browser->loginAs(User::find(1))
+        $this->browse(function (Browser $browser) use ($user, $boardMember) {
+            $browser->loginAs($user)
                 ->visit('/admin/board/' . $boardMember->id)
                 ->typeSlowly('name', 'Jane Doe')
                 ->typeSlowly('role', 'Vice Chairman')
                 ->typeSlowly('description', 'Updated description.')
-                ->press('Bewerk bestuur lid');
-
-            $browser->waitForLocation('/admin/boards')
+                ->press('Bewerk bestuur lid')
+                ->waitForLocation('/admin/boards')
                 ->assertSee('Jane Doe');
         });
     }
 
     public function testDeleteBoardMember()
     {
-        $boardMember = BoardMember::first();
+        $user = $this->createAdminUser();
+        $boardMember = BoardMember::factory()->create([
+            'name' => 'Jane Doe',
+            'role' => 'Vice Chairman',
+            'description' => 'To be deleted',
+        ]);
 
-        $this->browse(function (Browser $browser) use ($boardMember) {
-            $browser->loginAs(User::find(1))
+        $this->browse(function (Browser $browser) use ($user, $boardMember) {
+            $browser->loginAs($user)
                 ->visit('/admin/board/' . $boardMember->id)
-                ->pause(2000)
+                ->pause(1000)
                 ->press('Bestuurslid verwijderen')
+                ->pause(500)
                 ->press('Doorgaan')
                 ->waitForLocation('/admin/boards')
                 ->assertDontSee('Jane Doe');

@@ -15,16 +15,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Role::create(['name' => 'user']);
-        Role::create(['name' => 'admin']);
+        Role::firstOrCreate(['name' => 'user']);
+        Role::firstOrCreate(['name' => 'admin']);
 
-        $user = new User;
-        $user->name = 'admin';
-        $user->major = 'SO';
-        $user->email = 'admin@agile.nl';
-        $user->phone = '0612345678';
-        $user->password = '$2y$12$RRFILOFFad.VuxS44qX7I.mUJxb1cqlO8exnjs9oqXRGpZi0XIqJW';
-        $user->save();
-        $user->assignRole('admin');
+        $user = User::firstOrCreate(
+            ['email' => 'admin@agile.nl'],
+            [
+                'name' => 'admin',
+                'major' => 'SO',
+                'phone' => '0612345678',
+                'password' => '$2y$12$RRFILOFFad.VuxS44qX7I.mUJxb1cqlO8exnjs9oqXRGpZi0XIqJW', // pre-hashed password
+            ]
+        );
+
+        if (Role::where('name', 'admin')->exists() && !$user->hasRole('admin')) {
+            $user->assignRole('admin');
+        }
+
     }
 }

@@ -12,25 +12,21 @@ class AnnouncementTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->artisan('db:seed');
-    }
-
     public function test_create_announcement()
     {
         $admin = User::where('email', 'admin@agile.nl')->first();
 
         $this->browse(function (Browser $browser) use ($admin) {
             $browser->loginAs($admin)
-                ->visit('/announcements/create')
+                ->visit('admin/announcement/create')
                 ->waitFor('#title')
-                ->type('#title', 'Nieuwe Aankondiging')
-                ->type('#description', 'Dit is een testaankondiging.')
+                ->type('title', 'Nieuwe Aankondiging')
+                ->type('description', 'Dit is een testaankondiging.')
                 ->press('Aanmaken')
                 ->pause(1000)
-                ->assertSee('Nieuwe Aankondiging');
+                ->assertSee('Nieuwe Aankondiging')
+                ->screenshot('announcement-create')
+                ->dump();
         });
     }
 
@@ -44,13 +40,15 @@ class AnnouncementTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($announcement, $admin) {
             $browser->loginAs($admin)
-                ->visit("/announcements/{$announcement->id}/edit")
+                ->visit("admin/announcement/{$announcement->id}/edit")
                 ->waitFor('#title')
-                ->type('#title', 'Gewijzigde Titel')
-                ->type('#description', 'Gewijzigde omschrijving')
+                ->type('title', 'Gewijzigde Titel')
+                ->type('description', 'Gewijzigde omschrijving')
                 ->press('Bijwerken')
                 ->pause(1000)
-                ->assertSee('Gewijzigde Titel');
+                ->assertSee('Gewijzigde Titel')
+                ->screenshot('announcement-edit')
+                ->dump();
         });
     }
 
@@ -63,15 +61,17 @@ class AnnouncementTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($announcement, $admin) {
             $browser->loginAs($admin)
-                ->visit('/announcements')
+                ->visit("admin/announcement/{$announcement->id}/edit")
                 ->waitFor("@delete-announcement-{$announcement->id}")
                 ->click("@delete-announcement-{$announcement->id}")
-                ->pause(500)
-                ->with('#deleteModal', function ($modal) {
-                    $modal->press('Verwijderen');
-                })
-                ->pause(1000)
-                ->assertDontSee('Te Verwijderen Aankondiging');
+                ->pause(500) // wait for modal animation if any
+                ->script("document.querySelector('form[action$=\"/delete/{$announcement->id}\"]').submit();");
+
+            $browser->pause(1000)
+                ->visit('admin/announcements')
+                ->assertDontSee('Te Verwijderen Aankondiging')
+                ->screenshot('announcement-delete')
+                ->dump();
         });
     }
 }
