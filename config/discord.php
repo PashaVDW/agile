@@ -7,6 +7,11 @@ return [
             'webhook_url' => env('DISCORD_WEBHOOK_ANNOUNCEMENTS'),
             'description' => 'Important announcements and news'
         ],
+        'test' => [
+            'name' => 'Test',
+            'webhook_url' => env('DISCORD_WEBHOOK_TEST'),
+            'description' => 'Important announcements and news'
+        ],
     ],
 
     'tags' => [
