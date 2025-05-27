@@ -165,9 +165,16 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
     $user = User::findOrFail($id);
 
-    // Controleer of de hash overeenkomt
-    if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+    // Bepaal welke email er vergeleken moet worden (new_email krijgt prioriteit)
+    $emailToVerify = $user->new_email ?? $user->email;
+
+    if (! hash_equals((string) $hash, sha1($emailToVerify))) {
         abort(403, 'Ongeldige verificatielink.');
+    }
+
+    if ($user->new_email) {
+        $user->email = $user->new_email;
+        $user->new_email = null;
     }
 
     if (! $user->hasVerifiedEmail()) {

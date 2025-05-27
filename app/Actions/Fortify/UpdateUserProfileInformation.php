@@ -73,10 +73,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         $user->forceFill([
             'name' => $input['name'],
-            'email' => $input['email'],
+            'major' => $input['major'],
+            'phone' => $input['phone'],
+            'new_email' => $input['email'],
             'email_verified_at' => null,
         ])->save();
 
-        $user->sendEmailVerificationNotification();
+        $tempUser = clone $user;
+        $tempUser->email = $user->new_email;
+
+        $tempUser->sendEmailVerificationNotification();
     }
 }
