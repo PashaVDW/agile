@@ -7,6 +7,7 @@ use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use App\Services\EventService;
 use App\Services\SearchService;
+use App\Services\WeeztixService;
 use Illuminate\Http\Request;
 use App\Services\SponsorService;
 
@@ -15,12 +16,14 @@ class EventController extends Controller
     private EventService $eventService;
     private SponsorService $sponsorService;
     private SearchService $searchService;
+    private WeeztixService $weeztixService;
 
-    public function __construct(EventService $eventService, SponsorService $sponsorService, SearchService $searchService)
+    public function __construct(EventService $eventService, SponsorService $sponsorService, SearchService $searchService, WeeztixService $weeztixService)
     {
         $this->eventService = $eventService;
         $this->searchService = $searchService;
         $this->sponsorService = $sponsorService;
+        $this->weeztixService = $weeztixService;
     }
 
     public function index(Request $request)
@@ -48,9 +51,10 @@ class EventController extends Controller
 
     public function create()
     {
+        $weeztixEvents = $this->weeztixService->getEvents();
         $categories = EventCategoryEnum::class;
         $sponsors = $this->sponsorService->getSponsors()->get();
-        return view('admin.events.show', ['categories' => $categories, 'sponsors' => $sponsors]);
+        return view('admin.events.show', ['categories' => $categories, 'sponsors' => $sponsors, 'weeztixEvents' => $weeztixEvents]);
     }
 
     public function store(EventRequest $request)
@@ -65,9 +69,11 @@ class EventController extends Controller
         $categories = EventCategoryEnum::class;
         $sponsors = $this->sponsorService->getSponsors()->get();
         if ($request->route()->named('admin.event.show')) {
-            return view('admin.events.show', ['event' => $event, 'categories' => $categories, 'sponsors' => $sponsors]);
+            $weeztixEvents = $this->weeztixService->getEvents();
+            return view('admin.events.show', ['event' => $event, 'categories' => $categories, 'sponsors' => $sponsors, 'weeztixEvents' => $weeztixEvents]);
         }
-        return view('user.events.show', ['event' => $event, 'sponsors' => $sponsors]);
+        $availability = $event->weeztix_event_id !== null ? $this->weeztixService->getEventCapacity($event->weeztix_event_id) : null;
+        return view('user.events.show', ['event' => $event, 'sponsors' => $sponsors, 'availability' => $availability]);
     }
 
     public function update(EventRequest $request, $id)

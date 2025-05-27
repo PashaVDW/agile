@@ -123,4 +123,10 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+     * weeztix api configuration
+     */
+    'oauth_client_id' => env('OAUTH_CLIENT_ID', ''),
+    'oauth_client_secret' => env('OAUTH_CLIENT_SECRET', ''),
+    'oauth_redirect_uri' => env('OAUTH_CLIENT_REDIRECT', ''),
 ];

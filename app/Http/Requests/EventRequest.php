@@ -25,6 +25,7 @@ class EventRequest extends FormRequest
             'location' => 'nullable|string|max:255',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
+            'weeztix_event_id' => 'nullable',
         ];
     }
 

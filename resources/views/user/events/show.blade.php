@@ -36,12 +36,20 @@
                     @if($event->capacity)
                         <li><span>Aantal plaatsen:</span> {{$event->capacity}}</li>
                     @endif
-                    @if($event->payment_link)
+                    @if($event->payment_link && !$event->weeztix_event_id)
                         <li><span>Betalen voor: </span><a href="{{$event->payment_link}}" target="_blank">{{$event->title}}</a></li>
                     @endif
                 </ul>
-                @if($event->is_open)
-                    @if(auth()->user())
+                @auth
+                    @if($event->is_open && !$event->weeztix_event_id && $event->registry_percentage >= 100 && $event->isRegistered() && !$event->payment_link)
+                        <form action="{{route('user.event.unregister', $event->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="item-button">
+                               Afmelden
+                            </button>
+                        </form>
+                    @elseif($event->is_open && !$event->weeztix_event_id && $event->registry_percentage < 100 && !$event->payment_link)
                         <form action="{{ $event->isRegistered() ? route('user.event.unregister', $event->id) : route('user.event.register', $event->id) }}" method="POST">
                             @csrf
                             @if($event->isRegistered())
@@ -51,10 +59,22 @@
                                 {{ $event->isRegistered() ? 'Afmelden' : 'Inschrijven' }}
                             </button>
                         </form>
-                    @else
-                        <a href="{{ route('login') }}" class="no-line button item-button">Inloggen</a>
+                    @elseif($event->weeztix_event_id && $availability < 100)
+                        @if($event->isRegistered())
+                            <span class="item-button">Ingeschreven</span>
+                        @else
+                            <a href="https://shop.weeztix.com/3fab2a15-071c-11f0-a9cb-7e126431635e/tickets" class="no-line button item-button" target="_blank">Inschrijven</a>
+                        @endif
+                    @elseif(($event->weeztix_event_id && $availability >= 100) || $event->registry_percentage >= 100 || (!$event->is_open && $event->capacity > 0))
+                        <span class="item-button">Geen plaatsen meer beschikbaar</span>
                     @endif
-                @endif
+                @else
+                    @if(($event->registry_percentage >= 100 || $event->availability >= 100) && ($event->is_open || $event->weeztix_event_id))
+                        <span class="item-button">Geen plaatsen meer beschikbaar</span>
+                    @else
+                        <a href="{{ route('login') }}" class="">Login om in te schrijven</a>
+                    @endif
+                @endauth
             </div>
         </div>
     </div>
