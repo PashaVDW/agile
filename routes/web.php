@@ -1,6 +1,5 @@
 <?php
 
-use App\Actions\Fortify\CreateNewUser;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BoardController;
@@ -15,10 +14,6 @@ use App\Http\Controllers\OldBoardsController;
 use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\GoogleCalendar\Event;
@@ -158,43 +153,13 @@ Route::get('/assignment/{id}', [AssignmentController::class, 'show'])->name('use
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
 Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');
 
+Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
-    $user = User::findOrFail($id);
-
-    // Bepaal welke email er vergeleken moet worden (new_email krijgt prioriteit)
-    $emailToVerify = $user->new_email ?? $user->email;
-
-    if (! hash_equals((string) $hash, sha1($emailToVerify))) {
-        abort(403, 'Ongeldige verificatielink.');
-    }
-
-    if ($user->new_email) {
-        $user->email = $user->new_email;
-        $user->new_email = null;
-    }
-
-    if (! $user->hasVerifiedEmail()) {
-        $user->markEmailAsVerified();
-        event(new Verified($user));
-    }
-
-    return redirect('/login')->with('status', 'Je e-mailadres is geverifieerd. Je kunt nu inloggen.');
-})->middleware(['signed'])->name('verification.verify');
-
-
+Route::get('/email/verify/{id}/{hash}', [UserController::class, 'verifyEmail'])
+    ->middleware(['signed'])->name('verification.verify');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-Route::post('/register', function (Request $request) {
-    $user = app(CreateNewUser::class)->create($request->all());
-
-    event(new Registered($user));
-
-    return redirect()->route('verification.notice');
-})->name('register');
