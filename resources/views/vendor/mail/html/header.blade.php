@@ -2,8 +2,8 @@
 <tr>
 <td class="header">
 <a href="{{ $url }}" style="display: inline-block;">
-@if (trim($slot) === 'Laravel')
-<img src="https://svconcat.coloss.dev/assets/images/logo-white.png" class="logo" alt="Laravel Logo">
+@if (trim($slot) === 'Concat')
+<img src="{{asset("assets/images/logo-white.png")}}" class="logo" alt="Concat Logo">
 @else
 {{ $slot }}
 @endif
