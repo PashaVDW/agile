@@ -5,14 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
     carouselSwiper('#homeSwiper');
     carouselSwiper('#boardSwiper');
     navbar()
-});
     const webcalButton = document.getElementById('webcal');
     if (webcalButton) {
         webcalButton.addEventListener('click', function() {
             const webcalLink = `webcal://${window.location.host}/calendar.ics`;
             copyToClipboard(webcalLink);
         });
-    }});
+    }
+});
 
 function carouselSwiper(swiperId) {
     new Swiper(swiperId, {
