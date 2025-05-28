@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Mail\AnnouncementMail;
 use App\Mail\NewsLettermail;
-use App\Mail\NotifactionMail;
+use App\Mail\NotificationMail;
 use App\Models\Announcement;
 use App\Models\Event;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -14,7 +14,7 @@ class MailService
 {
     public function sendAnnouncementMail(Announcement $ann, string|array $to) : void
     {
-        Mail::to($to)->send(new NotifactionMail([
+        Mail::to($to)->send(new NotificationMail([
             'subject' => "nieuwe melding van concat: {$ann->title}",
             'title' => $ann->title,
             'id' => $ann->id,
@@ -30,7 +30,7 @@ class MailService
         $price = $event->price ? "Prijs: €{$event->price}\n" : '';
         $dates = "Datum: {$event->start_date}\n";
 
-        Mail::to($to)->send(new NotifactionMail([
+        Mail::to($to)->send(new NotificationMail([
             'subject' => " Nieuw evenement van concat: {$event->title}",
             'title' => $event->title,
             'id' => $event->id,

@@ -9,10 +9,10 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NotifactionMail extends Mailable
+class NotificationMail extends Mailable
 {
     use Queueable, SerializesModels;
-    
+
 
     public array $payload;
     public function __construct(array $payload)
