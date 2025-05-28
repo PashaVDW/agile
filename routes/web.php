@@ -141,7 +141,7 @@ Route::prefix('/event')->group(function () {
     });
 });
 
-Route::get('/about-us',[AboutUsController::class,'index'])->name('user.about_us.index');
+Route::get('/about-us',[AboutUsController::class,'index'])->name('user.about-us.index');
 
 Route::get('/community', [EventController::class, 'community'])->name('user.community.index');
 Route::get('/community/{id}', [EventController::class, 'show'])->name('user.community.show');
