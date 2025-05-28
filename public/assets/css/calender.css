@@ -20,10 +20,19 @@
 .calender {
     .sidebar {
         position: relative;
+        max-width: 400px;
         .button.item-button, button.item-button {
             width: 100%;
             text-align: center;
             margin-top: 30px;
+        }
+
+        .buttons.my_events{
+            .item-button{
+                &:first-child{
+                    margin-top: 0;
+                }
+            }
         }
     }
 

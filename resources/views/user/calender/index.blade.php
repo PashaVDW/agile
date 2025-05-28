@@ -45,7 +45,7 @@
                     </span>
                 </span>
                 <br />
-                <div class="buttons">
+                <div class="buttons {{request('status') === 'my_events' ? 'my_events' : ''}}">
                     <button class="item-button" id="webcal" data-user-id="{{$user}}">Webcal</button>
                     <a href="{{ route('calendar.ics', ['status' => request('status')]) }}" target="_blank" class="button item-button">Download</a>
                     @if(request('status') === null)
