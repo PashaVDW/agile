@@ -57,7 +57,7 @@
                         </li>
                     @else
                         <li class="nav-item {{ Request::is('register') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('register') }}">Inschrijven</a>
+                            <a class="nav-link" href="{{ route('register') }}">Registreren</a>
                         </li>
                         <li class="nav-item {{ Request::is('login') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('login') }}">Inloggen</a>
