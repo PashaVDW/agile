@@ -17,18 +17,40 @@ class CalenderController extends Controller
             $query->whereHas('registeredUsers', function ($q) {
                 $q->where('user_id', auth()->id());
             });
+            $user = auth()->user()->id;
         }
 
         $events = $query->get()->groupBy(function ($event) {
             return $event->start_date->format('F');
         });
 
-        return view('user.calender.index', ['events' => $events]);
+        return view('user.calender.index', ['events' => $events, 'user' => $user ?? null]);
     }
 
-    public function generateICS()
+    public function generateICS(Request $request, $id = null)
     {
-        $events = Event::all();
+//        $events = Event::all();
+//        $icsContent = $this->generateICSContent($events);
+//
+//        return response($icsContent, 200)
+//            ->header('Content-Type', 'text/calendar')
+//            ->header('Content-Disposition', 'attachment; filename="svconcat-calendar.ics"');
+
+        $query = Event::query()->where('status', 'active');
+
+        if ($request->has('status') && $request->status === 'my_events' && auth()->check()) {
+            $query->whereHas('registeredUsers', function ($q) {
+                $q->where('user_id', auth()->id());
+            });
+        }
+
+        if($id) {
+            $query->whereHas('registeredUsers', function ($q) use ($id) {
+                $q->where('user_id', $id);
+            });
+        }
+
+        $events = $query->get();
         $icsContent = $this->generateICSContent($events);
 
         return response($icsContent, 200)

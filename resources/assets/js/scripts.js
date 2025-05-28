@@ -6,10 +6,19 @@ document.addEventListener('DOMContentLoaded', function() {
     carouselSwiper('#boardSwiper');
     const webcalButton = document.getElementById('webcal');
     if (webcalButton) {
-        webcalButton.addEventListener('click', function() {
-            const webcalLink = `webcal://${window.location.host}/calendar.ics`;
-            copyToClipboard(webcalLink);
-        });
+        let userId = webcalButton.getAttribute('data-user-id');
+        if(userId) {
+            webcalButton.addEventListener('click', function() {
+                const webcalLink = `webcal://${window.location.host}/calendar/${userId}.ics`;
+                copyToClipboard(webcalLink);
+            });
+        }
+        else {
+            webcalButton.addEventListener('click', function() {
+                const webcalLink = `webcal://${window.location.host}/calendar.ics`;
+                copyToClipboard(webcalLink);
+            });
+        }
     }});
 
 function carouselSwiper(swiperId) {
