@@ -44,13 +44,15 @@
                 </span>
                 <br />
                 <div class="buttons">
-                    <button class="item-button" id="webcal">Webcal</button>
-                    <a href="{{ route('calendar.ics', ['status' => request('status', 'all')]) }}" target="_blank" class="button item-button">Download</a>
-                    <a href="https://calendar.google.com/calendar/u/0?cid=NTUwYjc2YTM3N2JmNDg2MjNjYWY5MTIzMmY2ZjI1MzI0NWEyNWVkMjYzYmY3OGQ3NmVkNjIwNmJkOWEwMDNjMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" class="button item-button">Google agenda</a>
+                    <button class="item-button" id="webcal" data-user-id="{{$user}}">Webcal</button>
+                    <a href="{{ route('calendar.ics', ['status' => request('status')]) }}" target="_blank" class="button item-button">Download</a>
+                    @if(request('status') === null)
+                        <a href="https://calendar.google.com/calendar/u/0?cid=NTUwYjc2YTM3N2JmNDg2MjNjYWY5MTIzMmY2ZjI1MzI0NWEyNWVkMjYzYmY3OGQ3NmVkNjIwNmJkOWEwMDNjMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" class="button item-button">Google agenda</a>
+                    @endif
                 </div>
                 <br />
                 @if(auth()->check())
-                <x-filters.dropdown :onchange="'this.form.submit()'" label="Filter" name="status" :list="['all' => 'Alle activiteiten', 'my_events' => 'Mijn activiteiten']" value="{{ request('status') }}"/>
+                <x-filters.dropdown :onchange="'this.form.submit()'" default="Alle activiteiten" label="Filter" name="status" :list="['my_events' => 'Mijn activiteiten']" value="{{ request('status') }}"/>
                 @endif
             </div>
         </div>

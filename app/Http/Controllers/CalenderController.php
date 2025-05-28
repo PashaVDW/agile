@@ -17,16 +17,17 @@ class CalenderController extends Controller
             $query->whereHas('registeredUsers', function ($q) {
                 $q->where('user_id', auth()->id());
             });
+            $user = auth()->user()->id;
         }
 
         $events = $query->get()->groupBy(function ($event) {
             return $event->start_date->format('F');
         });
 
-        return view('user.calender.index', ['events' => $events]);
+        return view('user.calender.index', ['events' => $events, 'user' => $user ?? null]);
     }
 
-    public function generateICS(Request $request)
+    public function generateICS(Request $request, $id = null)
     {
 //        $events = Event::all();
 //        $icsContent = $this->generateICSContent($events);
@@ -40,6 +41,12 @@ class CalenderController extends Controller
         if ($request->has('status') && $request->status === 'my_events' && auth()->check()) {
             $query->whereHas('registeredUsers', function ($q) {
                 $q->where('user_id', auth()->id());
+            });
+        }
+
+        if($id) {
+            $query->whereHas('registeredUsers', function ($q) use ($id) {
+                $q->where('user_id', $id);
             });
         }
 
