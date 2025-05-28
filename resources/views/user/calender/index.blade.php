@@ -35,8 +35,10 @@
                 <span class="tip">
                     ?
                     <span class="tooltiptext">
-                        Door op de Google agenda knop te klikken wordt je automatisch doorgewezen naar je persoonlijke google agenda waar de concat agenda is toegevoegd.
-                        <br />
+                        @if(request('status') === null)
+                            Door op de Google agenda knop te klikken wordt je automatisch doorgewezen naar je persoonlijke google agenda waar de concat agenda is toegevoegd.
+                            <br />
+                        @endif
                         Het downloaden van de agenda is een moment opname van de agenda op dat moment. Dit is een .ics bestand die je kan importeren in je eigen agenda.
                         <br />
                         Webcal is een link die je kan toevoegen aan je agenda. Wijzigingen kunnen enkele ogenblikken duren voordat deze zichtbaar zijn in je agenda.
