@@ -4,13 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
     carouselSwiper('#gallerySwiper');
     carouselSwiper('#homeSwiper');
     carouselSwiper('#boardSwiper');
+    navbar()
     const webcalButton = document.getElementById('webcal');
     if (webcalButton) {
         webcalButton.addEventListener('click', function() {
             const webcalLink = `webcal://${window.location.host}/calendar.ics`;
             copyToClipboard(webcalLink);
         });
-    }});
+    }
+});
 
 function carouselSwiper(swiperId) {
     new Swiper(swiperId, {
@@ -55,4 +57,19 @@ function copyToClipboard(text) {
     }).catch(err => {
         console.error('Failed to copy text: ', err);
     });
+}
+
+function navbar()
+{
+        const parentItems = document.querySelectorAll(".nav-item.has-children");
+
+        parentItems.forEach(item => {
+            item.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    const submenu = item.querySelector(".submenu");
+                    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+                }
+            });
+        });
 }
