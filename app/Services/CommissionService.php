@@ -13,6 +13,9 @@ class CommissionService
 {
 
     private SearchService $searchService;
+
+
+
     public function __construct(SearchService $searchService)
     {
         $this->searchService = $searchService;
@@ -34,6 +37,8 @@ class CommissionService
     }
     public function store(CommissionRequest $request)
     {
+
+
         $validated = $request->validated();
 
         Commission::create($validated);

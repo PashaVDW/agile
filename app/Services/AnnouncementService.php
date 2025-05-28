@@ -2,11 +2,18 @@
 
 namespace App\Services;
 
+use App\Mail\AnnouncementMail;
 use App\Models\Announcement;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class AnnouncementService
 {
+    private MailService $mailService;
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
     public function getAnnouncements()
     {
         return Announcement::query();
@@ -21,13 +28,13 @@ class AnnouncementService
 
     public function update(Announcement $announcement, array $data, $request): Announcement
     {
+
         if ($request->hasFile('image')) {
             ImageService::deleteImage(Announcement::class, $announcement, 'image');
             $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? ($data['image'] ?? null);
         }
 
         $announcement->update($data);
-
         return $announcement;
     }
 
