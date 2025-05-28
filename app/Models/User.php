@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\EmailVerificationNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -58,5 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function registeredEvents(): belongsToMany
     {
         return $this->belongsToMany(Event::class, 'event_registries', 'user_id', 'event_id');
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new EmailVerificationNotification);
     }
 }

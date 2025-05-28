@@ -31,7 +31,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'email.email' => 'Voer een geldig e-mailadres in.',
             'email.max' => 'Het e-mailadres mag maximaal 255 tekens bevatten.',
             'email.unique' => 'Dit e-mailadres is al in gebruik.',
-            'email.dns' => 'Deze domeinnaam is niet geldig',
             'email.regex' => 'Dit e-mailadres heeft een ongeldig formaat',
 
             'phone.required' => 'Het telefoonnummer is verplicht.',
@@ -48,7 +47,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'string',
                 'email',
                 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
-                'dns',
                 'max:255',
                 Rule::unique('users')->ignore($user->id),
             ],
