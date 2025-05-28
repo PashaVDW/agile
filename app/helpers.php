@@ -6,7 +6,7 @@ class helpers
 {
     public static function getProfileIcon(): string
     {
-        $today = now()->format('d-m');
+        $today = now()->format('m-d');
         $specialDays = config('holidays');
 
         if (array_key_exists($today, $specialDays)) {
