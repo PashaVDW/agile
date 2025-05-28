@@ -23,6 +23,6 @@ class NotificationMail extends Mailable
 
     public function build()
     {
-        return $this->markdown('emails.notifaction')->subject($this->payload['subject']);
+        return $this->markdown('emails.notification')->subject($this->payload['subject']);
     }
 }
