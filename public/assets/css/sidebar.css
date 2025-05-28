@@ -44,6 +44,12 @@
     .mb-4 {
         width: 100%;
     }
+    button a.button {
+        &.item-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
 }
 
 .events {

@@ -8,19 +8,17 @@
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}"><span class="home"></span></a>
             </li>
-            <li class="nav-item has-children {{ Request::is('event*') ? 'active' : '' }}">
+            <li class="nav-item {{ Request::is('event*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
-                {{--                <ul class="submenu">--}}
-                {{--                    <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">--}}
-                {{--                        <a class="nav-link" href="{{ route('user.community.index') }}">Community</a>--}}
-                {{--                    </li>--}}
-                {{--                    <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">--}}
-                {{--                        <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>--}}
-                {{--                    </li>--}}
-                {{--                    <li class="nav-item {{Request::is('assignment*') ? 'active' : ''}}">--}}
-                {{--                        <a class="nav-link" href="{{ route('user.assignments.index') }}">Prikbord</a>--}}
-                {{--                    </li>--}}
-                {{--                </ul>--}}
+            </li>
+            <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.community.index') }}">Community</a>
+            </li>
+            <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>
+            </li>
+            <li class="nav-item {{Request::is('assignment*') ? 'active' : ''}}">
+                <a class="nav-link" href="{{ route('user.assignments.index') }}">Prikbord</a>
             </li>
             <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
