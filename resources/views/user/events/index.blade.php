@@ -16,7 +16,9 @@
                 </div>
             </div>
             <div class="sidebar">
-                <x-filters.dropdown :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}"/>
+                <h2 class="has-background">Filters</h2>
+                <x-filters.dropdown :onchange="'this.form.submit()'" label="Status" default="Alle statussen" name="status" enum="{{\App\Enums\ActiveTypeEnum::class}}" value="{{ request('status') }}" :params="$bindings"/>
+                <x-filters.dropdown :onchange="'this.form.submit()'" label="Categorie" default="Alle categorieën" name="category" enum="{{\App\Enums\EventCategoryEnum::class}}" value="{{ request('category') }}" :params="$bindings"/>
                 <a class="button item-button" href="{{ route('user.calender.index') }}">Kalender</a>
             </div>
         </div>
