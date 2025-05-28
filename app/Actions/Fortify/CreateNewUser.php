@@ -3,7 +3,6 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -34,6 +33,8 @@ class CreateNewUser implements CreatesNewUsers
             'email.email' => 'Voer een geldig e-mailadres in.',
             'email.max' => 'Het e-mailadres mag maximaal 255 tekens bevatten.',
             'email.unique' => 'Dit e-mailadres is al in gebruik.',
+            'email.dns' => 'Deze domeinnaam is niet geldig',
+            'email.regex' => 'Dit e-mailadres heeft een ongeldig formaat',
 
             'phone.required' => 'Het telefoonnummer is verplicht.',
             'phone.string' => 'Het telefoonnummer moet een geldige tekst zijn.',
@@ -52,6 +53,8 @@ class CreateNewUser implements CreatesNewUsers
                 'required',
                 'string',
                 'email',
+                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+                'dns',
                 'max:255',
                 Rule::unique(User::class),
             ],
