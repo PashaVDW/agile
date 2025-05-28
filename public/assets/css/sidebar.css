@@ -41,6 +41,18 @@
             }
         }
     }
+    .mb-4 {
+        width: 100%;
+    }
+}
+
+.events {
+    .sidebar {
+        .button.item-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
 }
 
 @media only screen and (max-width: 1080px) {

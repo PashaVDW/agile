@@ -11,9 +11,6 @@
             <li class="nav-item has-children {{ Request::is('event*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
                 {{--                <ul class="submenu">--}}
-                {{--                    <li class="nav-item {{ Request::is('calender') ? 'active' : '' }}">--}}
-                {{--                        <a class="nav-link" href="{{ route('user.calender.index') }}">Kalender</a>--}}
-                {{--                    </li>--}}
                 {{--                    <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">--}}
                 {{--                        <a class="nav-link" href="{{ route('user.community.index') }}">Community</a>--}}
                 {{--                    </li>--}}
