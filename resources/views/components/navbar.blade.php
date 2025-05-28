@@ -6,24 +6,24 @@
     <div class="navbar-collapse" id="navbarNav">
         <ul class="navbar-nav flex-wrap">
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('home') }}">Home</a>
+                <a class="nav-link" href="{{ route('home') }}"><span class="home"></span></a>
             </li>
             <li class="nav-item has-children {{ Request::is('event*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
-                <ul class="submenu">
-                    <li class="nav-item {{ Request::is('calender') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('user.calender.index') }}">Kalender</a>
-                    </li>
-                    <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('user.community.index') }}">Community</a>
-                    </li>
-                    <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>
-                    </li>
-                    <li class="nav-item {{Request::is('assignment*') ? 'active' : ''}}">
-                        <a class="nav-link" href="{{ route('user.assignments.index') }}">Prikbord</a>
-                    </li>
-                </ul>
+                {{--                <ul class="submenu">--}}
+                {{--                    <li class="nav-item {{ Request::is('calender') ? 'active' : '' }}">--}}
+                {{--                        <a class="nav-link" href="{{ route('user.calender.index') }}">Kalender</a>--}}
+                {{--                    </li>--}}
+                {{--                    <li class="nav-item {{ Request::is('community*') ? 'active' : '' }}">--}}
+                {{--                        <a class="nav-link" href="{{ route('user.community.index') }}">Community</a>--}}
+                {{--                    </li>--}}
+                {{--                    <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">--}}
+                {{--                        <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>--}}
+                {{--                    </li>--}}
+                {{--                    <li class="nav-item {{Request::is('assignment*') ? 'active' : ''}}">--}}
+                {{--                        <a class="nav-link" href="{{ route('user.assignments.index') }}">Prikbord</a>--}}
+                {{--                    </li>--}}
+                {{--                </ul>--}}
             </li>
             <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
@@ -31,17 +31,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
             </li>
-            <li class="nav-item has-children {{ Request::is('about_us') ? 'active' : '' }}">
+            <li class="nav-item {{ Request::is('about_us') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.about_us.index') }}">Over ons</a>
-                <ul class="submenu">
-                    <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
-                    </li>
-                </ul>
+            </li>
+            <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
             </li>
 
             <li class="nav-item has-children">
-                <span class="nav-link">Account</span>
+                <span class="nav-link">
+                    <span class="profile" style="background-image: url('{{ App\helpers::getProfileIcon() }}')"></span>
+                </span>
                 <ul class="submenu">
                     @auth
                         @if(auth()->user()->hasRole('admin'))
@@ -78,23 +78,23 @@
 </nav>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function(){
+    document.addEventListener("DOMContentLoaded", function() {
         const navbarToggler = document.querySelector(".navbar-toggler");
         const navbarCollapse = document.querySelector("#navbarNav");
 
-        navbarToggler.addEventListener("click", function(event){
+        navbarToggler.addEventListener("click", function(event) {
             navbarCollapse.classList.toggle("show");
             event.stopPropagation();
         });
 
         document.addEventListener("click", function(event) {
-            if(!navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)){
+            if (!navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)) {
                 navbarCollapse.classList.remove("show");
             }
         });
 
         document.querySelectorAll(".navbar-nav .nav-link").forEach(item => {
-            item.addEventListener("click", function (){
+            item.addEventListener("click", function() {
                 navbarCollapse.classList.remove("show");
             });
         });

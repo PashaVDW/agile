@@ -33,6 +33,18 @@
                 opacity: 0.8;
                 transition: opacity .3s ease, transform .3s ease;
                 white-space: nowrap;
+
+                span {
+                    width: 30px;
+                    height: 30px;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    display: block;
+                    &.home {
+                        background-image: url('../images/icons/MaterialSymbolsLightHome.svg');
+                    }
+                }
+
                 &:after {
                     content: none;
                 }
