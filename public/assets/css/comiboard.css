@@ -10,6 +10,7 @@
         flex-wrap: wrap;
         gap: 50px;
         justify-content: space-between;
+        margin-top: 34px;
         .comiboard {
             border-radius: 25px;
             background-color: var(--default-white);
