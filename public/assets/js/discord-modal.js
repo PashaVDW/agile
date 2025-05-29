@@ -17,13 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const discordToggle = document.getElementById('discordToggle');
   const discordHint = document.getElementById('discord-hint');
 
-  const mainDiscordEnabledInput = document.getElementById('discord_enabled');
-  const mainDiscordTypeInput = document.getElementById('discord_type');
-  const mainDiscordChannelInput = document.getElementById('discord_channel');
-  const mainDiscordTagInput = document.getElementById('discord_tag');
-  const mainDiscordTitleInput = document.getElementById('discord_title');
-  const mainDiscordDescriptionInput = document.getElementById('discord_description');
-  const mainDiscordEmbedColorInput = document.getElementById('discord_embed_color');
+  // Main hidden inputs
+  const mainFields = [
+    'enabled', 'type', 'channel', 'tag', 'title', 'description', 'embed_color'
+  ];
+  const mainDiscordInputs = {};
+  mainFields.forEach(field => {
+    mainDiscordInputs[field] = document.getElementById(`discord_${field}`);
+  });
 
   const discordAppConfig = window.discordConfig || {
     channels: {},
@@ -37,120 +38,43 @@ document.addEventListener('DOMContentLoaded', function() {
     return;
   }
 
-  // --- EVENT LISTENERS ---
-  openBtn.onclick = function(e) {
-    e.preventDefault();
-    populateModalFieldsFromMainHidden();
-    modal.style.display = "flex";
-    setTimeout(() => modal.classList.add("show-modal"), 10);
-    updateNavButtons();
-    updateFormControlsState();
-  };
+  // ----- Helper Functions -----
+  function getModalFieldId(field, type) {
+    return `discord_${field}${type === 'embed' && ['channel', 'tag', 'title', 'description'].includes(field) ? '_embed' : ''}_modal`;
+  }
 
-  if (closeButton) closeButton.onclick = closeModal;
-  window.onclick = (e) => { if (e.target === modal) closeModal(); };
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape' && modal.classList.contains('show-modal')) {
-      closeModal();
+  function getModalField(field, type) {
+    return document.getElementById(getModalFieldId(field, type));
+  }
+
+  function setModalFieldsFromMain() {
+    const type = mainDiscordInputs.type?.value || 'standard';
+    ['channel', 'tag', 'title', 'description', 'embed_color'].forEach(field => {
+      const input = getModalField(field, type);
+      if (input && mainDiscordInputs[field]) {
+        input.value = mainDiscordInputs[field].value || '';
+      }
+    });
+  }
+
+  function saveModalFieldsToMain() {
+    const type = mainDiscordInputs.type?.value || 'standard';
+    ['channel', 'tag', 'title', 'description'].forEach(field => {
+      const input = getModalField(field, type);
+      if (input && mainDiscordInputs[field]) {
+        mainDiscordInputs[field].value = input.value || '';
+      }
+    });
+    if (type === 'embed') {
+      const colorInput = getModalField('embed_color', type);
+      if (colorInput && mainDiscordInputs.embed_color) {
+        mainDiscordInputs.embed_color.value = colorInput.value || discordAppConfig.defaultColor;
+      }
+    } else {
+      if (mainDiscordInputs.embed_color) {
+        mainDiscordInputs.embed_color.value = discordAppConfig.defaultColor;
+      }
     }
-  });
-
-  if (submitButton) {
-    submitButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      saveModalConfigurationToMainHidden();
-      updateMainPreview();
-      closeModal();
-    });
-  }
-
-  tabButtons.forEach(button => {
-    button.onclick = () => {
-      const tabId = button.getAttribute('data-tab');
-      if (mainDiscordTypeInput) {
-        mainDiscordTypeInput.value = tabId;
-      }
-
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      modal.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      const activeContent = modal.querySelector(`#${tabId}-content`);
-      if (activeContent) activeContent.classList.add('active');
-
-      if (activeContent) {
-        activeContent.querySelectorAll('.step-page').forEach((sp, idx) => sp.classList.toggle('active', idx === 0));
-      }
-
-      populateModalFieldsFromMainHidden();
-      updateNavButtons();
-      updateFormControlsState();
-    };
-  });
-
-  if (nextButton) {
-    nextButton.onclick = () => {
-      const currentPage = getCurrentActiveStepInActiveTab();
-      if (!currentPage) return;
-      const nextPage = currentPage.nextElementSibling;
-      if (nextPage && nextPage.classList.contains('step-page')) {
-        const currentPageNumber = parseInt(currentPage.dataset.page, 10);
-        if (currentPageNumber === 1) {
-          const activeTab = modal.querySelector('.tab-content.active');
-          const channelSelect = activeTab.querySelector('select[id^="discord_channel"]');
-          if (!channelSelect || !channelSelect.value) {
-            alert('Selecteer een kanaal voordat je doorgaat.');
-            channelSelect.focus();
-            return;
-          }
-        }
-
-        currentPage.classList.remove('active');
-        nextPage.classList.add('active');
-        updateNavButtons();
-        updateFormControlsState();
-      }
-    };
-  }
-
-  if (prevButton) {
-    prevButton.onclick = () => {
-      const currentPage = getCurrentActiveStepInActiveTab();
-      if (!currentPage) return;
-      const prevPage = currentPage.previousElementSibling;
-      if (prevPage && prevPage.classList.contains('step-page')) {
-        currentPage.classList.remove('active');
-        prevPage.classList.add('active');
-        updateNavButtons();
-        updateFormControlsState();
-      }
-    };
-  }
-
-  if (discordToggle) {
-    discordToggle.addEventListener('change', function() {
-      const isChecked = this.checked;
-      if (openBtn) openBtn.disabled = !isChecked;
-      if (mainDiscordEnabledInput) mainDiscordEnabledInput.value = isChecked ? '1' : '0';
-      if (discordHint) discordHint.style.display = isChecked ? 'none' : 'block';
-      if (discordPreviewContainer) discordPreviewContainer.style.display = isChecked ? 'block' : 'none';
-
-      if (!isChecked) {
-        if (mainDiscordTypeInput) mainDiscordTypeInput.value = 'standard';
-        if (mainDiscordChannelInput) mainDiscordChannelInput.value = '';
-        if (mainDiscordTagInput) mainDiscordTagInput.value = '';
-        if (mainDiscordTitleInput) mainDiscordTitleInput.value = '';
-        if (mainDiscordDescriptionInput) mainDiscordDescriptionInput.value = '';
-        if (mainDiscordEmbedColorInput) mainDiscordEmbedColorInput.value = discordAppConfig.defaultColor;
-      }
-      updateMainPreview();
-    });
-  }
-
-  // --- FUNCTIONS ---
-  function closeModal() {
-    modal.classList.remove("show-modal");
-    setTimeout(() => modal.style.display = "none", 300);
   }
 
   function toggleFormControls(container, shouldDisable) {
@@ -176,156 +100,189 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateNavButtons() {
     const currentPage = getCurrentActiveStepInActiveTab();
     if (!currentPage || !prevButton || !nextButton || !submitButton) {
-      if (prevButton) prevButton.style.display = 'none';
-      if (nextButton) nextButton.style.display = 'none';
-      if (submitButton) submitButton.style.display = 'none';
+      prevButton && (prevButton.style.display = 'none');
+      nextButton && (nextButton.style.display = 'none');
+      submitButton && (submitButton.style.display = 'none');
       return;
     }
     const pageNum = parseInt(currentPage.getAttribute('data-page'));
     const totalPages = currentPage.parentElement.querySelectorAll('.step-page').length;
-
     prevButton.style.display = pageNum > 1 ? 'block' : 'none';
     nextButton.style.display = pageNum < totalPages ? 'block' : 'none';
     submitButton.style.display = pageNum === totalPages ? 'block' : 'none';
   }
 
-  function saveModalConfigurationToMainHidden() {
-    if (!mainDiscordTypeInput) return;
-    const currentType = mainDiscordTypeInput.value;
-    const isEmbed = currentType === 'embed';
-
-    const channelInputId = `discord_channel${isEmbed ? '_embed' : ''}_modal`;
-    const tagInputId = `discord_tag${isEmbed ? '_embed' : ''}_modal`;
-    const titleInputId = `discord_title${isEmbed ? '_embed' : ''}_modal`;
-    const descriptionInputId = `discord_description${isEmbed ? '_embed' : ''}_modal`;
-
-    const modalChannel = document.getElementById(channelInputId)?.value;
-    const modalTag = document.getElementById(tagInputId)?.value;
-    const modalTitle = document.getElementById(titleInputId)?.value;
-    const modalDescription = document.getElementById(descriptionInputId)?.value;
-
-    if (mainDiscordChannelInput) mainDiscordChannelInput.value = modalChannel || '';
-    if (mainDiscordTagInput) mainDiscordTagInput.value = modalTag || '';
-    if (mainDiscordTitleInput) mainDiscordTitleInput.value = modalTitle || '';
-    if (mainDiscordDescriptionInput) mainDiscordDescriptionInput.value = modalDescription || '';
-
-    if (isEmbed) {
-      const modalColor = document.getElementById('discord_embed_color_modal')?.value;
-      if (mainDiscordEmbedColorInput) mainDiscordEmbedColorInput.value = modalColor || discordAppConfig.defaultColor;
-    } else {
-      if (mainDiscordEmbedColorInput) mainDiscordEmbedColorInput.value = discordAppConfig.defaultColor;
-    }
-  }
-
-  function populateModalFieldsFromMainHidden() {
-    if (!mainDiscordTypeInput) return;
-    const currentType = mainDiscordTypeInput.value;
-    const isEmbed = currentType === 'embed';
-
-    const channelInputId = `discord_channel${isEmbed ? '_embed' : ''}_modal`;
-    const tagInputId = `discord_tag${isEmbed ? '_embed' : ''}_modal`;
-    const titleInputId = `discord_title${isEmbed ? '_embed' : ''}_modal`;
-    const descriptionInputId = `discord_description${isEmbed ? '_embed' : ''}_modal`;
-
-    const modalChannelEl = document.getElementById(channelInputId);
-    const modalTagEl = document.getElementById(tagInputId);
-    const modalTitleEl = document.getElementById(titleInputId);
-    const modalDescriptionEl = document.getElementById(descriptionInputId);
-
-    if (modalChannelEl && mainDiscordChannelInput) modalChannelEl.value = mainDiscordChannelInput.value;
-    if (modalTagEl && mainDiscordTagInput) modalTagEl.value = mainDiscordTagInput.value;
-    if (modalTitleEl && mainDiscordTitleInput) modalTitleEl.value = mainDiscordTitleInput.value;
-    if (modalDescriptionEl && mainDiscordDescriptionInput) modalDescriptionEl.value = mainDiscordDescriptionInput.value;
-
-    if (isEmbed) {
-      const modalColorEl = document.getElementById('discord_embed_color_modal');
-      if (modalColorEl && mainDiscordEmbedColorInput) modalColorEl.value = mainDiscordEmbedColorInput.value;
-    }
-  }
-
   function updateMainPreview() {
-    if (!mainDiscordTypeInput || !discordPreviewContainer) return;
+    if (!mainDiscordInputs.type || !discordPreviewContainer) return;
     if (discordPreviewContainer.style.display === 'none' && discordToggle && !discordToggle.checked) return;
 
-    const currentType = mainDiscordTypeInput.value;
-    const isEmbed = currentType === 'embed';
+    const type = mainDiscordInputs.type.value || 'standard';
+    const isEmbed = type === 'embed';
+    const channel = mainDiscordInputs.channel.value || '';
+    const tag = mainDiscordInputs.tag.value || '';
+    const title = mainDiscordInputs.title.value || '';
+    const description = mainDiscordInputs.description.value || '';
+    const color = mainDiscordInputs.embed_color.value || discordAppConfig.defaultColor;
 
-    const channel = mainDiscordChannelInput ? mainDiscordChannelInput.value : '';
-    const tag = mainDiscordTagInput ? mainDiscordTagInput.value : '';
-    const title = mainDiscordTitleInput ? mainDiscordTitleInput.value : '';
-    const description = mainDiscordDescriptionInput ? mainDiscordDescriptionInput.value : '';
-
+    // Tag
     const previewTagEl = document.getElementById('preview-tag');
     if (previewTagEl) {
       const tagData = discordAppConfig.tags[tag];
       previewTagEl.textContent = tagData ? tagData.name : (tag ? `@${tag}` : '');
       previewTagEl.style.display = tag ? 'block' : 'none';
     }
-
+    // Channel
     const channelNameEl = discordPreviewContainer.querySelector('.channel-name');
     if (channelNameEl) {
       const channelData = discordAppConfig.channels[channel];
       channelNameEl.textContent = channelData ? `#${channelData.name}` : (channel ? `#${channel}` : '(Geen kanaal)');
     }
 
+    // Standard vs Embed
     const previewStandardDiv = document.getElementById('preview-standard');
     const previewEmbedDiv = document.getElementById('preview-embed');
-
     if (isEmbed) {
-      if (previewStandardDiv) previewStandardDiv.style.display = 'none';
-      if (previewEmbedDiv) previewEmbedDiv.style.display = 'block';
-
-      const color = mainDiscordEmbedColorInput ? mainDiscordEmbedColorInput.value : discordAppConfig.defaultColor;
+      previewStandardDiv && (previewStandardDiv.style.display = 'none');
+      previewEmbedDiv && (previewEmbedDiv.style.display = 'block');
+      // Embed fields
       const colorBar = previewEmbedDiv.querySelector('.embed-color-bar');
-      if (colorBar) colorBar.style.backgroundColor = color;
-
+      colorBar && (colorBar.style.backgroundColor = color);
       const embedTitleEl = previewEmbedDiv.querySelector('.embed-title');
+      embedTitleEl && (embedTitleEl.textContent = title);
       const embedDescriptionEl = previewEmbedDiv.querySelector('.embed-description');
-      if (embedTitleEl) embedTitleEl.textContent = title;
       if (embedDescriptionEl && typeof marked !== 'undefined') {
         embedDescriptionEl.innerHTML = description ? marked.parse(description) : '';
       } else if (embedDescriptionEl) {
         embedDescriptionEl.textContent = description;
       }
     } else {
-      if (previewStandardDiv) previewStandardDiv.style.display = 'block';
-      if (previewEmbedDiv) previewEmbedDiv.style.display = 'none';
-
+      previewStandardDiv && (previewStandardDiv.style.display = 'block');
+      previewEmbedDiv && (previewEmbedDiv.style.display = 'none');
       const messageTitleEl = document.getElementById('preview-title');
+      messageTitleEl && (messageTitleEl.textContent = title);
       const messageDescriptionEl = document.getElementById('preview-description');
-
-      if (messageTitleEl) messageTitleEl.textContent = title;
       if (messageDescriptionEl && typeof marked !== 'undefined') {
         messageDescriptionEl.innerHTML = description ? marked.parse(description) : '';
       } else if (messageDescriptionEl) {
         messageDescriptionEl.textContent = description;
       }
     }
-
     if (discordPreviewContainer && discordToggle) {
       discordPreviewContainer.style.display = discordToggle.checked ? 'block' : 'none';
     }
   }
 
-  // --- INITIALIZATION ---
-  if (discordToggle && mainDiscordEnabledInput) {
-    const isInitiallyEnabled = mainDiscordEnabledInput.value === '1';
-    discordToggle.checked = isInitiallyEnabled;
-    if (openBtn) openBtn.disabled = !isInitiallyEnabled;
-    if (discordHint) discordHint.style.display = isInitiallyEnabled ? 'none' : 'block';
-    if (discordPreviewContainer) discordPreviewContainer.style.display = isInitiallyEnabled ? 'block' : 'none';
+  function closeModal() {
+    modal.classList.remove("show-modal");
+    setTimeout(() => modal.style.display = "none", 300);
   }
 
-  if (mainDiscordTypeInput && tabButtons.length > 0) {
-    const initialType = mainDiscordTypeInput.value || 'standard';
-    let tabFoundAndClicked = false;
+  // ----- Event Listeners -----
+  openBtn.onclick = function(e) {
+    e.preventDefault();
+    setModalFieldsFromMain();
+    modal.style.display = "flex";
+    setTimeout(() => modal.classList.add("show-modal"), 10);
+    updateNavButtons();
+    updateFormControlsState();
+  };
+
+  closeButton && (closeButton.onclick = closeModal);
+  window.onclick = (e) => { if (e.target === modal) closeModal(); };
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modal.classList.contains('show-modal')) closeModal();
+  });
+
+  submitButton && submitButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    saveModalFieldsToMain();
+    updateMainPreview();
+    closeModal();
+  });
+
+  tabButtons.forEach(button => {
+    button.onclick = () => {
+      const tabId = button.getAttribute('data-tab');
+      mainDiscordInputs.type && (mainDiscordInputs.type.value = tabId);
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      modal.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      const activeContent = modal.querySelector(`#${tabId}-content`);
+      activeContent && activeContent.classList.add('active');
+      activeContent && activeContent.querySelectorAll('.step-page').forEach((sp, idx) => sp.classList.toggle('active', idx === 0));
+      setModalFieldsFromMain();
+      updateNavButtons();
+      updateFormControlsState();
+    };
+  });
+
+  nextButton && (nextButton.onclick = () => {
+    const currentPage = getCurrentActiveStepInActiveTab();
+    if (!currentPage) return;
+    const nextPage = currentPage.nextElementSibling;
+    if (nextPage && nextPage.classList.contains('step-page')) {
+      const currentPageNumber = parseInt(currentPage.dataset.page, 10);
+      if (currentPageNumber === 1) {
+        const activeTab = modal.querySelector('.tab-content.active');
+        const channelSelect = activeTab.querySelector('select[id^="discord_channel"]');
+        if (!channelSelect || !channelSelect.value) {
+          alert('Selecteer een kanaal voordat je doorgaat.');
+          channelSelect.focus();
+          return;
+        }
+      }
+      currentPage.classList.remove('active');
+      nextPage.classList.add('active');
+      updateNavButtons();
+      updateFormControlsState();
+    }
+  });
+
+  prevButton && (prevButton.onclick = () => {
+    const currentPage = getCurrentActiveStepInActiveTab();
+    if (!currentPage) return;
+    const prevPage = currentPage.previousElementSibling;
+    if (prevPage && prevPage.classList.contains('step-page')) {
+      currentPage.classList.remove('active');
+      prevPage.classList.add('active');
+      updateNavButtons();
+      updateFormControlsState();
+    }
+  });
+
+  discordToggle && discordToggle.addEventListener('change', function() {
+    const isChecked = this.checked;
+    openBtn && (openBtn.disabled = !isChecked);
+    mainDiscordInputs.enabled && (mainDiscordInputs.enabled.value = isChecked ? '1' : '0');
+    discordHint && (discordHint.style.display = isChecked ? 'none' : 'block');
+    discordPreviewContainer && (discordPreviewContainer.style.display = isChecked ? 'block' : 'none');
+    if (!isChecked) {
+      mainDiscordInputs.type && (mainDiscordInputs.type.value = 'standard');
+      ['channel', 'tag', 'title', 'description'].forEach(f => mainDiscordInputs[f] && (mainDiscordInputs[f].value = ''));
+      mainDiscordInputs.embed_color && (mainDiscordInputs.embed_color.value = discordAppConfig.defaultColor);
+    }
+    updateMainPreview();
+  });
+
+  // ----- Initialization -----
+  if (discordToggle && mainDiscordInputs.enabled) {
+    const isInitiallyEnabled = mainDiscordInputs.enabled.value === '1';
+    discordToggle.checked = isInitiallyEnabled;
+    openBtn && (openBtn.disabled = !isInitiallyEnabled);
+    discordHint && (discordHint.style.display = isInitiallyEnabled ? 'none' : 'block');
+    discordPreviewContainer && (discordPreviewContainer.style.display = isInitiallyEnabled ? 'block' : 'none');
+  }
+
+  if (mainDiscordInputs.type && tabButtons.length > 0) {
+    const initialType = mainDiscordInputs.type.value || 'standard';
+    let tabFound = false;
     tabButtons.forEach(btn => {
       if (btn.getAttribute('data-tab') === initialType) {
         btn.click();
-        tabFoundAndClicked = true;
+        tabFound = true;
       }
     });
-    if (!tabFoundAndClicked && tabButtons.length > 0) tabButtons[0].click();
+    if (!tabFound && tabButtons.length > 0) tabButtons[0].click();
   } else if (tabButtons.length > 0) {
     tabButtons[0].click();
   } else {

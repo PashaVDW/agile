@@ -61,6 +61,7 @@ class SendDiscordWebhookNotification
         try {
             $response = Http::post($webhookUrl, $payload);
         } catch (\Exception $e) {
+            \Log::error('Discord Webhook failed: ' . $e->getMessage());
         }
     }
 
@@ -104,7 +105,6 @@ class SendDiscordWebhookNotification
     {
         $title = $settings['title'] ?? $model->title;
 
-        // Add suffix for updated events
         if ($eventType === 'event_updated') {
             $title .= ' (Bijgewerkt)';
         }
