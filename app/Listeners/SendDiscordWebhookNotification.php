@@ -119,12 +119,6 @@ class SendDiscordWebhookNotification
             ]
         ];
 
-        if (!empty($settings['embed_author'])) {
-            $embed['author'] = [
-                'name' => $settings['embed_author']
-            ];
-        }
-
         if (in_array($eventType, ['event_created', 'event_updated'])) {
             $embed['fields'] = $this->buildEventFields($model);
         }

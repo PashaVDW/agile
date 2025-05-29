@@ -187,12 +187,6 @@
     color: #dcddde;
 }
 
-.embed-author-preview {
-    color: #ffffff;
-    font-size: 14px;
-    margin-bottom: 4px;
-}
-
 .embed-title-preview {
     color: #ffffff;
     font-size: 16px;
@@ -367,21 +361,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
-
-.embed-author {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #ffffff;
-    font-size: 14px;
-    min-height: 22px;
-}
-
-.embed-author-name {
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 500;
 }
 
 .embed-title {
