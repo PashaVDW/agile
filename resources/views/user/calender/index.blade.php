@@ -50,7 +50,7 @@
                     @if(request('status') === null)
                         <a href="https://calendar.google.com/calendar/u/0?cid=NTUwYjc2YTM3N2JmNDg2MjNjYWY5MTIzMmY2ZjI1MzI0NWEyNWVkMjYzYmY3OGQ3NmVkNjIwNmJkOWEwMDNjMkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t" class="button item-button">Google agenda</a>
                     @endif
-                    <a href="{{ route('calendar.ics', ['status' => request('status')]) }}" target="_blank" class="button item-button">Download</a>
+                    <a href="{{ route('calendar.ics.default', ['status' => request('status')]) }}" target="_blank" class="button item-button">Download</a>
                 </div>
                 <br />
                 @if(auth()->check())
