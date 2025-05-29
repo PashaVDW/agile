@@ -2,6 +2,8 @@
 
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\WeeztixController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CalenderController;
@@ -15,7 +17,6 @@ use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use Spatie\GoogleCalendar\Event;
 
 // Admin Routes
 Route::middleware(['role:admin'])->group(function () {
@@ -103,6 +104,22 @@ Route::middleware(['role:admin'])->group(function () {
             Route::put('/update/{id}', [CommissionController::class, 'update'])->name('admin.commission.update');
             Route::delete('/delete/{id}', [CommissionController::class, 'delete'])->name('admin.commission.delete');
         });
+
+        Route::get('/assignments', [AssignmentController::class, 'index'])->name('admin.assignments.index');
+        Route::prefix('/assignment')->group(function () {
+            Route::get('/create', [AssignmentController::class, 'create'])->name('admin.assignment.create');
+            Route::post('/store', [AssignmentController::class, 'store'])->name('admin.assignment.store');
+            Route::get('/{id}', [AssignmentController::class, 'show'])->name('admin.assignment.show');
+            Route::put('/update/{id}', [AssignmentController::class, 'update'])->name('admin.assignment.update');
+            Route::delete('/delete/{id}', [AssignmentController::class, 'delete'])->name('admin.assignment.delete');
+        });
+
+        Route::prefix('/weeztix')->name('admin.weeztix.')->group(function () {
+            Route::get('/', [WeeztixController::class, 'index'])->name('index');
+            Route::get('/callback', [WeeztixController::class, 'callback'])->name('callback');
+            Route::get("/create-token", [WeeztixController::class, "createToken"])->name("create-token");
+            Route::post('/refresh-token', [WeeztixController::class, 'refreshToken'])->name('refresh-token');
+        });
     });
 });
 
@@ -136,6 +153,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [UserController::class, 'update'])->name('user.profile.update');
     Route::post('/profile/password', [UserController::class, 'password'])->name('user.password.update');
 });
+
+Route::get('/assignments', [AssignmentController::class, 'index'])->name('user.assignments.index');
+Route::get('/assignment/{id}', [AssignmentController::class, 'show'])->name('user.assignment.show');
 
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
 Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');

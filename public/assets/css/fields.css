@@ -29,6 +29,12 @@ form.dropzone {
             align-items: center;
             margin: 0 auto;
         }
+        .dz-size {
+            display: none;
+        }
+        .dz-filename {
+            margin-top: 25px;
+        }
         .dz-remove {
             margin: 0 auto;
         }

@@ -10,6 +10,11 @@ use App\Models\Gallery;
 
 class EventService
 {
+    private MailService $mailService;
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
     public function getEvents()
     {
         return Event::query()
@@ -60,6 +65,7 @@ class EventService
         $event = Event::find($id);
         $discordSettings = $request->input('discord') ?? null;
 
+
         if ($request->hasFile('banner')) {
             ImageService::deleteImage(Event::class, $event, 'banner');
             $data['banner'] = ImageService::StoreImage(
@@ -81,6 +87,7 @@ class EventService
 
         event(new EventCreated($event, $discordSettings));
         $event->sponsors()->sync($request->input('sponsors', []));
+
     }
 
     private function setStatus($startDate, $endDate = null)
