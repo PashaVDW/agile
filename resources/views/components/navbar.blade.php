@@ -8,6 +8,9 @@
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}"><span class="home"></span></a>
             </li>
+            <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
+            </li>
             <li class="nav-item {{ Request::is('event*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
             </li>
@@ -17,17 +20,14 @@
             <li class="nav-item {{Request::is('assignment*') ? 'active' : ''}}">
                 <a class="nav-link" href="{{ route('user.assignments.index') }}">Prikbord</a>
             </li>
-            <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
+            <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
             </li>
             <li class="nav-item {{ Request::is('about_us') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.about_us.index') }}">Over ons</a>
             </li>
-            <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
+            <li class="nav-item">
+                <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
             </li>
 
             <li class="nav-item has-children">
