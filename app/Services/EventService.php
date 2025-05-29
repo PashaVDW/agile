@@ -2,19 +2,21 @@
 
 namespace App\Services;
 
-use App\Events\EventCreated;
-use App\Jobs\CreateGoogleCalendarEvent;
-use App\Jobs\UpdateGoogleCalendarEvent;
 use App\Models\Event;
 use App\Models\Gallery;
+use App\Services\DiscordService;
+use App\Jobs\CreateGoogleCalendarEvent;
+use App\Jobs\UpdateGoogleCalendarEvent;
 
 class EventService
 {
     private MailService $mailService;
+
     public function __construct(MailService $mailService)
     {
         $this->mailService = $mailService;
     }
+
     public function getEvents()
     {
         return Event::query()
@@ -25,7 +27,7 @@ class EventService
 
     public function getEvent($id)
     {
-        return Event::find($id)->load('sponsors');
+        return Event::find($id)?->load('sponsors');
     }
 
     public function storeEvent($request)
@@ -52,8 +54,9 @@ class EventService
         $event->sponsors()->sync($request->input('sponsors', []));
 
         $discordSettings = $request->input('discord') ?? null;
+        DiscordService::notifyDiscord($event, $discordSettings, 'event_created');
 
-        event(new EventCreated($event, $discordSettings));
+        return $event;
     }
 
     public function updateEvent($request, $id)
@@ -62,8 +65,6 @@ class EventService
         $data['is_open'] = $request->input('is_open', false) === 'on';
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::find($id);
-        $discordSettings = $request->input('discord') ?? null;
-
 
         if ($request->hasFile('banner')) {
             ImageService::deleteImage(Event::class, $event, 'banner');
@@ -84,9 +85,12 @@ class EventService
             $event->id
         ));
 
-        event(new EventCreated($event, $discordSettings));
         $event->sponsors()->sync($request->input('sponsors', []));
 
+        $discordSettings = $request->input('discord') ?? null;
+        DiscordService::notifyDiscord($event, $discordSettings, 'event_updated');
+
+        return $event;
     }
 
     private function setStatus($startDate, $endDate = null)
