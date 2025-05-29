@@ -54,7 +54,6 @@ class EventService
         $discordSettings = $request->input('discord') ?? null;
 
         event(new EventCreated($event, $discordSettings));
-        return $event;
     }
 
     public function updateEvent($request, $id)

@@ -6,9 +6,16 @@ use App\Events\AnnouncementCreated;
 use App\Models\Announcement;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\AnnouncementMail;
+use Illuminate\Support\Facades\Mail;
 
 class AnnouncementService
 {
+    private MailService $mailService;
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
     public function getAnnouncements(): Builder
     {
         return Announcement::query();
