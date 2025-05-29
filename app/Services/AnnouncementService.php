@@ -33,7 +33,9 @@ class AnnouncementService
         }
 
         $announcement->update($data);
+        $discordSettings = $request->input('discord') ?? null;
 
+        event(new AnnouncementCreated($announcement, $discordSettings));
         return $announcement;
     }
 

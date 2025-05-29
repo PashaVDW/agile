@@ -56,18 +56,13 @@
                 <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
-            <div class="mb-5">
-                <x-discord-modal />
-            </div>
-
             <div class="mb-5">
                 <x-forms.input-file name="image" label="Afbeelding" :title="($announcement->title ?? '')" value="{{ $announcement->banner_url ?? '' }}" />
                 @error('image')
                 <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
+            <x-discord-modal />
             <div class="mb-3">
                 <button
                     type="submit"

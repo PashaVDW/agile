@@ -58,6 +58,7 @@ class EventService
         $data['is_open'] = $request->input('is_open', false) === 'on';
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::find($id);
+        $discordSettings = $request->input('discord') ?? null;
 
         if ($request->hasFile('banner')) {
             ImageService::deleteImage(Event::class, $event, 'banner');
@@ -78,9 +79,8 @@ class EventService
             $event->id
         ));
 
+        event(new EventCreated($event, $discordSettings));
         $event->sponsors()->sync($request->input('sponsors', []));
-
-        return $event;
     }
 
     private function setStatus($startDate, $endDate = null)
@@ -105,7 +105,7 @@ class EventService
                         $googleEvent->delete();
                     }
                 } catch (\Exception $e) {
-                    // Silently handle the error
+                    \Log::error('Error deleting Google Calendar event: ' . $e->getMessage());
                 }
             }
             $event->delete();

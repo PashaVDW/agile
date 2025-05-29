@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const discordHint = document.getElementById('discord-hint');
 
   const mainDiscordEnabledInput = document.getElementById('discord_enabled');
-  const mainDiscordTypeInput = document.getElementById('discord_type'); // CRITICAL
+  const mainDiscordTypeInput = document.getElementById('discord_type');
   const mainDiscordChannelInput = document.getElementById('discord_channel');
   const mainDiscordTagInput = document.getElementById('discord_tag');
   const mainDiscordTitleInput = document.getElementById('discord_title');
@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const mainDiscordEmbedColorInput = document.getElementById('discord_embed_color');
   const mainDiscordEmbedAuthorInput = document.getElementById('discord_embed_author');
 
-  // --- CONFIGURATION (ensure window.discordConfig is set in Blade) ---
   const discordAppConfig = window.discordConfig || {
     channels: {},
     tags: {},

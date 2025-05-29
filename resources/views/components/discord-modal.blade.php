@@ -15,7 +15,6 @@
 @endphp
 
 <div class="discord-section">
-    {{-- Hidden inputs to store Discord configuration --}}
     <div data-discord-config>
         <input type="hidden" name="discord[enabled]" id="discord_enabled" value="{{ old('discord.enabled', '0') }}">
         <input type="hidden" name="discord[type]" id="discord_type" value="{{ old('discord.type', 'standard') }}">
@@ -89,7 +88,6 @@
     </div>
 </div>
 
-{{-- Discord Modal Component --}}
 <div id="myModal" class="modal">
     <div class="modal-content dark:bg-gray-800">
         <span class="close-button dark:text-gray-400">&times;</span>
