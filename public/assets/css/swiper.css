@@ -85,3 +85,12 @@
     }
 
 }
+
+@media(max-width: 768px)
+{
+    .swiper-container{
+        .swiper-button-prev, .swiper-button-next{
+            visibility:hidden;
+        }
+    }
+}
