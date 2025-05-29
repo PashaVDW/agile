@@ -28,6 +28,11 @@
             margin-top: 1em;
         }
 
+        .login-message{
+            display: inline;
+            color: black;
+        }
+
         .button.item-button, button.item-button {
             width: 100%;
             text-align: center;

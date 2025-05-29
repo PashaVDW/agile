@@ -28,7 +28,7 @@
             <div class="sidebar">
                 @if(request('status') === 'my_events')
                     <h2 class="has-background">Eigen Agenda's</h2>
-                    <p>Gefilterd op eigen activiteiten. Dus alleen de activiteiten waarvoor u bent ingeschreven zullen aan uw eigen agenda worden toegevoegd.</p>
+                    <p>Gefilterd op eigen activiteiten. Dus alleen de activiteiten waarvoor je bent ingeschreven zullen aan jouw eigen agenda worden toegevoegd.</p>
                 @else
                     <h2 class="has-background">Agenda's</h2>
                 @endif
@@ -55,6 +55,8 @@
                 <br />
                 @if(auth()->check())
                 <x-filters.dropdown :onchange="'this.form.submit()'" default="Alle activiteiten" label="Filter" name="status" :list="['my_events' => 'Mijn activiteiten']" value="{{ request('status') }}"/>
+                @else
+                    <p><a href="{{ route('login') }}" class="login-message">Log in</a> om te filteren op activiteiten waarvoor je bent ingeschreven.</p>
                 @endif
             </div>
         </div>
