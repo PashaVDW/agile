@@ -81,12 +81,6 @@ class DiscordService
             ]
         ];
 
-        if (!empty($settings['embed_author'])) {
-            $embed['author'] = [
-                'name' => $settings['embed_author']
-            ];
-        }
-
         if (method_exists($model, 'getDiscordEmbedFields')) {
             $embed['fields'] = $model->getDiscordEmbedFields($eventType);
         }

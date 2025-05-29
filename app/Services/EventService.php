@@ -55,8 +55,6 @@ class EventService
 
         $discordSettings = $request->input('discord') ?? null;
         DiscordService::notifyDiscord($event, $discordSettings, 'event_created');
-
-        return $event;
     }
 
     public function updateEvent($request, $id)
@@ -89,8 +87,6 @@ class EventService
 
         $discordSettings = $request->input('discord') ?? null;
         DiscordService::notifyDiscord($event, $discordSettings, 'event_updated');
-
-        return $event;
     }
 
     private function setStatus($startDate, $endDate = null)
