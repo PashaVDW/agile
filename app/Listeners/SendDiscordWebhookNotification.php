@@ -25,7 +25,7 @@ class SendDiscordWebhookNotification
     {
         if ($event instanceof AnnouncementCreated) {
             return $event->announcement;
-        } elseif ($event instanceof EventCreated || $event instanceof EventUpdated) {
+        } elseif ($event instanceof EventCreated) {
             return $event->event;
         }
 
@@ -38,10 +38,7 @@ class SendDiscordWebhookNotification
             return 'announcement';
         } elseif ($event instanceof EventCreated) {
             return 'event_created';
-        } elseif ($event instanceof EventUpdated) {
-            return 'event_updated';
         }
-
         return 'unknown';
     }
 
@@ -145,12 +142,12 @@ class SendDiscordWebhookNotification
             ],
             [
                 'name' => 'Categorie',
-                'value' => $event->category ?? 'Geen categorie',
+                'value' => $event->category ? __($event->category->value) : 'Geen categorie',
                 'inline' => true,
             ],
             [
                 'name' => 'Status',
-                'value' => $event->status,
+                'value' => __($event->status->value),
                 'inline' => true,
             ]
         ];

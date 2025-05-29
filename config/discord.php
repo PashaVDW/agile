@@ -20,11 +20,6 @@ return [
             'value' => '@everyone',
             'description' => 'Notify all server members'
         ],
-        'tag' => [
-            'name' => '@faketag',
-            'value' => '@faketag',
-            'description' => 'Notify all server members'
-        ],
         'here' => [
             'name' => '@here',
             'value' => '@here',

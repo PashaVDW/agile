@@ -161,11 +161,6 @@
     margin-bottom: 0;
 }
 
-/* Navigation Buttons */
-.button {
-    display: inline-block;
-}
-
 .button[style*="display: none"] {
     display: none !important;
 }
