@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\WeeztixController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\AnnouncementController;
@@ -16,7 +17,6 @@ use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Spatie\GoogleCalendar\Event;
 
 // Admin Routes
 Route::middleware(['role:admin'])->group(function () {
@@ -112,6 +112,13 @@ Route::middleware(['role:admin'])->group(function () {
             Route::get('/{id}', [AssignmentController::class, 'show'])->name('admin.assignment.show');
             Route::put('/update/{id}', [AssignmentController::class, 'update'])->name('admin.assignment.update');
             Route::delete('/delete/{id}', [AssignmentController::class, 'delete'])->name('admin.assignment.delete');
+        });
+
+        Route::prefix('/weeztix')->name('admin.weeztix.')->group(function () {
+            Route::get('/', [WeeztixController::class, 'index'])->name('index');
+            Route::get('/callback', [WeeztixController::class, 'callback'])->name('callback');
+            Route::get("/create-token", [WeeztixController::class, "createToken"])->name("create-token");
+            Route::post('/refresh-token', [WeeztixController::class, 'refreshToken'])->name('refresh-token');
         });
     });
 });
