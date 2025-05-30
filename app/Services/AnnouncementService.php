@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
-use App\Mail\AnnouncementMail;
+use App\Events\AnnouncementCreated;
 use App\Models\Announcement;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\AnnouncementMail;
+use Illuminate\Support\Facades\Mail;
 
 class AnnouncementService
 {
@@ -14,28 +16,32 @@ class AnnouncementService
     {
         $this->mailService = $mailService;
     }
-    public function getAnnouncements()
+    public function getAnnouncements(): Builder
     {
         return Announcement::query();
     }
 
-    public function store(array $data, $request): Announcement
+    public function store(array $data, $request)
     {
         $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? null;
+        $announcement = Announcement::create($data);
+        $discordSettings = $request->input('discord') ?? null;
 
-        return Announcement::create($data);
+        DiscordService::notifyDiscord($announcement, $discordSettings, 'announcement');
     }
 
-    public function update(Announcement $announcement, array $data, $request): Announcement
-    {
 
+    public function update(Announcement $announcement, array $data, $request)
+    {
         if ($request->hasFile('image')) {
             ImageService::deleteImage(Announcement::class, $announcement, 'image');
             $data['image'] = ImageService::StoreImage($request, 'image', '/announcements') ?? ($data['image'] ?? null);
         }
 
         $announcement->update($data);
-        return $announcement;
+        $discordSettings = $request->input('discord') ?? null;
+
+        event(new AnnouncementCreated($announcement, $discordSettings));
     }
 
     public function delete(Announcement $announcement): void

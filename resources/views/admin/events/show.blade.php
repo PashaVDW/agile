@@ -28,14 +28,13 @@
                     <x-forms.input-checkbox name="sponsors[]" :value="$sponsor->id" :label="$sponsor->name" :checked="isset($event) && $event->sponsors->contains($sponsor->id)"/>
                 @endforeach
             @endif
-
+            <x-discord-modal />
             @if(!isset($event) || $event->status->name !== 'ARCHIVED')
                 <button id="openModalButton" type="button" class="button right hidden" data-modal-id="dateModal">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
             @endif
             <button id="submitButton" type="submit" class="button right" data-state="{{$event->status->name ?? ''}}">{{ isset($event) ? 'Evenement updaten' : 'Evenement toevoegen' }}</button>
             <x-modal id="dateModal" title="Datum formatting" message="Ingevoerde datum ligt vóór de huidige datum. Klopt dit?" />
         </form>
-
         @if(isset($event))
             <x-actions.crud-delete :item="$event" route="admin.event.delete" title="Evenement verwijderen" message="Weet je zeker dat je deze wilt verwijderen?" />
         @endif
