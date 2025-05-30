@@ -32,7 +32,7 @@
 
             <li class="nav-item has-children">
                 <span class="nav-link">
-                    <span class="profile" style="background-image: url('{{ App\helpers::getProfileIcon() }}')"></span>
+                    <span class="profile"></span>
                 </span>
                 <ul class="submenu">
                     @auth

@@ -46,6 +46,9 @@
                     &.home {
                         background-image: url('../images/icons/MaterialSymbolsLightHome.svg');
                     }
+                    &.profile {
+                        background-image: url('../images/icons/MaterialSymbolsPerson.svg');
+                    }
                 }
 
                 &:after {
