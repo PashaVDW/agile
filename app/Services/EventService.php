@@ -9,6 +9,11 @@ use App\Models\Gallery;
 
 class EventService
 {
+    private MailService $mailService;
+    public function __construct(MailService $mailService)
+    {
+        $this->mailService = $mailService;
+    }
     public function getEvents()
     {
         return Event::query()->orderBy('status', 'ASC')->orderBy('start_date', 'DESC')->with('sponsors');
@@ -37,6 +42,7 @@ class EventService
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
         $event = Event::find($id);
 
+
         if ($request->hasFile('banner')) {
             ImageService::deleteImage(Event::class, $event, 'banner');
             $data['banner'] = ImageService::StoreImage($request, 'banner', '/Events') ?? ($data['banner'] ?? null);
@@ -45,6 +51,7 @@ class EventService
         $event->update($data);
         dispatch_sync(new UpdateGoogleCalendarEvent($data['start_date'], $data['end_date'], $data['title'], $data['category'], $event->id));
         $event->sponsors()->sync($request->input('sponsors', []));
+
     }
 
     private function setStatus($startDate, $endDate = null)
