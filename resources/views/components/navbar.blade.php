@@ -31,8 +31,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
             </li>
-            <li class="nav-item has-children {{ Request::is('about_us') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user.about_us.index') }}">Over ons</a>
+            <li class="nav-item has-children {{ Request::is('about-us') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.about-us.index') }}">Over ons</a>
                 <ul class="submenu">
                     <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
