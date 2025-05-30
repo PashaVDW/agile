@@ -8,14 +8,14 @@
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('home') }}"><span class="home"></span></a>
             </li>
-            <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
-            </li>
             <li class="nav-item {{ Request::is('event*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.events.index') }}">Evenementen</a>
             </li>
+            <li class="nav-item {{ Request::is('announcement*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('public.announcements.index') }}">Mededelingen</a>
+            </li>
             <li class="nav-item {{ Request::is('gallery') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user.galleries.index') }}">Gallerij</a>
+                <a class="nav-link" href="{{ route('user.galleries.index') }}">Galerij</a>
             </li>
             <li class="nav-item {{Request::is('assignment*') ? 'active' : ''}}">
                 <a class="nav-link" href="{{ route('user.assignments.index') }}">Prikbord</a>
