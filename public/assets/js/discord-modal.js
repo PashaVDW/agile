@@ -17,6 +17,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const discordToggle = document.getElementById('discordToggle');
   const discordHint = document.getElementById('discord-hint');
 
+  // Add an element to show inline validation messages
+  let inlineChannelMsg = document.getElementById('discord-channel-msg');
+  if (!inlineChannelMsg) {
+    inlineChannelMsg = document.createElement('div');
+    inlineChannelMsg.id = 'discord-channel-msg';
+    inlineChannelMsg.style.color = 'red';
+    inlineChannelMsg.style.fontSize = '0.95em';
+    inlineChannelMsg.style.marginTop = '0.3em';
+    inlineChannelMsg.style.display = 'none';
+    // We'll append it dynamically below the select when needed
+  }
+
   // Main hidden inputs
   const mainFields = [
     'enabled', 'type', 'channel', 'tag', 'title', 'description', 'embed_color'
@@ -225,9 +237,16 @@ document.addEventListener('DOMContentLoaded', function() {
       if (currentPageNumber === 1) {
         const activeTab = modal.querySelector('.tab-content.active');
         const channelSelect = activeTab.querySelector('select[id^="discord_channel"]');
+        if (channelSelect && channelSelect.parentNode.contains(inlineChannelMsg)) {
+          inlineChannelMsg.style.display = 'none';
+        }
         if (!channelSelect || !channelSelect.value) {
-          alert('Selecteer een kanaal voordat je doorgaat.');
-          channelSelect.focus();
+          inlineChannelMsg.textContent = 'Selecteer een kanaal voordat je doorgaat.';
+          inlineChannelMsg.style.display = 'block';
+          if (channelSelect && !channelSelect.parentNode.contains(inlineChannelMsg)) {
+            channelSelect.parentNode.appendChild(inlineChannelMsg);
+          }
+          channelSelect && channelSelect.focus();
           return;
         }
       }
