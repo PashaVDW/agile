@@ -23,8 +23,8 @@
             <li class="nav-item {{ Request::is('sponsors') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('user.sponsors.index') }}">Sponsoren</a>
             </li>
-            <li class="nav-item {{ Request::is('about_us') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('user.about_us.index') }}">Over ons</a>
+            <li class="nav-item {{ Request::is('about-us') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('user.about-us.index') }}">Over ons</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="https://sv-concat.myspreadshop.nl" target="_blank" rel="noopener noreferrer">Webshop</a>
@@ -57,7 +57,7 @@
                         </li>
                     @else
                         <li class="nav-item {{ Request::is('register') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('register') }}">Registreren</a>
+                            <a class="nav-link" href="{{ route('register') }}">Inschrijven</a>
                         </li>
                         <li class="nav-item {{ Request::is('login') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('login') }}">Inloggen</a>
@@ -70,23 +70,23 @@
 </nav>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function(){
         const navbarToggler = document.querySelector(".navbar-toggler");
         const navbarCollapse = document.querySelector("#navbarNav");
 
-        navbarToggler.addEventListener("click", function(event) {
+        navbarToggler.addEventListener("click", function(event){
             navbarCollapse.classList.toggle("show");
             event.stopPropagation();
         });
 
         document.addEventListener("click", function(event) {
-            if (!navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)) {
+            if(!navbarCollapse.contains(event.target) && !navbarToggler.contains(event.target)){
                 navbarCollapse.classList.remove("show");
             }
         });
 
         document.querySelectorAll(".navbar-nav .nav-link").forEach(item => {
-            item.addEventListener("click", function() {
+            item.addEventListener("click", function (){
                 navbarCollapse.classList.remove("show");
             });
         });
