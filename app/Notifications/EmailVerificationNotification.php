@@ -17,9 +17,7 @@ class EmailVerificationNotification extends BaseVerifyEmail
             ->greeting('Hallo!')
             ->subject('Bevestig je e-mailadres')
             ->line('Klik op de knop hieronder om je e-mailadres te bevestigen.')
-            ->line("[Bevestig e-mailadres]({$verificationUrl})")
-            ->line('Werkt de knop niet? Kopieer en plak deze link in je browser:')
-            ->line($verificationUrl)
+            ->action('Bevestig e-mailadres', $verificationUrl)
             ->line('Als je je niet hebt geregistreerd, hoef je verder niets te doen.')
             ->salutation('Met vriendelijke groet, SVConcat');
     }
