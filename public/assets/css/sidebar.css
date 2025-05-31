@@ -41,6 +41,24 @@
             }
         }
     }
+    .mb-4 {
+        width: 100%;
+    }
+    button a.button {
+        &.item-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
+
+.events {
+    .sidebar {
+        .button.item-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
 }
 
 @media only screen and (max-width: 1080px) {
