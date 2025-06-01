@@ -1,6 +1,5 @@
 <?php
 
-use App\Actions\Fortify\UpdateUserPassword;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WeeztixController;
 use App\Http\Controllers\AssignmentController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\OldBoardsController;
 use App\Http\Controllers\CommissionController;
 use \App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Admin Routes
@@ -158,3 +158,14 @@ Route::get('/assignment/{id}', [AssignmentController::class, 'show'])->name('use
 Route::get('/calender', [CalenderController::class, 'index'])->name('user.calender.index');
 Route::get('/calendar.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics.default');
 Route::get('/calendar/{id?}.ics', [CalenderController::class, 'generateICS'])->name('calendar.ics');
+
+Route::post('/register', [UserController::class, 'register'])->name('register');
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [UserController::class, 'verifyEmail'])
+    ->middleware(['signed'])->name('verification.verify');
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
