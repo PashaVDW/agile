@@ -52,8 +52,7 @@ class DiscordService
         } else {
             $message = $content;
             if (!empty($settings['title'])) {
-                $suffix = $eventType === 'event_updated' ? ' (Bijgewerkt)' : '';
-                $message .= "\n**" . $settings['title'] . $suffix . "**";
+                $message .= "\n**" . $settings['title'] . "**";
             }
             if (!empty($settings['description'])) {
                 $message .= "\n" . $settings['description'];
@@ -67,9 +66,6 @@ class DiscordService
     private static function buildEmbed(array $settings, $model, string $eventType): array
     {
         $title = $settings['title'] ?? ($model->title ?? '');
-        if ($eventType === 'event_updated') {
-            $title .= ' (Bijgewerkt)';
-        }
 
         $embed = [
             'title' => $title,
@@ -77,7 +73,7 @@ class DiscordService
             'color' => hexdec(ltrim($settings['embed_color'] ?? config('discord.default_embed_color'), '#')),
             'timestamp' => now()->toISOString(),
             'footer' => [
-                'text' => config('app.name', 'Laravel App') . ($eventType === 'event_updated' ? ' • Bijgewerkt' : '')
+                'text' => config('app.name', 'Laravel App')
             ]
         ];
 
