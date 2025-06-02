@@ -49,14 +49,27 @@
                                 </p>
                                 <hr>
                             @endforeach
-                                
+
                         </div>
                     </div>
                 @endif
 
+                <div class="container">
+                    <div class="instruction-message">
+                        <p>Wil je lid worden van ons bestuur of een van onze commissies? Mail dan naar <a href="mailto:info@svconcat.nl">info@svconcat.nl</a></p>
+                    </div>
+                </div>
+
                 <div class="about-us-swiper">
                     <div class="container">
-                        <x-swiper :item="$oldBoards" id="boardSwiper"/>
+                        <div class="info">
+                            <h2>Onze (oude) besturen</h2>
+                            <x-swiper :item="$oldBoards" id="boardSwiper"/>
+
+                        </div>
+
+
+
                     </div>
                 </div>
 

@@ -10,6 +10,7 @@
         flex-wrap: wrap;
         gap: 50px;
         justify-content: space-between;
+        margin-top: 34px;
         .comiboard {
             border-radius: 25px;
             background-color: var(--default-white);
@@ -20,50 +21,53 @@
             flex-direction: column;
             overflow: hidden;
 
-            .block {
-                &.image-block {
+            .block.text-block{
+                padding: 40px;
+                height: 100%;
+                display: block;
+                flex-wrap: wrap;
+
+                .image-inline
+                {
+                    float: right;
+                    margin: 0 0 20px 20px;
                     img {
-                        max-height: 400px;
-                        width: 100%;
+                        width: 250px;
+                        height: auto;
                         object-fit: cover;
-                        margin: 0 auto;
+                        border-radius: 8px;
+
                         &.no-image {
                             object-fit: contain;
                             opacity: 0.6;
                         }
                     }
                 }
-                &.text-block {
-                    padding: 40px;
-                    height: 100%;
-                    display: flex;
-                    flex-wrap: wrap;
-
-                    .item-header {
-                        width: 100%;
-                        flex: 1 1 auto;
-                        height: auto;
-                        h3 {
-                            font-size: 28px;
-                        }
-                        h6 {
-                            font-size: 14px;
-                            font-weight: 700;
-                        }
+                .item-header {
+                    width: 100%;
+                    flex: 1 1 auto;
+                    height: auto;
+                    h3 {
+                        font-size: 28px;
                     }
-                    .item-body {
-                        width: 100%;
-
-                        p {
-                            color: var(--default-grey);
-                            font-size: 20px;
-                        }
-                    }
-                    .item-footer {
-                        width: 100%;
-                        align-content: flex-end;
+                    h6 {
+                        font-size: 14px;
+                        font-weight: 700;
                     }
                 }
+                .item-body {
+                    width: 100%;
+
+                    p {
+                        color: var(--default-grey);
+                        font-size: 20px;
+                    }
+                }
+                .item-footer {
+                    width: 100%;
+                    align-content: flex-end;
+                }
+
             }
         }
     }
@@ -76,7 +80,10 @@
                 max-width: 100%;
                 .block {
                     &.text-block {
-                        padding: 30px
+                        padding: 30px;
+                        .image-inline {
+                            float: none;
+                        }
                     }
                 }
             }
