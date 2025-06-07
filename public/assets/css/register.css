@@ -52,6 +52,21 @@
     }
 }
 
+.alert.alert-success {
+    transition: opacity 0.5s ease-out;
+    opacity: 1;
+    text-align: center;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0px auto;
+    position: absolute;
+    z-index: 1000;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -50px;
+    font-weight: 700;
+}
+
 @media (max-width: 768px) {
     .register {
         .container {
