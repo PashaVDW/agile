@@ -4,6 +4,11 @@
 
 @section('content')
     <div class="section details">
+        @if(session('success'))
+            <div class="alert alert-success" id="success-alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="container has-sidebar">
             <div class="info">
                 <div class="intro">
