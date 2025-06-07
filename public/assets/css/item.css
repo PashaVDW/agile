@@ -43,10 +43,12 @@
                         height: auto;
                         h3 {
                             font-size: 28px;
+                            overflow-wrap: anywhere;
                         }
                         h6 {
                             font-size: 14px;
                             font-weight: 700;
+                            overflow-wrap: anywhere;
                         }
                     }
                     .item-body {
@@ -56,6 +58,7 @@
                         p {
                             color: var(--default-grey);
                             font-size: 20px;
+                            overflow-wrap: anywhere;
                         }
                     }
                     .item-footer {
