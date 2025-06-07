@@ -1,7 +1,6 @@
 @props(['item', 'alt' => '', 'route' => null, 'word_count' => 20])
-
 <div class="item">
-    @if($item->hasAttribute('banner') || $item->hasAttribute('image'))
+    @if(!Request::is('assignments') && (isset($item->category) && $item->category->value !== \App\Enums\EventCategoryEnum::COMMUNITY->value) && ($item->hasAttribute('banner') || $item->hasAttribute('image')))
         <div class="block image-block">
             <img src="{{ asset($item->banner_url) }}" alt="{{ $alt }}" @if(!$item->banner) class="no-image" @endif>
         </div>
