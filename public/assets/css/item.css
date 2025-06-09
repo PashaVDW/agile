@@ -49,6 +49,10 @@
                             font-size: 14px;
                             font-weight: 700;
                             overflow-wrap: anywhere;
+                            &.detailed {
+                                font-style: italic;
+                                color: var(--default-darkgrey);
+                            }
                         }
                     }
                     .item-body {
