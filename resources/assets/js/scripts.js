@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }});
 
 function carouselSwiper(swiperId) {
-    new Swiper(swiperId, {
+    const config = {
         slidesPerView: 1,
         spaceBetween: swiperId === '#boardSwiper' ? 20 : 5,
         speed: 300,
         loop: true,
-        direction:swiperId === '#homeSwiper' ? 'vertical' : 'horizontal',
+        direction: swiperId === '#homeSwiper' ? 'vertical' : 'horizontal',
         autoplay: {
             delay: 6000,
         },
@@ -40,16 +40,26 @@ function carouselSwiper(swiperId) {
         },
         breakpoints: {
             500: {
-                slidesPerView: swiperId === '#homeSwiper' ?  1 : 2,
+                slidesPerView: swiperId === '#homeSwiper' ? 1 : 2,
             },
             768: {
-                slidesPerView: swiperId === '#homeSwiper' ?  1 : 3,
+                slidesPerView: swiperId === '#homeSwiper' ? 1 : 3,
             },
             980: {
                 slidesPerView: swiperId === '#homeSwiper' ? 1 : 3,
             }
         }
-    });
+    };
+
+    if (swiperId === '#homeSwiper') {
+        config.pagination = {
+            el: '.swiper-pagination',
+            type: 'bullets',
+            clickable: true,
+        };
+    }
+
+    new Swiper(swiperId, config);
 }
 
 function copyToClipboard(text) {
