@@ -21,8 +21,6 @@
                 <th>Datum / Start datum</th>
                 <th>Categorie</th>
                 <th>Registraties</th>
-                <th>Aangemaakt op</th>
-                <th>Bijgewerkt op</th>
                 <th>Banner</th>
                 <th>Acties</th>
             </x-slot:thead>
@@ -31,7 +29,7 @@
                 @foreach ($events as $event)
                     <tr class="border-b border-gray-300">
                         <td class="px-4 py-2">
-                            {{ Str::of($event->title)->words(5, '...') }}
+                            {{  Str::limit($event->title, 30) }}
                             <span>{{ $event->status->name === 'ARCHIVED' ? '(' . __('ARCHIVED') . ')' : '' }}</span>
                         </td>
                         <td class="px-4 py-2">{{ $event->getFormattedDate($event->start_date) }}</td>
@@ -44,8 +42,6 @@
                             </span>
                             @endif
                         </td>
-                        <td class="px-4 py-2">{{ $event->getFormattedDate($event->created_at) }}</td>
-                        <td class="px-4 py-2">{{ $event->getFormattedDate($event->updated_at) }}</td>
                         <td class="px-4 py-2">
                             <img src="{{ asset($event->banner_url) }}" class="w-12 h-12 object-cover rounded-md" />
                         </td>
