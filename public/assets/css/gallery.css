@@ -54,7 +54,7 @@
     .gallery-modal {
         &.show {
             .modal-body{
-                padding: 0;
+                padding: 5px;
             }
         }
     }
