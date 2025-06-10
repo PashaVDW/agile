@@ -9,6 +9,9 @@
         <div class="item-header">
             <h3 class="has-background">{{ $item->title }}</h3>
             <h6>{{ $item->category ? __($item->category->value) : '' }}</h6>
+            @if(isset($item->location) && $item->location)
+                <h6 class="detailed">{{ $item->location}}</h6>
+            @endif
         </div>
         <div class="item-body">
             @if($item->reward)

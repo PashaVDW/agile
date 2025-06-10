@@ -41,12 +41,19 @@
                     .item-header {
                         width: 100%;
                         height: auto;
+                        margin-bottom: 5px;
                         h3 {
                             font-size: 28px;
+                            overflow-wrap: anywhere;
                         }
                         h6 {
                             font-size: 14px;
                             font-weight: 700;
+                            overflow-wrap: anywhere;
+                            &.detailed {
+                                font-style: italic;
+                                color: var(--default-darkgrey);
+                            }
                         }
                     }
                     .item-body {
@@ -56,6 +63,7 @@
                         p {
                             color: var(--default-grey);
                             font-size: 20px;
+                            overflow-wrap: anywhere;
                         }
                     }
                     .item-footer {
