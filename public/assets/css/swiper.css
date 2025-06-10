@@ -27,6 +27,13 @@
         }
     }
 
+    .swiper-pagination {
+        .swiper-pagination-bullet{
+            outline: 2px solid white;
+            opacity: 1;
+        }
+    }
+
     .swiper-button-prev {
         left: 10px;
     }
