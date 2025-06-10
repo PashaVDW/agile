@@ -78,7 +78,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'major' => $input['major'],
             'phone' => $input['phone'],
             'new_email' => $input['email'],
-            'email_verified_at' => null,
         ])->save();
 
         $tempUser = clone $user;

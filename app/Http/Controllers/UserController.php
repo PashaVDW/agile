@@ -52,6 +52,7 @@ class UserController extends Controller
         }
 
         if ($user->new_email) {
+            $user->email_verified_at = null;
             $user->email = $user->new_email;
             $user->new_email = null;
         }
