@@ -6,6 +6,11 @@
     <div class="section">
         <div class="container">
             <div class="profile-wrapper">
+                @if(session('success'))
+                    <div class="alert alert-success" id="success-alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="profile-information">
                     <h2>Gegevens</h2>
                     <form method="POST" action="{{ route('user.profile.update') }}">

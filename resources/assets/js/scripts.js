@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     carouselSwiper('#gallerySwiper');
     carouselSwiper('#homeSwiper');
     carouselSwiper('#boardSwiper');
+    alertDisplay();
+
     const webcalButton = document.getElementById('webcal');
     if (webcalButton) {
         let userId = webcalButton.getAttribute('data-user-id');
@@ -64,4 +66,16 @@ function copyToClipboard(text) {
     }).catch(err => {
         console.error('Failed to copy text: ', err);
     });
+}
+
+function alertDisplay() {
+    const alert = document.getElementById('success-alert');
+    if (alert) {
+        setTimeout(function() {
+            alert.style.opacity = '0';
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 500);
+        }, 5000);
+    }
 }
