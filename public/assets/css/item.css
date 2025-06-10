@@ -41,6 +41,7 @@
                     .item-header {
                         width: 100%;
                         height: auto;
+                        margin-bottom: 5px;
                         h3 {
                             font-size: 28px;
                             overflow-wrap: anywhere;
