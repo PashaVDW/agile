@@ -42,14 +42,15 @@ class EventService
         $data['status'] = $this->setStatus($data['start_date'], $data['end_date']);
 
         $event = Event::create($data);
-
-        dispatch_sync(new CreateGoogleCalendarEvent(
-            $data['start_date'],
-            $data['end_date'],
-            $data['title'],
-            $data['category'],
-            $event->id
-        ));
+        if(config('app.google_calendar_enabled')) {
+            dispatch_sync(new CreateGoogleCalendarEvent(
+                $data['start_date'],
+                $data['end_date'],
+                $data['title'],
+                $data['category'],
+                $event->id
+            ));
+        }
 
         $event->sponsors()->sync($request->input('sponsors', []));
 
@@ -74,14 +75,15 @@ class EventService
         }
 
         $event->update($data);
-
-        dispatch_sync(new UpdateGoogleCalendarEvent(
-            $data['start_date'],
-            $data['end_date'],
-            $data['title'],
-            $data['category'],
-            $event->id
-        ));
+        if(config('app.google_calendar_enabled')) {
+            dispatch_sync(new UpdateGoogleCalendarEvent(
+                $data['start_date'],
+                $data['end_date'],
+                $data['title'],
+                $data['category'],
+                $event->id
+            ));
+        }
 
         $event->sponsors()->sync($request->input('sponsors', []));
 

@@ -126,7 +126,13 @@ return [
     /*
      * weeztix api configuration
      */
+    'weeztix_enabled' => env('WEEZTIX_ENABLED', false),
     'oauth_client_id' => env('OAUTH_CLIENT_ID', ''),
     'oauth_client_secret' => env('OAUTH_CLIENT_SECRET', ''),
     'oauth_redirect_uri' => env('OAUTH_CLIENT_REDIRECT', ''),
+
+    /*
+     * google calendar configuration
+     */
+    'google_calendar_enabled' => env('GOOGLE_CALENDAR_ENABLED', false),
 ];
