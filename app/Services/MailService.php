@@ -42,10 +42,16 @@ class MailService
         ]));
     }
 
-    public function sendNewsLetter(array|string $to, array $data, string $newsLetterTemplateview = 'pdf.newsletter')
+    public function sendGendNewsLetter(array|string $to, array $data, string $newsLetterTemplateview = 'pdf.newsletter')
     {
         $pdf = pdf::loadView($newsLetterTemplateview, ['data' => $data])->output();
 
         mail::to($to)->send(new newsletterMail($data,$pdf));
+    }
+
+    public function sendNewsLetter(array|string $to, $pdf)
+    {
+
+        mail::to($to)->send(new newsletterMail([],$pdf));
     }
 }
