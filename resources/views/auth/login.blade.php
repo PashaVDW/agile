@@ -87,6 +87,16 @@
             Inloggen
           </button>
         </form>
+
+          <!-- Wachtwoord vergeten link -->
+          <div class="mt-2">
+              <a
+                  href="{{ route('password.request') }}"
+                  class="text-blue-600 hover:underline"
+              >
+                  Wachtwoord vergeten?
+              </a>
+          </div>
       </div>
     </div>
 

@@ -49,15 +49,34 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();
 
-            if ($user &&
-                Hash::check($request->password, $user->password) &&
-                $user->hasVerifiedEmail()) {
-                return $user;
+            if (! $user) {
+                throw ValidationException::withMessages([
+                    Fortify::username() => ['Er is geen account gevonden met dit e-mailadres.'],
+                ]);
             }
 
-            throw ValidationException::withMessages([
-                Fortify::username() => ['Je account is nog niet geverifieerd.'],
-            ]);
+            if (! Hash::check($request->password, $user->password)) {
+                throw ValidationException::withMessages([
+                    Fortify::username() => ['De ingevoerde gegevens zijn onjuist.'],
+                ]);
+            }
+
+            if (! $user->hasVerifiedEmail()) {
+                throw ValidationException::withMessages([
+                    Fortify::username() => ['Je account is nog niet geverifieerd.'],
+                ]);
+            }
+
+            return $user;
+        });
+
+
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('auth.forgot-password');
+        });
+
+        Fortify::resetPasswordView(function ($request) {
+            return view('auth.reset-password', ['request' => $request]);
         });
     }
 }
