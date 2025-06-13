@@ -23,7 +23,7 @@
         @endcomponent
     @endif
 
-    Met vriendelijke groeten,<br>
+    Met vriendelijke groeten,
     Concat
 
     <p class="subcopy" style="font-size: 12px; color: #718096; margin-top: 20px;">
