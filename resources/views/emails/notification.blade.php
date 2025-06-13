@@ -3,7 +3,7 @@
         {{ $payload['title'] }}
     </p>
 
-{!! nl2br(e($payload['body'])) !!}
+    {!! nl2br(e($payload['body'])) !!}
 
     <br>
     @if(!empty($payload['imageUrl']))
@@ -23,7 +23,8 @@
         @endcomponent
     @endif
 
+    <p>Klik <a href="{{ route('user.notifications.unsubscribe', ['type' => 'announcements', 'token' => encrypt($payload['id'])]) }}">hier</a> om je uit te schrijven voor deze mailinglist.</p>
+
     Met vriendelijke groeten,
     Concat
 @endcomponent
-

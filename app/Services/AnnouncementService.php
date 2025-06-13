@@ -28,8 +28,24 @@ class AnnouncementService
         $discordSettings = $request->input('discord') ?? null;
 
         DiscordService::notifyDiscord($announcement, $discordSettings, 'announcement');
+
+        $this->sendAnnouncementEmailToSubscribers($announcement);
+
+        return $announcement;
     }
 
+    private function sendAnnouncementEmailToSubscribers(Announcement $announcement)
+    {
+        $subscribedUsers = \App\Models\User::where('notification_preferences->announcements', true)->get();
+
+        if ($subscribedUsers->isEmpty()) {
+            return;
+        }
+
+        $emails = $subscribedUsers->pluck('email')->toArray();
+
+        $this->mailService->sendAnnouncementMail($announcement, $emails);
+    }
 
     public function update(Announcement $announcement, array $data, $request)
     {
