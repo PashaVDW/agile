@@ -27,10 +27,11 @@ class newsletterController extends Controller
 
         $pdf = $request->file('pdf');
 
-        // verander dit naar wat ander zodra je kan inschrijven
-        $recepients = User::all()->pluck('email')->toArray();
-        //
-        $this->mailService->sendNewsletter($recepients, $pdf);
+        $recepients = User::where('newsletter_subscription', true)->get();
+
+        $emails = $recepients->pluck('email')->toArray();
+
+        $this->mailService->sendNewsletter($emails, $pdf);
 
         return back()->with('success', 'Nieuwsbrief verzonden!');
     }

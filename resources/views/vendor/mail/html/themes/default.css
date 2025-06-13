@@ -80,7 +80,7 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
+    background-color: #ECEBFF;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -113,7 +113,7 @@ img {
 }
 
 .header a {
-    color: #3d4852;
+    color: #3d4852; /* tekst kleur*/
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
@@ -133,7 +133,7 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
+    background-color: #ECEBFF;
     border-bottom: 1px solid #edf2f7;
     border-top: 1px solid #edf2f7;
     margin: 0;
