@@ -53,7 +53,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'phone' => ['required', 'string', 'min:10', 'max:20'],
         ], $messages)->validate();
 
-        // Process newsletter subscription (checkbox sends value only when checked)
         $input['newsletter_subscription'] = array_key_exists('newsletter_subscription', $input);
 
         if ($input['email'] !== $user->email &&

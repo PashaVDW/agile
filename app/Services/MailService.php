@@ -15,7 +15,7 @@ class MailService
     public function sendAnnouncementMail(Announcement $ann, string|array $to) : void
     {
         Mail::to($to)->send(new NotificationMail([
-            'subject' => $ann->title,
+            'subject' => "nieuwe melding van concat: {$ann->title}",
             'title' => $ann->title,
             'id' => $ann->id,
             'body' => $ann->description,

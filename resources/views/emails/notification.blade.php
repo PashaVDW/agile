@@ -7,7 +7,7 @@
 
     <br>
     @if(!empty($payload['imageUrl']))
-        <img src="{{ config('app.url') . $payload['imageUrl'] }}" alt="Afbeelding" class="email-image">
+        <img src="{{ asset($payload['imageUrl']) }}" alt="Afbeelding" class="email-image">
     @endif
 
 
