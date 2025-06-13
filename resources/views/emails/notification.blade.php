@@ -23,8 +23,8 @@
         @endcomponent
     @endif
 
-    <p>Klik <a href="{{ route('user.notifications.unsubscribe', ['type' => 'announcements', 'token' => encrypt($payload['id'])]) }}">hier</a> om je uit te schrijven voor deze mailinglist.</p>
+    <p>Je ontvangt deze e-mail omdat je je hebt aangemeld voor meldingen. Je kunt je afmelden via <a href="{{ route('user.profile.index') }}">je profielpagina</a>.</p>
 
-    Met vriendelijke groeten,
+    Met vriendelijke groeten,<br>
     Concat
 @endcomponent
