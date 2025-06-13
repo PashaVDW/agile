@@ -24,6 +24,7 @@
 .gallery-modal {
     padding: 0;
     &.show {
+        padding: 0;
         opacity: 1;
         .btn-close {
             border: 0;

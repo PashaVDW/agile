@@ -24,7 +24,7 @@
                     <p>Evenement: {{$image['event_name']}}</p>
                 @endif
                     @if(is_array($image) && isset($image['event_date']))
-                    <p>Datum: {{$image['event_date']}}</p>
+                        <p>Datum: {{$gallery->getFormattedDate($image['event_date'])}}</p>
                 @endif
             </div>
         </div>
