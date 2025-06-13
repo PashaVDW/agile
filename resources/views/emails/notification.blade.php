@@ -7,7 +7,7 @@
 
     <br>
     @if(!empty($payload['imageUrl']))
-        <img src="{{ asset($payload['imageUrl']) }}" alt="Afbeelding" class="email-image">
+        <img src="{{ config('app.url') . $payload['imageUrl'] }}" alt="Afbeelding" class="email-image">
     @endif
 
 
@@ -23,8 +23,11 @@
         @endcomponent
     @endif
 
-    <p>Je ontvangt deze e-mail omdat je je hebt aangemeld voor meldingen. Je kunt je afmelden via <a href="{{ route('user.profile.index') }}">je profielpagina</a>.</p>
-
     Met vriendelijke groeten,<br>
     Concat
+
+    <p class="subcopy" style="font-size: 12px; color: #718096; margin-top: 20px;">
+        Je ontvangt deze e-mail omdat je je hebt aangemeld voor meldingen.
+        <a href="{{ route('user.profile.index') }}" style="color: #718096; text-decoration: underline;">Uitschrijven</a>
+    </p>
 @endcomponent
