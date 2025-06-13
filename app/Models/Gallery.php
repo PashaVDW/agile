@@ -28,4 +28,15 @@ class Gallery extends Model
     {
         return !empty($this->gallery);
     }
+
+    public function getFormattedDate($date)
+    {
+        if ($date === null) {
+            return null;
+        }
+
+        $dateTime = new \DateTime($date);
+
+        return $dateTime->format('d-m-Y');
+    }
 }
