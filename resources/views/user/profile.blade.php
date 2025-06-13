@@ -29,6 +29,14 @@
                         </div>
                         <p class="text-sm text-gray-600 italic mb-4">Als het e-mailadres wordt gewijzigd, dient deze opnieuw geverifieerd te worden voordat deze wordt opgeslagen en deze gebruikt kan worden.</p>
                         <x-forms.input-field type="phone" name="phone" label="Telefoonnummer" :required="true" value="{{ old('phone', $user->phone ?? '')}}"/>
+
+
+
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="newsletter_subscription" name="newsletter_subscription" {{ $user->newsletter_subscription ? 'checked' : '' }}>
+                            <label class="form-check-label" for="newsletter_subscription">Inschrijven voor nieuwsbrief</label>
+                        </div>
                         <button class="item-button" type="submit" name="update_user">Update gegevens</button>
                     </form>
                 </div>
