@@ -10,8 +10,8 @@
                 @csrf
                 <label for="pdf">Upload PDF:</label><br>
                 <input type="file" id="pdfInput" name="pdf" accept="application/pdf" required>
-
-                <button type="button" id="removePdfBtn" style="margin-left: 10px;">Verwijder PDF</button>
+                <br><br>
+                <button type="button" id="removePdfBtn" >Verwijder PDF</button>
                 <br><br>
 
                 <button type="submit">Send PDF</button>
