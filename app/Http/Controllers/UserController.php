@@ -31,9 +31,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-
         $data = $request->all();
-        $data['newsletter_subscription'] = $request->has('newsletter_subscription');
 
         app(UpdateUserProfileInformation::class)->update($user, $data);
         return to_route('user.profile.index')->with('success', 'Profiel bijgewerkt.');
