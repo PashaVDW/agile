@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
@@ -16,13 +17,42 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
      */
     public function update(User $user, array $input): void
     {
+        $messages = [
+            'name.required' => 'De naam is verplicht.',
+            'name.string' => 'De naam moet een geldige tekst zijn.',
+            'name.max' => 'De naam mag maximaal 255 tekens bevatten.',
+
+            'major.required' => 'De major is verplicht.',
+            'major.string' => 'De major moet een geldige tekst zijn.',
+            'major.in' => 'De major moet ofwel "SO" of "BI" zijn.',
+
+            'email.required' => 'Het e-mailadres is verplicht.',
+            'email.string' => 'Het e-mailadres moet een geldige tekst zijn.',
+            'email.email' => 'Voer een geldig e-mailadres in.',
+            'email.max' => 'Het e-mailadres mag maximaal 255 tekens bevatten.',
+            'email.unique' => 'Dit e-mailadres is al in gebruik.',
+            'email.regex' => 'Dit e-mailadres heeft een ongeldig formaat',
+
+            'phone.required' => 'Het telefoonnummer is verplicht.',
+            'phone.string' => 'Het telefoonnummer moet een geldige tekst zijn.',
+            'phone.min' => 'Het telefoonnummer moet minimaal 10 tekens bevatten.',
+            'phone.max' => 'Het telefoonnummer mag maximaal 20 tekens bevatten.',
+        ];
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255'],
-            'phone' => ['required', 'string', 'max:20'],
-            'major' => ['required', 'string'],
+            'major' => ['required', 'string', 'in:SO,BI'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+                'max:255',
+                Rule::unique('users')->ignore($user->id),
+            ],
+            'phone' => ['required', 'string', 'min:10', 'max:20'],
             'newsletter_subscription' => ['boolean'],
-        ])->validateWithBag('updateProfileInformation');
+        ], $messages)->validate();
 
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
@@ -30,9 +60,9 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         } else {
             $user->forceFill([
                 'name' => $input['name'],
+                'major' => $input['major'],
                 'email' => $input['email'],
                 'phone' => $input['phone'],
-                'major' => $input['major'],
                 'newsletter_subscription' => $input['newsletter_subscription'] ?? false,
             ])->save();
         }
@@ -47,12 +77,15 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     {
         $user->forceFill([
             'name' => $input['name'],
-            'new_email' => $input['email'],
-            'phone' => $input['phone'],
             'major' => $input['major'],
-            'newsletter_subscription' => $input['newsletter_subscription'] ?? false,
+            'phone' => $input['phone'],
+            'new_email' => $input['email'],
+            'email_verified_at' => null,
         ])->save();
 
-        $user->sendEmailVerificationNotification();
+        $tempUser = clone $user;
+        $tempUser->email = $user->new_email;
+
+        $tempUser->sendEmailVerificationNotification();
     }
 }
