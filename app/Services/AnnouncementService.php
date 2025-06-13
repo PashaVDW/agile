@@ -34,7 +34,7 @@ class AnnouncementService
 
     private function sendAnnouncementEmails(Announcement $announcement)
     {
-        $subscribers = \App\Models\User::where('newsletter_subscription', true)->get();
+        $subscribers = \App\Models\User::where('announcement_subscription', true)->get();
 
         if ($subscribers->isEmpty()) {
             return;

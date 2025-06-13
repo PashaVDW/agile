@@ -27,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'new_email',
         'phone',
         'password',
-        'newsletter_subscription',
+        'announcement_subscription',
     ];
 
     /**
@@ -50,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'newsletter_subscription' => 'boolean',
+            'announcement_subscription' => 'boolean',
         ];
     }
 
