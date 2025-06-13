@@ -51,8 +51,10 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 Rule::unique('users')->ignore($user->id),
             ],
             'phone' => ['required', 'string', 'min:10', 'max:20'],
-            'newsletter_subscription' => ['boolean'],
         ], $messages)->validate();
+
+        // Process newsletter subscription (checkbox sends value only when checked)
+        $input['newsletter_subscription'] = array_key_exists('newsletter_subscription', $input);
 
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
@@ -63,7 +65,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'major' => $input['major'],
                 'email' => $input['email'],
                 'phone' => $input['phone'],
-                'newsletter_subscription' => $input['newsletter_subscription'] ?? false,
+                'newsletter_subscription' => $input['newsletter_subscription'],
             ])->save();
         }
     }
@@ -81,6 +83,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'phone' => $input['phone'],
             'new_email' => $input['email'],
             'email_verified_at' => null,
+            'newsletter_subscription' => $input['newsletter_subscription'],
         ])->save();
 
         $tempUser = clone $user;

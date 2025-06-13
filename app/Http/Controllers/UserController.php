@@ -31,9 +31,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-        $data = $request->all();
-
-        app(UpdateUserProfileInformation::class)->update($user, $data);
+        app(UpdateUserProfileInformation::class)->update($user, $request->all());
         return to_route('user.profile.index')->with('success', 'Profiel bijgewerkt.');
     }
 
@@ -65,4 +63,5 @@ class UserController extends Controller
 
         return redirect('/login')->with('status', 'Je e-mailadres is geverifieerd. Je kunt nu inloggen.');
     }
+
 }
