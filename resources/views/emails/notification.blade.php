@@ -1,15 +1,11 @@
 @component('mail::message')
-    <p class="title-text">
-        {{ $payload['title'] }}
-    </p>
+    <p class="title-text">{{ $payload['title'] }}</p>
 
-{!! nl2br(e($payload['body'])) !!}
+    {!! nl2br(e($payload['body'])) !!}
 
-    <br>
     @if(!empty($payload['imageUrl']))
         <img src="{{ asset($payload['imageUrl']) }}" alt="Afbeelding" class="email-image">
     @endif
-
 
     @if($payload['type'] === 'announcement')
         @component('mail::button', ['url' => route('user.announcement.show', ['id' => $payload['id']])])
@@ -23,7 +19,13 @@
         @endcomponent
     @endif
 
-    Met vriendelijke groeten,
+    Met vriendelijke groeten,<br>
     Concat
-@endcomponent
 
+    @slot('subcopy')
+        <p class="subcopy-text">
+            Je ontvangt deze mail omdat je hebt ingeschreven voor nieuws.
+            <a href="{{ route('user.profile.index') }}">Uitschrijven</a>
+        </p>
+    @endslot
+@endcomponent
