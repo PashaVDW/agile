@@ -23,7 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('app:archive-events')->daily();
-        $schedule->command('app:refresh-weeztix-token')->days(3)->at('00:00');
+        $schedule->command('app:refresh-weeztix-token')->daily();
         $schedule->command('app:register-user-events')->everyMinute();
     })
     ->withExceptions(function (Exceptions $exceptions) {

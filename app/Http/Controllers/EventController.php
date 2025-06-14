@@ -94,12 +94,12 @@ class EventController extends Controller
     public function register(Request $request, $id)
     {
         $this->eventService->registerUser($request, $id);
-        return to_route('user.event.show', ['id' => $id]);
+        return to_route('user.event.show', ['id' => $id])->with('success', 'Je bent succesvol geregistreerd voor dit evenement.');
     }
 
     public function unregister(Request $request, $id)
     {
         $this->eventService->unregisterUser($request, $id);
-        return to_route('user.event.show', ['id' => $id]);
+        return to_route('user.event.show', ['id' => $id])->with('success', 'Je bent succesvol afgemeld voor dit evenement.');
     }
 }
