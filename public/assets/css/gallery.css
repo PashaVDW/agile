@@ -24,6 +24,7 @@
 .gallery-modal {
     padding: 0;
     &.show {
+        padding: 0;
         opacity: 1;
         .btn-close {
             border: 0;
@@ -47,6 +48,16 @@
 @media only screen and (max-width: 980px){
     .image-container {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .gallery-modal {
+        &.show {
+            .modal-body{
+                padding: 5px;
+            }
+        }
     }
 }
 
