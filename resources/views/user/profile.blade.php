@@ -33,10 +33,11 @@
 
 
 
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="newsletter_subscription" name="newsletter_subscription" {{ $user->newsletter_subscription ? 'checked' : '' }}>
-                            <label class="form-check-label" for="newsletter_subscription">Inschrijven voor nieuwsbrief</label>
-                        </div>
+                        <x-forms.input-checkbox
+                            name="newsletter_subscription"
+                            label="Inschrijven voor nieuwsbrief"
+                            :checked="$user->newsletter_subscription ?? true"
+                        />
                         <button class="item-button" type="submit" name="update_user">Update gegevens</button>
                     </form>
                 </div>
