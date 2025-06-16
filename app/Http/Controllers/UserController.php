@@ -32,13 +32,13 @@ class UserController extends Controller
     {
         $user = auth()->user();
         app(UpdateUserProfileInformation::class)->update($user, $request->all());
-        return to_route('user.profile.index');
+        return to_route('user.profile.index')->with('success', 'Profiel bijgewerkt.');
     }
 
     public function password(Request $request){
         $user = auth()->user();
         app(UpdateUserPassword::class)->update($user, $request->all());
-        return to_route('user.profile.index');
+        return to_route('user.profile.index')->with('success', 'Wachtwoord bijgewerkt.');
     }
 
     public function verifyEmail(Request $request, $id, $hash){

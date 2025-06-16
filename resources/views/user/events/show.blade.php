@@ -4,6 +4,11 @@
 
 @section('content')
     <div class="section details">
+        @if(session('success'))
+            <div class="alert alert-success" id="success-alert">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="container has-sidebar">
             <div class="info">
                 <div class="intro">
@@ -75,6 +80,11 @@
                         <a href="{{ route('login') }}" class="">Login om in te schrijven</a>
                     @endif
                 @endauth
+                @if($event->banner && $event->category->value === \App\Enums\EventCategoryEnum::COMMUNITY->value)
+                    <div class="image-block">
+                        <img src="{{ asset($event->banner_url) }}" alt="{{ $event->title }}">
+                    </div>
+                @endif
             </div>
         </div>
     </div>

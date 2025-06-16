@@ -20,7 +20,7 @@ class SearchService
 
     protected $translatedActiveType = [
         'actief' => 'ACTIVE',
-        'gearchiveerd' => 'ARCHIVED',
+        'afgelopen' => 'ARCHIVED',
     ];
 
     public function multiSearch($query, $request)
