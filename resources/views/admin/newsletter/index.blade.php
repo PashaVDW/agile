@@ -14,7 +14,7 @@
                 <button type="button" id="removePdfBtn" >Verwijder PDF</button>
                 <br><br>
 
-                <button type="submit">Send PDF</button>
+                <button type="submit">Verstuur PDF</button>
             </form>
         </div>
     </div>
