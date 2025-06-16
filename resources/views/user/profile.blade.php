@@ -38,6 +38,11 @@
                             label="Inschrijven voor nieuwsbrief"
                             :checked="$user->newsletter_subscription ?? true"
                         />
+                        <x-forms.input-checkbox
+                            name="announcement_subscription"
+                            label="Inschrijven voor nieuws"
+                            :checked="$user->announcement_subscription ?? true"
+                        />
                         <button class="item-button" type="submit" name="update_user">Update gegevens</button>
                     </form>
                 </div>

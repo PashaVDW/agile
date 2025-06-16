@@ -39,8 +39,9 @@
 
     .availability {
         align-items: center;
+        white-space: nowrap;
         .percentage-meter {
-            margin-left: 20px;
+            margin-left: 5px;
             padding: 5px;
             color: var(--default-black);
             border-radius: 5px;
