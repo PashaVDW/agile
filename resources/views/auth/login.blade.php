@@ -92,7 +92,7 @@
           <div class="mt-2">
               <a
                   href="{{ route('password.request') }}"
-                  class="text-blue-600 hover:underline"
+                  class="text-blue-600 hover:underline password-reset-button"
               >
                   Wachtwoord vergeten?
               </a>
