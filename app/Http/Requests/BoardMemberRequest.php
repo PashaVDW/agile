@@ -26,7 +26,7 @@ class BoardMemberRequest extends FormRequest
             'name' => 'required|max:255|string',
             'role' => 'required|max:255|string',
             'description' => 'nullable|max:65535|',
-            'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,webp,svg|max:2048',
         ];
     }
 
@@ -37,7 +37,7 @@ class BoardMemberRequest extends FormRequest
             'role.required' => 'De rol is verplicht.',
             'description.max' => 'De beschrijving mag niet langer zijn dan 65535 tekens.',
             'image.image' => 'Het gekozen bestand moet een afbeelding zijn.',
-            'image.mimes' => 'Alleen jpeg, jpg, png en webp bestanden zijn toegestaan.',
+            'image.mimes' => 'Alleen jpeg, jpg, png, svg en webp bestanden zijn toegestaan.',
             'image.max' => 'De afbeelding mag niet groter zijn dan 2MB.',
         ];
     }

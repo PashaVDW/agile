@@ -26,7 +26,7 @@ class OldBoardsRequest extends FormRequest
         return [
             'names' => 'required|max:1000|string',
             'term' => ['required', new TermRange],
-            'image' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,webp,svg|max:2048',
         ];
     }
 
@@ -36,7 +36,7 @@ class OldBoardsRequest extends FormRequest
             'name.required' => 'De naam is verplicht.',
             'image.required' => 'Een foto is verplicht.',
             'image.image' => 'Het gekozen bestand moet een afbeelding zijn.',
-            'image.mimes' => 'Alleen jpeg, jpg, png en webp bestanden zijn toegestaan.',
+            'image.mimes' => 'Alleen jpeg, jpg, png, svg en webp bestanden zijn toegestaan.',
             'image.max' => 'De afbeelding mag niet groter zijn dan 2MB.',
         ];
     }
