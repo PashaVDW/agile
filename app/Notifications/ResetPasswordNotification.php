@@ -33,9 +33,10 @@ class ResetPasswordNotification extends Notification
         return (new MailMessage)
             ->greeting('Hallo!')
             ->subject('Reset je wachtwoord')
-            ->line('Klik op de knop hieronder om te bevestigen dat je je wachtwoord wilt resetten')
+            ->line('Je ontvangt dit bericht omdat we een verzoek hebben ontvangen om het wachtwoord van je account te resetten.')
+            ->line('Klik op de knop hieronder om je wachtwoord te resetten.')
             ->action('Reset je wachtwoord', $resetUrl)
-            ->line('Als je je wachtwoord niet wilt veranderen, of jij deze link niet hebt aangevraagd, hoef je verder niets te doen.')
+            ->line('Als je geen wachtwoordreset hebt aangevraagd, hoef je verder niets te doen.')
             ->salutation('Met vriendelijke groet, SVConcat');
     }
 }
