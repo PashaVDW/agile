@@ -5,9 +5,7 @@ namespace App\Services;
 use App\Events\AnnouncementCreated;
 use App\Models\Announcement;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Storage;
 use App\Mail\AnnouncementMail;
-use Illuminate\Support\Facades\Mail;
 
 class AnnouncementService
 {
@@ -28,8 +26,24 @@ class AnnouncementService
         $discordSettings = $request->input('discord') ?? null;
 
         DiscordService::notifyDiscord($announcement, $discordSettings, 'announcement');
+
+        $this->sendAnnouncementEmails($announcement);
+
+        return $announcement;
     }
 
+    private function sendAnnouncementEmails(Announcement $announcement)
+    {
+        $subscribers = \App\Models\User::where('announcement_subscription', true)->get();
+
+        if ($subscribers->isEmpty()) {
+            return;
+        }
+
+        $emails = $subscribers->pluck('email')->toArray();
+
+        $this->mailService->sendAnnouncementMail($announcement, $emails);
+    }
 
     public function update(Announcement $announcement, array $data, $request)
     {

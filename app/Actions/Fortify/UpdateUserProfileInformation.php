@@ -53,6 +53,8 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'phone' => ['required', 'string', 'min:10', 'max:20'],
         ], $messages)->validate();
 
+        $input['announcement_subscription'] = array_key_exists('announcement_subscription', $input);
+
         if ($input['email'] !== $user->email &&
             $user instanceof MustVerifyEmail) {
             $this->updateVerifiedUser($user, $input);
@@ -62,6 +64,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'major' => $input['major'],
                 'email' => $input['email'],
                 'phone' => $input['phone'],
+                'announcement_subscription' => $input['announcement_subscription'],
             ])->save();
         }
     }
@@ -78,6 +81,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'major' => $input['major'],
             'phone' => $input['phone'],
             'new_email' => $input['email'],
+            'announcement_subscription' => $input['announcement_subscription'],
         ])->save();
 
         $tempUser = clone $user;
