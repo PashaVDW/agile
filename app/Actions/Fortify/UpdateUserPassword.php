@@ -20,7 +20,14 @@ class UpdateUserPassword implements UpdatesUserPasswords
     {
         Validator::make($input, [
             'current_password' => ['required', 'string', 'current_password:web'],
-            'password' => $this->passwordRules(),
+            'password' => [
+                $this->passwordRules(),
+                function ($attribute, $value, $fail) use ($user) {
+                    if (Hash::check($value, $user->password)) {
+                        $fail('Het nieuwe wachtwoord mag niet hetzelfde zijn als het huidige wachtwoord.');
+                    }
+                },
+            ],
         ], [
             'current_password.current_password' => 'Het wachtwoord komt niet overeen met het huidige wachtwoord.',
             'password.required' => 'Het wachtwoord is verplicht.',
