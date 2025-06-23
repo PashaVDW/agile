@@ -19,7 +19,18 @@ class ResetUserPassword implements ResetsUserPasswords
     public function reset(User $user, array $input): void
     {
         Validator::make($input, [
-            'password' => $this->passwordRules(),
+            'password' => [
+                $this->passwordRules(),
+                function ($attribute, $value, $fail) use ($user) {
+                    if (Hash::check($value, $user->password)) {
+                        $fail('Het nieuwe wachtwoord mag niet hetzelfde zijn als het huidige wachtwoord.');
+                    }
+                },
+            ],
+        ], [
+            'password.required' => 'Een nieuw wachtwoord is verplicht.',
+            'password.confirmed' => 'Het wachtwoord en de bevestiging komen niet overeen.',
+            'password.min' => 'Het wachtwoord moet minimaal 8 tekens bevatten.',
         ])->validate();
 
         $user->forceFill([
