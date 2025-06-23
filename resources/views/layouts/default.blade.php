@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
   <head>
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
 
