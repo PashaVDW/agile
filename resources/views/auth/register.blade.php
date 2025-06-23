@@ -63,9 +63,9 @@
                             <span class="text-danger text-sm">{{ $message }}</span><br>
                             @enderror
 
-                            <p class="mt-2">
+                            <p class="mt-2 flex">
                                 <input type="checkbox" class="labeled" name="privacy" id="privacy" required />
-                                Daarnaast ga ik uiteraard akkoord met het privacybeleid.<br />
+                                <label class="mb-0 ms-2 flex" for="privacy">Daarnaast ga ik uiteraard akkoord met het <a href="{{ asset('assets/files/privacyverklaring_concat.pdf') }}"><b>&nbsp;privacybeleid</b>.</a></label> <br />
                             </p>
                         </div>
 
