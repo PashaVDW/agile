@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\newsletterController;
 use App\Http\Controllers\WeeztixController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BoardController;
@@ -119,6 +120,11 @@ Route::middleware(['role:admin'])->group(function () {
             Route::get('/callback', [WeeztixController::class, 'callback'])->name('callback');
             Route::get("/create-token", [WeeztixController::class, "createToken"])->name("create-token");
             Route::post('/refresh-token', [WeeztixController::class, 'refreshToken'])->name('refresh-token');
+        });
+
+        Route::prefix('/newsletter')->group(function () {
+            route::get('/index', [NewsletterController::class, 'index'])->name('admin.newsletter.index');
+            route::post('/send', [NewsletterController::class, 'sendNewsletter'])->name('newsletter.send');
         });
     });
 });
