@@ -85,3 +85,4 @@ bootstrap/app.php -> $schedule->command('app:archive-events')->daily(); kan de s
 
 ## Seed Gallery
 - php artisan db:seed --class=GallerySeeder
+- php artisan db:seed --class=VerificationSeeder
