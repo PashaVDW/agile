@@ -46,6 +46,7 @@
 - `MAIL_FROM_ADDRESS=` standaard afzender­adres
 - `MAIL_ENCRYPTION=tls` of ssl afhankelijk van poort en provider
 - `MAIL_FROM_NAME=` leesbare afzender­naam
+- `MAIL_ENABLED=true` Om mails te enablen
 - `AWS_ACCESS_KEY_ID=` access-key voor S3-achtige opslag (leeg laten als je geen S3 gebruikt)
 - `AWS_SECRET_ACCESS_KEY=` bijbehorend secret
 - `AWS_DEFAULT_REGION=` regio­code van de bucket (bijv. eu-west-1)
