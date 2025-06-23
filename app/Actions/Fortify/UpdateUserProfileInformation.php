@@ -84,8 +84,6 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'major' => $input['major'],
             'phone' => $input['phone'],
             'new_email' => $input['email'],
-            'email_verified_at' => null,
-
             'newsletter_subscription' => $input['newsletter_subscription'],
             'announcement_subscription' => $input['announcement_subscription'],
         ])->save();
