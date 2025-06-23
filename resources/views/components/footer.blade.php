@@ -9,12 +9,12 @@
             <ul>
                 <li><a href="https://www.instagram.com/svconcat/" target="_blank">Instagram</a></li>
                 <li><a href="https://www.linkedin.com/company/sv-concat" target="_blank">LinkedIn</a></li>
-                <li><a href="https://discord.gg/XG69KMhhnh" target="_blank">Discord</a></li>
+                <li><a href="#" target="_blank">Discord</a></li> <!-- De link van de Discord Server moet ingevoerd worden -->
             </ul>
         </div>
         <div class="footerNav">
             <p>
-                <a href="#">Privacyverklaring</a>
+                <a href="{{ asset('assets/files/privacyverklaring_concat.pdf') }}" target="_blank">Privacyverklaring</a>
                 @isset($statue)
                 <a href="{{$statue->filepath_url ?? '#'}}" target="_blank">Statuten</a>
                 @endisset
