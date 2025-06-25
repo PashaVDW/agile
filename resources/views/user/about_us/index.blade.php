@@ -14,11 +14,11 @@
                         Voorbeeldzinnen:
                     </p>
                     <br />
-                    <p>
-                        1. “Ik ben een informaticastudent, zit op school en ben opzoek naar gezelligheid, dus dan ga ik naar studievereniging Concat.”<br />
-                        2. Een bedrijf heeft een tekort aan informatica studenten, als oplossing benaderen ze studievereniging Concat.<br />
-                        3. SELECT CONCAT(SO, BIM) AS Gezelligheid FROM Avans;<br />
-                    </p>
+                    <ol class="about-us-list">
+                        <li>"Ik ben een informaticastudent, zit op school en ben op zoek naar gezelligheid, dus dan ga ik naar studievereniging Concat."</li>
+                        <li>Een bedrijf heeft een tekort aan informaticastudenten. Als oplossing benaderen ze studievereniging Concat.</li>
+                        <li>SELECT CONCAT(SO, BIM) AS Gezelligheid FROM Avans;</li>
+                    </ol>
                     <br />
                     <p>
                         Studievereniging Concat heeft twee hoofddoelen: studenten verbinden en een extensie zijn van de opleiding. Studenten verbinden met elkaar, docenten en het bedrijfsleven. Op deze manier willen wij studenten helpen om een gezellige studietijd te hebben en na de studietijd helemaal voorbereid te zijn voor het bedrijfsleven.

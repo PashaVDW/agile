@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -16,8 +17,8 @@ class NewsLettermail extends Mailable
 
 
     public array $data;
-    public string $pdf;
-    public function __construct(array $data, string $pdf)
+    public UploadedFile  $pdf;
+    public function __construct(array $data, UploadedFile $pdf)
     {
         $this->data = $data;
         $this->pdf = $pdf;
@@ -28,7 +29,8 @@ class NewsLettermail extends Mailable
         return $this->subject($this->data['subject'] ?? 'Concat nieuwsbrief')
             ->markdown('emails.newsletter')
             ->with('data', $this->data)
-            ->attachData($this->pdf, 'newsletter.pdf', [
+            ->attach($this->pdf->getRealPath(), [
+                'as' => $this->pdf->getClientOriginalName(),
                 'mime' => 'application/pdf',
             ]);
     }
